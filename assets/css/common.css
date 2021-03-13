@@ -1,0 +1,127 @@
+@charset "utf-8";
+
+*,*::before,*::after{box-sizing:border-box;}
+body,h1,h2,h3,h4,p,ul,ol,li,figure,figcaption,blockquote,dl,dd{margin:0;}
+ul,ol{list-style:none;padding:0;}
+a{color:inherit;text-decoration:inherit;text-decoration-skip-ink:auto;}
+img,svg,video,iframe{vertical-align:middle;}
+img,video{max-width:100%;}
+img[height]{height:auto;}
+input,button,textarea,select{font:inherit;}
+@media (prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
+html {
+	scroll-behavior: smooth;
+	font-size: 62.5%;
+}
+body {
+	color: black;
+	font-size: 1.6em;
+	line-height: 2;
+	font-family: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "HiraKakuProN-W3", serif;
+	font-weight: 500;
+	letter-spacing: .16em;
+	font-feature-settings: "pkna";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+body.is-fixed {
+	position: fixed;
+	width: 100%;
+}
+@media screen and (min-width: 1025px) {
+	.v-mb { display: none; }
+}
+@media screen and (max-width: 1024px) {
+	.v-dt { display: none; }
+}
+
+/**
+ * prefix について
+ * c- css だけでことたるコンポーネント (使いまわせる)
+ * l- ページレイアウト (z-index の基礎として)
+ * o- js も伴うコンポーネント (o-modal/o-tabs など)
+ * p- 固有のブロックスタイル (主に main/section に附帯)
+ * a- 唯一のスタイル (≡ Menu とか Scroll とか)
+ * no prefix コンポーネント内の要素 (title/lead/text/photo など)
+ * js- js で拾うためだけの class (js-modalTrigger など)
+ */
+/**
+ * mediaquery について
+ * common style (desktop/mobile 共通の style)
+ * @media (min-width: 520px) {} mobile には適用したくない style
+ * @media (min-width: 960px) {} desktop だけの style
+ * @media (min-width: 1200px) {} wide desktop style
+ * @media (max-width: 959px) {} desktop には適用したくない style
+ * @media (max-width: 519px) {} mobile だけの style
+ * @media (max-width: 360px) {} small mobile style
+ * MEMO: 
+ * -------------------------------------------------- */
+.l-header { z-index: 3; }
+.l-nav { z-index: 4; }
+.l-main { z-index: 1; }
+.l-footer { z-index: 2; }
+
+/**
+ * header
+ * ---------------------------------------- */
+.l-header {
+}
+
+.a-hamburger {
+	border: 0;
+	background: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+/**
+ * main
+ * ---------------------------------------- */
+.l-main {
+}
+
+/**
+ * footer
+ * ---------------------------------------- */
+.l-footer {
+}
+
+/**
+ * nav
+ * ---------------------------------------- */
+.l-nav {
+}
+
+
+/**
+ * javascript
+ * -------------------------------------------------- */
+.js-sc-wrap {
+	overflow: hidden;
+}
+.js-holder {
+	display: none;
+}
+.js-holder,
+.visuallyhidden {
+	position: absolute;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+}
+.js-fixed,
+.js-fixed .js-sc-slip {
+	backface-visibility: hidden;
+	will-change: transform;
+}
+.js-fixed {
+	position: fixed;
+	width: 100%;
+}
+.js-sc-dummy {
+	z-index: -1;
+	pointer-events: none;
+}
