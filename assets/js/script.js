@@ -1,18 +1,10 @@
 (function(global) {
 	'use strict';
-	let isIE, isTouch, isDesktop, isWindows;
-	common();
-	
-	document.addEventListener('DOMContentLoaded', onLoaded, false);
-	window.addEventListener('popstate', onPopstate, false);
-	window.addEventListener('resize', onResize, false);
-	window.addEventListener('scroll', onScroll, false);
 	
 	function onLoaded() {
 		addFnc([
 			webFontLoader,
 			breakPointLintener,
-			promiseMethod,
 			transformScroll,
 			setInview,
 			drawerMenu,
@@ -43,51 +35,10 @@
 		}
 	}
 	
-	/* MEMO: stroke-dasharray と stroke-dashoffset のスタイルを生成する */
-	function setPathLen() {
-		const parentClass = '.pathgroup';
-		const path = document.querySelectorAll(parentClass + ' path[class]');
-		let d = [];
-		path.forEach(function(e) {
-			const len = e.getTotalLength() * 10;
-			d.push({ c: e.classList[1], l: Math.round(len) / 10 + 1 });
-		});
-		let style = '';
-		for (let i in d) {
-			style += parentClass + ' .' + d[i].c + '{stroke-dasharray:' + d[i].l + 'px ' + d[i].l + 'px;';
-			style += 'stroke-dashoffset:-' + d[i].l + 'px}';
-		}
-		console.log(style);
-	}
-	
-	/**
-	 * Promise method
-	 -------------------------------------------------- */
-	function promiseMethod() {
-		let promise = new Promise(function(resolve, reject) {
-			console.log('#1');
-			resolve('Hello');
-		})
-		.then(function(msg) {
-			console.log('#2');
-			return `${msg} I'm`;
-		})
-		.then(function(msg) {
-			return new Promise(function(resolve, reject) {
-				setTimeout(function(msg) {
-					console.log('#3');
-					resolve(`${msg} Jeccy.`);
-				}, 500)
-			})
-		})
-		.then(function(msg) {
-			console.log('#4')
-			console.log('-' + msg + '-');
-		})
-		.catch(function() {
-			console.error('Something wrong!')
-		});
-	}
+	document.addEventListener('DOMContentLoaded', onLoaded, false);
+	window.addEventListener('popstate', onPopstate, false);
+	window.addEventListener('resize', onResize, false);
+	window.addEventListener('scroll', onScroll, false);
 	
 	/**
 	 * Web Font Loader
@@ -243,19 +194,19 @@
 	};
 	
 	/**
-	 * .a-hamburger クリックで .l-nav を開閉
+	 * .js-menuToggle クリックで .l-menu を開閉
 	 * dm.closeMenu();
 	 -------------------------------------------------- */
 	function drawerMenu() {
-		if (document.querySelector('.l-nav') !== null) dm.constructor();
+		if (document.querySelector('.l-menu') !== null) dm.constructor();
 	}
 	const dm = {
 		constructor: function() {
 			//console.log('-----> drawerMenu');
 			this.yOffset = window.pageYOffset;
-			this.menu = document.getElementsByClassName('l-nav')[0];
-			this.btn = document.getElementsByClassName('a-hamburger');
-			const btn = document.querySelectorAll('.a-hamburger, .l-nav .overlay');
+			this.menu = document.getElementsByClassName('l-menu')[0];
+			this.btn = document.getElementsByClassName('js-menuToggle');
+			const btn = document.querySelectorAll('.js-menuToggle, .l-nav .overlay');
 			for (let i = 0, len = btn.length; i < len; i++) {
 				btn[i].addEventListener('click', this.toggleMenu);
 			}
@@ -274,9 +225,9 @@
 			document.body.classList.add('is-fixed');
 			document.body.style.marginTop = -dm.yOffset + 'px';
 			for (let i = 0, len = dm.btn.length; i < len; i++) {
-				dm.btn[i].classList.add('is-active');
+				dm.btn[i].classList.add('is-active', 'is-anim');
 			}
-			dm.menu.classList.add('is-active');
+			dm.menu.classList.add('is-active', 'is-anim');
 		},
 		closeMenu: function() {
 			//console.log('closeMenu', dm.yOffset);
@@ -285,18 +236,28 @@
 			window.scrollTo(0, dm.yOffset);
 			dm.isOpened = false;
 			for (let i = 0, len = dm.btn.length; i < len; i++) {
-				dm.btn[i].classList.remove('is-active');
+				dm.btn[i].classList.replace('is-active', 'is-anim');
 			}
-			dm.menu.classList.remove('is-active');
+			dm.menu.classList.replace('is-active', 'is-anim');
+		},
+		btnEnd: function(e) {
+			if (e.propertyName === 'transform') {
+				this.classList.remove('is-anim');
+			}
+		},
+		menuEnd: function(e) {
+			if (e.propertyName === 'opacity') {
+				this.classList.remove('is-anim');
+			}
 		}
 	};
 	
 	/**
-	 * .anc[href^="#"] をクリックでスムーススクロール
+	 * .js-anc[href^="#"] をクリックでスムーススクロール
 	 * as.toScroll('top');
 	 -------------------------------------------------- */
 	function anchorScroll() {
-		if (document.querySelector('.anc') !== null || location.hash) as.constructor();
+		if (document.querySelector('.js-anc') !== null || location.hash) as.constructor();
 	}
 	const as = {
 		constructor: function() {
@@ -313,7 +274,7 @@
 			this.duration = 800;
 			this.onResize();
 			this.cancelScroll(this);
-			const anchor = document.querySelectorAll('.anc[href^="#"]');
+			const anchor = document.querySelectorAll('.js-anc[href^="#"]');
 			for (let i = 0, len = anchor.length; i < len; i++) {
 				anchor[i].addEventListener('click', this.onClick);
 			}
@@ -389,6 +350,7 @@
 			return 1 - Math.pow(1 - x, 4);
 		}
 	};
+	
 	/**
 	 * YouTube API
 	 * <div class="js-yt" width="width" height="height" data-ytid="DmoE_5aXV-U"></div>
@@ -532,7 +494,7 @@
 	/**
 	 * in-view
 	 * <p class="js-inview"></p>
-	 * <figure class="spacer"><img data-src="path.jpg" width="width" height="height"></figure>
+	 * <figure class="js-spacer"><img data-src="path.jpg" width="width" height="height"></figure>
 	 * -------------------------------------------------- */
 	function setInview() {
 		inview.constructor();
@@ -547,70 +509,94 @@
 			inView('.js-inview').on('enter', this.doInview);
 			inView.offset({ top: 80, right: 0, bottom: 80, left: 0 });
 		},
-		wrapSpacer: function() {
-			const spacer = document.getElementsByClassName('js-spacer');
-			let w, h;
-			for (let i = spacer.length; i--;) {
-				//console.dir(spacer[i].firstChild);
-				w = spacer[i].firstChild.getAttribute('width');
-				h = spacer[i].firstChild.getAttribute('height');
-				spacer[i].style.paddingBottom = h / w * 100 + '%';
-				spacer[i].insertAdjacentHTML('beforeend', '<span class="cover"></span>');
-				spacer[i].classList.replace('js-spacer', 'spacer');
-			}
-		},
 		doInview: function(el) {
 			if (!el.isInview) {
 				el.isInview = 1;
-				el.classList.add('is-anim', 'is-inview');
-				el.addEventListener('transitionend', inview.animEnd);
+				el.classList.add('is-anim');
+				el.classList.add('is-inview');
+				if (el.dataset['last'] !== undefined) {
+					// 子要素が時差でアニメーションするタイプ
+					el.addEventListener('transitionend', iv.lastAnimEnd);
+				} else {
+					el.addEventListener('transitionend', iv.animEnd, { once: true });
+				}
 			}
 		},
-		animEnd: function() {
-			this.removeEventListener('transitionend', inview.animEnd);
+		lastAnimEnd: function(e) {
+			if (e.propertyName === this.dataset['last'] && e.target.className.indexOf('js-last') > 0) {
+				this.classList.remove('is-anim');
+				this.classList.remove('js-inview');
+				this.removeAttribute('data-last');
+				e.target.classList.remove('js-last');
+				this.removeEventListener('transitionend', iv.lastAnimEnd);
+			}
+		},
+		animEnd: function(e) {
 			this.classList.remove('is-anim');
+			this.classList.remove('js-inview');
 		},
 		// lazyLoader & inview
+		lazySetup: function() {
+			let cls, sty, w, h;
+			const imgs = document.querySelectorAll('img[data-src]');
+			for (let i = 0, len = imgs.length; i < len; i++) {
+				cls = imgs[i].getAttribute('class') ? ' ' + imgs[i].getAttribute('class') : '';
+				w = imgs[i].getAttribute('width');
+				h = imgs[i].getAttribute('height');
+				//sty = 'padding-bottom:' + imgs[i].getAttribute('height') / imgs[i].getAttribute('width') * 100 + '%';
+				imgs[i].src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 ' + w + ' ' + h + '%22%3E%3C/svg%3E'
+				// .js-spacer で包む
+				imgs[i].outerHTML = '<span class="js-spacer' + cls + '">' + imgs[i].outerHTML + '</span>';
+			}
+			this.lazy();
+			this.afterFnc();
+		},
 		lazy: function() {
-			inView('[data-src]').on('enter', this.doLazy);
+			inView('img[data-src]').on('enter', this.doLazy);
 			inView.offset({ top: 80, right: 0, bottom: 80, left: 0 });
 		},
 		doLazy: function(el) {
 			if (!el.isInview) {
-				imagesLoaded(el, inview.imageLoaded);
+				imagesLoaded(el, iv.imageLoaded);
 				el.src = el.dataset['src'];
-				el.removeAttribute('data-src');
+				el.isInview = 1;
 			}
 		},
 		imageLoaded: function() {
-			this.elements[0].parentNode.classList.add('is-anim', 'is-loaded');
-			this.elements[0].parentNode.addEventListener('transitionend', inview.loadedEnd);
+			this.elements[0].parentNode.classList.add('is-anim');
+			this.elements[0].parentNode.classList.add('is-loaded');
+			this.elements[0].parentNode.addEventListener('transitionend', iv.loadedEnd);
 		},
 		loadedEnd: function() {
-			this.removeEventListener('transitionend', inview.loadedEnd);
-			//this.removeChild(this.lastElementChild); // cover を削除
 			this.classList.remove('is-anim');
+			this.firstChild.removeAttribute('data-src');
+			// .js-spacer を外す
+			this.outerHTML = this.innerHTML;
+			this.removeEventListener('transitionend', iv.loadedEnd);
 		}
 	};
+	
+	
+	/* MEMO: stroke-dasharray と stroke-dashoffset のスタイルを生成する */
+	function setPathLen() {
+		const parentClass = '.pathgroup';
+		const path = document.querySelectorAll(parentClass + ' path[class]');
+		let d = [];
+		path.forEach(function(e) {
+			const len = e.getTotalLength() * 10;
+			d.push({ c: e.classList[1], l: Math.round(len) / 10 + 1 });
+		});
+		let style = '';
+		for (let i in d) {
+			style += parentClass + ' .' + d[i].c + '{stroke-dasharray:' + d[i].l + 'px ' + d[i].l + 'px;';
+			style += 'stroke-dashoffset:-' + d[i].l + 'px}';
+		}
+		console.log(style);
+	}
 	
 	/**
 	 * common
 	 * -------------------------------------------------- */
-	function common() {
-		const doc = document.documentElement, ua = navigator.userAgent.toLowerCase();
-		isIE = ( ua.indexOf('msie') != -1 || ua.indexOf('trident') != -1 );
-		isTouch = !!( 'ontouchstart' in window || (navigator.pointerEnabled && navigator.maxTouchPoints > 0) );
-		isDesktop = window.matchMedia('(min-width: 768px)').matches;
-		isWindows = ua.indexOf('windows nt') !== -1;
-		if (isWindows) doc.classList.add('isWindows');
-		if (isTouch) doc.classList.add('isTouch');
-		if (isIE) doc.classList.add('isIE');
-		if (window.innerWidth !== doc.clientWidth) {
-			doc.classList.add('hasScrollbar');
-			doc.style.setProperty('--scroll-bar-nega', doc.clientWidth - window.innerWidth + 'px');
-			doc.style.setProperty('--scroll-bar-posi', window.innerWidth - doc.clientWidth + 'px');
-		}
-	}
 	const resized = function(fn) {
 		if (resized.timer !== false) clearTimeout(resized.timer);
 		resized.timer = setTimeout(fn, 200);
@@ -626,12 +612,27 @@
 		}
 	})();
 	function breakPointLintener() {
-		const breakPoint = window.matchMedia('(min-width: 768px)');
+		const breakPoint = window.matchMedia('(min-width: ' + breakPoint + 'px)');
 		breakPoint.addListener(function(e) { isDesktop = e.matches; });
 	}
 	function addFnc(fns) {
 		for (let i = 0, len = fns.length; i < len; i++) { fns[i](); }
 	}
+	let isIE, isTouch, isDesktop, isWindows, breakPoint = 768;
+	(function common() {
+		const doc = document.documentElement, ua = navigator.userAgent.toLowerCase();
+		isIE = ( ua.indexOf('msie') != -1 || ua.indexOf('trident') != -1 );
+		isWindows = ua.indexOf('windows nt') !== -1;
+		isTouch = !!( 'ontouchstart' in window || (navigator.pointerEnabled && navigator.maxTouchPoints > 0) );
+		isDesktop = window.matchMedia('(min-width: ' + breakPoint + 'px)').matches;
+		if (isIE) doc.classList.add('isIE');
+		if (isWindows) doc.classList.add('isWindows');
+		if (isTouch) doc.classList.add('isTouch');
+		if (window.innerWidth !== doc.clientWidth) {
+			doc.classList.add('hasScrollbar');
+			doc.style.setProperty('--scroll-bar-width', window.innerWidth - doc.clientWidth + 'px');
+		}
+	})();
 	// Element.closest() Polyfill
 	Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(e){var t=this;do{if(Element.prototype.matches.call(t,e))return t;t=t.parentElement||t.parentNode}while(null!==t&&1===t.nodeType);return null});
 })((this || 0).self || global);

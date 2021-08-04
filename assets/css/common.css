@@ -8,12 +8,17 @@ img,svg,video,iframe{vertical-align:middle;}
 img,video{max-width:100%;}
 img[height]{height:auto;}
 input,button,textarea,select{font:inherit;}
+button{border:0;padding:0;background:none;}
+small{font-size:inherit;}
+sub{vertical-align:baseline;}
 @media (prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
 html {
-	scroll-behavior: smooth;
+	scroll-behavior: auto;
 	font-size: 62.5%;
+	-webkit-text-size-adjust: 100%;
 }
 body {
+	overscroll-behavior: auto;
 	color: black;
 	font-size: 1.6em;
 	line-height: 2;
@@ -66,45 +71,57 @@ body.is-fixed {
  * header
  * ---------------------------------------- */
 .l-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	height: 72px;
+	padding: 0 24px;
+	background: white
 }
 
-.a-hamburger {
-	border: 0;
-	background: none;
+.l-header .menu {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 }
 
+
 /**
  * main
  * ---------------------------------------- */
 .l-main {
+	padding: 72px 24px 0;
 }
+
 
 /**
  * footer
  * ---------------------------------------- */
 .l-footer {
 }
+.l-footer .copyright {
+	font-family: Helvetica, sans-serif;
+}
+
 
 /**
  * nav
  * ---------------------------------------- */
 .l-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 
 /**
- * javascript
+ * svg
  * -------------------------------------------------- */
-.js-sc-wrap {
-	overflow: hidden;
-}
-.js-holder {
-	display: none;
-}
-.js-holder,
+.svg-parts,
 .visuallyhidden {
 	position: absolute;
 	clip: rect(0 0 0 0);
@@ -112,16 +129,56 @@ body.is-fixed {
 	width: 1px;
 	height: 1px;
 }
-.js-fixed,
-.js-fixed .js-sc-slip {
-	backface-visibility: hidden;
-	will-change: transform;
+
+
+/**
+ * javascript
+ * -------------------------------------------------- */
+.js-holder {
+	display: none;
+	position: absolute;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+}
+
+/* transformScroll */
+.js-sc-wrap {
+	overflow: hidden;
 }
 .js-fixed {
 	position: fixed;
 	width: 100%;
 }
+.js-fixed,
+.js-sc-slip {
+	backface-visibility: hidden;
+	will-change: transform;
+}
 .js-sc-dummy {
 	z-index: -1;
 	pointer-events: none;
+}
+
+/* lazy */
+.js-spacer {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.js-spacer img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.js-spacer img:not([src]),
+.js-spacer:not(.is-loaded) img {
+	opacity: 0;
+}
+.js-spacer.is-anim img {
+	transition: opacity .6s;
 }
