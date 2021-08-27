@@ -162,23 +162,9 @@ body.is-fixed {
 }
 
 /* lazy */
-.js-spacer {
-	display: block;
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-.js-spacer img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.js-spacer img:not([src]),
-.js-spacer:not(.is-loaded) img {
+img[data-src]:not(.is-loaded) {
 	opacity: 0;
 }
-.js-spacer.is-anim img {
+img.is-anim {
 	transition: opacity .6s;
 }

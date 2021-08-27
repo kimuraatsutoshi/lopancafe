@@ -4,7 +4,6 @@
 	function onLoaded() {
 		addFnc([
 			webFontLoader,
-			breakPointLintener,
 			transformScroll,
 			setInview,
 			drawerMenu,
@@ -493,17 +492,18 @@
 	
 	/**
 	 * in-view
-	 * <p class="js-inview"></p>
-	 * <figure class="js-spacer"><img data-src="path.jpg" width="width" height="height"></figure>
+	 * <ul class="js-inview" data-last="li:last-child"></ul>
+	 * <ul class="js-inview" data-last><li></li><li></li><li class="iv-last"></li></ul>
+	 * <ul class="js-inview" data-anim="animationName"></ul>
+	 * <img data-src="path.jpg" alt="" width="w" height="h">
 	 * -------------------------------------------------- */
 	function setInview() {
-		inview.constructor();
+		iv.constructor();
 	}
-	const inview = {
+	const iv = {
 		constructor: function() {
-			if (document.querySelector('.js-spacer') !== null) inview.wrapSpacer();
-			if (document.querySelector('.js-inview') !== null) inview.basic();
-			if (document.querySelector('[data-src]') !== null) inview.lazy();
+			if (document.querySelector('.js-inview') !== null) iv.basic();
+			if (document.querySelector('[data-src]') !== null) iv.lazySetup();
 		},
 		basic: function() {
 			inView('.js-inview').on('enter', this.doInview);
@@ -512,44 +512,57 @@
 		doInview: function(el) {
 			if (!el.isInview) {
 				el.isInview = 1;
+				if (el.dataset['anim'] !== undefined) {
+					el.addEventListener('animationend', iv.animationEnd);
+				} else if (el.dataset['last'] !== undefined) {
+					el.addEventListener('transitionend', iv.lastElmEnd);
+				} else {
+					el.addEventListener('transitionend', iv.transitionendEnd);
+				}
 				el.classList.add('is-anim');
 				el.classList.add('is-inview');
-				if (el.dataset['last'] !== undefined) {
-					// 子要素が時差でアニメーションするタイプ
-					el.addEventListener('transitionend', iv.lastAnimEnd);
-				} else {
-					el.addEventListener('transitionend', iv.animEnd, { once: true });
+			}
+		},
+		animationEnd: function(e) {
+			if (e.animationName === this.dataset['anim']) {
+				this.classList.remove('is-anim', 'js-inview');
+				this.removeAttribute('data-anim');
+				this.removeEventListener('animationend', iv.animationEnd);
+			}
+		},
+		lastElmEnd: function(e) {
+			if (this.dataset['last'] !== '') {
+				if (e.target === this.querySelector(this.dataset['last'])) {
+					this.classList.remove('is-anim', 'js-inview');
+					this.removeAttribute('data-last');
+					this.removeEventListener('transitionend', iv.lastElmEnd);
+				}
+			} else {
+				if (e.target.className.indexOf('iv-last') >= 0) {
+					e.target.classList.remove('iv-last');
+					this.classList.remove('is-anim', 'js-inview');
+					this.removeAttribute('data-last');
+					this.removeEventListener('transitionend', iv.lastElmEnd);
 				}
 			}
 		},
-		lastAnimEnd: function(e) {
-			if (e.propertyName === this.dataset['last'] && e.target.className.indexOf('js-last') > 0) {
-				this.classList.remove('is-anim');
-				this.classList.remove('js-inview');
-				this.removeAttribute('data-last');
-				e.target.classList.remove('js-last');
-				this.removeEventListener('transitionend', iv.lastAnimEnd);
+		transitionendEnd: function(e) {
+			if (e.target === this) {
+				this.classList.remove('is-anim', 'js-inview');
+				this.removeEventListener('transitionend', iv.transitionendEnd);
 			}
-		},
-		animEnd: function(e) {
-			this.classList.remove('is-anim');
-			this.classList.remove('js-inview');
 		},
 		// lazyLoader & inview
 		lazySetup: function() {
-			let cls, sty, w, h;
+			let cls, w, h;
 			const imgs = document.querySelectorAll('img[data-src]');
 			for (let i = 0, len = imgs.length; i < len; i++) {
 				cls = imgs[i].getAttribute('class') ? ' ' + imgs[i].getAttribute('class') : '';
 				w = imgs[i].getAttribute('width');
 				h = imgs[i].getAttribute('height');
-				//sty = 'padding-bottom:' + imgs[i].getAttribute('height') / imgs[i].getAttribute('width') * 100 + '%';
-				imgs[i].src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 ' + w + ' ' + h + '%22%3E%3C/svg%3E'
-				// .js-spacer で包む
-				imgs[i].outerHTML = '<span class="js-spacer' + cls + '">' + imgs[i].outerHTML + '</span>';
+				imgs[i].src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 ' + w + ' ' + h + '%22%3E%3C/svg%3E';
 			}
 			this.lazy();
-			this.afterFnc();
 		},
 		lazy: function() {
 			inView('img[data-src]').on('enter', this.doLazy);
@@ -563,15 +576,12 @@
 			}
 		},
 		imageLoaded: function() {
-			this.elements[0].parentNode.classList.add('is-anim');
-			this.elements[0].parentNode.classList.add('is-loaded');
-			this.elements[0].parentNode.addEventListener('transitionend', iv.loadedEnd);
+			this.elements[0].classList.add('is-anim', 'is-loaded');
+			this.elements[0].addEventListener('transitionend', iv.loadedEnd);
 		},
 		loadedEnd: function() {
 			this.classList.remove('is-anim');
-			this.firstChild.removeAttribute('data-src');
-			// .js-spacer を外す
-			this.outerHTML = this.innerHTML;
+			this.removeAttribute('data-src');
 			this.removeEventListener('transitionend', iv.loadedEnd);
 		}
 	};
@@ -611,20 +621,15 @@
 			}
 		}
 	})();
-	function breakPointLintener() {
-		const breakPoint = window.matchMedia('(min-width: ' + breakPoint + 'px)');
-		breakPoint.addListener(function(e) { isDesktop = e.matches; });
-	}
+	let isIE, isTouch, isWindows;
 	function addFnc(fns) {
 		for (let i = 0, len = fns.length; i < len; i++) { fns[i](); }
 	}
-	let isIE, isTouch, isDesktop, isWindows, breakPoint = 768;
 	(function common() {
 		const doc = document.documentElement, ua = navigator.userAgent.toLowerCase();
 		isIE = ( ua.indexOf('msie') != -1 || ua.indexOf('trident') != -1 );
 		isWindows = ua.indexOf('windows nt') !== -1;
 		isTouch = !!( 'ontouchstart' in window || (navigator.pointerEnabled && navigator.maxTouchPoints > 0) );
-		isDesktop = window.matchMedia('(min-width: ' + breakPoint + 'px)').matches;
 		if (isIE) doc.classList.add('isIE');
 		if (isWindows) doc.classList.add('isWindows');
 		if (isTouch) doc.classList.add('isTouch');
