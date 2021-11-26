@@ -30,6 +30,7 @@
 	transition: opacity .3s;
 }
 @keyframes pop {
+	from { transform: scale(.2); }
 	20% { transform: scale(1.4); }
 	40% { transform: scale(.9); }
 	60% { transform: scale(1.1); }

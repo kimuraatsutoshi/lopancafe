@@ -465,13 +465,13 @@
 			
 			this.currentPos = this.startPos;
 			this.elapsedTime = 0;
-			this.goalPos = (targetId !== 'top') ? (document.getElementById(targetId).getBoundingClientRect().top + wm.yOffset - this.scPad) : 0;
+			this.goalPos = (targetId !== 'top') ? (document.getElementById(targetId).getBoundingClientRect().top + this.startPos - this.scPad) : 0;
 			//console.log(targetId, this.startPos, this.goalPos);
 			if (this.goalPos >= this.scMax) {
 				this.goalPos = this.scMax;
 			}
 			this.valueInChange = this.goalPos - this.startPos;
-			this.duration = Math.abs(this.valueInChange) < 1200 ? 600 : Math.abs(this.valueInChange) / 2;
+			//this.duration = Math.abs(this.valueInChange) < 1200 ? 600 : Math.abs(this.valueInChange) / 2;
 			//console.log(this.startPos, this.goalPos, this.valueInChange);
 			this.doScroll();
 		},
@@ -499,11 +499,11 @@
 			let count = 0;
 			if (isTouch) {
 				window.addEventListener('touchmove', function() {
-					clearTimeout(t.timer);
+					cancelAnimationFrame(t.timer);
 				});
 			} else {
 				this.wheel = function() {
-					clearTimeout(t.timer);
+					cancelAnimationFrame(t.timer);
 				}
 				if (window.addEventListener) { window.addEventListener('DOMMouseScroll', this.wheel, false); }
 				window.onmousewheel = document.onmousewheel = this.wheel;
@@ -524,7 +524,7 @@
 	}
 	const yt = {
 		constructor: function() {
-			console.log('-----> setupYouTube');
+			//console.log('-----> setupYouTube');
 			this.elmTop = document.getElementsByClassName('js-yt')[0].getBoundingClientRect().top + window.pageYOffset;
 			window.addEventListener('scroll', this.onScroll, false);
 		},
