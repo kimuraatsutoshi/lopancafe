@@ -6,7 +6,47 @@
 	margin: 40px auto;
 }
 
+.c-balloon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 10em;
+	height: 10em;
+	margin: 2em auto;
+	border: 1px solid currentcolor;
+	border-radius: 10em;
+	color: #86c0de;
+	line-height: 1.4;
+	font-weight: 700;
+	text-align: center;
+}
 
+.c-pop.js-inview:not(.is-inview) {
+	opacity: 0;
+	transform: scale(.2);
+}
+.c-pop.is-anim {
+	animation: pop 1s;
+	transition: opacity .3s;
+}
+@keyframes pop {
+	20% { transform: scale(1.4); }
+	40% { transform: scale(.9); }
+	60% { transform: scale(1.1); }
+	80% { transform: scale(.96); }
+	to { transform: none; }
+}
+
+.c-list.js-inview:not(.is-inview) li {
+	opacity: 0;
+}
+.c-list.is-anim li {
+	transition: opacity .6s;
+}
+.c-list.is-anim li:nth-child(2) { transition-delay: 1s; }
+.c-list.is-anim li:nth-child(3) { transition-delay: 2s; }
+.c-list.is-anim li:nth-child(4) { transition-delay: 3s; }
+.c-list.is-anim li:nth-child(5) { transition-delay: 4s; }
 
 /**
  * 動画 UI
