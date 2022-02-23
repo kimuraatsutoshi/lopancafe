@@ -19,20 +19,36 @@
 		if (document.querySelector('path') !== null) setPathLen();
 		loop();
 	}
+	const registFnc = { onLoaded: [], onPopstate: [], onResize: [], onScroll: [], loop: [] };
+	
 	function onPopstate(e) {
 		console.log('onPopstate');
 	}
 	function onResize() {
 		resized(function() {
-			if (as.duration !== undefined) as.onResize();
-			if (wm.yOffset !== undefined) wm.refresh();
+			addFnc(registFnc.onResize);
 		});
 	}
 	function onScroll() {
 		throttle(function() {
-// 			console.log(window.pageYOffset);
+			if (registFnc.onScroll.length) {
+				addFnc(registFnc.onScroll);
+			}
 		});
 	}
+	function loop() {
+		if (registFnc.loop.length) {
+			requestAnimationFrame(loop);
+			addFnc(registFnc.loop);
+		}
+	}
+	
+	document.addEventListener('DOMContentLoaded', onLoaded, false);
+	window.addEventListener('popstate', onPopstate, false);
+	window.addEventListener('resize', onResize, false);
+	window.addEventListener('scroll', onScroll, false);
+	
+	
 	/* マッピング (パララックス)
 	 * value が fromMin から toMin へ変化する間 fromMax から toMax を返す
 	 */
@@ -41,23 +57,11 @@
 		return trimming ? Math.max(Math.min(val, toMax), toMin) : val;
 	}
 	const movie = document.getElementsByClassName('c-video')[0];
-	function loop() {
+	function mapLoop() {
 		const a = map(window.pageYOffset, 400, 0, 0, 1000, true);
 		movie.style.opacity = a / 1000;
-		requestAnimationFrame(loop);
-		if (ts.wrapper !== undefined) {
-			ts.onScroll();
-			ts.insistentRefresh();
-		}
-		if (wm.yOffset !== undefined) {
-			wm.yOffset = ts.wrapper !== undefined ? ts.posY : window.pageYOffset;
-		}
 	}
-	
-	document.addEventListener('DOMContentLoaded', onLoaded, false);
-	window.addEventListener('popstate', onPopstate, false);
-	window.addEventListener('resize', onResize, false);
-	window.addEventListener('scroll', onScroll, false);
+	registFnc.loop.push(mapLoop);
 	
 	/**
 	 * Web Font Loader
@@ -108,7 +112,7 @@
 			
 			const btns = document.getElementsByClassName('js-mgBtn');
 			for (let i = 0, len = btns.length; i < len; i++) {
-				btns[i].dataset['mg'] = 'btn-' + (i + 1);
+				btns[i].dataset.mg = 'btn-' + (i + 1);
 				btns[i].innerHTML = '<span class="text">' + btns[i].innerHTML + '</span>';
 				this.setData(btns[i], 'btn-' + (i + 1));
 				btns[i].addEventListener('mouseenter', this.enter);
@@ -136,7 +140,7 @@
 				},
 				distanceToTrigger: rect.width / 1.5
 			};
-			console.log(this.btnsData[id].rect.top);
+			//console.log(this.btnsData[id].rect.top);
 		},
 		resetData: function() {
 			let rect;
@@ -214,8 +218,46 @@
 	};
 	
 	/**
+	 * window の情報を管理する
+	 * モーダルが開いた時とかはここで画面をロックする
+	 -------------------------------------------------- */
+	function windowManagement() {
+		wm.constructor();
+	}
+	const wm = {
+		constructor: function() {
+			this.body = document.body;
+			this.yOffset = window.pageYOffset;
+			this.onResize();
+			registFnc.onResize.push(this.onResize);
+			registFnc.loop.push(this.onScroll);
+		},
+		onResize: function() {
+			wm.winH = window.innerHeight;
+		},
+		onScroll: function() {
+			wm.yOffset = window.pageYOffset;
+		},
+		posLock: function() {
+			wm.isLock = 1;
+			if (ts.wrapper !== undefined) ts.isLock = wm.isLock;
+			wm.lockOffset = wm.yOffset;
+			wm.body.classList.add('is-fixed');
+			wm.body.style.marginTop = -wm.lockOffset + 'px';
+		},
+		posUnlock: function() {
+			wm.body.classList.remove('is-fixed');
+			wm.body.removeAttribute('style');
+			window.scrollTo(0, wm.lockOffset);
+			setTimeout(function() {
+				wm.isLock = 0;
+				if (ts.wrapper !== undefined) ts.isLock = wm.isLock;
+			}, 60);
+		}
+	};
+	
+	/**
 	 * .js-sc-wrap 内のスクロールを transform: translate に置き換える
-	 * transformScroll
 	 -------------------------------------------------- */
 	function transformScroll() {
 		if (document.querySelector('.js-sc-wrap') !== null) ts.constructor();
@@ -231,12 +273,13 @@
 			this.wrapper.classList.add('js-fixed');
 			
 			this.frictionOrigin = 10 / 100;
-			this.ratioOrigin = 60 / 10;
+			this.ratioOrigin = 100 / 10;
 			this.friction = this.frictionOrigin;
 			this.initialize();
+			this.refresh();
 		},
 		initialize: function() {
-			this.startY = window.pageYOffset;
+			this.startY = wm.yOffset;
 			this.posY = this.startY;
 			
 			/* js-sc-slip があったら slipperData をつくる */
@@ -245,6 +288,8 @@
 				this.slipperData = [];
 				this.setSlipperData();
 			}
+			registFnc.loop.push(this.onScroll);
+			registFnc.onScroll.push(this.insistentRefresh);
 		},
 		
 		/* slipperData に js-sc-slip の配置情報を記録する */
@@ -254,7 +299,7 @@
 			for (let i = this.slipper.length; i--;) {
 				elm = this.slipper[i];
 				clientRect = elm.getBoundingClientRect();
-				ratio = elm.getAttribute('data-ratio') !== null ? elm.getAttribute('data-ratio') / 10 : this.ratioOrigin;
+				ratio = elm.dataset.ratio !== undefined ? elm.dataset.ratio / 10 : this.ratioOrigin;
 				this.slipperData[i] = {
 					elm: elm,
 					posY: null,
@@ -269,21 +314,20 @@
 		
 		/* 以下を loop で requestAnimationFrame する */
 		onScroll: function() {
-			this.startY = this.posY;
+			ts.startY = ts.posY;
 			
 			/* isLock 時はパララックスしない */
-			if (this.isLock) {
-				if (this.friction !== 1) this.friction = 1;
+			if (ts.isLock) {
+				if (ts.friction !== 1) ts.friction = 1;
 			} else {
-				if (this.friction !== this.frictionOrigin) this.friction = this.frictionOrigin;
+				if (ts.friction !== ts.frictionOrigin) ts.friction = ts.frictionOrigin;
 			}
-			this.cal();
-			this.positionSet();
-			this.startY = this.posY;
+			ts.cal();
+			ts.positionSet();
+			ts.startY = ts.posY;
 		},
 		cal: function() {
-			this.startY = this.posY;
-			const goalY = window.pageYOffset;
+			const goalY = wm.yOffset;
 			
 			// 大元スクロールの位置
 			this.posY += (goalY - this.posY) * this.friction;
@@ -322,7 +366,7 @@
 		
 		/* ダミー要素の高さをコンテンツと揃える */
 		insistentRefresh: function() {
-			if (this.wrapper.clientHeight !== this.dummyHeight) this.refresh();
+			if (ts.wrapper.clientHeight !== ts.dummyHeight) ts.refresh();
 		},
 		refresh: function() {
 			//console.log('refresh')
@@ -355,13 +399,11 @@
 			dm.menu.addEventListener('transitionend', dm.menuEnd);
 		},
 		openMenu: function() {
-// 			console.log('openMenu', wm.yOffset);
 			dm.isOpened = true;
 			wm.posLock();
 			dm.menu.classList.add('is-active', 'is-anim');
 		},
 		closeMenu: function() {
-// 			console.log('closeMenu', wm.yOffset);
 			dm.isOpened = false;
 			wm.posUnlock();
 			dm.menu.classList.replace('is-active', 'is-anim');
@@ -382,41 +424,6 @@
 	};
 	
 	/**
-	 * window の情報を管理する
-	 * モーダルが開いた時とかはここで画面をロックする
-	 * windowManagement
-	 -------------------------------------------------- */
-	function windowManagement() {
-		wm.constructor();
-	}
-	const wm = {
-		constructor: function() {
-			this.body = document.body;
-			this.refresh();
-		},
-		refresh: function() {
-			this.winH = window.innerHeight;
-			this.yOffset = ts.wrapper !== undefined ? ts.posY : window.pageYOffset;
-		},
-		posLock: function() {
-			wm.isLock = 1;
-			if (ts.wrapper !== undefined) ts.isLock = wm.isLock;
-			wm.lockOffset = wm.yOffset;
-			wm.body.classList.add('is-fixed');
-			wm.body.style.marginTop = -wm.lockOffset + 'px';
-		},
-		posUnlock: function() {
-			wm.body.classList.remove('is-fixed');
-			wm.body.removeAttribute('style');
-			window.scrollTo(0, wm.lockOffset);
-			setTimeout(function() {
-				wm.isLock = 0;
-				if (ts.wrapper !== undefined) ts.isLock = wm.isLock;
-			}, 60);
-		}
-	};
-	
-	/**
 	 * .js-anc[href^="#"] をクリックでスムーススクロール
 	 * as.toScroll('top');
 	 -------------------------------------------------- */
@@ -425,7 +432,7 @@
 	}
 	const as = {
 		constructor: function() {
-			//console.log('-----> anchorScroll');
+			registFnc.onResize.push(this.onResize);
 			if (location.hash) {
 				// URL に hash があったらスクロール
 				setTimeout(function() {
@@ -434,7 +441,7 @@
 				}, 80);
 			}
 			this.SPF = 1000 / 60;
-			this.duration = 800;
+			this.duration = 1000;
 			this.onResize();
 			this.cancelScroll(this);
 			const anchor = document.querySelectorAll('.js-anc[href^="#"]');
@@ -465,7 +472,8 @@
 			
 			this.currentPos = this.startPos;
 			this.elapsedTime = 0;
-			this.goalPos = (targetId !== 'top') ? (document.getElementById(targetId).getBoundingClientRect().top + this.startPos - this.scPad) : 0;
+			const yOffset = ts.wrapper !== undefined ? wm.yOffset - this.scPad : this.startPos - this.scPad;
+			this.goalPos = targetId !== 'top' ? document.getElementById(targetId).getBoundingClientRect().top + yOffset : 0;
 			//console.log(targetId, this.startPos, this.goalPos);
 			if (this.goalPos >= this.scMax) {
 				this.goalPos = this.scMax;
@@ -509,9 +517,9 @@
 				window.onmousewheel = document.onmousewheel = this.wheel;
 			}
 		},
-		/* easeOutQuart ( https://easings.net/ ) */
+		/* easeInOutCubic ( https://easings.net/ ) */
 		easing: function(x) {
-			return 1 - Math.pow(1 - x, 4);
+			return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 		}
 	};
 	
@@ -552,10 +560,10 @@
 			for (let i = 0, len = ytElms.length; i < len; i++) {
 				//console.dir(ytElms[i]);
 				id = 'player-' + i;
-				ytid = ytElms[i].dataset['ytid'];
+				ytid = ytElms[i].dataset.ytid;
 // 				console.dir(ytElms[i]);
-				w = ytElms[i].getAttribute('width') ? ytElms[i].getAttribute('width') : 560;
-				h = ytElms[i].getAttribute('height') ? ytElms[i].getAttribute('height') : 315;
+				w = ytElms[i].width ? ytElms[i].width : 560;
+				h = ytElms[i].height ? ytElms[i].height : 315;
 				ytElms[i].setAttribute('id', id);
 				yt.setup(id, ytid, w, h);
 				this.setUI(ytElms[i].parentNode.parentNode, id);
@@ -564,7 +572,7 @@
 		setUI: function(wrap, id) {
 			//console.log(wrap);
 			const poster = wrap.getElementsByClassName('poster')[0];
-			poster.dataset['player'] = id;
+			poster.dataset.player = id;
 			poster.addEventListener('click', this.onPlay);
 		},
 		setup: function(id, ytid, w, h) {
@@ -580,7 +588,7 @@
 		onPlay: function() {
 			if (yt.player === undefined) return;
 			//console.log('onPlay');
-			const player = yt.player[this.dataset['player']];
+			const player = yt.player[this.dataset.player];
 			if (player.getPlayerState() !== 1) {
 				player.playVideo();
 			} else {
@@ -629,19 +637,20 @@
 	 * <ul class="js-inview" data-last=":last-child"></ul>
 	 * <ul class="js-inview" data-anim="animationName"></ul>
 	 * -------------------------------------------------- */
-	function setInview() {
-		if (document.querySelector('.js-inview') !== null) iv.constructor();
+	function setInview(elm) {
+		const container = !elm ? document : elm;
+		if (container.querySelector('.js-inview') !== null) iv.constructor(container);
 	}
 	const iv = {
-		constructor: function() {
-			//inView('.js-inview').on('enter', this.doInview);
-			//inView.offset({ top: 80, right: 0, bottom: 80, left: 0 });
-			const elms = document.getElementsByClassName('js-inview');
+		constructor: function(container) {
+			const elms = container.getElementsByClassName('js-inview');
 			if (self.IntersectionObserver !== undefined) {
-				console.log('IntersectionObserver');
 				this.inview(elms);
 			} else {
-				console.log('スクロールで実装');
+				for (let i = 0; i < elms.length; i++) {
+					elms[i].classList.add('is-inview');
+					elms[i].classList.remove('js-inview');
+				}
 			}
 		},
 		inview: function(elms) {
@@ -651,7 +660,9 @@
 					iv.doInview(entries[i].target);
 				}
 			}, {
-				rootMargin: '-80px 0px -80px 0px'
+				root: null,
+				rootMargin: '0px',
+				threshold: [0.3, 0.7]
 			});
 			for (let i = 0; i < elms.length; i++) {
 				this.intersectionObserver.observe(elms[i]);
@@ -660,9 +671,9 @@
 		doInview: function(el) {
 			if (!el.isInview) {
 				el.isInview = 1;
-				if (el.dataset['anim'] !== undefined) {
+				if (el.dataset.anim !== undefined) {
 					el.addEventListener('animationend', iv.animationEnd);
-				} else if (el.dataset['last'] !== undefined) {
+				} else if (el.dataset.last !== undefined) {
 					el.addEventListener('transitionend', iv.lastElmEnd);
 				} else {
 					el.addEventListener('transitionend', iv.transitionendEnd);
@@ -672,14 +683,14 @@
 			}
 		},
 		animationEnd: function(e) {
-			if (e.animationName === this.dataset['anim']) {
+			if (e.animationName === this.dataset.anim) {
 				this.classList.remove('is-anim', 'js-inview');
 				this.removeAttribute('data-anim');
 				this.removeEventListener('animationend', iv.animationEnd);
 			}
 		},
 		lastElmEnd: function(e) {
-			if (e.target === this.querySelector(this.dataset['last'])) {
+			if (e.target === this.querySelector(this.dataset.last)) {
 				this.classList.remove('is-anim', 'js-inview');
 				this.removeAttribute('data-last');
 				this.removeEventListener('transitionend', iv.lastElmEnd);
@@ -697,25 +708,22 @@
 	 * lazy image
 	 * <img data-src="path.jpg" alt="" width="w" height="h">
 	 * -------------------------------------------------- */
-	function setLazy() {
-		if (document.querySelector('[data-src]') !== null) lz.constructor();
+	function setLazy(elm) {
+		const container = !elm ? document : elm;
+		if (container.querySelector('[data-src]') !== null) lz.constructor(container);
 	}
 	const lz = {
-		constructor: function() {
-			let cls, w, h;
-			const imgs = document.querySelectorAll('img[data-src]');
-			for (let i = 0, len = imgs.length; i < len; i++) {
-				cls = imgs[i].getAttribute('class') ? ' ' + imgs[i].getAttribute('class') : '';
-				w = imgs[i].getAttribute('width');
-				h = imgs[i].getAttribute('height');
-				imgs[i].src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 ' + w + ' ' + h + '%22%3E%3C/svg%3E';
-			}
-			
+		constructor: function(container) {
+			const imgs = container.querySelectorAll('img[data-src]');
 			if (self.IntersectionObserver !== undefined) {
-				console.log('IntersectionObserver');
+				for (let i = 0, len = imgs.length; i < len; i++) {
+					imgs[i].src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 ' + imgs[i].width + ' ' + imgs[i].height + '%22%3E%3C/svg%3E';
+				}
 				this.lazy(imgs);
 			} else {
-				console.log('スクロールで実装');
+				for (let i = 0, len = imgs.length; i < len; i++) {
+					imgs[i].src = imgs[i].dataset.src;
+				}
 			}
 		},
 		lazy: function(imgs) {
@@ -725,7 +733,9 @@
 					lz.doLazy(entries[i].target);
 				}
 			}, {
-				rootMargin: '-80px 0px -80px 0px'
+				root: null,
+				rootMargin: '0px',
+				threshold: [0, 0.5]
 			});
 			for (let i = 0; i < imgs.length; i++) {
 				this.intersectionObserver.observe(imgs[i]);
@@ -733,7 +743,7 @@
 		},
 		doLazy: function(el) {
 			imagesLoaded(el, lz.loaded);
-			el.src = el.dataset['src'];
+			el.src = el.dataset.src;
 			lz.intersectionObserver.unobserve(el);
 		},
 		loaded: function() {
@@ -772,7 +782,7 @@
 			style += parentClass + ' .' + d[i].c + '{stroke-dasharray:' + d[i].l + 'px ' + d[i].l + 'px;';
 			style += 'stroke-dashoffset:-' + d[i].l + 'px}';
 		}
-		console.log(style);
+		//console.log(style);
 	}
 	
 	/**
