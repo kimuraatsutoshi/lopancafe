@@ -1,5 +1,36 @@
 @charset "utf-8";
 
+.c-flextextarea {
+	position: relative;
+	width: 100%;
+	height: fit-content;
+}
+.c-flextextarea .dummy,
+.c-flextextarea textarea {
+	padding: .5em 1em;
+	border: 1px solid transparent;
+	letter-spacing: .1em;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.c-flextextarea .dummy {
+	min-height: 120px;
+}
+.c-flextextarea textarea {
+	resize: none;
+	position: absolute;
+	inset: 0;
+	border-color: gainsboro;
+	border-radius: 8px;
+	background: rgba(255,255,255,.9);
+	transition: border .4s;
+}
+.c-flextextarea textarea:focus {
+	outline: 0;
+	border-color: gray;
+}
+
+
 
 .c-video {
 	max-width: 560px;

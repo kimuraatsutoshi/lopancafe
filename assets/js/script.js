@@ -5,35 +5,37 @@
 		addFnc([
 			webFontLoader,
 			windowManagement,
-			transformScroll,
+			mainResizeObserver,
+			
+			flexTextarea,
+			simpleMapping,
 			magneticButton,
+			transformScroll,
+			
 			setInview,
 			setLazy,
 			drawerMenu,
 			anchorScroll,
 			setupYouTube
 		]);
-		if (location.search) {
-			console.log( returnObject(location.search.substring(1)) );
-		}
+		simpleMapping();
+		if (location.search) console.log( returnObject(location.search.substring(1)) );
 		if (document.querySelector('path') !== null) setPathLen();
 		loop();
 	}
-	const registFnc = { onLoaded: [], onPopstate: [], onResize: [], onScroll: [], loop: [] };
+	const registFnc = { onLoaded: [], onPopstate: [], onResize: [], onMainResize: [], onScroll: [], loop: [] };
 	
 	function onPopstate(e) {
 		console.log('onPopstate');
 	}
 	function onResize() {
-		resized(function() {
-			addFnc(registFnc.onResize);
+		resized(() => {
+			if (registFnc.onResize.length) addFnc(registFnc.onResize);
 		});
 	}
 	function onScroll() {
-		throttle(function() {
-			if (registFnc.onScroll.length) {
-				addFnc(registFnc.onScroll);
-			}
+		throttle(() => {
+			if (registFnc.onScroll.length) addFnc(registFnc.onScroll);
 		});
 	}
 	function loop() {
@@ -43,25 +45,77 @@
 		}
 	}
 	
-	document.addEventListener('DOMContentLoaded', onLoaded, false);
-	window.addEventListener('popstate', onPopstate, false);
-	window.addEventListener('resize', onResize, false);
-	window.addEventListener('scroll', onScroll, false);
+	document.addEventListener('DOMContentLoaded', onLoaded);
+	window.addEventListener('popstate', onPopstate);
+	window.addEventListener('resize', onResize);
+	window.addEventListener('scroll', onScroll);
 	
 	
-	/* マッピング (パララックス)
-	 * value が fromMin から toMin へ変化する間 fromMax から toMax を返す
-	 */
-	function map (value, fromMin, fromMax, toMin, toMax, trimming) {
-		var val = (value - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
-		return trimming ? Math.max(Math.min(val, toMax), toMin) : val;
+	/**
+	 * マッピング (パララックス)
+	 -------------------------------------------------- */
+	function simpleMapping() {
+		sm.constructor();
 	}
-	const movie = document.getElementsByClassName('c-video')[0];
-	function mapLoop() {
-		const a = map(window.pageYOffset, 400, 0, 0, 1000, true);
-		movie.style.opacity = a / 1000;
+	const sm = {
+		constructor: function() {
+			this.movie = document.getElementsByClassName('c-video')[0];
+			this.fromMin = document.getElementById('video').getBoundingClientRect().bottom + window.pageYOffset;
+			this.fromMax = document.getElementById('video').getBoundingClientRect().top + window.pageYOffset;
+			registFnc.loop.push(this.mapLoop);
+		},
+		mapping: function(value, fromMin, fromMax, toMin, toMax) {
+			const val = (value - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
+			return Math.max(Math.min(val, toMax), toMin);
+		},
+		mapLoop: function() {
+			// pageYOffset が fromMax から fromMin まで変化する間に 1000 から 0 へ推移する
+			const a = sm.mapping(window.pageYOffset, sm.fromMin, sm.fromMax, 0, 1000);
+			sm.movie.style.opacity = a / 1000;
+		}
 	}
-	registFnc.loop.push(mapLoop);
+	
+	/**
+	 * flex textarea
+	 -------------------------------------------------- */
+	const flexTextarea = () => {
+		const elm = document.querySelectorAll('.c-flextextarea');
+		let dummy, textarea;
+		elm.forEach(el => {
+			dummy = el.querySelector('.dummy');
+			textarea = el.querySelector('textarea');
+			textarea.addEventListener('input', e => {
+				dummy.textContent = e.target.value + '\u200b';
+			});
+		});
+	}
+	
+	/**
+	 * l-main のリサイズを監視する
+	 -------------------------------------------------- */
+	function mainResizeObserver() {
+		mro.constructor();
+	}
+	const mro = {
+		constructor: function() {
+			const target = document.getElementsByClassName('l-main')[0];
+			this.mainHeight = target.clientHeight;
+			this.setup();
+			this.resizeObserver.observe(target);
+		},
+		setup: function() {
+			this.resizeObserver = new ResizeObserver(entries => {
+				const rect = entries[0].contentRect;
+				if (this.mainHeight !== rect.height) {
+					console.log('mainResizeObserver');
+					if (registFnc.onMainResize.length) {
+						resized(() => { addFnc(registFnc.onMainResize); });
+					}
+					this.mainHeight = rect.height;
+				}
+			});
+		}
+	};
 	
 	/**
 	 * Web Font Loader
@@ -99,7 +153,7 @@
 	 * MagneticButton
 	 -------------------------------------------------- */
 	function magneticButton() {
-		mgbtn.constructor();
+		if (document.querySelector('.js-mgBtn') !== null) mgbtn.constructor();
 	}
 	const mgbtn = {
 		constructor: function() {
