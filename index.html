@@ -21,19 +21,19 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/css/common.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAZ7gUMgcXPQuRUoIy3XQvckMa_BtLV9U" defer></script>
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js" integrity="sha512-v/wOVTkoU7mXEJC3hXnw9AA6v32qzpknvuUF6J2Lbkasxaxn2nYcl+HGB7fr/kChGfCqubVr1n2sq1UFu3Gh1w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 <script src="assets/js/script.js" defer></script>
 </head>
 <body>
 <header class="l-header">
-	<h1 class="logo">ロゴ</h1>
+	<h1 class="logo"><svg viewBox="0 0 40 37" class="pan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></svg></h1>
 	<button type="button" class="menu js-menuToggle"><svg viewBox="0 0 40 5" class="bar -b1"><path d="M0,2.5H40"/></svg><svg viewBox="0 0 40 5" class="bar -b2"><path d="M0,2.5H40"/></svg><svg viewBox="0 0 40 5" class="bar -b3"><path d="M0,2.5H40"/></svg></button>
 </header>
 
 <div class="js-sc-wrap">
 <main class="l-main" style="min-height:200vh">
-	<math><msqrt><mn>2</mn></msqrt></math>
 	<div id="video" class="c-video">
 		<div class="wrap">
 			<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc"></div>
@@ -43,10 +43,10 @@
 			<button type="button" class="play">再生する</button>
 		</div>
 	</div>
-	<div style="width100%;height:80vh"></div>
-	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgBtn">マグネット<br>ボタン1</a>
-	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgBtn">マグネット<br>ボタン2</a>
-	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgBtn">マグネット<br>ボタン3</a>
+	<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp"></div>
+	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgntc">マグネット<br>ボタン1</a>
+	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgntc">マグネット<br>ボタン2</a>
+	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgntc">マグネット<br>ボタン3</a>
 	
 	<a href="https://lopan.jp/" class="c-balloon c-pop js-inview" data-anim="pop">アニメーション<br>出現ボタン</a>
 	
@@ -62,7 +62,7 @@
 	<figure id="photo" class="photo"><picture>
 		<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
 		<source srcset="assets/img/_watercolor.webp" type="image/webp">
-		<img src="assets/img/_watercolor.jpg" alt="" width="512" height="512" loading="lazy">
+		<img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy">
 	</figure>
 	
 	<form>

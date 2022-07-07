@@ -81,7 +81,15 @@ body.is-fixed {
 	height: 80px;
 	padding: 16px 24px;
 }
-
+.l-header .logo {
+	width: 48px;
+	color: #593869;
+	fill: none;
+	stroke: currentcolor;
+}
+.l-header .logo .pan {
+	width: 100%;
+}
 .l-header .menu {
 	cursor: pointer;
 	position: relative;

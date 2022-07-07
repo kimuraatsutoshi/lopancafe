@@ -9,13 +9,14 @@
 			
 			flexTextarea,
 			simpleMapping,
-			magneticButton,
+			magneticEffect,
 			transformScroll,
 			
 			setInview,
 			setLazy,
 			drawerMenu,
 			anchorScroll,
+			setupGoogleMap,
 			setupYouTube
 		]);
 		simpleMapping();
@@ -152,19 +153,19 @@
 	/**
 	 * MagneticButton
 	 -------------------------------------------------- */
-	function magneticButton() {
-		if (document.querySelector('.js-mgBtn') !== null) mgbtn.constructor();
+	function magneticEffect() {
+		if (document.querySelector('.js-mgntc') !== null) mgntc.constructor();
 	}
-	const mgbtn = {
+	const mgntc = {
 		constructor: function() {
 			this.winsize = this.calcWinsize();
 			this.cursorpos = { x: 0, y: 0 };
 			window.addEventListener('mousemove', function(e) {
-				mgbtn.cursorpos = { x: e.clientX, y: e.clientY };
+				mgntc.cursorpos = { x: e.clientX, y: e.clientY };
 			});
 			this.btnsData = {};
 			
-			const btns = document.getElementsByClassName('js-mgBtn');
+			const btns = document.getElementsByClassName('js-mgntc');
 			for (let i = 0, len = btns.length; i < len; i++) {
 				btns[i].dataset.mg = 'btn-' + (i + 1);
 				btns[i].innerHTML = '<span class="text">' + btns[i].innerHTML + '</span>';
@@ -174,6 +175,7 @@
 			}
 			//console.log(this.btnsData);
 			this.loop();
+			registFnc.onResize.push(this.resetData);
 		},
 		setData: function(btn, id) {
 			const rect = btn.getBoundingClientRect();
@@ -198,16 +200,16 @@
 		},
 		resetData: function() {
 			let rect;
-			for (let i in this.btnsData) {
-				rect = this.btnsData[i].el.getBoundingClientRect();
-				this.btnsData[i].rect = {
+			for (let i in mgntc.btnsData) {
+				rect = mgntc.btnsData[i].el.getBoundingClientRect();
+				mgntc.btnsData[i].rect = {
 					top: rect.top + window.pageYOffset,
 					left: rect.left,
 					width: rect.width,
 					height: rect.height
 				};
-				this.btnsData[i].distanceToTrigger = rect.width / 1.5;
-				console.log(i, this.btnsData[i].rect.top);
+				mgntc.btnsData[i].distanceToTrigger = rect.width / 1.5;
+				//console.log(i, mgntc.btnsData[i].rect.top);
 			}
 		},
 		lerp: function(a, b, n) {
@@ -222,37 +224,37 @@
 			return Math.hypot(a, b);
 		},
 		loop: function() {
-			for (let i in mgbtn.btnsData) {
-				mgbtn.render(mgbtn.btnsData[i]);
+			for (let i in mgntc.btnsData) {
+				mgntc.render(mgntc.btnsData[i]);
 			}
-			requestAnimationFrame(mgbtn.loop);
+			requestAnimationFrame(mgntc.loop);
 		},
 		enter(e) {
-			mgbtn.btnsData[this.dataset['mg']].isHov = true;
+			mgntc.btnsData[this.dataset['mg']].isHov = true;
 		},
 		leave(e) {
-			mgbtn.btnsData[this.dataset['mg']].isHov = false;
+			mgntc.btnsData[this.dataset['mg']].isHov = false;
 		},
 		render(data) {
 			//if (data.isHov) console.log(data.el.dataset['mg']);
 			let x = 0, y = 0;
 			
 			// カーソルからボタンの中心までの距離
-			const distanceMouseButton = mgbtn.distance(
-				mgbtn.cursorpos.x + window.scrollX,
-				mgbtn.cursorpos.y + window.scrollY,
+			const distanceMouseButton = mgntc.distance(
+				mgntc.cursorpos.x + window.scrollX,
+				mgntc.cursorpos.y + window.scrollY,
 				data.rect.left + data.rect.width / 2,
 				data.rect.top + data.rect.height / 2
 			);
 			if (distanceMouseButton < data.distanceToTrigger) {
-				x = (mgbtn.cursorpos.x + window.scrollX - (data.rect.left + data.rect.width / 2)) * .3;
-				y = (mgbtn.cursorpos.y + window.scrollY - (data.rect.top + data.rect.height / 2)) * .3;
+				x = (mgntc.cursorpos.x + window.scrollX - (data.rect.left + data.rect.width / 2)) * .3;
+				y = (mgntc.cursorpos.y + window.scrollY - (data.rect.top + data.rect.height / 2)) * .3;
 			}
 			data.renderedStyles['tx'].cur = x;
 			data.renderedStyles['ty'].cur = y;
 			
 			for (let key in data.renderedStyles) {
-				data.renderedStyles[key].pre = mgbtn.lerp(
+				data.renderedStyles[key].pre = mgntc.lerp(
 					data.renderedStyles[key].pre,
 					data.renderedStyles[key].cur,
 					data.renderedStyles[key].amt
@@ -591,8 +593,61 @@
 	};
 	
 	/**
+	 * Google Maps API
+	 * <div class="js-gm" data-map="{lat},{lng},{zoom},{title}"></div>
+	 -------------------------------------------------- */
+	function setupGoogleMap() {
+		if (document.querySelector('.js-gm') !== null) gm.constructor();
+	}
+	const gm = {
+		constructor: function() {
+			let count = 0;
+			const elms = document.getElementsByClassName('js-gm');
+			for (let i = 0, len = elms.length; i < len; i++) {
+				count++;
+				elms[i].id = 'map-' + count;
+				this.setup(elms[i], 'map-' + count);
+			}
+		},
+		setup: function(elm, id) {
+			const data = elm.dataset.gm.split(',');
+			const latlng = { lat: parseFloat(data[0]), lng: parseFloat(data[1]) };
+			
+			const map = new google.maps.Map(document.getElementById(id), {
+				center: latlng,
+				zoom: parseFloat(data[2]),
+				disableDefaultUI: true,
+				zoomControl: true
+			});
+			const marker = new google.maps.Marker({
+				position: latlng,
+				title: data[3],
+				icon: {
+					url: './assets/img/marker.svg',
+					scaledSize: new google.maps.Size(48,72),
+				},
+				map: map,
+			});
+			const styles  = [{
+				"elementType": "geometry",
+				"stylers": [{
+					"saturation": -100
+				}]
+			},{
+				"elementType": "labels",
+				"stylers": [{
+					"saturation": -100
+				}]
+			}];
+			const silverType = new google.maps.StyledMapType(styles, { name: 'SilverMap' });
+			map.mapTypes.set('silver', silverType);
+			map.setMapTypeId('silver');
+  		}
+	};
+	
+	/**
 	 * YouTube API
-	 * <div class="js-yt" width="width" height="height" data-ytid="DmoE_5aXV-U"></div>
+	 * <div class="js-yt" width="width" height="height" data-ytid="{ytid}"></div>
 	 -------------------------------------------------- */
 	function setupYouTube() {
 		if (document.querySelector('.js-yt') !== null) yt.constructor();
@@ -837,8 +892,7 @@
 	
 	/* MEMO: stroke-dasharray と stroke-dashoffset のスタイルを生成する */
 	function setPathLen() {
-		const parentClass = '.pathgroup';
-		const path = document.querySelectorAll(parentClass + ' path[class]');
+		const path = document.querySelectorAll('path[class]');
 		let d = [];
 		path.forEach(function(e) {
 			const len = e.getTotalLength() * 10;
@@ -846,7 +900,7 @@
 		});
 		let style = '';
 		for (let i in d) {
-			style += parentClass + ' .' + d[i].c + '{stroke-dasharray:' + d[i].l + 'px ' + d[i].l + 'px;';
+			style += '.' + d[i].c + '{stroke-dasharray:' + d[i].l + 'px ' + d[i].l + 'px;';
 			style += 'stroke-dashoffset:-' + d[i].l + 'px}';
 		}
 		//console.log(style);

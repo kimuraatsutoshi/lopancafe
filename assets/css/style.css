@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+.p-map {
+	height: 480px;
+	margin: 80px -24px;
+}
+
+
 .c-flextextarea {
 	position: relative;
 	width: 100%;
