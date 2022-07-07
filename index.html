@@ -9,8 +9,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="タイトル">
 <meta property="og:description" content="ディスクリプション">
-<meta property="og:url" content="https://url.com/">
-<meta property="og:image" content="https://url.com/ogp.png">
+<meta property="og:url" content="https://lopan.cafe/template/">
+<meta property="og:image" content="https://lopan.cafe/template/ogp.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -28,19 +28,12 @@
 <body>
 <header class="l-header">
 	<h1 class="logo">ロゴ</h1>
-	<button type="button" class="menu js-menuToggle">メニュー</button>
+	<button type="button" class="menu js-menuToggle"><svg viewBox="0 0 40 5" class="bar -b1"><path d="M0,2.5H40"/></svg><svg viewBox="0 0 40 5" class="bar -b2"><path d="M0,2.5H40"/></svg><svg viewBox="0 0 40 5" class="bar -b3"><path d="M0,2.5H40"/></svg></button>
 </header>
 
 <div class="js-sc-wrap">
 <main class="l-main" style="min-height:200vh">
 	<math><msqrt><mn>2</mn></msqrt></math>
-	<form>
-		<label for="message">伸縮するテキストエリア</label>
-		<div class="c-flextextarea">
-			<div class="dummy"></div>
-			<textarea id="message"></textarea>
-		</div>
-	</form>
 	<div id="video" class="c-video">
 		<div class="wrap">
 			<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc"></div>
@@ -66,12 +59,23 @@
 		<li>4</li>
 		<li>5</li>
 	</ul>
-	<figure id="photo1" class="photo"><img data-src="assets/img/_watercolor.jpg" alt="" width="512" height="512" class="v-dt test"></figure>
-	<figure id="photo2" class="photo"><img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" class="v-mb test"></figure>
+	<figure id="photo" class="photo"><picture>
+		<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
+		<source srcset="assets/img/_watercolor.webp" type="image/webp">
+		<img src="assets/img/_watercolor.jpg" alt="" width="512" height="512" loading="lazy">
+	</figure>
+	
+	<form>
+		<label for="message">伸縮するテキストエリア</label>
+		<div class="c-flextextarea">
+			<div class="dummy"></div>
+			<textarea id="message"></textarea>
+		</div>
+	</form>
 </main>
 
 <footer class="l-footer">
-	<a href="#top" class="js-anc" style="display:flex;justify-content:center;align-items:Center;width:100%;height:5em">ページトップ</a>
+	<a href="#top" class="pagetop js-anc"><svg viewBox="0 0 24 24" class="ico"><path d="M2,22L12,2l10,20"/></svg></a>
 	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
 </footer>
 </div>
@@ -79,12 +83,10 @@
 <nav class="l-menu">
 	<div class="overlay js-menuToggle"></div>
 	<div class="container">
-		<p>ナビゲーション</p>
+		<h2 class="visuallyhidden">ナビゲーション</h2>
 		<a href="#top" class="js-anc">top</a>
 		<a href="#video" class="js-anc">video</a>
-		<a href="#photo1" class="js-anc">photo1</a>
-		<a href="#photo2" class="js-anc">photo2</a>
-		<button type="button" class="close js-menuToggle">閉じる</button>
+		<a href="#photo" class="js-anc">photo</a>
 	</div>
 </nav>
 </body>

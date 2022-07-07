@@ -293,7 +293,7 @@
 			wm.yOffset = window.pageYOffset;
 		},
 		posLock: function() {
-			wm.isLock = 1;
+			wm.isLock = true;
 			if (ts.wrapper !== undefined) ts.isLock = wm.isLock;
 			wm.lockOffset = wm.yOffset;
 			wm.body.classList.add('is-fixed');
@@ -304,7 +304,7 @@
 			wm.body.removeAttribute('style');
 			window.scrollTo(0, wm.lockOffset);
 			setTimeout(function() {
-				wm.isLock = 0;
+				wm.isLock = false;
 				if (ts.wrapper !== undefined) ts.isLock = wm.isLock;
 			}, 60);
 		}
@@ -393,7 +393,7 @@
 			}
 			
 			// ずれる要素の位置
-			if (this.slipperData !== undefined) {
+			if (!ts.isLock && this.slipperData !== undefined) {
 				let data;
 				const diff = wm.winH / 2;
 				for (var i = this.slipper.length; i--;) {
@@ -444,6 +444,7 @@
 			//console.log('-----> drawerMenu');
 			this.menu = document.getElementsByClassName('l-menu')[0];
 			const btn = document.getElementsByClassName('js-menuToggle');
+			this.btn = btn;
 			for (let i = 0, len = btn.length; i < len; i++) {
 				btn[i].addEventListener('click', this.toggleMenu);
 			}
@@ -453,14 +454,26 @@
 			dm.menu.addEventListener('transitionend', dm.menuEnd);
 		},
 		openMenu: function() {
-			dm.isOpened = true;
+			this.isOpened = true;
 			wm.posLock();
-			dm.menu.classList.add('is-active', 'is-anim');
+			this.menu.classList.add('is-active', 'is-anim');
+			for (let i = 0, len = this.btn.length; i < len; i++) {
+				this.btn[i].classList.add('is-active', 'is-anim');
+				this.btn[i].addEventListener('animationend', e => {
+					this.btn[i].classList.remove('is-anim');
+				}, { once: true });
+			}
 		},
 		closeMenu: function() {
-			dm.isOpened = false;
+			this.isOpened = false;
 			wm.posUnlock();
-			dm.menu.classList.replace('is-active', 'is-anim');
+			this.menu.classList.replace('is-active', 'is-anim');
+			for (let i = 0, len = this.btn.length; i < len; i++) {
+				this.btn[i].classList.replace('is-active', 'is-anim');
+				this.btn[i].addEventListener('animationend', e => {
+					this.btn[i].classList.remove('is-anim');
+				}, { once: true });
+			}
 		},
 		menuEnd: function(e) {
 			if (dm.isOpened) {
