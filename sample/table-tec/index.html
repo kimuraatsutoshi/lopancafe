@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>テーブルテクニック</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="テーブルで使えるテクニック">
+<meta property="og:site_name" content="Lopan cafe">
+<meta property="og:type" content="website">
+<meta property="og:title" content="テーブルテクニック">
+<meta property="og:description" content="テーブルで使えるテクニック">
+<meta property="og:url" content="https://lopan.cafe/sample/modal-ui/">
+<meta property="og:image" content="https://lopan.cafe/sample/modal-ui/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@_watercolor">
+<meta name="theme-color" content="#39c0de">
+<meta name="msapplication-navbutton-color" content="#39c0de">
+<link rel="icon" href="../assets/icon.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<figure class="c-table">
+<table>
+	<caption>テーブルセルに対角線を引く</caption>
+	<colgroup>
+		<col class="colgroup">
+		<col span="2">
+	</colgroup>
+	<thead>
+		<tr>
+			<th class="slash"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0L100 100" vector-effect="non-scaling-stroke"></path></svg></th>
+			<th>値</th>
+			<th>要素</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>preserveAspectRatio</th>
+			<td><code>none</code></td>
+			<td>SVG要素に付与</td>
+		</tr>
+		<tr>
+			<th>vector-effect</th>
+			<td><code>non-scaling-stroke</code></td>
+			<td>path要素に付与</td>
+		</tr>
+		<tr>
+			<th>使用例</th>
+			<td class="slash"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M100 0L0 100" vector-effect="non-scaling-stroke"></path></svg></td>
+			<td class="slash"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0L100 100M0 100L100 0" vector-effect="non-scaling-stroke"></path></svg></td>
+		</tr>
+	</tbody>
+</table>
+</figure>
+</body>
+</html>

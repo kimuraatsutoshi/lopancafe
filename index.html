@@ -2,80 +2,495 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>タイトル</title>
+<title>Webサイト制作でよく使うテンプレートサンプル - @Lopan.jp</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ディスクリプション">
-<meta property="og:site_name" content="タイトル">
+<meta name="description" content="Webサイトにありがちなレイアウトやよく使うUIや無難なエフェクトをまとめたテンプレートサンプルです。">
+<meta property="og:site_name" content="@Lopan.jp">
 <meta property="og:type" content="website">
-<meta property="og:title" content="タイトル">
-<meta property="og:description" content="ディスクリプション">
+<meta property="og:title" content="Webサイト制作でよく使うテンプレートサンプル">
+<meta property="og:description" content="Webサイトにありがちなレイアウトやよく使うUIや無難なエフェクトをまとめたテンプレートサンプルです。">
 <meta property="og:url" content="https://lopan.cafe/template/">
 <meta property="og:image" content="https://lopan.cafe/template/ogp.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@twitter">
-<meta name="theme-color" content="#39c0de">
-<meta name="msapplication-navbutton-color" content="#39c0de">
+<meta name="twitter:site" content="@_watercolor">
+<meta name="theme-color" content="#86c0de">
+<meta name="msapplication-navbutton-color" content="#86c0de">
 <link rel="icon" href="assets/icon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <link rel="stylesheet" href="assets/css/common.css">
+<link rel="stylesheet" href="assets/css/component.css">
 <link rel="stylesheet" href="assets/css/style.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU" defer></script>
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js" integrity="sha512-v/wOVTkoU7mXEJC3hXnw9AA6v32qzpknvuUF6J2Lbkasxaxn2nYcl+HGB7fr/kChGfCqubVr1n2sq1UFu3Gh1w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-<script src="assets/js/script.js" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js" defer></script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
 <body>
 <header class="l-header">
-	<h1 class="logo"><svg viewBox="0 0 40 37" class="pan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></svg></h1>
-	<button type="button" class="menu js-menuToggle"><svg viewBox="0 0 40 5" class="bar -b1"><path d="M0,2.5H40"/></svg><svg viewBox="0 0 40 5" class="bar -b2"><path d="M0,2.5H40"/></svg><svg viewBox="0 0 40 5" class="bar -b3"><path d="M0,2.5H40"/></svg></button>
+	<h1 class="logo"><a href="./" aria-current="page"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
+	<ul class="menu -nav">
+		<li><a href="#about" class="js-anc">About</a></li>
+		<li><a href="#news" class="js-anc">News</a></li>
+		<li><a href="#works" class="js-anc">Works</a></li>
+		<li><a href="#store" class="js-anc">Store</a></li>
+		<li><a href="#contact" class="js-anc">Contact</a></li>
+	</ul>
+	<ul class="menu -sns">
+		<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
+		<li><a href="https://twitter.com/_watercolor"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#twitter"/></svg></a></li>
+	</ul>
+	<button type="button" class="drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
 </header>
 
 <div class="js-sc-wrap">
-<main class="l-main" style="min-height:200vh">
-	<div id="video" class="c-video">
-		<div class="wrap">
-			<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc"></div>
-		</div>
-		<div class="poster">
-			<img data-src="http://img.youtube.com/vi/B3vsRXOSBqc/mqdefault.jpg" alt="" width="320" height="180">
-			<button type="button" class="play">再生する</button>
+<main class="l-main page-home">
+	<div class="p-keyvisual">
+		<div class="js-slider" data-loop data-cell=".slider_item" data-auto="6000">
+			<figure class="slider_item"><picture>
+				<source srcset="assets/img/visual_1.png" media="(min-width:768px)" width="1200" height="400">
+				<source srcset="assets/img/visual_1_mb.png" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_1.png" alt="" width="1200" height="400" loading="lazy">
+			</picture></figure>
+			<figure class="slider_item"><picture>
+				<source srcset="assets/img/visual_2.png" media="(min-width:768px)" width="1200" height="400">
+				<source srcset="assets/img/visual_2_mb.png" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_2.png" alt="" width="1200" height="400" loading="lazy">
+			</picture></figure>
+			<figure class="slider_item"><picture>
+				<source srcset="assets/img/visual_3.png" media="(min-width:768px)" width="1200" height="400">
+				<source srcset="assets/img/visual_3_mb.png" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_3.png" alt="" width="1200" height="400" loading="lazy">
+			</picture></figure>
+			<figure class="slider_item"><picture>
+				<source srcset="assets/img/visual_4.png media="(min-width:768px)" width="1200" height="400">
+				<source srcset="assets/img/visual_4_mb.png" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_4.png" alt="" width="1200" height="400" loading="lazy">
+			</picture></figure>
+			<figure class="slider_item"><picture>
+				<source srcset="assets/img/visual_5.png" media="(min-width:768px)" width="1200" height="400">
+				<source srcset="assets/img/visual_5_mb.png" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_5.png" alt="" width="1200" height="400" loading="lazy">
+			</picture></figure>
+			<a class="c-button" href="https://placy.org/">Placy (simple tool for generating image placeholders)</a>
 		</div>
 	</div>
-	<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp"></div>
-	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgntc">マグネット<br>ボタン1</a>
-	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgntc">マグネット<br>ボタン2</a>
-	<a href="https://lopan.jp/" class="c-balloon js-inview js-mgntc">マグネット<br>ボタン3</a>
 	
-	<a href="https://lopan.jp/" class="c-balloon c-pop js-inview" data-anim="pop">アニメーション<br>出現ボタン</a>
+	<section id="about" class="p-about l-section">
+		<h2 class="c-title -hyphen">About</h2>
+		<p class="c-lead">Webサイト制作でよく使うテンプレートまとめです。</p>
+	</section>
 	
-	<p class="js-sc-slip">スリップする要素</p>
+	<section id="news" class="p-news l-section">
+		<h2 class="c-title -hyphen">News</h2>
+		<p class="c-lead">よくある「アーカイブリスト」のレイアウトスタイル。アイキャッチと、日付、カテゴリ（タグ）、タイトルを含む記事一覧のイメージです。</p>
+		<ul class="c-archivelist js-inview" data-last=":last-child">
+			<li class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">HTML</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_1.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</li>
+			<li class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">JavaScript</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_2.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</li>
+			<li class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">PHP</span><span class="c-tag">JavaScript</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</li>
+			<li class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</li>
+			<li class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_5.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</li>
+		</ul>
+		<a href="https://lopan.jp/" class="c-button js-inview">もっと見る</a>
+	</section>
 	
-	<ul class="c-list js-inview" data-last=":last-child">
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-		<li>4</li>
-		<li>5</li>
-	</ul>
-	<figure id="photo" class="photo"><picture>
-		<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
-		<source srcset="assets/img/_watercolor.webp" type="image/webp">
-		<img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy">
-	</figure>
-	
-	<form>
-		<label for="message">伸縮するテキストエリア</label>
-		<div class="c-flextextarea">
-			<div class="dummy"></div>
-			<textarea id="message"></textarea>
+	<section class="p-flickity l-section">
+		<h2 class="c-title -bar">Flickity</h2>
+		<p class="c-lead">上のアーカイブリストをFlickityでレイアウトした時のスタイル。<small>※ul/li要素をdiv要素に変えること。</small></p>
+		<div class="c-archivelist js-slider" data-arrow data-dots>
+			<div class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">HTML</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_1.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</div>
+			<div class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">JavaScript</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_2.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</div>
+			<div class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">PHP</span><span class="c-tag">JavaScript</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</div>
+			<div class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</div>
+			<div class="archive_item">
+				<dl class="text">
+					<dt class="date">2022.12.22</dt>
+					<dd class="category"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span></dd>
+					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+				</dl>
+				<figure class="image"><img data-src="assets/img/item_5.png" alt="" width="400" height="300" loading="lazy"></figure>
+			</div>
 		</div>
-	</form>
+	</section>
+	
+	<section id="works" class="p-works l-section">
+		<h2 class="c-title -hyphen">Works</h2>
+		<p class="c-lead">プルダウンUIの使い処。ながーいコンテンツや、冗長な内容などを省略したい時に、冒頭だけちょっと見せて続きは隠しておきます。</p>
+		<div class="works_content js-pullContent" data-pull="target" data-default="320">
+			<ul class="c-archivelist">
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">HTML</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_1.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">JavaScript</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_2.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">PHP</span><span class="c-tag">JavaScript</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_5.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">PHP</span><span class="c-tag">JavaScript</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+				<li class="archive_item">
+					<dl class="text">
+						<dt class="date">2022.12.22</dt>
+						<dd class="category"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span></dd>
+						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					</dl>
+					<figure class="image"><img data-src="assets/img/item_5.png" alt="" width="400" height="300" loading="lazy"></figure>
+				</li>
+			</ul>
+		</div>
+		<button type="button" class="works_button js-pullToggle" data-pull="target">
+			<span class="open">開く</span><span class="close">閉じる</span>
+		</button>
+	</section>
+	
+	<section class="p-faq l-section">
+		<h2 class="c-title -bar">よくあるご質問</h2>
+		<p class="c-lead">アコーディオンUI、ここでは「よくあるご質問」形式のレイアウトスタイル。</p>
+		<dl class="c-faq">
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">だいたい20文字くらいのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">だいたい20文字くらいのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+		</dl>
+	</section>
+	
+	<section id="store" class="p-store l-section">
+		<h2 class="c-title -hyphen">Store</h2>
+		<p class="c-lead">トップページによくあるレイアウト。ページタイトルと、ページのリード文や概要（抜粋）テキスト、イメージ画像をレイアウトするスタイル。</p>
+		<section class="c-cassette">
+			<div class="text">
+				<h3 class="c-title -hyphen">よくあるレイアウトのタイトル</h3>
+				<p class="lead">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</p>
+				<a href="" class="c-button">詳しく見る</a>
+			</div>
+			<figure class="image"><picture>
+				<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
+				<source srcset="assets/img/_watercolor.webp" type="image/webp">
+				<img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy">
+			</figure>
+		</section>
+		<section class="c-cassette -reverse">
+			<div class="text">
+				<h3 class="c-title -hyphen">よくあるレイアウトのタイトル</h3>
+				<p class="lead">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</p>
+				<a href="" class="c-button">詳しく見る</a>
+			</div>
+			<figure class="image"><picture>
+				<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
+				<source srcset="assets/img/_watercolor.webp" type="image/webp">
+				<img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy">
+			</figure>
+		</section>
+	</section>
+	
+	<section class="p-kana l-section">
+		<h2 class="c-title -sand">仮名カナかな？</h2>
+		<p class="c-lead -c">テーブルのマークアップとレイアウト、よくあるデザイン、スタイルまとめ。</p>
+		<figure class="c-table">
+			<div class="wrap">
+				<table class="round">
+					<caption>これはキャプション</caption>
+					<thead>
+						<tr>
+							<th colspan="2" class="slash -tl"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0L100 100" vector-effect="non-scaling-stroke"/></svg></th>
+							<th>あ行</th>
+							<th>稼業</th>
+							<th>作業</th>
+							<th class="-tr">単位</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th rowspan="4" class="-c -bl"><span class="-v">縦書き<wbr>ロゥスパン</span></th>
+							<th>ひらがな</th>
+							<td>あいうえお</td>
+							<td>かきくけこ</td>
+							<td>さしすせそ</td>
+							<td class="-c">㎜</td>
+						</tr>
+						<tr>
+							<th>カタカナ</th>
+							<td>アイウエオ</td>
+							<td>カキクケコ</td>
+							<td>サシスセソ</td>
+							<td class="-c">㎖</td>
+						</tr>
+						<tr>
+							<th>感じ</th>
+							<td>なかなか柔らかそうで礼儀正しそう</td>
+							<td>かちこち堅そうでカチコチしてそう</td>
+							<td>さらさらしてそうとてもサラサラしてそう</td>
+							<td class="-c">㎎</td>
+						</tr>
+						<tr>
+							<th>漢字</th>
+							<td class="slash -c">愛卯絵推<svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0L100 100M0 100L100 0" vector-effect="non-scaling-stroke"/></svg></td>
+							<td class="slash"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M100 0L0 100" vector-effect="non-scaling-stroke"/></svg></td>
+							<td class="slash"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M100 0L0 100" vector-effect="non-scaling-stroke"/></svg></td>
+							<td class="-c -br">㎤</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</figure>
+	</section>
+	
+	<section class="p-video l-section">
+		<h2 class="c-title -pop">Video</h2>
+		<p class="c-lead -c">IFrame Player APIを使った「YouTube 埋め込みプレーヤー」の実装例。</p>
+		<div class="c-video">
+			<div class="wrap">
+				<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc"></div>
+			</div>
+			<div class="poster">
+				<img data-src="http://img.youtube.com/vi/B3vsRXOSBqc/mqdefault.jpg" alt="" width="320" height="180">
+				<button type="button" class="play">再生する</button>
+			</div>
+		</div>
+	</section>
+	
+	<section class="p-googlemap l-section">
+		<h2 class="c-title">Google Maps API</h2>
+		<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp"></div>
+	</section>
+	
+	<section id="contact" class="p-contact l-section">
+		<h2 class="c-title -hyphen">Contact</h2>
+		<p class="c-lead">お問い合わせフォームのテンプレート、ラジオボタン、チェックボックス、伸縮するテキストエリア。</p>
+		<form action="" class="c-form">
+			<ul class="c-formlist">
+				<li class="form_item"><label>
+					<span class="form_label">お名前<small class="req">必須</small></span>
+					<input type="text" name="name" autocomplete="name" required>
+				</label></li>
+				<li class="form_item"><label>
+					<span class="form_label">メールアドレス<small class="req">必須</small></span>
+					<input type="email" name="email" autocomplete="email" required>
+				</label></li>
+				<li class="form_item"><label>
+					<span class="form_label" name="tel" autocomplete="tel">電話番号</span>
+					<input type="tel" name="tel">
+				</label></li>
+				<li class="form_item"><label>
+					<span class="form_label">Webサイト<small class="req">必須</small></span>
+					<input type="url" name="url" autocomplete="url" required>
+				</label></li>
+				<li class="form_item">
+					<span class="form_label">メルマガ配信</span>
+					<div class="c-radioui">
+						<label class="item">
+							<input type="radio" name="info" value="yes" checked>
+							<span class="label">受け取る</span>
+						</label>
+						<label class="item">
+							<input type="radio" name="info" value="no">
+							<span class="label">受け取らない</span>
+						</label>
+						<label class="item -other">
+							<input type="radio" name="info" value="no">
+							<span class="label">その他</span>
+							<input type="text" name="reason6">
+						</label>
+					</div>
+				</li>
+				<li class="form_item">
+					<span class="form_label">このサイトをどこで知りましたか？</span>
+					<div class="c-checkboxui">
+						<label class="item">
+							<input type="checkbox" name="reason" value="reason1">
+							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Google検索</span>
+						</label>
+						<label class="item">
+							<input type="checkbox" name="reason" value="reason2">
+							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Twitter</span>
+						</label>
+						<label class="item">
+							<input type="checkbox" name="reason" value="reason3">
+							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Lopan cafe</span>
+						</label>
+						<label class="item">
+							<input type="checkbox" name="reason" value="reason4">
+							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>口コミ</span>
+						</label>
+						<label class="item">
+							<input type="checkbox" name="reason" value="reason5">
+							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>風の噂</span>
+						</label>
+						<label class="item -other">
+							<input type="checkbox" name="reason" value="other">
+							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>その他</span>
+							<input type="text" name="reason6">
+						</label>
+					</div>
+				</label></li>
+				<li class="form_item"><label>
+					<span class="form_label">そのほかメッセージなどありましたら</span>
+					<div class="js-flextextarea">
+						<div class="dummy"></div>
+						<textarea name="message" rows="4" cols="30" placeholder="入力した行数に合わせて伸縮するテキストエリア"></textarea>
+					</div>
+				</label></li>
+			</ul>
+			<p class="contact_accept c-checkboxui">
+				<label class="item">
+					<input type="checkbox" name="reason" value="reason1" class="js-formAccept">
+					<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>当サイトの「<a href="privacypolicy/" class="c-link">プライバシーポリシー</a>」に同意する。</span>
+				</label>
+			</p>
+			<button type="submit" class="contact_submit c-button -balloon js-inview">もっと見る</button>
+		</form>
+	</section>
 </main>
 
 <footer class="l-footer">
-	<a href="#top" class="pagetop js-anc"><svg viewBox="0 0 24 24" class="ico"><path d="M2,22L12,2l10,20"/></svg></a>
+	<div class="contentsinfo">
+		<h1 class="logo"><a href="https://lopan.cafe/template/" aria-current="page">
+			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
+			<span class="madeby">Made by Lopan.jp</span>
+		</a></h1>
+		<ul class="menu -nav">
+			<li><a href="#about" class="js-anc">About</a></li>
+			<li><a href="#news" class="js-anc">News</a></li>
+			<li><a href="#works" class="js-anc">Works</a></li>
+			<li><a href="#store" class="js-anc">Store</a></li>
+			<li><a href="#contact" class="js-anc">Contact</a></li>
+		</ul>
+		<ul class="menu -other">
+			<li><a href="privacypolicy/" class="js-anc">プライバシーポリシー</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#twitter"/></svg></a></li>
+			<li><a href="https://line.me/ja/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#line"/></svg></a></li>
+			<li><a href="https://ja-jp.facebook.com/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#facebook"/></svg></a></li>
+			<li><a href="https://www.youtube.com/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#youtube"/></svg></a></li>
+			<li><a href="https://www.tiktok.com/ja-JP/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#tiktok"/></svg></a></li>
+			<li><a href="https://www.spotify.com/jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#spotify"/></svg></a></li>
+		</ul>
+		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M2,18L12,6l10,12"/></svg></a>
+	</div>
 	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
 </footer>
 </div>
@@ -84,10 +499,22 @@
 	<div class="overlay js-menuToggle"></div>
 	<div class="container">
 		<h2 class="visuallyhidden">ナビゲーション</h2>
-		<a href="#top" class="js-anc">top</a>
-		<a href="#video" class="js-anc">video</a>
-		<a href="#photo" class="js-anc">photo</a>
+		<ul class="menu -nav">
+			<li><a href="#about" class="js-anc">About</a></li>
+			<li><a href="#news" class="js-anc">News</a></li>
+			<li><a href="#works" class="js-anc">Works</a></li>
+			<li><a href="#store" class="js-anc">Store</a></li>
+			<li><a href="#contact" class="js-anc">Contact</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#twitter"/></svg></a></li>
+		</ul>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M2,18L12,6l10,12"/></svg></a>
 	</div>
 </nav>
+<svg class="visuallyhidden">
+<symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>
+</svg>
 </body>
 </html>

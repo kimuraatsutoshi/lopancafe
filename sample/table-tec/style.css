@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+*,*::before,*::after{box-sizing:border-box;}
+body,h1,h2,h3,h4,p,ul,ol,li,figure,figcaption,blockquote,dl,dd{margin:0;}
+ul,ol{list-style:none;padding:0;}
+a{color:inherit;text-decoration:inherit;text-decoration-skip-ink:auto;}
+img,svg,video,iframe{vertical-align:middle;}
+img,video{max-width:100%;}
+img[height]{height:auto;}
+input,button,textarea,select{font:inherit;}
+button{border:0;padding:0;background:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;}
+small{font-size:inherit;}
+sub{vertical-align:baseline;}
+@media (prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
+html {
+	-webkit-text-size-adjust: 100%;
+	width: 100%;
+	height: 100%;
+}
+body {
+	width: 100%;
+	height: 100%;
+	color: black;
+	font-size: 1em;
+	line-height: 2;
+	font-family: "Yu Gothic", "YuGothic", sans-serif;
+	font-weight: 500;
+	letter-spacing: .06em;
+	font-feature-settings: "palt";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+code {
+	font-family: "Ubuntu Mono", "Consolas", "Courier", monospace;
+}
+
+.c-table {
+	max-width: 640px;
+	margin: 1em auto;
+}
+.c-table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.c-table th,
+.c-table td {
+	padding: 1em;
+	border: 1px solid gainsboro;
+}
+.c-table .slash {
+	position: relative;
+}
+.c-table .slash svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke: gainsboro;
+}
+
+/**
+ * utility
+ * ---------------------------------------- */
+.visuallyhidden {
+	position: absolute;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+}

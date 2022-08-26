@@ -1,0 +1,825 @@
+@charset "utf-8";
+
+:root {
+	--gainsboro: #c2c4ca;
+}
+
+/**
+ * タイトル
+ * ---------------------------------------- */
+.c-title {
+	font-size: 32px;
+	line-height: 1.4;
+	font-weight: 700;
+	letter-spacing: .12em;
+}
+.c-title small {
+	font-size: max(64%, 10px);
+}
+.c-title.-upper {
+	text-transform: uppercase;
+}
+
+/* :::::: - タイトル :::::: */
+.c-title.-hyphen {
+	padding-left: 1em;
+	text-indent: -1em;
+	text-align: left;
+}
+.c-title.-hyphen::before {
+	content: "";
+	display: inline-block;
+	position: relative;
+	top: -.1em;
+	width: .5em;
+	border-top: .12em solid #86c0de;
+	margin-right: .5em;
+	vertical-align: middle;
+}
+
+/** :::::: | タイトル :::::: */
+.c-title.-bar {
+	position: relative;
+	padding-left: 1em;
+	text-align: left;
+}
+.c-title.-bar::before {
+	content: "";
+	position: absolute;
+	top: .1em;
+	bottom: .1em;
+	left: 0;
+	border-left: .3em solid #86c0de;
+}
+
+/** :::::: | タイトル | :::::: */
+.c-title.-sand,
+.c-title.-pop {
+	position: relative;
+	display: inline-block;
+	padding-inline: 1em;
+	color: #86c0de;
+	text-align: center;
+}
+.c-title.-sand::before,
+.c-title.-sand::after,
+.c-title.-pop::before,
+.c-title.-pop::after {
+	content: "";
+	position: absolute;
+	bottom: .2em;
+	height: 1em;
+}
+.c-title.-sand::before,
+.c-title.-pop::before {
+	left: 0;
+	border-left: 1px solid currentcolor;
+}
+.c-title.-sand::after ,
+.c-title.-pop::after {
+	right: 0;
+	border-right: 1px solid currentcolor;
+}
+
+/** :::::: \ タイトル / :::::: */
+.c-title.-pop::before {
+	transform: rotate(-30deg);
+}
+.c-title.-pop::after {
+	transform: rotate(30deg);
+}
+
+
+/**
+ * ボタン
+ * ---------------------------------------- */
+.c-button {
+	cursor: pointer;
+	display: inline-grid;
+	place-items: center;
+	width: 100%;
+	max-width: 320px;
+	min-height: 64px;
+	padding: .5em 1.5em;
+	border: 2px solid #86c0de;
+	border-radius: 8px;
+	color: white;
+	line-height: 1.4;
+	font-weight: 500;
+	letter-spacing: inherit;
+	background: #86c0de;
+}
+@media (hover: hover) {
+	.c-button {
+		transition: border-color .4s, color .4s, background .4s;
+	}
+	.c-button:hover {
+		color: #86c0de;
+		background: white;
+		transition-duration: .05s;
+	}
+}
+/* 状態 */
+a.c-button:not([href]),
+button.c-button:disabled,
+submit.c-button:disabled {
+	pointer-events: none;
+	border-color: #dadcde;
+	color: #eeeff1;
+	background: #dadcde;
+}
+
+/* :::::: バルーンボタン :::::: */
+.c-button.-balloon {
+	width: 10em;
+	height: 10em;
+	margin: 2em auto;
+	border-radius: 10em;
+	text-align: center;
+}
+
+
+/**
+ * リンク
+ * ---------------------------------------- */
+.c-link {
+	color: #86c0de;
+	background: linear-gradient(currentcolor, currentcolor) left bottom / 100% 1px no-repeat;
+}
+@media (hover: hover) {
+	.c-link {
+		transition: background-size .4s cubic-bezier(0.215, 0.61, 0.355, 1);
+	}
+	.c-link:hover {
+		background-position: right bottom;
+		background-size: 0 1px;
+	}
+}
+
+
+/**
+ * タグ
+ * ---------------------------------------- */
+.c-tag {
+	display: block;
+	padding: 2px 8px;
+	border-radius: 4px;
+	color: white;
+	background: #86c0de;
+}
+
+
+/**
+ * リード文
+ * ---------------------------------------- */
+.c-lead {
+	margin-top: 24px;
+	font-size: 18px;
+	text-align: left;
+}
+.c-lead.-c {
+	text-align: center;
+}
+
+
+/**
+ * アーカイブリスト
+ * ---------------------------------------- */
+.c-archivelist {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px 48px;
+}
+.c-archivelist .archive_item {
+	flex-basis: calc(33.333% - 48px * 2 / 3);
+	flex-grow: 0;
+	display: flex;
+	flex-direction: column;
+}
+.c-archivelist .image {
+	order: -1;
+}
+.c-archivelist .image img {
+	width: 100%;
+	border-radius: 8px;
+}
+.c-archivelist .text {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 4px;
+	padding: 0 8px;
+	font-size: 14px;
+	line-height: 1.6;
+	text-align: left;
+}
+.c-archivelist .date,
+.c-archivelist .category {
+	margin-top: 8px;
+	font-size: 12px;
+	line-height: 1.4;
+}
+.c-archivelist .date {
+	margin-right: 1em;
+	color: #92939c;
+}
+.c-archivelist .category {
+	display: flex;
+	flex-wrap : wrap;
+	gap: 4px;
+}
+.c-archivelist .summary {
+	flex-basis: 100%;
+	margin-top: 8px;
+	font-size: 14px;
+	line-height: 1.6;
+	text-align: justify;
+}
+@media screen and (max-width: 767px) {
+	.c-archivelist {
+		gap: 24px 32px;
+	}
+	.c-archivelist .archive_item {
+		flex-basis: calc(50% - 16px);
+	}
+}
+@media screen and (max-width: 479px) {
+	.c-archivelist .archive_item {
+		flex-basis: 100%;
+	}
+	.c-archivelist .date,
+	.c-archivelist .category,
+	.c-archivelist .summary {
+		margin-top: 4px;
+	}
+}
+
+
+
+
+/**
+ * よくあるレイアウト (カセット)
+ * ---------------------------------------- */
+.c-cassette {
+	display: flex;
+	gap: 24px 48px;
+}
+.c-cassette + .c-cassette {
+	margin-top: 24px;
+}
+.c-cassette .image {
+	flex-basis: calc(40% - 24px);
+}
+.c-cassette.-reverse .image {
+	order: -1;
+}
+.c-cassette .text {
+	flex-basis: calc(60% - 24px);
+	text-align: left;
+}
+.c-cassette .c-title {
+	font-size: 20px;
+}
+.c-cassette .lead {
+	margin-top: 1em;
+	font-size: 14px;
+}
+.c-cassette .c-button {
+	width: 240px;
+	min-height: 48px;
+	margin-top: 24px;
+}
+@media screen and (min-width: 768px) {
+	.c-cassette {
+		align-items: center;
+	}
+	.c-cassette .image.-reverse {
+		order: -1;
+	}
+}
+@media screen and (max-width: 767px) {
+	.c-cassette {
+		flex-direction: column;
+	}
+	.c-cassette .image {
+		order: -1;
+	}
+}
+
+
+/**
+ * テーブルスタイル
+ * ---------------------------------------- */
+.c-table {
+	--border_color: var(--gainsboro);
+}
+.c-table .wrap {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	will-change: scroll-position;
+	overscroll-behavior: none auto;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: auto;
+	scrollbar-color: #dadcde #eeeff1;
+	padding-bottom: 8px;
+}
+@-moz-document url-prefix() {
+	.c-table .wrap {
+		padding-bottom: 16px;
+	}
+}
+.c-table .wrap::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+.c-table .wrap::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	box-shadow: none;
+	background: #dadcde;
+}
+.c-table .wrap::-webkit-scrollbar-track {
+	width: 16px;
+	height: 16px;
+	border-radius: 6px;
+	background: #eeeff1;
+}
+@media (hover: hover) {
+	.c-table .wrap::-webkit-scrollbar-thumb {
+		transition: background .4s;
+	}
+	.c-table .wrap::-webkit-scrollbar-thumb:hover {
+		background: var(--border_color);
+		transition-duration: .1s;
+	}
+	.c-table .wrap::-webkit-scrollbar-track:decrement {
+		background: red;
+	}
+}
+.c-table table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.c-table .wrap table {
+	min-width: 480px;
+}
+.c-table caption {
+	text-align: left;
+}
+.c-table td,
+.c-table th {
+	padding: .6em 1em;
+	border: 1px solid var(--border_color);
+	line-height: 1.4;
+}
+.c-table thead th {
+	background: #fafafd;
+}
+.c-table tbody {
+	text-align: left;
+}
+.c-table tbody th {
+	color: #86c0de;
+}
+.c-table .slash {
+	position: relative;
+	overflow: hidden;
+}
+.c-table .slash svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke: var(--border_color);
+}
+.c-table .-c {
+	text-align: center;
+}
+.c-table .-r {
+	text-align: right;
+}
+.c-table .-v {
+	-webkit-writing-mode: vertical-rl;
+	-ms-writing-mode: tb-rl;
+	writing-mode: vertical-rl;
+	line-height: 1;
+	white-space: nowrap;
+}
+html.wf-active .c-table .-v {
+	line-height: 1.4;
+}
+
+/* :::::: 角丸にしたい時は separate じゃないと駄目 :::::: */
+.c-table table.round {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+.c-table .round .-tl {
+	border-top-left-radius: 8px;
+}
+.c-table .round .-tr {
+	border-top-right-radius: 8px;
+}
+.c-table .round .-br {
+	border-bottom-right-radius: 8px;
+}
+.c-table .round .-bl {
+	border-bottom-left-radius: 8px;
+}
+.c-table .round td,
+.c-table .round th {
+	padding: .6em 1em;
+	border-top-width: 0;
+	border-right-width: 0;
+}
+.c-table .round th:last-child,
+.c-table .round td:last-child {
+	border-right-width: 1px;
+}
+.c-table .round thead tr:first-child th {
+	border-top-width: 1px;
+}
+.c-table .round tbody tr:last-child th,
+.c-table .round tbody tr:last-child td {
+}
+
+
+
+/**
+ * お問い合わせフォーム
+ * ---------------------------------------- */
+.c-form {}
+.c-formlist {
+	text-align: left;
+}
+.c-formlist .form_item + .form_item {
+	margin-top: 1em;
+}
+.c-formlist .form_label {
+	font-size: 12px;
+	line-height: 1.4;
+}
+.c-formlist .form_label + * {
+	margin-top: .2em;
+}
+.c-formlist .form_label .req {
+	position: relative;
+	top: -.1em;
+	margin-left: .5em;
+	padding: .1em .5em;
+	border: 1px solid currentcolor;
+	border-radius: 4px;
+	color: #86c0de;
+	font-size: 10px;
+	vertical-align: middle;
+	background: white;
+}
+
+/* :::::: テキストフォーム :::::: */
+.c-formlist input[type="text"],
+.c-formlist input[type="email"],
+.c-formlist input[type="tel"],
+.c-formlist input[type="url"],
+.c-formlist textarea {
+	resize: vertical;
+	width: 100%;
+	border-radius: 8px;
+	padding: .5em 1em;
+	border: 1px solid #dadcde;
+	color: inherit;
+	letter-spacing: .1em;
+	white-space: pre-wrap;
+	word-break: break-all;
+	background: #fff;
+	transition: border .4s, color .4s, background .4s;
+}
+.c-formlist input[type="text"]:focus,
+.c-formlist input[type="email"]:focus,
+.c-formlist input[type="tel"]:focus,
+.c-formlist input[type="url"]:focus,
+.js-flextextarea textarea:focus {
+	outline: 0;
+	border-color: #92939c;
+	transition-duration: .1s;
+}
+.c-formlist input[type="text"]:disabled,
+.c-formlist input[type="email"]:disabled,
+.c-formlist input[type="tel"]:disabled,
+.c-formlist input[type="url"]:disabled,
+.js-flextextarea textarea:disabled {
+	color: #eeeff1;
+	border-color: currentcolor;
+	background: #fafafd;
+}
+.c-formlist input::placeholder,
+.c-formlist textarea::placeholder {
+	color: #c2c4ca;
+}
+
+/* :::::: ラジオボタン / チェックボックス :::::: */
+.c-radioui,
+.c-checkboxui {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 24px;
+}
+.c-radioui .label,
+.c-checkboxui .label {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	column-gap: .5em;
+	white-space: nowrap;
+}
+.c-radioui input[type="radio"],
+.c-checkboxui input[type="checkbox"] {
+	position: absolute;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	clip: rect(0,0,0,0);
+}
+.c-radioui input[type="radio"] + .label::before,
+.c-checkboxui input[type="checkbox"] + .label::before {
+	content: "";
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: white;
+}
+.c-radioui input[type="radio"] + .label::before {
+	border-radius: 24px;
+	border: 8px solid white;
+	box-shadow: 0 0 0 1px #dadcde;
+	transition: border-width .4s cubic-bezier(.3,1,.7,1), background .4s;
+}
+.c-checkboxui input[type="checkbox"] + .label::before {
+	border: 1px solid #dadcde;
+	transition: border-color .4s, background .4s;
+}
+.c-checkboxui input[type="checkbox"] + .label .ico {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	fill: none;
+	stroke: white;
+	stroke-width: 2;
+	stroke-dasharray: 25.4px 25.4px;
+	stroke-dashoffset: -25.4px;
+	transition: stroke-dashoffset .4s cubic-bezier(.3,1,.7,1);
+}
+.c-radioui input[type="radio"]:checked + .label::before,
+.c-checkboxui input[type="checkbox"]:checked + .label::before {
+	background: #86c0de;
+	transition-duration: .1s;
+}
+.c-radioui input[type="radio"]:checked + .label::before {
+	border-width: 4px;
+	transition-timing-function: cubic-bezier(.3,1.8,.7,1), ease;
+}
+.c-checkboxui input[type="checkbox"]:checked + .label::before {
+	border-color: #86c0de;
+}
+.c-checkboxui input[type="checkbox"]:checked + .label .ico {
+	stroke-dashoffset: 0;
+	transition-duration: .1s;
+}
+
+/* :::::: その他 :::::: */
+.c-radioui .item.-other,
+.c-checkboxui .item.-other {
+	flex-basis: 100%;
+	display: flex;
+	align-items: center;
+	column-gap: 1em;
+}
+.c-radioui .item.-other input[type="radio"] ~ input[type="text"],
+.c-checkboxui .item.-other input[type="checkbox"] ~ input[type="text"] {
+	padding-block: .2em;
+}
+.c-radioui .item.-other input[type="radio"]:not(:checked) ~ input[type="text"],
+.c-checkboxui .item.-other input[type="checkbox"]:not(:checked) ~ input[type="text"] {
+	pointer-events: none;
+	color: #eeeff1;
+	border-color: currentcolor;
+	background: #fafafd;
+}
+.c-radioui .item.-other input[type="radio"]:checked ~ input[type="text"],
+.c-checkboxui .item.-other input[type="checkbox"]:checked ~ input[type="text"] {
+	transition-duration: .1s;
+}
+
+
+
+
+
+
+
+/**
+ * video UI
+ * ---------------------------------------- */
+.c-video {
+	position: relative;
+	border: 10px solid #fff;
+	border-radius: 18px;
+	background: #fff;
+	box-shadow: 0 3px 10px #86c0de68;
+}
+.c-video .wrap {
+	height: 0;
+	padding-bottom: 56.25%;
+}
+.c-video .wrap > *,
+.c-video .poster,
+.c-video .poster::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.c-video .wrap > *,
+.c-video .poster::after,
+.c-video .poster img {
+	border-radius: 10px;
+}
+.c-video .wrap > *,
+.c-video .poster img {
+	object-fit: cover;
+}
+.c-video .poster {
+	cursor: pointer;
+	transition: opacity .3s;
+}
+.c-video.is-playing .poster {
+	opacity: 0;
+}
+.c-video .poster::after {
+	content: "";
+	background: rgba(0,0,0,.2);
+}
+.c-video .poster img {
+	width: 100%;
+	height: 100%;
+}
+.c-video .play {
+	pointer-events: none;
+	z-index: 1;
+	position: absolute;
+	top: calc(50% - 20px);
+	left: calc(50% - 20px);
+	width: 48px;
+	height: 48px;
+	padding: 0;
+	border: 0;
+	border-radius: 40px;
+	color: transparent;
+	background: rgba(255,255,255,.9);
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.c-video .play::after {
+	content: "";
+	position: absolute;
+	top: calc(50% - 8px);
+	left: calc(50% - 6px);
+	width: 15px;
+	height: 16px;
+	background: linear-gradient(to bottom left, transparent 48%, #86c0de 52%) top left / 100% 50% no-repeat,
+		linear-gradient(to top left, transparent 48%, #86c0de 52%) bottom left / 100% 50% no-repeat;
+}
+@media (hover: hover) {
+	.c-video .play {
+		transition: transform .4s cubic-bezier(.3,1,.7,1);
+	}
+	.c-video .poster::after {
+		transition: background .4s;
+	}
+	.c-video:hover .play {
+		transform: scale(1.2);
+		transition-duration: .1s;
+	}
+	.c-video:hover .poster::after {
+		background: rgba(0,0,0,.1);
+		transition-duration: .1s;
+	}
+}
+
+
+/**
+ * アコーディオン UI
+ * ---------------------------------------- */
+.js-acc {
+	overflow: hidden;
+}
+.js-accHead {
+	cursor: pointer;
+}
+.js-accHead .ico {
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.js-accHead.is-active .ico {
+	transform: rotateX(180deg);
+}
+.js-acc.is-anim {
+	transition: height .4s cubic-bezier(.3,1,.7,1);
+}
+.js-acc.is-anim .js-accBody {
+	transition: opacity .4s;
+}
+.js-accHead.is-anim {
+	pointer-events: none;
+}
+.js-accHead.is-anim .ico {
+	transition: transform .4s cubic-bezier(.7,0,.3,1);
+}
+
+
+/**
+ * プルダウン UI
+ * ---------------------------------------- */
+.js-pullContent {
+	position: relative;
+	overflow: hidden;
+}
+.js-pullContent[data-default]::after {
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	background: linear-gradient(to top, white, rgba(255,255,255,.1) 80%, rgba(255,255,255,0));
+}
+.js-pullToggle {
+	cursor: pointer;
+	position: relative;
+}
+.js-pullToggle .open,
+.js-pullToggle .close {
+	display: block;
+	white-space: nowrap;
+}
+.js-pullToggle .close {
+	position: absolute;
+	inset: 0;
+	width: fit-content;
+	height: fit-content;
+	margin: auto;
+}
+.js-pullToggle.is-active .open,
+.js-pullToggle:not(.is-active) .close {
+	opacity: 0;
+}
+.js-pullToggle.is-active .open,
+.js-pullToggle:not(.is-active) .close {
+	transform: translateY(-100%);
+}
+.js-pullToggle.is-anim.is-active .open,
+.js-pullToggle.is-anim:not(.is-active) .close {
+	transform: translateY(100%);
+}
+.js-pullContent[data-default].is-active::after,
+.js-pullContent:not([data-default]):not(.is-active) {
+	opacity: 0;
+}
+.js-pullContent.is-anim {
+	transition: opacity .4s, height .4s cubic-bezier(.3,1,.7,1);
+}
+.js-pullContent[data-default].is-anim::after {
+	transition: opacity .4s;
+}
+.js-pullToggle.is-anim .open,
+.js-pullToggle.is-anim .close {
+	transition: opacity .4s, transform .4s cubic-bezier(.3,1,.7,1);
+}
+
+
+/**
+ * 伸縮するテキストエリア
+ * ---------------------------------------- */
+.js-flextextarea {
+	position: relative;
+}
+.js-flextextarea .dummy {
+	/* 3行 * 行高 + 上下パディング + 上下ボーダー */
+	min-height: calc(3em * 2 + 1em + 2px);
+	padding: .5em 1em;
+	border: 1px solid transparent;
+	letter-spacing: .1em;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.js-flextextarea textarea {
+	resize: none;
+	position: absolute;
+	inset: 0;
+}

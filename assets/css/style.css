@@ -1,63 +1,507 @@
 @charset "utf-8";
 
-.p-map {
-	height: 480px;
-	margin: 80px -24px;
-}
-
-
-.c-flextextarea {
+/**
+ * キービジュアル
+ * ---------------------------------------- */
+.p-keyvisual {
 	position: relative;
-	width: 100%;
-	height: fit-content;
+	margin: 0 -48px;
 }
-.c-flextextarea .dummy,
-.c-flextextarea textarea {
-	padding: .5em 1em;
-	border: 1px solid transparent;
-	letter-spacing: .1em;
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-.c-flextextarea .dummy {
-	min-height: 120px;
-}
-.c-flextextarea textarea {
-	resize: none;
+.p-keyvisual .c-button {
+	z-index: 1;
 	position: absolute;
-	inset: 0;
-	border-color: gainsboro;
-	border-radius: 8px;
-	background: rgba(255,255,255,.9);
-	transition: border .4s;
-}
-.c-flextextarea textarea:focus {
-	outline: 0;
-	border-color: gray;
-}
-
-
-
-.c-video {
-	max-width: 560px;
-	margin: 40px auto;
-}
-
-.c-balloon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 10em;
-	height: 10em;
-	margin: 2em auto;
-	border: 1px solid currentcolor;
-	border-radius: 10em;
+	right: 24px;
+	bottom: 24px;
+	width: auto;
+	max-width: calc(100% - 48px);
 	color: #86c0de;
-	line-height: 1.4;
-	font-weight: 700;
+	border-color: white;
+	background: white;
+}
+@media (hover: hover) {
+	.p-keyvisual .c-button:hover {
+		color: white;
+		background: #86c0de;
+	}
+}
+@media screen and (max-width: 767px) {
+	.p-keyvisual {
+		margin-inline: -32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-keyvisual {
+		margin-inline: -24px;
+	}
+}
+
+
+/**
+ * セクション
+ * ---------------------------------------- */
+.l-section {
+	max-width: 960px;
+	margin: 160px auto;
 	text-align: center;
 }
+.l-section.-stickout {
+	max-width: none;
+	margin-inline: calc(50% - 50vw);
+}
+@media screen and (max-width: 767px) {
+	.l-section {
+		margin-block: 120px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.l-section {
+		margin-block: 80px;
+	}
+}
 
+
+/**
+ * このサイトについて
+ * ---------------------------------------- */
+.p-about .c-title {
+	text-transform: uppercase;
+}
+
+
+/**
+ * News
+ * ---------------------------------------- */
+.p-news .c-title {
+	text-transform: uppercase;
+}
+.p-news .c-button {
+	margin-top: 48px;
+}
+
+/* :::::: アーカイブリスト :::::: */
+.p-news .c-archivelist {
+	margin-top: 40px;
+}
+
+/* inview */
+.c-archivelist.js-inview:not(.is-inview) li {
+	opacity: 0;
+}
+.c-archivelist.is-anim li {
+	transition: opacity .6s;
+}
+.c-archivelist.is-anim li:nth-child(2) { transition-delay: .1s; }
+.c-archivelist.is-anim li:nth-child(3) { transition-delay: .2s; }
+.c-archivelist.is-anim li:nth-child(4) { transition-delay: .3s; }
+.c-archivelist.is-anim li:nth-child(5) { transition-delay: .4s; }
+.c-archivelist.is-anim li:nth-child(6) { transition-delay: .5s; }
+.c-archivelist.is-anim li:nth-child(7) { transition-delay: .6s; }
+.c-archivelist.is-anim li:nth-child(8) { transition-delay: .7s; }
+.c-archivelist.is-anim li:nth-child(9) { transition-delay: .8s; }
+
+
+/**
+ * Flickity.js
+ * ---------------------------------------- */
+.p-flickity .c-archivelist {
+	margin-top: 40px;
+}
+
+/* Flickity なら flex をやめて item の横幅固定 */
+.c-archivelist.js-slider {
+	display: block;
+}
+.c-archivelist.js-slider[data-dots] {
+	padding-bottom: 24px;
+}
+.c-archivelist.js-slider .archive_item {
+	width: 320px;
+	margin-right: 24px;
+}
+@media screen and (max-width: 767px) {
+	.c-archivelist.js-slider .archive_item {
+		width: 280px;
+	}
+}
+@media screen and (max-width: 359px) {
+	.c-archivelist.js-slider .archive_item {
+		width: 240px;
+		margin-right: 16px;
+	}
+}
+
+/* :::::: アーカイブリストの Flickity レイアウト :::::: */
+.c-archivelist .flickity-viewport {
+	margin-inline: calc(50% - 50vw);
+}
+.c-archivelist .flickity-slider {
+	width: calc(100% - (100vw - 480px * 2));
+	margin-left: calc(50vw - 480px);
+}
+.c-archivelist .flickity-page-dots {
+	bottom: 0;
+}
+.c-archivelist .flickity-page-dots .dot {
+	background: #86c0de;
+}
+@media screen and (max-width: 1055px) {
+	/* セクション幅 960px + main の両端パディング 48px * 2 = 1056px (未満) */
+	.c-archivelist .flickity-viewport {
+		margin-inline: -48px;
+	}
+	.c-archivelist .flickity-slider {
+		width: calc(100% - 48px * 2);
+		margin-left: 48px;
+	}
+}
+@media screen and (max-width: 767px) {
+	.c-archivelist .flickity-viewport {
+		margin-inline: -32px;
+	}
+	.c-archivelist .flickity-slider {
+		width: calc(100% - 32px * 2);
+		margin-left: 32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.c-archivelist .flickity-viewport {
+		margin-inline: -24px;
+	}
+	.c-archivelist .flickity-slider {
+		width: calc(100% - 24px * 2);
+		margin-left: 24px;
+	}
+}
+/* タッチデバイス以外は prev-next-button と両端グラデーション表示 */
+html.isTouch .c-archivelist .flickity-prev-next-button,
+html.isTouch .c-archivelist .flickity-viewport::before,
+html.isTouch .c-archivelist .flickity-viewport::after {
+	display: none;
+}
+.c-archivelist .flickity-viewport::before,
+.c-archivelist .flickity-viewport::after {
+	content: "";
+	z-index: 1;
+	pointer-events: none;
+	position: absolute;
+	width: calc(50vw - 480px);
+	top: 0;
+	bottom: 0;
+}
+.c-archivelist .flickity-viewport::before {
+	left: calc(50% - 50vw);
+	background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,.1) 20%, white);
+}
+.c-archivelist .flickity-viewport::after {
+	right: calc(50% - 50vw);
+	background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.1) 20%, white);
+}
+.c-archivelist .flickity-prev-next-button {
+	z-index: 2;
+	width: 48px;
+	height: 48px;
+	top: calc(240px / 2);
+	background: white;
+}
+.c-archivelist .flickity-prev-next-button.previous {
+	left: -72px;
+}
+.c-archivelist .flickity-prev-next-button.next {
+	right: -72px;
+}
+.c-archivelist .flickity-button:disabled {
+	opacity: .2;
+}
+.c-archivelist .flickity-button-icon {
+	top: 25%;
+	width: 50%;
+	height: 50%;
+	fill: none;
+	stroke: #86c0de;
+	stroke-width: 12;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.c-archivelist .previous .flickity-button-icon {
+	left: 24%;
+}
+.c-archivelist .next .flickity-button-icon {
+	left: 26%;
+}
+@media screen and (max-width: 1055px) {
+	/* セクション幅 960px + main の両端パディング 48px * 2 = 1056px (未満) */
+	.c-archivelist .flickity-viewport::before,
+	.c-archivelist .flickity-viewport::after {
+		width: 48px;
+	}
+	.c-archivelist .flickity-viewport::before {
+		left: 0;
+	}
+	.c-archivelist .flickity-viewport::after {
+		right: 0;
+	}
+	.c-archivelist .flickity-prev-next-button.previous {
+		left: -24px;
+	}
+	.c-archivelist .flickity-prev-next-button.next {
+		right: -24px;
+	}
+}
+@media screen and (max-width: 767px) {
+	.c-archivelist .flickity-viewport::before,
+	.c-archivelist .flickity-viewport::after {
+		width: 32px;
+	}
+	.c-archivelist .flickity-prev-next-button {
+		top: calc(210px / 2);
+	}
+}
+@media screen and (max-width: 479px) {
+	.c-archivelist .flickity-viewport::before,
+	.c-archivelist .flickity-viewport::after {
+		width: 24px;
+	}
+	.c-archivelist .flickity-prev-next-button {
+		width: 32px;
+		height: 32px;
+	}
+	.c-archivelist .flickity-prev-next-button.previous {
+		left: -16px;
+	}
+	.c-archivelist .flickity-prev-next-button.next {
+		right: -16px;
+	}
+}
+@media screen and (max-width: 359px) {
+	.c-archivelist .flickity-prev-next-button {
+		top: calc(180px / 2);
+	}
+}
+
+
+/**
+ * Works
+ * ---------------------------------------- */
+.p-works .c-title {
+	text-transform: uppercase;
+}
+.p-works .c-cassette .text {
+	align-self: flex-start;
+}
+.p-works .works_button {
+	display: inline-grid;
+	place-items: center;
+	width: 240px;
+	height: 48px;
+	margin-top: 24px;
+	border: 2px solid currentcolor;
+	border-radius: 8px;
+	color: #86c0de;
+}
+.p-works .works_content {
+	margin-top: 24px;
+}
+.p-works .works_content .works_button {
+	margin-top: 24px;
+}
+.p-works .works_content::after {
+	height: 160px;
+}
+@media (hover: hover) {
+	.p-works .works_button {
+		background: linear-gradient(#86c0de, #86c0de) left bottom / 100% 0 no-repeat;
+		transition: color .4s, background-size .4s;
+	}
+	.p-works .works_button:hover {
+		color: white;
+		background-position: left top;
+		background-size: 100% 100%;
+		transition-duration: .1s;
+	}
+	.p-works .works_button.is-active {
+		background-position: left top;
+	}
+	.p-works .works_button.is-active:hover {
+		background-position: left bottom;
+	}
+}
+
+
+/**
+ * よくあるご質問
+ * ---------------------------------------- */
+.p-faq {}
+.c-faq {
+	margin-top: 40px;
+	font-size: 16px;
+	text-align: left;
+}
+.faq_item {
+	counter-increment: num;
+	border-bottom: 1px solid #dadcde;
+}
+.faq_item:first-child {
+	border-top: 1px solid #dadcde;
+}
+.faq_q,
+.faq_a {
+	position: relative;
+	padding: 24px 40px 24px 64px;
+}
+.faq_q {
+	color: #86c0de;
+	font-size: 18px;
+	font-weight: 700;
+}
+.faq_a {
+	padding: 16px 40px 24px 64px;
+}
+.faq_q::before,
+.faq_a::before {
+	content: "Q" counter(num) ".";
+	position: absolute;
+	top: 24px;
+	left: 16px;
+	color: #86c0de;
+	font-size: 24px;
+	line-height: 1.2;
+	font-weight: 700;
+}
+.faq_a::before {
+	content: "A" counter(num) ".";
+	top: 16px;
+	color: #c2c4ca;
+}
+.faq_q .ico {
+	position: absolute;
+	top: calc(50% - 8px);
+	right: 16px;
+	width: 16px;
+	height: 16px;
+	stroke: #86c0de;
+	stroke-width: 4;
+}
+@media (hover: hover) {
+	.faq_q {
+		transition: background .4s;
+	}
+	.faq_q:hover {
+		background: #fafafd;
+		transition-duration: .1s;
+	}
+}
+
+
+/**
+ * よくあるレイアウト
+ * ---------------------------------------- */
+.p-store .c-title {
+	text-transform: uppercase;
+}
+.p-store .c-cassette:first-of-type {
+	margin-top: 40px;
+}
+
+
+/**
+ * テーブルスタイル
+ * ---------------------------------------- */
+.p-kana .c-table {
+	margin-top: 40px;
+}
+.p-kana .c-table tbody th {
+	white-space: nowrap;
+}
+.p-kana .c-table {
+	--border_color: #86c0de;
+}
+
+
+/**
+ * YouTube
+ * ---------------------------------------- */
+.p-video .c-video {
+	margin-top: 40px;
+}
+
+
+/**
+ * Google マップ
+ * ---------------------------------------- */
+.p-googlemap .p-map {
+	height: 480px;
+	margin: 40px calc(50% - 50vw) 0;
+}
+.gm-style img[src$="marker.svg"] {
+	filter: drop-shadow(2px 4px 6px rgba(0,0,0,.1));
+}
+.gm-style div[aria-label="マップ"] > div:first-child > div:nth-child(4) > div:last-child {
+	overflow: visible !important;
+}
+
+
+/**
+ * お問い合わせ
+ * ---------------------------------------- */
+.p-contact .c-title {
+	text-transform: uppercase;
+}
+.p-contact {
+	max-width: 800px;
+}
+.p-contact .c-form {
+	margin-top: 40px;
+}
+.p-contact .c-radioui,
+.p-contact .c-checkboxui {
+	font-size: 14px;
+}
+.p-contact .contact_accept {
+	margin-top: 40px;
+	justify-content: center;
+}
+.p-contact .contact_submit {
+	margin: 40px 0 0;
+}
+
+
+/**
+ * プライバシーポリシー
+ * ---------------------------------------- */
+.p-privacypolicy {
+	max-width: 800px;
+	margin-top: 80px;
+}
+.p-privacypolicy .privacypolicy_title {
+	margin-bottom: 64px;
+	color: inherit;
+}
+.p-privacypolicy p,
+.p-privacypolicy li {
+	text-align: left;
+}
+.p-privacypolicy .c-lead {
+	margin-top: 24px;
+}
+.p-privacypolicy h1 {
+	font-size: 32px;
+}
+.p-privacypolicy h2 {
+	margin-top: 40px;
+	font-size: 24px;
+}
+.p-privacypolicy h3 {
+	margin-top: 1em;
+	font-size: 18px;
+}
+.p-privacypolicy p {
+	margin-top: .5em;
+}
+
+
+/**
+ * inview animation
+ * ---------------------------------------- */
 .c-pop.js-inview:not(.is-inview) {
 	opacity: 0;
 	transform: scale(.2);
@@ -73,104 +517,4 @@
 	60% { transform: scale(1.1); }
 	80% { transform: scale(.96); }
 	to { transform: none; }
-}
-
-.c-list.js-inview:not(.is-inview) li {
-	opacity: 0;
-}
-.c-list.is-anim li {
-	transition: opacity .6s;
-}
-.c-list.is-anim li:nth-child(2) { transition-delay: 1s; }
-.c-list.is-anim li:nth-child(3) { transition-delay: 2s; }
-.c-list.is-anim li:nth-child(4) { transition-delay: 3s; }
-.c-list.is-anim li:nth-child(5) { transition-delay: 4s; }
-
-/**
- * 動画 UI
- * ---------------------------------------- */
-.c-video {
-	position: relative;
-	border: 10px solid #fff;
-	border-radius: 18px;
-	background: #fff;
-	box-shadow: 0 3px 10px #86c0de68;
-}
-.c-video .wrap {
-	height: 0;
-	padding-bottom: 56.25%;
-}
-.c-video .wrap > *,
-.c-video .poster,
-.c-video .poster::after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.c-video .wrap > *,
-.c-video .poster::after,
-.c-video .poster img {
-	border-radius: 10px;
-}
-.c-video .wrap > *,
-.c-video .poster img {
-	object-fit: cover;
-}
-.c-video .poster {
-	cursor: pointer;
-	transition: opacity .3s;
-}
-.c-video.is-playing .poster {
-	opacity: 0;
-}
-.c-video .poster::after {
-	content: "";
-	background: rgba(0,0,0,.2);
-}
-.c-video .poster img {
-	width: 100%;
-	height: 100%;
-}
-.c-video .play {
-	pointer-events: none;
-	z-index: 1;
-	position: absolute;
-	top: calc(50% - 20px);
-	left: calc(50% - 20px);
-	width: 48px;
-	height: 48px;
-	padding: 0;
-	border: 0;
-	border-radius: 40px;
-	color: transparent;
-	background: rgba(255,255,255,.9);
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-.c-video .play::after {
-	content: "";
-	position: absolute;
-	top: calc(50% - 8px);
-	left: calc(50% - 6px);
-	width: 15px;
-	height: 16px;
-	background: linear-gradient(to bottom left, transparent 48%, #86c0de 52%) top left / 100% 50% no-repeat,
-		linear-gradient(to top left, transparent 48%, #86c0de 52%) bottom left / 100% 50% no-repeat;
-}
-@media (hover: hover) {
-	.c-video .play {
-		transition: transform .3s cubic-bezier(.3,1,.7,1);
-	}
-	.c-video .poster::after {
-		transition: background .3s;
-	}
-	.c-video:hover .play {
-		transform: scale(1.2);
-	}
-	.c-video:hover .poster::after {
-		background: rgba(0,0,0,.1);
-	}
 }
