@@ -40,10 +40,28 @@
 		<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
 		<li><a href="https://twitter.com/_watercolor"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#twitter"/></svg></a></li>
 	</ul>
-	<button type="button" class="drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
 </header>
 
-<div class="js-sc-wrap">
+<button type="button" class="l-drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
+<nav class="l-menu">
+	<div class="overlay js-menuToggle"></div>
+	<div class="container">
+		<h2 class="visuallyhidden">ナビゲーション</h2>
+		<ul class="menu -nav">
+			<li><a href="#about" class="js-anc">About</a></li>
+			<li><a href="#news" class="js-anc">News</a></li>
+			<li><a href="#works" class="js-anc">Works</a></li>
+			<li><a href="#store" class="js-anc">Store</a></li>
+			<li><a href="#contact" class="js-anc">Contact</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#twitter"/></svg></a></li>
+		</ul>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M2,18L12,6l10,12"/></svg></a>
+	</div>
+</nav>
+
 <main class="l-main page-home">
 	<div class="p-keyvisual">
 		<div class="js-slider" data-loop data-cell=".slider_item" data-auto="6000">
@@ -179,6 +197,9 @@
 	<section id="works" class="p-works l-section">
 		<h2 class="c-title -hyphen">Works</h2>
 		<p class="c-lead">プルダウンUIの使い処。ながーいコンテンツや、冗長な内容などを省略したい時に、冒頭だけちょっと見せて続きは隠しておきます。</p>
+		<button type="button" class="works_button -txt js-pullToggle" data-pull="target">
+			<span class="open">開く</span><span class="close">閉じる</span>
+		</button>
 		<div class="works_content js-pullContent" data-pull="target" data-default="320">
 			<ul class="c-archivelist">
 				<li class="archive_item">
@@ -247,8 +268,8 @@
 				</li>
 			</ul>
 		</div>
-		<button type="button" class="works_button js-pullToggle" data-pull="target">
-			<span class="open">開く</span><span class="close">閉じる</span>
+		<button type="button" class="works_button -arr js-pullToggle" data-pull="target">
+			<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M22,6l-10,12L2,6"/></svg>
 		</button>
 	</section>
 	
@@ -361,7 +382,7 @@
 		<p class="c-lead -c">IFrame Player APIを使った「YouTube 埋め込みプレーヤー」の実装例。</p>
 		<div class="c-video">
 			<div class="wrap">
-				<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc"></div>
+				<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc" tabindex="-1"></div>
 			</div>
 			<div class="poster">
 				<img data-src="http://img.youtube.com/vi/B3vsRXOSBqc/mqdefault.jpg" alt="" width="320" height="180">
@@ -400,17 +421,17 @@
 					<span class="form_label">メルマガ配信</span>
 					<div class="c-radioui">
 						<label class="item">
-							<input type="radio" name="info" value="yes" checked>
+							<input type="radio" name="info" value="受け取る" checked>
 							<span class="label">受け取る</span>
 						</label>
 						<label class="item">
-							<input type="radio" name="info" value="no">
+							<input type="radio" name="info" value="受け取らない">
 							<span class="label">受け取らない</span>
 						</label>
 						<label class="item -other">
-							<input type="radio" name="info" value="no">
+							<input type="radio" name="info" value="other" class="js-acceptInput" data-type="text">
 							<span class="label">その他</span>
-							<input type="text" name="reason6">
+							<input type="text" name="info">
 						</label>
 					</div>
 				</li>
@@ -418,29 +439,29 @@
 					<span class="form_label">このサイトをどこで知りましたか？</span>
 					<div class="c-checkboxui">
 						<label class="item">
-							<input type="checkbox" name="reason" value="reason1">
+							<input type="checkbox" name="reason" value="Google検索">
 							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Google検索</span>
 						</label>
 						<label class="item">
-							<input type="checkbox" name="reason" value="reason2">
+							<input type="checkbox" name="reason" value="Twitter">
 							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Twitter</span>
 						</label>
 						<label class="item">
-							<input type="checkbox" name="reason" value="reason3">
+							<input type="checkbox" name="reason" value="Lopan cafe">
 							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Lopan cafe</span>
 						</label>
 						<label class="item">
-							<input type="checkbox" name="reason" value="reason4">
+							<input type="checkbox" name="reason" value="口コミ">
 							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>口コミ</span>
 						</label>
 						<label class="item">
-							<input type="checkbox" name="reason" value="reason5">
+							<input type="checkbox" name="reason" value="風の噂">
 							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>風の噂</span>
 						</label>
 						<label class="item -other">
-							<input type="checkbox" name="reason" value="other">
+							<input type="checkbox" name="reason" value="other" class="js-acceptInput" data-type="text">
 							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>その他</span>
-							<input type="text" name="reason6">
+							<input type="text" name="reason">
 						</label>
 					</div>
 				</label></li>
@@ -454,11 +475,11 @@
 			</ul>
 			<p class="contact_accept c-checkboxui">
 				<label class="item">
-					<input type="checkbox" name="reason" value="reason1" class="js-formAccept">
+					<input type="checkbox" name="agree" value="同意する" class="js-acceptInput" data-type="submit">
 					<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>当サイトの「<a href="privacypolicy/" class="c-link">プライバシーポリシー</a>」に同意する。</span>
 				</label>
 			</p>
-			<button type="submit" class="contact_submit c-button -balloon js-inview">もっと見る</button>
+			<input type="submit" class="contact_submit c-button -balloon js-inview" value="送信する">
 		</form>
 	</section>
 </main>
@@ -493,26 +514,7 @@
 	</div>
 	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
 </footer>
-</div>
 
-<nav class="l-menu">
-	<div class="overlay js-menuToggle"></div>
-	<div class="container">
-		<h2 class="visuallyhidden">ナビゲーション</h2>
-		<ul class="menu -nav">
-			<li><a href="#about" class="js-anc">About</a></li>
-			<li><a href="#news" class="js-anc">News</a></li>
-			<li><a href="#works" class="js-anc">Works</a></li>
-			<li><a href="#store" class="js-anc">Store</a></li>
-			<li><a href="#contact" class="js-anc">Contact</a></li>
-		</ul>
-		<ul class="menu -sns">
-			<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
-			<li><a href="https://twitter.com/_watercolor"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#twitter"/></svg></a></li>
-		</ul>
-		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M2,18L12,6l10,12"/></svg></a>
-	</div>
-</nav>
 <svg class="visuallyhidden">
 <symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>
 </svg>

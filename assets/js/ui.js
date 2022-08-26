@@ -4,13 +4,23 @@
 export class DrawerMenu {
 	constructor() {
 		//console.log('-----> drawerMenu');
+		const id = 'navigation';
 		this.menu = document.getElementsByClassName('l-menu')[0];
-		const btn = document.getElementsByClassName('js-menuToggle');
-		this.btn = btn;
-		for (let i = 0, len = btn.length; i < len; i++) {
-			btn[i].addEventListener('click', () => {
+		this.menuLinks = this.menu.querySelectorAll('a[href]');
+		this.btn = document.getElementsByClassName('js-menuToggle');
+		for (let i = 0, len = this.btn.length; i < len; i++) {
+			this.btn[i].addEventListener('click', () => {
 				this.toggleMenu();
 			});
+			this.btn[i].setAttribute('aria-controls', id);
+			this.btn[i].ariaLabel = 'ナビゲーションを開く';
+			this.btn[i].ariaExpanded = 'false'; // 対象の menu が開かれているかどうか
+		}
+		this.menu.id = id;
+		this.menu.ariaHidden = 'true'; // 閉じているかどうか
+		
+		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
+			this.menuLinks[i].tabIndex = -1;
 		}
 	}
 	toggleMenu() {
@@ -21,22 +31,37 @@ export class DrawerMenu {
 		this.isOpened = true;
 		LPN.wm.posLock();
 		this.menu.classList.add('is-active', 'is-anim');
+		this.menu.ariaHidden = 'false';
+		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
+			this.menuLinks[i].tabIndex = 0;
+		}
+		this.menu.querySelector('a[href]').focus();
+		
 		for (let i = 0, len = this.btn.length; i < len; i++) {
 			this.btn[i].classList.add('is-active', 'is-anim');
 			this.btn[i].addEventListener('animationend', e => {
 				this.btn[i].classList.remove('is-anim');
 			}, { once: true });
+			this.btn[i].ariaLabel = 'ナビゲーションを閉じる';
+			this.btn[i].ariaExpanded = 'true';
 		}
 	}
 	closeMenu() {
 		this.isOpened = false;
 		LPN.wm.posUnlock();
 		this.menu.classList.replace('is-active', 'is-anim');
+		this.menu.ariaHidden = 'true';
+		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
+			this.menuLinks[i].tabIndex = -1;
+		}
+		
 		for (let i = 0, len = this.btn.length; i < len; i++) {
 			this.btn[i].classList.replace('is-active', 'is-anim');
 			this.btn[i].addEventListener('animationend', e => {
 				this.btn[i].classList.remove('is-anim');
 			}, { once: true });
+			this.btn[i].ariaLabel = 'ナビゲーションを開く';
+			this.btn[i].ariaExpanded = 'false';
 		}
 	}
 	menuEnd(e) {
@@ -86,15 +111,22 @@ export class AccordionUi {
 		// head と body を関連づける
 		head.setAttribute('aria-controls', id);
 		body.id = id;
+		head.tabIndex = 0;
 		
 		// head をクリックすると body が開くことを知らせる
 		head.insertAdjacentHTML('beforeend', '<svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M22,6l-10,12L2,6"/></svg>');
-		head.ariaLabel = '回答を開く';
+		head.ariaLabel = '開く';
 		head.ariaExpanded = 'false'; // 対象の body は開かれているかどうか
 		body.ariaHidden = 'true'; // 閉じているかどうか
 		
 		head.addEventListener('click', () => {
 			this.toggleAcc(id, true);
+		});
+		head.addEventListener('keypress', e => {
+			e.preventDefault();
+			if (e.code.toLowerCase() === 'space' || e.code.toLowerCase() === 'enter') {
+				this.toggleAcc(id, true);
+			}
 		});
 		this.closeAcc(id, false);
 	}
@@ -107,6 +139,7 @@ export class AccordionUi {
 		this.accData[id].container.style.height = `${this.accData[id].elmHeight}px`;
 		
 		// 対象の body が開いたことを知らせる
+		this.accData[id].head.ariaLabel = '閉じる';
 		this.accData[id].head.ariaExpanded = 'true';
 		this.accData[id].body.ariaHidden = 'false';
 	}
@@ -118,6 +151,7 @@ export class AccordionUi {
 			this.accData[id].container.style.height = `${this.accData[id].headHeight}px`;
 			
 			// 対象の body が閉じたことを知らせる
+			this.accData[id].head.ariaLabel = '開く';
 			this.accData[id].head.ariaExpanded = 'false';
 			this.accData[id].body.ariaHidden = 'true';
 		}, 60);
@@ -178,7 +212,6 @@ export class PulldownUi {
 			defaultHeight: elm.dataset.default ? elm.dataset.default : 0,
 			contentHeight: elm.getBoundingClientRect().height
 		};
-		
 		// head をクリックすると body が開くことを知らせる
 		toggle.ariaExpanded = 'false'; // 対象の body は開かれているかどうか
 		elm.ariaHidden = 'true'; // 閉じているかどうか
@@ -186,6 +219,7 @@ export class PulldownUi {
 		// head と body を関連づける
 		elm.id = id;
 		for (let i = 0, len = toggle.length; i < len; i++) {
+			toggle[i].ariaLabel = '開く';
 			toggle[i].setAttribute('aria-controls', id);
 			toggle[i].addEventListener('click', () => {
 				this.togglePull(id, true);
@@ -203,7 +237,7 @@ export class PulldownUi {
 		
 		// 対象の body が開いたことを知らせる
 		for (let i = 0, len = this.pullData[id].toggle.length; i < len; i++) {
-			console.log(this.pullData[id].toggle[i]);
+			this.pullData[id].toggle[i].ariaLabel = '閉じる';
 			this.pullData[id].toggle[i].ariaExpanded = 'true';
 		}
 		this.pullData[id].content.ariaHidden = 'false';
@@ -218,6 +252,7 @@ export class PulldownUi {
 			
 			// 対象の body が閉じたことを知らせる
 			for (let i = 0, len = this.pullData[id].toggle.length; i < len; i++) {
+				this.pullData[id].toggle[i].ariaLabel = '開く';
 				this.pullData[id].toggle[i].ariaExpanded = 'false';
 			}
 			this.pullData[id].content.ariaHidden = 'true';
@@ -321,6 +356,9 @@ export class AnchorScroll {
 		}
 		this.valueInChange = this.goalPos - this.startPos;
 		this.doScroll();
+		if (targetId === 'top') {
+			document.querySelector('header a').focus();
+		}
 	}
 	doScroll() {
 		const elapsedTimeRate = this.elapsedTime / this.duration;

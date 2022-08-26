@@ -29,6 +29,9 @@ export class SimpleMapping {
  -------------------------------------------------- */
 export class TransformScroll {
 	constructor() {
+		if (document.querySelector('.js-sc-wrap') !== null) this.setup();
+	}
+	setup() {
 		if (!LPN.isTouch) {
 			document.body.insertAdjacentHTML('beforeend', '<div class="js-sc-dummy"></div>');
 			this.dummy = document.getElementsByClassName('js-sc-dummy')[0];

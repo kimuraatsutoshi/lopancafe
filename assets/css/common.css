@@ -8,7 +8,7 @@ img,svg,video,iframe{vertical-align:middle;}
 img,video{max-width:100%;}
 img[height]{height:auto;}
 input,button,textarea,select{font:inherit;}
-button{border:0;padding:0;background:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;}
+button{border:0;padding:0;background:none;}
 sub{vertical-align:baseline;}
 @media (prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
 html {
@@ -39,6 +39,13 @@ body.is-fixed {
 	.v-dt { display: none; }
 }
 
+:root {
+	--lopan: #593869;
+	--themecolor: #86c0de;
+	--alphacolor: #86c0deee;
+	--gainsboro: #c2c4ca;
+}
+
 /**
  * prefix について
  * c- コンポーネント (使いまわせる)
@@ -60,13 +67,11 @@ body.is-fixed {
  * MEMO: 
  * -------------------------------------------------- */
 .l-header { z-index: 4; }
+.l-drawer { z-index: 4; }
 .l-main { z-index: 1; }
 .l-footer { z-index: 2; }
 .l-menu { z-index: 3; }
 
-.logo {
-	--lopan: #593869;
-}
 
 /**
  * header
@@ -146,7 +151,7 @@ body.is-fixed {
 		transition: color .3s;
 	}
 	.menu a:hover {
-		color: #86c0de;
+		color: var(--themecolor);
 		fill: currentcolor;
 		transition-duration: .1s;
 	}
@@ -159,12 +164,12 @@ body.is-fixed {
 
 /* :::::: drawer :::::: */
 @media screen and (min-width: 768px) {
-	.l-header .drawer {
+	.l-drawer {
 		display: none;
 	}
 }
 @media screen and (max-width: 767px) {
-	.l-header .drawer {
+	.l-drawer {
 		cursor: pointer;
 		position: fixed;
 		top: 16px;
@@ -172,8 +177,11 @@ body.is-fixed {
 		width: 40px;
 		height: 40px;
 		margin-left: 40px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
 	}
-	.l-header .drawer .bar {
+	.l-drawer .bar {
 		position: absolute;
 		top: calc(50% - 2.5px);
 		left: 4px;
@@ -183,17 +191,17 @@ body.is-fixed {
 		stroke-width: 1.2;
 		stroke-linecap: round;
 	}
-	.l-header .drawer .-b1 { transform: translateY(-8px); }
-	.l-header .drawer .-b3 { transform: translateY(8px); }
-	.l-header .drawer.is-anim .-b2 { transition: opacity .3s; }
-	.l-header .drawer.is-active .-b1 { transform: rotate(30deg); }
-	.l-header .drawer.is-active .-b2 { opacity: 0; }
-	.l-header .drawer.is-active .-b3 { transform: rotate(-30deg); }
-	.l-header .drawer.is-anim .bar { animation: .3s cubic-bezier(.3,1,.7,1); }
-	.l-header .drawer.is-anim .-b1 { animation-name: toggleAnim1; }
-	.l-header .drawer.is-anim .-b3 { animation-name: toggleAnim3; }
-	.l-header .drawer.is-anim.is-active .-b1,
-	.l-header .drawer.is-anim.is-active .-b3 {
+	.l-drawer .-b1 { transform: translateY(-8px); }
+	.l-drawer .-b3 { transform: translateY(8px); }
+	.l-drawer.is-anim .-b2 { transition: opacity .3s; }
+	.l-drawer.is-active .-b1 { transform: rotate(30deg); }
+	.l-drawer.is-active .-b2 { opacity: 0; }
+	.l-drawer.is-active .-b3 { transform: rotate(-30deg); }
+	.l-drawer.is-anim .bar { animation: .3s cubic-bezier(.3,1,.7,1); }
+	.l-drawer.is-anim .-b1 { animation-name: toggleAnim1; }
+	.l-drawer.is-anim .-b3 { animation-name: toggleAnim3; }
+	.l-drawer.is-anim.is-active .-b1,
+	.l-drawer.is-anim.is-active .-b3 {
 		animation-direction: reverse;
 		animation-timing-function: cubic-bezier(.3,0,.7,0);
 	}
@@ -390,7 +398,8 @@ body.is-fixed {
 		place-items: center;
 	}
 	.l-menu .overlay {
-		background: #86c0deee;
+		background: var(--alphacolor);
+		opacity: .9;
 	}
 	.l-menu .container {
 		display: flex;

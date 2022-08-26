@@ -24,7 +24,7 @@ import { SimpleMapping, TransformScroll, MagneticButton } from './gimmick.js';
 			flickitySlider,
 			
 			flexTextarea,
-			formAcceptUi,
+			checkedAcceptInput,
 			
 			setInview,
 			setLazy,
@@ -59,7 +59,7 @@ import { SimpleMapping, TransformScroll, MagneticButton } from './gimmick.js';
 			if (LPN.registFnc.onResize.length) {
 				new AddFnc(LPN.registFnc.onResize);
 			}
-		})
+		});
 	});
 	window.addEventListener('scroll', e => {
 		new Throttle(() => {
@@ -67,7 +67,7 @@ import { SimpleMapping, TransformScroll, MagneticButton } from './gimmick.js';
 			if (LPN.registFnc.onScroll.length) {
 				new AddFnc(LPN.registFnc.onScroll);
 			}
-		}, 200)
+		}, 200);
 	});
 	function loop() {
 		if (LPN.registFnc.loop.length) {
@@ -313,34 +313,74 @@ import { SimpleMapping, TransformScroll, MagneticButton } from './gimmick.js';
 	}
 	
 	/**
-	 * 承認する
+	 * チェックすることで入力を受け入れる UI
+	 * 1. トリガーとなるラジオボタンかチェックボックスに js-acceptInput 付与
+	 * 2. 入力可否を切り替える対象のフォーム素材の type を data-type に明示
+	 * <input type="checkbox" class="js-acceptInput" data-type="submit">
 	 -------------------------------------------------- */
-	function formAcceptUi() {
-		if (document.querySelector('.js-formAccept') !== null) fau.constructor();
+	function checkedAcceptInput() {
+		if (document.querySelector('.js-acceptInput') !== null) cai.constructor();
 	}
-	const fau = {
+	const cai = {
 		constructor: function() {
-			const elm = document.getElementsByClassName('js-formAccept')[0];
-			const submit = elm.closest('form').querySelector('submit, button[type="submit"]');
-			this.acceptData = {
-				submit: submit,
-				isAccepted: submit.disabled
-			};
-			setTimeout(e => {
-				!elm.checked ? this.unAccept() : this.onAccept();
-			}, 60);
+			this.acceptData = {};
+			const elm = document.getElementsByClassName('js-acceptInput');
 			
-			elm.addEventListener('change', e => {
-				!this.acceptData.isAccepted ? this.onAccept() : this.unAccept();
+			let trigger, id;
+			for (let i = 0, len = elm.length; i < len; i++) {
+				// ラジオボタンの場合は、同じ name のラジオボタンすべてがリスナー
+				trigger = elm[i].type !== 'radio' ? elm[i] : elm[i].form.querySelectorAll(`input[type="radio"][name="${elm[i].name}"]`);
+				id = `accept-${i + 1}`;
+				this.setup(elm[i], id, trigger);
+			}
+			
+			setTimeout(() => {
+				for (let id in this.acceptData) {
+					!this.acceptData[id].checkbox.checked ? this.unAccept(id) : this.onAccept(id);
+				}
+			}, 60);
+			console.log(this.acceptData);
+		},
+		setup: function(elm, id, trigger) {
+			let target = null;
+			if (elm.dataset.type === 'submit') {
+				target = elm.form.querySelector('input[type="submit"], button[type="submit"]');
+			} else {
+				target = elm.parentNode.querySelector(`input[type="${elm.dataset.type}"]`);
+			}
+			this.acceptData[id] = {
+				checkType: elm.type,
+				targetType: target.type,
+				checkbox: elm,
+				target: target,
+				isAccepted: elm.checked
+			};
+			if (elm.type === 'radio') {
+				for (let i = 0, len = trigger.length; i < len; i++) {
+					this.addListener(trigger[i], id);
+				}
+			} else {
+				this.addListener(trigger, id);
+			}
+		},
+		addListener: function(elm, id) {
+			elm.addEventListener('change', () => {
+				// 
+				!this.acceptData[id].isAccepted && this.acceptData[id].checkbox.checked ? this.onAccept(id) : this.unAccept(id);
 			});
 		},
-		onAccept: function() {
-			this.acceptData.isAccepted = true;
-			this.acceptData.submit.disabled = false;
+		onAccept: function(id) {
+			this.acceptData[id].isAccepted = true;
+			this.acceptData[id].target.disabled = false;
 		},
-		unAccept: function() {
-			this.acceptData.isAccepted = false;
-			this.acceptData.submit.disabled = true;
+		unAccept: function(id) {
+			this.acceptData[id].isAccepted = false;
+			this.acceptData[id].target.disabled = true;
+			
+			// 入力値があれば空にする
+			if (this.acceptData[id].targetType !== 'submit' && this.acceptData[id].target.value !== '') {
+				this.acceptData[id].target.value = '';
+			}
 		}
 	};
 	
