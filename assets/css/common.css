@@ -12,8 +12,11 @@ button{border:0;padding:0;background:none;}
 sub{vertical-align:baseline;}
 @media (prefers-reduced-motion:reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
 html {
-	scroll-behavior: auto;
+	scroll-behavior: smooth;
 	-webkit-text-size-adjust: 100%;
+}
+html.is-transformScroll {
+	scroll-behavior: auto;
 }
 body {
 	overscroll-behavior: auto;
@@ -32,11 +35,17 @@ body.is-fixed {
 	position: fixed;
 	width: 100%;
 }
+section[id] {
+	scroll-margin-top: 72px;
+}
 @media screen and (min-width: 768px) {
 	.v-mb { display: none; }
 }
 @media screen and (max-width: 767px) {
 	.v-dt { display: none; }
+	section[id] {
+		scroll-margin-top: 64px;
+	}
 }
 
 :root {
@@ -440,16 +449,21 @@ body.is-fixed {
 	}
 	/* effect */
 	.l-menu:not(.is-active) { pointer-events: none; }
-	.l-menu:not(.is-active) .overlay,
+	.l-menu .overlay:not(.is-active),
 	.l-menu:not(.is-active) .container { opacity: 0; }
+	/* 開くまえ縮小から、閉じたあと拡大へ */
 	.l-menu:not(.is-active) .container { transform: scale(.92); }
 	.l-menu.is-anim:not(.is-active) .container { transform: scale(1.04); }
-	.l-menu.is-anim .overlay,
+	
+	.l-menu .overlay.is-anim,
 	.l-menu.is-anim .container {
 		transition: opacity .6s, transform .6s cubic-bezier(.3,1,.7,1);
 	}
-	.l-menu.is-anim.is-active .container { transition-delay: .1s; }
+	/* 開く時 container ちょっと遅れて表示 */
+	.l-menu.is-anim.is-active .container { transition-delay: .2s; }
+	.l-menu .overlay.is-anim.is-active { transition-duration: .3s; }
 	.l-menu.is-anim:not(.is-active) .container { transition-duration: .3s; }
+	.l-menu .overlay.is-anim:not(.is-active) { transition-delay: .2s; }
 	.l-menu .pagetop {
 		margin-top: 24px;
 	}
@@ -483,6 +497,16 @@ body.is-fixed {
 .js-sc-dummy {
 	z-index: -1;
 	pointer-events: none;
+}
+
+/* flickity */
+.flickity-enabled:focus,
+.flickity-button:focus {
+	outline: 2px solid #275dc5;
+	box-shadow: 0 0 0 3px white;
+}
+.flickity-enabled:focus {
+	border-radius: 2px;
 }
 
 /* inview */

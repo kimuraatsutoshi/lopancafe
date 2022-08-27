@@ -4,11 +4,17 @@
  -------------------------------------------------- */
 export class WindowManagement {
 	constructor() {
+		this.html = document.documentElement;
 		this.body = document.body;
+		this.isSmoothBehavior = getComputedStyle(this.html).scrollBehavior === 'smooth';
 		this.yOffset = window.pageYOffset;
 		this.onResize();
-		LPN.registFnc.onResize.push(() => { this.onResize(); });
-		LPN.registFnc.loop.push(() => { this.onScroll(); });
+		LPN.registFnc.onResize.push(() => {
+			this.onResize();
+		});
+		LPN.registFnc.loop.push(() => {
+			this.onScroll();
+		});
 	}
 	onResize() {
 		this.winH = window.innerHeight;
@@ -18,18 +24,31 @@ export class WindowManagement {
 	}
 	posLock() {
 		this.isLock = true;
-		if (LPN.ts.wrapper !== undefined) LPN.ts.isLock = this.isLock;
+		if (LPN.Ts !== undefined) {
+			LPN.Ts.isLock = this.isLock;
+		}
 		this.lockOffset = this.yOffset;
+		
+		if (this.isSmoothBehavior) {
+			this.html.style.scrollBehavior = 'auto';
+		}
 		this.body.classList.add('is-fixed');
 		this.body.style.marginTop = -this.lockOffset + 'px';
 	}
-	posUnlock() {
+	posUnlock(fn) {
 		this.body.classList.remove('is-fixed');
 		this.body.removeAttribute('style');
 		window.scrollTo(0, this.lockOffset);
 		setTimeout(() => {
 			this.isLock = false;
-			if (LPN.ts.wrapper !== undefined) LPN.ts.isLock = this.isLock;
+			if (LPN.Ts !== undefined) {
+				LPN.Ts.isLock = this.isLock;
+			}
+			if (this.isSmoothBehavior) {
+				this.html.removeAttribute('style');
+			}
+			// fn があったら実行
+			if (fn) fn();
 		}, 60);
 	}
 }
@@ -103,6 +122,28 @@ export class FetchAjax {
 	}
 	onReject(error) {
 		if (error.message !== '') console.log(error.message);
+	}
+}
+
+/**
+ * js ファイル読み込み後の処理
+ -------------------------------------------------- */
+export class AfterLoadedJs {
+	constructor(src, tag = 'head') {
+		return new Promise((resolve,reject) => {
+			let tag = document.createElement('script');
+			tag.src = src;
+			document.getElementsByTagName(tag)[0].appendChild(tag);
+			
+			tag.addEventListener('load', () => {
+	  			resolve(`Loaded: "${tag.src}"`);
+			});
+			tag.addEventListener('error', () => {
+  				reject(
+				  	new Error(`Error: "${tag.src}"`)
+			  	);
+			});
+		});
 	}
 }
 

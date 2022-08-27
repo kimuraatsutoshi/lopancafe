@@ -9,7 +9,9 @@ export class SimpleMapping {
 		this.elm = document.getElementsByClassName('js-mapping')[0];
 		this.fromMin = this.elm.getBoundingClientRect().bottom + window.pageYOffset;
 		this.fromMax = this.elm.getBoundingClientRect().top + window.pageYOffset;
-		LPN.registFnc.loop.push(() => { this.mapLoop(); });
+		LPN.registFnc.loop.push(() => {
+			this.mapLoop();
+		});
 	}
 	mapping(value, fromMin, fromMax, toMin, toMax) {
 		const val = (value - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
@@ -23,13 +25,16 @@ export class SimpleMapping {
 }
 
 /**
- * .js-sc-wrap 内のスクロールを transform: translate に置き換える
+ * .js-sc-wrap 内のスクロールを transform: translate に置き換える (※scroll-behavior は auto にしておく)
  * <div class="js-sc-wrap">{コンテンツ}</div>
  * <div class="js-sc-slip">{ずれる要素}</div>
  -------------------------------------------------- */
 export class TransformScroll {
 	constructor() {
-		if (document.querySelector('.js-sc-wrap') !== null) this.setup();
+		if (document.querySelector('.js-sc-wrap') !== null) {
+			LPN.Wm.html.classList.add('is-transformScroll');
+			this.setup();
+		}
 	}
 	setup() {
 		if (!LPN.isTouch) {
@@ -48,7 +53,7 @@ export class TransformScroll {
 		}
 	}
 	initialize() {
-		this.startY = LPN.wm.yOffset;
+		this.startY = LPN.Wm.yOffset;
 		this.posY = this.startY;
 		
 		// js-sc-slip があったら slipperData をつくる
@@ -57,9 +62,12 @@ export class TransformScroll {
 			this.slipperData = [];
 			this.setSlipperData();
 		}
-		LPN.registFnc.loop.push(() => { this.onScroll(); });
-		LPN.registFnc.onMainResize.push(() => { this.refresh(); });
-		LPN.registFnc.onScroll.push(() => { this.insistentRefresh(); });
+		LPN.registFnc.loop.push(() => {
+			this.onScroll();
+		});
+		LPN.registFnc.onMainResize.push(() => {
+			this.refresh();
+		});
 	}
 	// slipperData に js-sc-slip の配置情報を記録する
 	setSlipperData() {
@@ -99,7 +107,7 @@ export class TransformScroll {
 		this.startY = this.posY;
 	}
 	cal() {
-		const goalY = LPN.wm.yOffset;
+		const goalY = LPN.Wm.yOffset;
 		
 		// 大元スクロールの位置
 		this.posY += (goalY - this.posY) * this.friction;
@@ -113,7 +121,7 @@ export class TransformScroll {
 		// ずれる要素の位置
 		if (!this.isLock && this.slipperData !== undefined) {
 			let data;
-			const diff = LPN.wm.winH / 2;
+			const diff = LPN.Wm.winH / 2;
 			for (var i = this.slipper.length; i--;) {
 				data = this.slipperData[i];
 				data.posY += (goalY + diff - data.posY) * (this.friction * 0.8);
@@ -137,16 +145,170 @@ export class TransformScroll {
 		}
 	}
 	// ダミー要素の高さをコンテンツと揃える
-	insistentRefresh() {
-		if (this.wrapper.clientHeight !== this.dummyHeight) this.refresh();
-	}
 	refresh() {
-		//console.log('refresh')
+		// console.log('refresh')
 		const wrapperHeight = this.wrapper.clientHeight;
 		this.wrapperBtm = wrapperHeight - window.innerHeight;
 		this.dummy.style.height = wrapperHeight + 'px';
 		this.dummyHeight = this.dummy.clientHeight;
 		//console.log(this.wrapper.clientHeight, this.dummyHeight)
+	}
+}
+
+/**
+ * in-view
+ * <ul class="js-inview" data-last=":last-child"></ul>
+ * <ul class="js-inview" data-anim="animationName"></ul>
+ * -------------------------------------------------- */
+export class InviewEffect {
+	constructor(elm) {
+		const container = !elm ? document : elm;
+		if (container.querySelector('.js-inview') !== null) this.init(container);
+	}
+	init(c) {
+		const elms = c.getElementsByClassName('js-inview');
+		if (self.IntersectionObserver !== undefined) {
+			this.inview(elms);
+		} else {
+			for (let i = 0; i < elms.length; i++) {
+				elms[i].classList.add('is-inview');
+				elms[i].classList.remove('js-inview');
+			}
+		}
+	}
+	inview(elms) {
+		this.intersectionObserver = new IntersectionObserver(entries => {
+			for (let i = 0; i < entries.length; i++) {
+				if (entries[i].intersectionRatio <= 0) continue;
+				this.doInview(entries[i].target);
+			}
+		}, {
+			root: null,
+			rootMargin: '0px',
+			threshold: [0.3, 0.7]
+		});
+		for (let i = 0; i < elms.length; i++) {
+			this.intersectionObserver.observe(elms[i]);
+		}
+	}
+	doInview(el) {
+		if (!el.isInview) {
+			el.isInview = 1;
+			if (el.dataset.anim !== undefined) {
+				el.addEventListener('animationend', e => {
+					this.animationEnd(el, e);
+				}, { once: true });
+				
+			} else if (el.dataset.last !== undefined) {
+				el.addEventListener('transitionend', e => {
+					this.lastElmEnd(el, e);
+				}, { once: true });
+				
+			} else {
+				el.addEventListener('transitionend', e => {
+					this.transitionendEnd(el, e);
+				}, { once: true });
+			}
+			el.classList.add('is-anim');
+			el.classList.add('is-inview');
+		}
+	}
+	animationEnd(el, e) {
+		if (e.animationName === el.dataset.anim) {
+			el.classList.remove('is-anim', 'js-inview');
+			el.removeAttribute('data-anim');
+		}
+	}
+	lastElmEnd(el, e) {
+		if (e.target === el.querySelector(el.dataset.last)) {
+			el.classList.remove('is-anim', 'js-inview');
+			el.removeAttribute('data-last');
+		} else {
+			el.addEventListener('transitionend', e => {
+				this.lastElmEnd(el, e);
+			}, { once: true });
+		}
+	}
+	transitionendEnd(el, e) {
+		if (e.target === el) {
+			el.classList.remove('is-anim', 'js-inview');
+		} else {
+			el.addEventListener('transitionend', e => {
+				this.transitionendEnd(el, e);
+			}, { once: true });
+		}
+	}
+}
+
+/**
+ * lazy image
+ * <img data-src="path.jpg" alt="" width="w" height="h">
+ * -------------------------------------------------- */
+export class LazyImage {
+	constructor(elm) {
+		const container = !elm ? document : elm;
+		if (container.querySelector('[data-src]') !== null) {
+			if (typeof Flickity !== undefined) {
+				this.init(container);
+				
+			} else {
+				this.loadAPI();
+				document.addEventListener('readystatechange', e => {
+					this.init(container);
+				});
+			}
+		}
+	}
+	loadAPI() {
+		let tag = document.createElement('script');
+		tag.src = 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js';
+		let firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	}
+	init(c) {
+		const imgs = c.querySelectorAll('img[data-src]');
+		if (self.IntersectionObserver !== undefined) {
+			for (let i = 0, len = imgs.length; i < len; i++) {
+				imgs[i].src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 ' + imgs[i].width + ' ' + imgs[i].height + '%22%3E%3C/svg%3E';
+			}
+			this.lazy(imgs);
+		} else {
+			for (let i = 0, len = imgs.length; i < len; i++) {
+				imgs[i].src = imgs[i].dataset.src;
+			}
+		}
+	}
+	lazy(imgs) {
+		this.intersectionObserver = new IntersectionObserver(entries => {
+			for (let i = 0; i < entries.length; i++) {
+				if (entries[i].intersectionRatio <= 0) continue;
+				this.doLazy(entries[i].target);
+			}
+		}, {
+			root: null,
+			rootMargin: '0px',
+			threshold: [0, 0.5]
+		});
+		for (let i = 0; i < imgs.length; i++) {
+			this.intersectionObserver.observe(imgs[i]);
+		}
+	}
+	doLazy(el) {
+		imagesLoaded(el, el => {
+			this.loaded(el);
+		});
+		el.src = el.dataset.src;
+		this.intersectionObserver.unobserve(el);
+	}
+	loaded(el) {
+		el.elements[0].classList.add('is-anim', 'is-loaded');
+		el.elements[0].addEventListener('transitionend', e => {
+			this.loadedEnd(e.target);
+		}, { once: true });
+	}
+	loadedEnd(el) {
+		el.classList.remove('is-anim');
+		el.removeAttribute('data-src');
 	}
 }
 

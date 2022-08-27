@@ -7,75 +7,237 @@ export class DrawerMenu {
 		const id = 'navigation';
 		this.menu = document.getElementsByClassName('l-menu')[0];
 		this.menuLinks = this.menu.querySelectorAll('a[href]');
-		this.btn = document.getElementsByClassName('js-menuToggle');
-		for (let i = 0, len = this.btn.length; i < len; i++) {
-			this.btn[i].addEventListener('click', () => {
+		this.toggle = document.getElementsByClassName('js-menuToggle');
+		this.btn = document.querySelector('.js-menuToggle.l-drawer');
+		this.overlay = document.querySelector('.js-menuToggle.overlay');
+		
+		for (let i = 0, len = this.toggle.length; i < len; i++) {
+			this.toggle[i].addEventListener('click', () => {
 				this.toggleMenu();
 			});
-			this.btn[i].setAttribute('aria-controls', id);
-			this.btn[i].ariaLabel = 'ナビゲーションを開く';
-			this.btn[i].ariaExpanded = 'false'; // 対象の menu が開かれているかどうか
+			this.toggle[i].setAttribute('aria-controls', id);
+			this.toggle[i].ariaLabel = 'ナビゲーションを開く';
+			this.toggle[i].ariaExpanded = 'false'; // 対象の menu が開かれているかどうか
 		}
 		this.menu.id = id;
 		this.menu.ariaHidden = 'true'; // 閉じているかどうか
 		
+		// 最初は tab 移動させない
 		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
 			this.menuLinks[i].tabIndex = -1;
+		}
+		
+		if (LPN.As !== undefined) {
+			if (LPN.As.scPad === undefined) this.menuAnchor();
+		} else {
+			this.menuAnchor();
+		}
+	}
+	menuAnchor() {
+		// スムーススクロールの実装がない場合、menu 内のアンカーリンククリックで閉じる
+		const anchor = this.menu.querySelectorAll('a[href^="#"]');
+		for (let i = 0, len = anchor.length; i < len; i++) {
+			anchor[i].addEventListener('click', e => {
+				e.preventDefault();
+				this.closeMenu(() => {
+					location.hash = anchor[i].getAttribute('href');
+				});
+			});
 		}
 	}
 	toggleMenu() {
 		!this.isOpened ? this.openMenu() : this.closeMenu();
-		this.menu.addEventListener('transitionend', this.menuEnd);
+		this.menu.addEventListener('transitionend', e => {
+			this.menuEnd(e);
+		}, { once: true });
 	}
 	openMenu() {
 		this.isOpened = true;
-		LPN.wm.posLock();
+		LPN.Wm.posLock();
+		
 		this.menu.classList.add('is-active', 'is-anim');
 		this.menu.ariaHidden = 'false';
 		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
 			this.menuLinks[i].tabIndex = 0;
 		}
+		// menu 内最初のリンクへフォーカス
 		this.menu.querySelector('a[href]').focus();
-		
-		for (let i = 0, len = this.btn.length; i < len; i++) {
-			this.btn[i].classList.add('is-active', 'is-anim');
-			this.btn[i].addEventListener('animationend', e => {
-				this.btn[i].classList.remove('is-anim');
-			}, { once: true });
-			this.btn[i].ariaLabel = 'ナビゲーションを閉じる';
-			this.btn[i].ariaExpanded = 'true';
-		}
+		this.toggleEnd('開く');
 	}
-	closeMenu() {
+	closeMenu(fn) {
 		this.isOpened = false;
-		LPN.wm.posUnlock();
+		LPN.Wm.posUnlock(fn); // fn: スクロールのロック解除後にハッシュリンク
+		
 		this.menu.classList.replace('is-active', 'is-anim');
 		this.menu.ariaHidden = 'true';
 		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
 			this.menuLinks[i].tabIndex = -1;
 		}
 		
-		for (let i = 0, len = this.btn.length; i < len; i++) {
-			this.btn[i].classList.replace('is-active', 'is-anim');
-			this.btn[i].addEventListener('animationend', e => {
-				this.btn[i].classList.remove('is-anim');
-			}, { once: true });
-			this.btn[i].ariaLabel = 'ナビゲーションを開く';
-			this.btn[i].ariaExpanded = 'false';
+		// ≡ btn へフォーカス
+		this.btn.focus();
+		this.toggleEnd('閉じる');
+	}
+	toggleEnd(str) {
+		// menu の開閉を知らせる
+		for (let i = 0, len = this.toggle.length; i < len; i++) {
+			const toggle = str === '開く' ? 'add' : 'replace';
+			this.toggle[i].classList[toggle]('is-active', 'is-anim');
+			this.toggle[i].ariaLabel = `ナビゲーションを${str}`;
+			this.toggle[i].ariaExpanded = 'false';
 		}
+		// ≡ btn は animationend をきっかけに remove
+		this.btn.addEventListener('animationend', e => {
+			this.btn.classList.remove('is-anim');
+		}, { once: true });
+		
+		// overlay は transitionend をきっかけに remove
+		this.overlay.addEventListener('transitionend', e => {
+			this.overlay.classList.remove('is-anim');
+		}, { once: true });
 	}
 	menuEnd(e) {
-		if (this.isOpened) {
-			if (e.target.className.indexOf('close') >= 0) {
-				this.classList.remove('is-anim');
-				this.menu.removeEventListener('transitionend', this.menuEnd);
-			}
+		this.isOpened ? this.openEnd(e) : this.closeEnd(e);
+	}
+	openEnd(e) {
+		// 開く時は overlay が先なので container をきっかけに remove
+		if (e.target.className.indexOf('container') >= 0) {
+			this.menu.classList.remove('is-anim');
+			
 		} else {
-			if (e.target.className.indexOf('overlay') >= 0) {
-				this.classList.remove('is-anim');
-				this.menu.removeEventListener('transitionend', this.menuEnd);
-			}
+			this.menu.addEventListener('transitionend', e => {
+				this.openEnd(e);
+			}, { once: true });
 		}
+	}
+	closeEnd(e) {
+		// 閉じる時は overlay が後なので overlay をきっかけに remove
+		if (e.target.className.indexOf('overlay') >= 0) {
+			this.menu.classList.remove('is-anim');
+			
+		} else {
+			this.menu.addEventListener('transitionend', e => {
+				this.closeEnd(e);
+			}, { once: true });
+		}
+	}
+}
+
+/**
+ * スムーススクロール
+ -------------------------------------------------- */
+export class AnchorScroll {
+	constructor() {
+		// overscroll-behavior: smooth なら実装しない
+		if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
+			this.setup();
+		}
+	}
+	setup() {
+		if (location.hash) {
+			// URL に hash があったらスクロール
+			setTimeout(() => {
+				this.toScroll(location.hash.slice(1));
+				history.replaceState(null, document.title, window.location.pathname);
+			}, 80);
+		}
+		this.SPF = 1000 / 60;
+		this.duration = 1000;
+		this.onResize();
+		this.cancelScroll(this);
+		LPN.registFnc.onResize.push(() => {
+			this.onResize();
+		});
+		
+		const anchor = document.querySelectorAll('.js-anc[href^="#"]');
+		for (let i = 0, len = anchor.length; i < len; i++) {
+			anchor[i].addEventListener('click', e => {
+				this.anchorClick(e);
+			});
+		}
+	}
+	anchorClick(e) {
+		e.preventDefault();
+		const target = e.target.closest('[href]');
+		const targetId = target.getAttribute('href');
+		this.toScroll(targetId.slice(1));
+	}
+	onResize() {
+		// header の高さが 0 でも 56px は空ける
+		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
+		this.scBtm = document.body.offsetHeight - window.innerHeight;
+		this.scMax = document.body.clientHeight - window.innerHeight;
+		
+		// body の高さが取得できなかった場合 0.06 秒後に改めて実行
+		if (this.scMax < 0) setTimeout(() => {
+			this.onResize();
+		}, 60);
+	}
+	toScroll(targetId) {
+		if (targetId !== 'top' && document.getElementById(targetId) === null) return;
+		//console.log(targetId);
+		
+		// ドロワーメニューが開いていたら、開いた時の位置からスタート (メニューは閉じる)
+		if (LPN.Dm.isOpened) {
+			this.startPos = LPN.Wm.lockOffset;
+			LPN.Dm.closeMenu();
+		} else {
+			this.startPos = LPN.Wm.yOffset;
+		}
+		
+		this.currentPos = this.startPos;
+		this.elapsedTime = 0;
+		let y = this.startPos - this.scPad;
+		if (LPN.Ts !== undefined) {
+			if (LPN.Ts.wrapper !== undefined) y = LPN.Wm.yOffset - this.scPad;
+		}
+		this.goalPos = targetId !== 'top' ? document.getElementById(targetId).getBoundingClientRect().top + y : 0;
+		if (this.goalPos >= this.scMax) {
+			this.goalPos = this.scMax;
+		}
+		this.valueInChange = this.goalPos - this.startPos;
+		this.doScroll();
+		if (targetId === 'top') {
+			document.querySelector('header a').focus();
+		}
+	}
+	doScroll() {
+		const elapsedTimeRate = this.elapsedTime / this.duration;
+		const valueChangeRate = this.easing(elapsedTimeRate);
+		const changeYOffset = this.valueInChange * valueChangeRate;
+		
+		this.currentPos = this.startPos + changeYOffset;
+		
+		if (this.elapsedTime >= this.duration) {
+			this.currentPos = this.goalPos;
+			cancelAnimationFrame(this.timer);
+			return;
+		} else {
+			this.elapsedTime += this.SPF;
+			this.timer = requestAnimationFrame(() => {
+				this.doScroll();
+			});
+		}
+		
+		window.scrollTo(0, this.currentPos);
+	}
+	/* スワイプするかマウスホイールを操作したらスクロールを止める */
+	cancelScroll(t) {
+		//console.log(t);
+		let count = 0;
+		if (LPN.isTouch) {
+			window.addEventListener('touchmove', () => {　cancelAnimationFrame(this.timer);　});
+		} else {
+			this.wheel = () => { cancelAnimationFrame(this.timer); }
+			if (window.addEventListener) {
+				window.addEventListener('DOMMouseScroll', () => { this.wheel(); });
+			}
+			window.onmousewheel = document.onmousewheel = this.wheel;
+		}
+	}
+	/* easeInOutCubic ( https://easings.net/ ) */
+	easing(x) {
+		return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 	}
 }
 
@@ -93,7 +255,9 @@ export class AccordionUi {
 				this.setup(`acc-${count}`, elm[i]);
 			}
 			this.refresh();
-			LPN.registFnc.onMainResize.push(() => { this.refresh(); });
+			LPN.registFnc.onMainResize.push(() => {
+				this.refresh();
+			});
 		}
 	}
 	setup(id, elm) {
@@ -200,7 +364,9 @@ export class PulldownUi {
 				this.setup(elm[i].dataset.pull, elm[i]);
 			}
 			this.refresh();
-			LPN.registFnc.onMainResize.push(() => { this.refresh(); });
+			LPN.registFnc.onMainResize.push(() => {
+				this.refresh();
+			});
 		}
 	}
 	setup(id, elm) {
@@ -296,107 +462,98 @@ export class PulldownUi {
 }
 
 /**
- * スムーススクロール
+ * flex textarea
+ * <div class="js-flextextarea"><textarea/></div>
  -------------------------------------------------- */
-export class AnchorScroll {
+export class FlexTextarea {
 	constructor() {
-		// overscroll-behavior: smooth なら実装しない
-		if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
-			this.setup();
+		if (document.querySelector('.js-flextextarea') !== null) {
+			this.init();
 		}
 	}
-	setup() {
-		if (location.hash) {
-			// URL に hash があったらスクロール
-			setTimeout(() => {
-				this.toScroll(location.hash.slice(1));
-				history.replaceState(null, document.title, window.location.pathname);
-			}, 80);
-		}
-		this.SPF = 1000 / 60;
-		this.duration = 1000;
-		this.onResize();
-		this.cancelScroll(this);
-		const anchor = document.querySelectorAll('.js-anc[href^="#"]');
-		for (let i = 0, len = anchor.length; i < len; i++) {
-			anchor[i].addEventListener('click', e => { this.onClick(e); });
-		}
-		LPN.registFnc.onResize.push(() => { this.onResize(); });
-	}
-	onClick(e) {
-		e.preventDefault();
-		const target = e.target.closest('[href]');
-		const targetId = target.getAttribute('href');
-		this.toScroll(targetId.slice(1));
-	}
-	onResize() {
-		this.scBtm = document.body.offsetHeight - window.innerHeight;
-		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight;
-		this.scMax = document.body.clientHeight - window.innerHeight;
-		
-		// body の高さが取得できなかった場合 0.06 秒後に改めて実行
-		if (this.scMax < 0) setTimeout(() => {
-			this.onResize();
-		}, 60);
-	}
-	toScroll(targetId) {
-		if (targetId !== 'top' && document.getElementById(targetId) === null) return;
-		//console.log(targetId);
-		
-		// ドロワーメニューが開いていたら、開いた時の位置からスタート (メニューは閉じる)
-		this.startPos = (LPN.dm.isOpened) ? LPN.wm.lockOffset : LPN.wm.yOffset;
-		if (LPN.dm.isOpened) LPN.dm.closeMenu();
-		
-		this.currentPos = this.startPos;
-		this.elapsedTime = 0;
-		const yOffset = LPN.ts.wrapper !== undefined ? LPN.wm.yOffset - this.scPad : this.startPos - this.scPad;
-		this.goalPos = targetId !== 'top' ? document.getElementById(targetId).getBoundingClientRect().top + yOffset : 0;
-		if (this.goalPos >= this.scMax) {
-			this.goalPos = this.scMax;
-		}
-		this.valueInChange = this.goalPos - this.startPos;
-		this.doScroll();
-		if (targetId === 'top') {
-			document.querySelector('header a').focus();
-		}
-	}
-	doScroll() {
-		const elapsedTimeRate = this.elapsedTime / this.duration;
-		const valueChangeRate = this.easing(elapsedTimeRate);
-		const changeYOffset = this.valueInChange * valueChangeRate;
-		
-		this.currentPos = this.startPos + changeYOffset;
-		
-		if (this.elapsedTime >= this.duration) {
-			this.currentPos = this.goalPos;
-			cancelAnimationFrame(this.timer);
-			return;
-		} else {
-			this.elapsedTime += this.SPF;
-			this.timer = requestAnimationFrame(() => {
-				this.doScroll();
+	init() {
+		const elm = document.querySelectorAll('.js-flextextarea');
+		let dummy, textarea;
+		elm.forEach(el => {
+			el.insertAdjacentHTML('afterbegin', '<div class="dummy"></div>')
+			dummy = el.getElementsByClassName('dummy')[0];
+			textarea = el.getElementsByTagName('textarea')[0];
+			textarea.addEventListener('input', e => {
+				dummy.textContent = e.target.value + '\u200b';
 			});
+		});
+	}
+}
+
+/**
+ * チェックすることで入力を受け入れる UI
+ * <input type="checkbox" class="js-acceptInput" data-type="submit">
+ -------------------------------------------------- */
+export class CheckedAcceptInput {
+	constructor() {
+		if (document.querySelector('.js-acceptInput') !== null) {
+			this.init();
+		}
+	}
+	init() {
+		this.acceptData = {};
+		const elm = document.getElementsByClassName('js-acceptInput');
+		
+		let trigger, id;
+		for (let i = 0, len = elm.length; i < len; i++) {
+			// ラジオボタンの場合は、同じ name のラジオボタンすべてがリスナー
+			trigger = elm[i].type !== 'radio' ? elm[i] : elm[i].form.querySelectorAll(`input[type="radio"][name="${elm[i].name}"]`);
+			id = `accept-${i + 1}`;
+			this.setup(elm[i], id, trigger);
 		}
 		
-		window.scrollTo(0, this.currentPos);
-	}
-	/* スワイプするかマウスホイールを操作したらスクロールを止める */
-	cancelScroll(t) {
-		//console.log(t);
-		let count = 0;
-		if (LPN.isTouch) {
-			window.addEventListener('touchmove', () => {　cancelAnimationFrame(this.timer);　});
-		} else {
-			this.wheel = () => { cancelAnimationFrame(this.timer); }
-			if (window.addEventListener) {
-				window.addEventListener('DOMMouseScroll', () => { this.wheel(); });
+		setTimeout(() => {
+			for (let id in this.acceptData) {
+				!this.acceptData[id].checkbox.checked ? this.unAccept(id) : this.onAccept(id);
 			}
-			window.onmousewheel = document.onmousewheel = this.wheel;
+		}, 60);
+		// console.log(this.acceptData);
+	}
+	setup(elm, id, trigger) {
+		let target = null;
+		if (elm.dataset.type === 'submit') {
+			target = elm.form.querySelector('input[type="submit"], button[type="submit"]');
+		} else {
+			target = elm.parentNode.querySelector(`input[type="${elm.dataset.type}"]`);
+		}
+		this.acceptData[id] = {
+			checkType: elm.type,
+			targetType: target.type,
+			checkbox: elm,
+			target: target,
+			isAccepted: elm.checked
+		};
+		if (elm.type === 'radio') {
+			for (let i = 0, len = trigger.length; i < len; i++) {
+				this.addListener(trigger[i], id);
+			}
+		} else {
+			this.addListener(trigger, id);
 		}
 	}
-	/* easeInOutCubic ( https://easings.net/ ) */
-	easing(x) {
-		return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+	addListener(elm, id) {
+		elm.addEventListener('change', () => {
+			// 
+			!this.acceptData[id].isAccepted && this.acceptData[id].checkbox.checked ? this.onAccept(id) : this.unAccept(id);
+		});
+	}
+	onAccept(id) {
+		this.acceptData[id].isAccepted = true;
+		this.acceptData[id].target.disabled = false;
+	}
+	unAccept(id) {
+		this.acceptData[id].isAccepted = false;
+		this.acceptData[id].target.disabled = true;
+		
+		// 入力値があれば空にする
+		if (this.acceptData[id].targetType !== 'submit' && this.acceptData[id].target.value !== '') {
+			this.acceptData[id].target.value = '';
+		}
 	}
 }
 
