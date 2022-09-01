@@ -9,8 +9,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Webサイト制作でよく使うテンプレートサンプル">
 <meta property="og:description" content="Webサイトにありがちなレイアウトやよく使うUIや無難なエフェクトをまとめたテンプレートサンプルです。">
-<meta property="og:url" content="https://lopan.cafe/template/">
-<meta property="og:image" content="https://lopan.cafe/template/ogp.jpg">
+<meta property="og:url" content="https://lopan.cafe/component/">
+<meta property="og:image" content="https://lopan.cafe/component/ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
@@ -64,7 +64,12 @@
 
 <div class="js-sc-wrap">
 <main class="l-main page-privacypolicy">
-	<div class="p-privacypolicy l-section">
+	<div class="p-visual"></div>
+	<div class="c-crumb">
+		<a href="../">Home</a>
+		<a href="./" aria-current="page">プライバシーポリシー</a>
+	</div>
+	<div id="privacypolicy" class="p-privacypolicy l-section">
 		<h1 class="privacypolicy_title c-title -sand">プライバシーポリシー</h1>
 		<p class="c-lead">Lopan.jp（以下「当サイト」といいます）は、個人情報の重要性を認識し、個人情報を保護することが社会的責務であると考えます。<br>個人情報に関する法令を遵守し、当サイトで取り扱う個人情報の取得、利用、管理を適正に行います。</p>
 		
@@ -83,9 +88,9 @@
 		<h2 class="c-title -hyphen">Cookie（クッキー）</h2>
 		<p>CookieとはWebサイト閲覧情報を、利用しているブラウザに記憶させておく機能のことです。<br>ブラウザの設定により、Cookieを無効にし、閲覧情報の収集をブロックすることも可能です。詳しくはお使いのブラウザの設定をご確認ください。</p>
 		<ul class="c-disclist">
-			<li><a href="https://support.apple.com/ja-jp/guide/safari/sfri11471/mac" rel="noreferrer" target="_blank">Apple Safari</a></li>
-			<li><a href="https://support.google.com/chrome/answer/95647" rel="noreferrer" target="_blank">Google Chrome</a></li>
-			<li><a href="https://support.mozilla.org/ja/kb/block-websites-storing-cookies-site-data-firefox" rel="noreferrer" target="_blank">Mozilla Firefox</a></li>
+			<li><a href="https://support.apple.com/ja-jp/guide/safari/sfri11471/mac" class="c-textlink" rel="noreferrer" target="_blank">Apple Safari</a></li>
+			<li><a href="https://support.google.com/chrome/answer/95647" class="c-textlink" rel="noreferrer" target="_blank">Google Chrome</a></li>
+			<li><a href="https://support.mozilla.org/ja/kb/block-websites-storing-cookies-site-data-firefox" class="c-textlink" rel="noreferrer" target="_blank">Mozilla Firefox</a></li>
 		</ul>
 		<p>ただし、Cookieを拒否した場合、当サイトのいくつかのサービス・機能が正しく動作しない場合があります。</p>
 		
@@ -93,7 +98,7 @@
 		<p>当サイトでは、サイトの分析と改善のためにGoogleが提供している「Google アナリティクス」を利用しています。<br>このサービスは、トラフィックデータの収集のためにCookieを使用しています。トラフィックデータは匿名で収集されており、個人を特定するものではありません。</p>
 		
 		<h2 class="c-title -hyphen">広告配信</h2>
-		<p>当サイトでは、第三者配信の広告サービス「Google アドセンス」を利用しています。<br>広告配信事業者は、利用者の興味に応じた広告を表示するためにCookieを使用することがあります。これによって利用者のブラウザを識別できるようになりますが、個人を特定するものではありません。<br>Cookieを無効にする方法や「Google アドセンス」に関する詳細は、<a href="https://policies.google.com/technologies/ads?gl=jp" rel="noreferrer" target="_blank">https://policies.google.com/technologies/ads?gl=jp</a>をご覧ください。</p>
+		<p>当サイトでは、第三者配信の広告サービス「Google アドセンス」を利用しています。<br>広告配信事業者は、利用者の興味に応じた広告を表示するためにCookieを使用することがあります。これによって利用者のブラウザを識別できるようになりますが、個人を特定するものではありません。<br>Cookieを無効にする方法や「Google アドセンス」に関する詳細は、<a href="https://policies.google.com/technologies/ads?gl=jp" class="c-textlink" rel="noreferrer" target="_blank">https://policies.google.com/technologies/ads?gl=jp</a>をご覧ください。</p>
 		
 		<h2 class="c-title -hyphen">免責事項</h2>
 		<p>当サイトのコンテンツ・情報について、可能な限り正確な情報を掲載するよう努めておりますが、常に正確性や安全性を保証するものではありません。<br>当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。</p>
@@ -108,7 +113,7 @@
 
 <footer class="l-footer">
 	<div class="contentsinfo">
-		<h1 class="logo"><a href="https://lopan.cafe/template/">
+		<h1 class="logo"><a href="https://lopan.cafe/component/">
 			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
 			<span class="madeby">Made by Lopan.jp</span>
 		</a></h1>
@@ -120,7 +125,7 @@
 			<li><a href="../#contact" class="js-anc">Contact</a></li>
 		</ul>
 		<ul class="menu -other">
-			<li><a href="./" class="js-anc" aria-current="page">プライバシーポリシー</a></li>
+			<li><a href="#privacypolicy" class="js-anc" aria-current="page">プライバシーポリシー</a></li>
 		</ul>
 		<ul class="menu -sns">
 			<li><a href="https://www.instagram.com/lopan.jp/"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../assets/img/ico.svg#instagram"/></svg></a></li>

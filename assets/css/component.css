@@ -63,8 +63,8 @@
 .c-title.-pop::after {
 	content: "";
 	position: absolute;
+	top: .2em;
 	bottom: .2em;
-	height: 1em;
 }
 .c-title.-sand::before,
 .c-title.-pop::before {
@@ -136,18 +136,46 @@ input.c-button:disabled {
 
 
 /**
+ * パンくず
+ * ---------------------------------------- */
+.c-crumb {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px .5em;
+	max-width: 960px;
+	margin: 16px auto;
+	font-size: 12px;
+	line-height: 1;
+	text-transform: uppercase;
+}
+.c-crumb a {
+	position: relative;
+}
+.c-crumb a + a {
+	padding-left: 1em;
+}
+.c-crumb a + a::before {
+	content: ">";
+	position: absolute;
+	top: calc(50% - .5em);
+	left: 0;
+	color: var(--gainsboro);
+}
+
+
+/**
  * リンク
  * ---------------------------------------- */
-.c-link {
+.c-textlink {
 	color: var(--themecolor);
 	line-height: 1.4;
 	background: linear-gradient(currentcolor, currentcolor) left bottom / 100% 1px no-repeat;
 }
 @media (hover: hover) {
-	.c-link {
+	.c-textlink {
 		transition: background-size .4s cubic-bezier(0.215, 0.61, 0.355, 1);
 	}
-	.c-link:hover {
+	.c-textlink:hover {
 		background-position: right bottom;
 		background-size: 0 1px;
 	}
@@ -185,7 +213,7 @@ input.c-button:disabled {
 .c-archivelist {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 24px 48px;
+	gap: 40px 48px;
 }
 .c-archivelist .archive_item {
 	flex-basis: calc(33.333% - 48px * 2 / 3);
@@ -193,7 +221,7 @@ input.c-button:disabled {
 	display: flex;
 	flex-direction: column;
 }
-.c-archivelist .archive_item a {
+.c-archivelist .archive_item .linkwrap {
 	display: contents;
 }
 .c-archivelist .image {
@@ -208,20 +236,22 @@ input.c-button:disabled {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 4px;
+	margin-top: 12px;
 	padding: 0 8px;
 	font-size: 14px;
 	line-height: 1.6;
 	text-align: left;
 }
+.c-archivelist .title {
+	font-size: 15px;
+	font-weight: 700;
+}
 .c-archivelist .date,
 .c-archivelist .category {
-	margin-top: 8px;
 	font-size: 12px;
 	line-height: 1.4;
 }
 .c-archivelist .date {
-	margin-right: 1em;
 	color: #92939c;
 }
 .c-archivelist .category {
@@ -231,14 +261,17 @@ input.c-button:disabled {
 }
 .c-archivelist .summary {
 	flex-basis: 100%;
-	margin-top: 8px;
 	font-size: 14px;
+	margin-top: .5em;
 	line-height: 1.6;
 	text-align: justify;
 }
+.c-archivelist .price {
+	color: #92939c;
+}
 @media screen and (max-width: 767px) {
 	.c-archivelist {
-		gap: 24px 32px;
+		gap: 32px;
 	}
 	.c-archivelist .archive_item {
 		flex-basis: calc(50% - 16px);
@@ -247,11 +280,6 @@ input.c-button:disabled {
 @media screen and (max-width: 479px) {
 	.c-archivelist .archive_item {
 		flex-basis: 100%;
-	}
-	.c-archivelist .date,
-	.c-archivelist .category,
-	.c-archivelist .summary {
-		margin-top: 4px;
 	}
 }
 
@@ -496,6 +524,7 @@ html.wf-active .c-table .-v {
 	padding: .5em 1em;
 	border: 1px solid #dadcde;
 	color: inherit;
+	font-size: 1rem;
 	letter-spacing: .1em;
 	white-space: pre-wrap;
 	word-break: break-all;
@@ -611,7 +640,7 @@ html.wf-active .c-table .-v {
 }
 .c-radioui .item.-other input[type="radio"] ~ input[type="text"],
 .c-checkboxui .item.-other input[type="checkbox"] ~ input[type="text"] {
-	padding-block: .2em;
+	padding-block: .1em;
 }
 
 
@@ -623,7 +652,7 @@ html.wf-active .c-table .-v {
 	border: 10px solid #fff;
 	border-radius: 18px;
 	background: #fff;
-	box-shadow: 0 3px 10px #37303922;
+	box-shadow: 0 2px 8px #3730391a;
 }
 .c-video .wrap {
 	pointer-events: none;

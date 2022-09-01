@@ -129,19 +129,17 @@ export class FetchAjax {
  * js ファイル読み込み後の処理
  -------------------------------------------------- */
 export class AfterLoadedJs {
-	constructor(src, tag = 'head') {
-		return new Promise((resolve,reject) => {
+	constructor(src) {
+		return new Promise((resolve, reject) => {
 			let tag = document.createElement('script');
 			tag.src = src;
-			document.getElementsByTagName(tag)[0].appendChild(tag);
+			document.getElementsByTagName('head')[0].appendChild(tag);
 			
 			tag.addEventListener('load', () => {
 	  			resolve(`Loaded: "${tag.src}"`);
 			});
 			tag.addEventListener('error', () => {
-  				reject(
-				  	new Error(`Error: "${tag.src}"`)
-			  	);
+  				reject( new Error(`Error: "${tag.src}"`) );
 			});
 		});
 	}

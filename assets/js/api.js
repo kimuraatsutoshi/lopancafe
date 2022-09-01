@@ -1,3 +1,5 @@
+import { AfterLoadedJs } from './common.js';
+
 /**
  * Flickity.js
  * https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js
@@ -10,18 +12,21 @@ export class FlickitySlider {
 				
 			} else {
 				this.loadAPI();
-				document.addEventListener('readystatechange', e => {
-					console.log('readystatechange:', e.target.readyState);
-					this.init();
-				});
 			}
 		}
 	}
 	loadAPI() {
-		let tag = document.createElement('script');
-		tag.src = 'https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js';
-		let firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		new AfterLoadedJs('https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js').then(
+		resolve => {
+			// console.log(resolve);
+			document.addEventListener('readystatechange', e => {
+				console.log('readystatechange:', e.target.readyState);
+				this.init();
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
 	}
 	init() {
 		this.flkty = {};
@@ -78,16 +83,19 @@ export class GoogleMapsApi {
 		} else if (document.querySelector('.js-gm') !== null) {
 			this.APIkey = APIkey;
 			this.loadAPI();
-			document.addEventListener('readystatechange', e => {
-				this.init();
-			});
 		}
 	}
 	loadAPI() {
-		let tag = document.createElement('script');
-		tag.src = `https://maps.googleapis.com/maps/api/js?key=${this.APIkey}`;
-		let firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		new AfterLoadedJs(`https://maps.googleapis.com/maps/api/js?key=${this.APIkey}`).then(
+		resolve => {
+			// console.log(resolve);
+			document.addEventListener('readystatechange', e => {
+				this.init();
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
 	}
 	init() {
 		let count = 0;
@@ -199,10 +207,19 @@ export class YouTubeIframeApi {
 	setUI(wrap, id) {
 		//console.log(wrap);
 		const poster = wrap.getElementsByClassName('poster')[0];
+		poster.tabIndex = 0;
 		poster.dataset.player = id;
 		poster.addEventListener('click', e => {
 			this.onPlay(e);
 		});
+		poster.addEventListener('keypress', e => {
+			e.preventDefault();
+			if (e.code.toLowerCase() === 'space' || e.code.toLowerCase() === 'enter') {
+				this.onPlay(e);
+			}
+		});
+		const play = poster.getElementsByClassName('play')[0];
+		play.tabIndex = -1;
 	}
 	setup(id, ytid, w, h) {
 		this.player[id] = new YT.Player(id, {

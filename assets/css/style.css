@@ -37,6 +37,26 @@
 
 
 /**
+ * ヴィジュアル
+ * ---------------------------------------- */
+.p-visual {
+	min-height: 200px;
+	margin: 0 -48px;
+	background: var(--themecolor);
+}
+@media screen and (max-width: 767px) {
+	.p-visual {
+		margin-inline: -32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-visual {
+		margin-inline: -24px;
+	}
+}
+
+
+/**
  * セクション
  * ---------------------------------------- */
 .l-section {
@@ -74,13 +94,23 @@
 .p-news .c-title {
 	text-transform: uppercase;
 }
-.p-news .c-button {
-	margin-top: 48px;
+.p-news .c-archivelist .link {
+	margin: 4px 0 0 auto;
+}
+.p-news .c-archivelist .c-button {
+	min-height: auto;
+	font-size: 14px;
 }
 
 /* :::::: アーカイブリスト :::::: */
 .p-news .c-archivelist {
 	margin-top: 40px;
+}
+.p-news .c-archivelist .text {
+	gap: 4px 8px;
+}
+.p-news .c-archivelist .summary {
+	margin-top: 4px;
 }
 
 /* inview */
@@ -105,6 +135,23 @@
  * ---------------------------------------- */
 .p-flickity .c-archivelist {
 	margin-top: 40px;
+}
+.p-flickity .c-archivelist .text {
+	gap: 4px 8px;
+}
+.p-flickity .c-archivelist .summary {
+	margin-top: 4px;
+}
+.p-flickity .c-archivelist .link {
+	margin: 4px 0 0 auto;
+}
+.p-flickity .c-archivelist .c-button {
+	min-height: auto;
+	margin-top: 0;
+	font-size: 14px;
+}
+.p-flickity .c-button {
+	margin-top: 48px;
 }
 
 /* Flickity なら flex をやめて item の横幅固定 */
@@ -173,9 +220,9 @@
 	}
 }
 /* タッチデバイス以外は prev-next-button と両端グラデーション表示 */
-html.isTouch .c-archivelist .flickity-prev-next-button,
-html.isTouch .c-archivelist .flickity-viewport::before,
-html.isTouch .c-archivelist .flickity-viewport::after {
+html.is-touch .c-archivelist .flickity-prev-next-button,
+html.is-touch .c-archivelist .flickity-viewport::before,
+html.is-touch .c-archivelist .flickity-viewport::after {
 	display: none;
 }
 .c-archivelist .flickity-viewport::before,
@@ -202,6 +249,7 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 	height: 48px;
 	top: calc(240px / 2);
 	background: white;
+	transition: opacity .1s, box-shadow .1s;
 }
 .c-archivelist .flickity-prev-next-button.previous {
 	left: -72px;
@@ -211,6 +259,10 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 }
 .c-archivelist .flickity-button:disabled {
 	opacity: .2;
+	transition-duration: .4s;
+}
+.c-archivelist .flickity-button:not(:disabled) {
+	box-shadow: 0 2px 8px #3730391a;
 }
 .c-archivelist .flickity-button-icon {
 	top: 25%;
@@ -291,29 +343,31 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 .p-works .works_button {
 	display: inline-grid;
 	place-items: center;
-	height: 48px;
 	margin-top: 24px;
 	border: 2px solid currentcolor;
 	border-radius: 48px;
 }
 .p-works .works_button.-txt {
 	width: 240px;
+	height: 48px;
+	border-color: var(--themecolor);
 	border-radius: 8px;
 	color: var(--themecolor);
 }
 .p-works .works_button.-arr {
 	position: relative;
-	width: 48px;
-	border: 1.5px solid #dadcde;
+	width: 32px;
+	height: 32px;
+	border: 1.5px solid var(--themecolor);
 	color: white;
-	background: #dadcde;
+	background: var(--themecolor);
 }
 .p-works .works_button.-arr::before {
 	content: "";
 	z-index: -1;
 	position: absolute;
 	inset: 0;
-	border-image: linear-gradient(#dadcde, #dadcde) fill 0 / 22px 0 / 0 50vw;
+	border-image: linear-gradient(#dadcde, #dadcde) fill 0 / 14px 0 / 0 50vw;
 }
 .p-works .works_button.-arr .arr {
 	width: 40%;
@@ -364,7 +418,7 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 		transition: color .4s, background .4s;
 	}
 	.p-works .works_button.-arr:hover {
-		color: #dadcde;
+		color: var(--themecolor);
 		background: white;
 		transition-duration: .1s;
 	}
@@ -376,6 +430,7 @@ html.isTouch .c-archivelist .flickity-viewport::after {
  * ---------------------------------------- */
 .p-faq {}
 .c-faq {
+	list-style: inside;
 	margin-top: 40px;
 	font-size: 16px;
 	text-align: left;
@@ -389,8 +444,10 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 }
 .faq_q,
 .faq_a {
+	display: list-item;
 	position: relative;
-	padding: 24px 40px 24px 64px;
+	padding: 24px 40px;
+	text-indent: -2.9em;
 }
 .faq_q {
 	color: var(--themecolor);
@@ -398,21 +455,28 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 	font-weight: 700;
 }
 .faq_a {
-	padding: 16px 40px 24px 64px;
+	padding-top: 16px;
 }
-.faq_q::before,
-.faq_a::before {
-	content: "Q" counter(num) ".";
-	position: absolute;
-	top: 24px;
-	left: 16px;
+.faq_q,
+.faq_a {
+	padding-left: calc(2.9em + 16px);
+
+}
+.faq_item:nth-child(n+10) .faq_q,
+.faq_item:nth-child(n+10) .faq_a {
+	padding-left: calc(3.8em + 16px);
+	text-indent: -3.8em;
+}
+.faq_q::marker,
+.faq_a::marker {
+	content: "Q" counter(num) ". ";
 	color: var(--themecolor);
 	font-size: 24px;
 	line-height: 1.2;
 	font-weight: 700;
 }
-.faq_a::before {
-	content: "A" counter(num) ".";
+.faq_a::marker {
+	content: "A" counter(num) ". ";
 	top: 16px;
 	color: #c2c4ca;
 }
@@ -444,6 +508,15 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 }
 .p-store .c-cassette:first-of-type {
 	margin-top: 40px;
+}
+.p-store .c-cassette .image {
+	position: relative;
+	overflow: hidden;
+	max-height: 240px;
+}
+.p-store .c-cassette picture {
+	display: block;
+	margin-top: -5%;
 }
 
 
@@ -522,7 +595,12 @@ html.isTouch .c-archivelist .flickity-viewport::after {
 }
 .p-privacypolicy p,
 .p-privacypolicy li {
-	text-align: left;
+	text-align: justify;
+	line-break: strict;
+	overflow-wrap: break-word;
+}
+.p-privacypolicy a[href] {
+	word-break: break-all;
 }
 .p-privacypolicy .c-lead {
 	margin-top: 24px;

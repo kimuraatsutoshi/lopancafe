@@ -186,6 +186,7 @@ section[id] {
 		width: 40px;
 		height: 40px;
 		margin-left: 40px;
+		color: inherit;
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
@@ -500,12 +501,12 @@ section[id] {
 }
 
 /* flickity */
-.flickity-enabled:focus,
-.flickity-button:focus {
+.flickity-enabled:focus-visible,
+.flickity-button:focus-visible {
 	outline: 2px solid #275dc5;
 	box-shadow: 0 0 0 3px white;
 }
-.flickity-enabled:focus {
+.flickity-enabled:focus-visible {
 	border-radius: 2px;
 }
 

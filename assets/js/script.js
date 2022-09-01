@@ -100,7 +100,7 @@ import { SimpleMapping, TransformScroll, InviewEffect, LazyImage, MagneticButton
 		},
 		setup: function(d) {
 			const wf = d.createElement('script'), s = d.scripts[0];
-			wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+			wf.src = 'https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js';
 			wf.async = true;
 			s.parentNode.insertBefore(wf, s);
 		}
@@ -145,8 +145,8 @@ import { SimpleMapping, TransformScroll, InviewEffect, LazyImage, MagneticButton
 		LPN.isWindows = ua.indexOf('windows nt') !== -1;
 		LPN.isTouch = !!( 'ontouchstart' in window || (navigator.pointerEnabled && navigator.maxTouchPoints > 0) );
 		if (LPN.isIE) doc.classList.add('isIE');
-		if (LPN.isWindows) doc.classList.add('isWindows');
-		if (LPN.isTouch) doc.classList.add('isTouch');
+		if (LPN.isWindows) doc.classList.add('is-windows');
+		if (LPN.isTouch) doc.classList.add('is-touch');
 		if (window.innerWidth !== doc.clientWidth) {
 			doc.classList.add('hasScrollbar');
 			doc.style.setProperty('--scroll-bar-width', window.innerWidth - doc.clientWidth + 'px');

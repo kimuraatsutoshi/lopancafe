@@ -1,3 +1,5 @@
+import { AfterLoadedJs } from './common.js';
+
 /**
  * Mapping (parallax)
  -------------------------------------------------- */
@@ -45,7 +47,7 @@ export class TransformScroll {
 			
 			// this.isSmooth = getComputedStyle(document.documentElement).scrollBehavior === 'smooth';
 			
-			this.frictionOrigin = 10 / 100;
+			this.frictionOrigin = 8 / 100;
 			this.ratioOrigin = 100 / 10;
 			this.friction = this.frictionOrigin;
 			this.initialize();
@@ -83,7 +85,7 @@ export class TransformScroll {
 				elm: elm,
 				posY: null,
 				ratio: ratio,
-				position: window.pageYOffset + clientRect.top,
+				position: LPN.Wm.yOffset + clientRect.top,
 				rect: clientRect,
 			};
 		}
@@ -124,8 +126,9 @@ export class TransformScroll {
 			const diff = LPN.Wm.winH / 2;
 			for (var i = this.slipper.length; i--;) {
 				data = this.slipperData[i];
-				data.posY += (goalY + diff - data.posY) * (this.friction * 0.8);
+				data.posY += (goalY + diff - data.posY) * this.friction;
 				data.posY = Math.round(data.posY * 100) / 100;
+				// if (i === 0) console.log(goalY, LPN.Wm.yOffset);
 			}
 		}
 		//console.log(this.posY);
@@ -139,8 +142,9 @@ export class TransformScroll {
 			let data, pos;
 			for (var i = this.slipper.length; i--;) {
 				data = this.slipperData[i];
-				pos = Math.round((data.posY - data.position) * 100) / 100;
+				pos = Math.round((data.posY - data.position / 2) * 100) / 100;
 				this.slipper[i].style.transform = `translate3d(0,${pos / data.ratio}px,0)`;
+				// if (i === 0) console.log(data.posY, data.position / 2);
 			}
 		}
 	}
@@ -250,20 +254,22 @@ export class LazyImage {
 		if (container.querySelector('[data-src]') !== null) {
 			if (typeof Flickity !== undefined) {
 				this.init(container);
-				
 			} else {
 				this.loadAPI();
-				document.addEventListener('readystatechange', e => {
-					this.init(container);
-				});
 			}
 		}
 	}
-	loadAPI() {
-		let tag = document.createElement('script');
-		tag.src = 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js';
-		let firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	loadAPI(container) {
+		new AfterLoadedJs('https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js').then(
+		resolve => {
+			// console.log(resolve);
+			document.addEventListener('readystatechange', e => {
+				this.init(container);
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
 	}
 	init(c) {
 		const imgs = c.querySelectorAll('img[data-src]');
