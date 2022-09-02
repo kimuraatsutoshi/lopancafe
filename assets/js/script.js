@@ -38,7 +38,7 @@ import { SimpleMapping, TransformScroll, InviewEffect, LazyImage, MagneticButton
 		}
 		function apijs() {
 			new FlickitySlider();
-			new GoogleMapsApi('AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU');
+			new GoogleMapsApi(null);
 			new YouTubeIframeApi();
 		}
 		function gimmickjs() {
