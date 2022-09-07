@@ -1,3 +1,5 @@
+import { AfterLoadedJs, AfterLoadedCss } from './common.js';
+
 /**
  * ドロワーメニュー
  -------------------------------------------------- */
@@ -27,8 +29,11 @@ export class DrawerMenu {
 			this.menuLinks[i].tabIndex = -1;
 		}
 		
+		// アンカースクロールが実装されてなければ実装
 		if (LPN.As !== undefined) {
-			if (LPN.As.scPad === undefined) this.menuAnchor();
+			if (LPN.As.scPad === undefined) {
+				this.menuAnchor();
+			}
 		} else {
 			this.menuAnchor();
 		}
@@ -120,124 +125,6 @@ export class DrawerMenu {
 				this.closeEnd(e);
 			}, { once: true });
 		}
-	}
-}
-
-/**
- * スムーススクロール
- -------------------------------------------------- */
-export class AnchorScroll {
-	constructor() {
-		// overscroll-behavior: smooth なら実装しない
-		if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
-			this.setup();
-		}
-	}
-	setup() {
-		if (location.hash) {
-			// URL に hash があったらスクロール
-			setTimeout(() => {
-				this.toScroll(location.hash.slice(1));
-				history.replaceState(null, document.title, window.location.pathname);
-			}, 80);
-		}
-		this.SPF = 1000 / 60;
-		this.duration = 1000;
-		this.onResize();
-		this.cancelScroll(this);
-		LPN.registFnc.onResize.push(() => {
-			this.onResize();
-		});
-		
-		const anchor = document.querySelectorAll('.js-anc[href^="#"]');
-		for (let i = 0, len = anchor.length; i < len; i++) {
-			anchor[i].addEventListener('click', e => {
-				this.anchorClick(e);
-			});
-		}
-	}
-	anchorClick(e) {
-		e.preventDefault();
-		const target = e.target.closest('[href]');
-		const targetId = target.getAttribute('href');
-		this.toScroll(targetId.slice(1));
-	}
-	onResize() {
-		// header の高さが 0 でも 56px は空ける
-		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
-		this.scBtm = document.body.offsetHeight - window.innerHeight;
-		this.scMax = document.body.clientHeight - window.innerHeight;
-		
-		// body の高さが取得できなかった場合 0.06 秒後に改めて実行
-		if (this.scMax < 0) setTimeout(() => {
-			this.onResize();
-		}, 60);
-	}
-	toScroll(targetId) {
-		if (targetId !== 'top' && document.getElementById(targetId) === null) return;
-		//console.log(targetId);
-		
-		// ドロワーメニューが開いていたら、開いた時の位置からスタート (メニューは閉じる)
-		if (LPN.Dm.isOpened) {
-			this.startPos = LPN.Wm.lockOffset;
-			LPN.Dm.closeMenu();
-		} else {
-			this.startPos = LPN.Wm.yOffset;
-		}
-		
-		this.currentPos = this.startPos;
-		this.elapsedTime = 0;
-		let y = this.startPos - this.scPad;
-		if (LPN.Ts !== undefined) {
-			if (LPN.Ts.wrapper !== undefined) y = LPN.Wm.yOffset - this.scPad;
-		}
-		this.goalPos = targetId !== 'top' ? document.getElementById(targetId).getBoundingClientRect().top + y : 0;
-		if (this.goalPos >= this.scMax) {
-			this.goalPos = this.scMax;
-		}
-		this.valueInChange = this.goalPos - this.startPos;
-		this.doScroll();
-		if (targetId === 'top') {
-			document.querySelector('header a').focus();
-		}
-	}
-	doScroll() {
-		const elapsedTimeRate = this.elapsedTime / this.duration;
-		const valueChangeRate = this.easing(elapsedTimeRate);
-		const changeYOffset = this.valueInChange * valueChangeRate;
-		
-		this.currentPos = this.startPos + changeYOffset;
-		
-		if (this.elapsedTime >= this.duration) {
-			this.currentPos = this.goalPos;
-			cancelAnimationFrame(this.timer);
-			return;
-		} else {
-			this.elapsedTime += this.SPF;
-			this.timer = requestAnimationFrame(() => {
-				this.doScroll();
-			});
-		}
-		
-		window.scrollTo(0, this.currentPos);
-	}
-	/* スワイプするかマウスホイールを操作したらスクロールを止める */
-	cancelScroll(t) {
-		//console.log(t);
-		let count = 0;
-		if (LPN.isTouch) {
-			window.addEventListener('touchmove', () => {　cancelAnimationFrame(this.timer);　});
-		} else {
-			this.wheel = () => { cancelAnimationFrame(this.timer); }
-			if (window.addEventListener) {
-				window.addEventListener('DOMMouseScroll', () => { this.wheel(); });
-			}
-			window.onmousewheel = document.onmousewheel = this.wheel;
-		}
-	}
-	/* easeInOutCubic ( https://easings.net/ ) */
-	easing(x) {
-		return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 	}
 }
 
@@ -358,6 +245,7 @@ export class AccordionUi {
 export class PulldownUi {
 	constructor() {
 		if (document.querySelector('.js-pullContent') !== null) {
+			this.isSmooth = getComputedStyle(document.documentElement).scrollBehavior === 'smooth';
 			this.pullData = {};
 			const elm = document.getElementsByClassName('js-pullContent');
 			for (let i = 0, len = elm.length; i < len; i++) {
@@ -371,6 +259,8 @@ export class PulldownUi {
 	}
 	setup(id, elm) {
 		const toggle = document.querySelectorAll(`.js-pullToggle[data-pull="${id}"]`);
+		this.SPF = 1000 / 60;
+		this.duration = 1000;
 		this.pullData[id] = {
 			isOpen: true,
 			toggle: toggle,
@@ -398,7 +288,9 @@ export class PulldownUi {
 	}
 	openPull(id, anim) {
 		this.pullData[id].isOpen = true;
-		if (anim) this.addAnim(id);
+		if (anim) {
+			this.addAnim(id);
+		}
 		this.pullData[id].content.style.height = `${this.pullData[id].contentHeight}px`;
 		
 		// 対象の body が開いたことを知らせる
@@ -410,9 +302,12 @@ export class PulldownUi {
 	}
 	closePull(id, anim) {
 		this.pullData[id].isOpen = false;
-		if (anim) this.addAnim(id);
+		if (anim) {
+			this.addAnim(id);
+			this.toScroll(id);
+		}
 		this.pullData[id].content.style.height = `${this.pullData[id].contentHeight}px`;
-
+		
 		setTimeout(() => {
 			this.pullData[id].content.style.height = `${this.pullData[id].defaultHeight}px`;
 			
@@ -437,18 +332,60 @@ export class PulldownUi {
 			this.pullData[id].content.classList.replace('is-active', 'is-anim');
 		}
 		for (let i = 0, len = this.pullData[id].toggle.length; i < len; i++) {
-			this.pullData[id].toggle[i].addEventListener('transitionend', e => {
-				e.target.closest('.js-pullToggle').classList.remove('is-anim');
+			this.pullData[id].toggle[i].addEventListener('transitionend', () => {
+				this.pullData[id].toggle[i].classList.remove('is-anim');
 			}, { once: true });
 		}
+		this.contentEnd(id);
+	}
+	contentEnd(id) {
 		this.pullData[id].content.addEventListener('transitionend', e => {
-			this.pullData[id].content.classList.remove('is-anim');
-			if (this.pullData[id].isOpen) {
-				this.pullData[id].content.removeAttribute('style');
+			if (e.propertyName !== 'height') {
+				this.contentEnd(id);
+			} else {
+				this.pullData[id].content.classList.remove('is-anim');
+				if (this.pullData[id].isOpen) {
+					this.pullData[id].content.removeAttribute('style');
+				}
 			}
 		}, { once: true });
 	}
+	toScroll(targetId) {
+		if (this.isSmooth) {
+			LPN.Wm.html.classList.add('is-behaviorAuto');
+		}
+		this.startPos = LPN.Wm.yOffset;
+		this.currentPos = this.startPos;
+		this.elapsedTime = 0;
+		const y = this.startPos - this.scPad;
+		this.goalPos = document.getElementById(targetId).getBoundingClientRect().top + y;
+		if (this.goalPos >= this.scMax) {
+			this.goalPos = this.scMax;
+		}
+		this.valueInChange = this.goalPos - this.startPos;
+		this.doScroll();
+	}
+	doScroll() {
+		this.currentPos = this.startPos + this.valueInChange * this.easing(this.elapsedTime / this.duration);
+		if (this.elapsedTime >= this.duration) {
+			this.currentPos = this.goalPos;
+			cancelAnimationFrame(this.timer);
+			if (this.isSmooth) {
+				LPN.Wm.html.classList.remove('is-behaviorAuto');
+			}
+			return;
+		} else {
+			this.elapsedTime += this.SPF;
+			this.timer = requestAnimationFrame(() => {
+				this.doScroll();
+			});
+		}
+		window.scrollTo(0, this.currentPos);
+	}
 	refresh() {
+		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
+		this.scBtm = document.body.offsetHeight - window.innerHeight;
+		this.scMax = document.body.clientHeight - window.innerHeight;
 		for (let id in this.pullData) {
 			if (!this.pullData[id].isOpen) {
 				this.pullData[id].content.removeAttribute('style');
@@ -459,101 +396,239 @@ export class PulldownUi {
 			}
 		}
 	}
+	/* easeOutCubic ( https://easings.net/ ) */
+	easing(x) {
+		return 1 - Math.pow(1 - x, 3);
+	}
 }
 
 /**
- * flex textarea
- * <div class="js-flextextarea"><textarea/></div>
+ * スムーススクロール
  -------------------------------------------------- */
-export class FlexTextarea {
+export class AnchorScroll {
 	constructor() {
-		if (document.querySelector('.js-flextextarea') !== null) {
-			this.init();
+		// overscroll-behavior: smooth なら実装しない
+		if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
+			this.setup();
 		}
 	}
-	init() {
-		const elm = document.querySelectorAll('.js-flextextarea');
-		let dummy, textarea;
-		elm.forEach(el => {
-			el.insertAdjacentHTML('afterbegin', '<div class="dummy"></div>')
-			dummy = el.getElementsByClassName('dummy')[0];
-			textarea = el.getElementsByTagName('textarea')[0];
-			textarea.addEventListener('input', e => {
-				dummy.textContent = e.target.value + '\u200b';
+	setup() {
+		if (location.hash) {
+			// URL に hash があったらスクロール
+			setTimeout(() => {
+				this.toScroll(location.hash.slice(1));
+				history.replaceState(null, document.title, window.location.pathname);
+			}, 80);
+		}
+		this.SPF = 1000 / 60;
+		this.duration = 1000;
+		this.onResize();
+		this.cancelScroll();
+		LPN.registFnc.onResize.push(() => {
+			this.onResize();
+		});
+		
+		const anchor = document.querySelectorAll('.js-anc[href^="#"]');
+		for (let i = 0, len = anchor.length; i < len; i++) {
+			anchor[i].addEventListener('click', e => {
+				this.anchorClick(e);
 			});
-		});
+		}
+	}
+	anchorClick(e) {
+		e.preventDefault();
+		const target = e.target.closest('[href]');
+		const targetId = target.getAttribute('href');
+		this.toScroll(targetId.slice(1));
+	}
+	onResize() {
+		// header の高さが 0 でも 56px は空ける
+		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
+		this.scBtm = document.body.offsetHeight - window.innerHeight;
+		this.scMax = document.body.clientHeight - window.innerHeight;
+		
+		// body の高さが取得できなかった場合 0.06 秒後に改めて実行
+		if (this.scMax < 0) setTimeout(() => {
+			this.onResize();
+		}, 60);
+	}
+	toScroll(targetId) {
+		if (targetId !== 'top' && document.getElementById(targetId) === null) return;
+		// console.log(targetId);
+		
+		// ドロワーメニューが開いていたら、開いた時の位置からスタート (メニューは閉じる)
+		if (LPN.Dm.isOpened) {
+			this.startPos = LPN.Wm.lockOffset;
+			LPN.Dm.closeMenu();
+		} else {
+			this.startPos = LPN.Wm.yOffset;
+		}
+		
+		this.currentPos = this.startPos;
+		this.elapsedTime = 0;
+		let y = this.startPos - this.scPad;
+		// if (LPN.Ts !== undefined) {
+		// 	if (LPN.Ts.wrapper !== undefined) {
+		// 		y = LPN.Wm.yOffset - this.scPad;
+		// 	}
+		// }
+		
+		this.goalPos = targetId !== 'top' ? document.getElementById(targetId).getBoundingClientRect().top + y : 0;
+		if (this.goalPos >= this.scMax) {
+			this.goalPos = this.scMax;
+		}
+		this.valueInChange = this.goalPos - this.startPos;
+		this.doScroll();
+		if (targetId === 'top') {
+			document.querySelector('header a').focus();
+		}
+	}
+	doScroll() {
+		const elapsedTimeRate = this.elapsedTime / this.duration;
+		const valueChangeRate = this.easing(elapsedTimeRate);
+		const changeYOffset = this.valueInChange * valueChangeRate;
+		
+		this.currentPos = this.startPos + changeYOffset;
+		
+		if (this.elapsedTime >= this.duration) {
+			this.currentPos = this.goalPos;
+			cancelAnimationFrame(this.timer);
+			return;
+		} else {
+			this.elapsedTime += this.SPF;
+			this.timer = requestAnimationFrame(() => {
+				this.doScroll();
+			});
+		}
+		
+		window.scrollTo(0, this.currentPos);
+	}
+	/* スワイプするかマウスホイールを操作したらスクロールを止める */
+	cancelScroll() {
+		if (LPN.isTouch) {
+			window.addEventListener('touchmove', () => { cancelAnimationFrame(this.timer); }, { once: true });
+		} else {
+			this.wheel = () => { cancelAnimationFrame(this.timer); }
+			window.addEventListener('DOMMouseScroll', () => { this.wheel(); }, { once: true });
+			window.onmousewheel = document.onmousewheel = this.wheel;
+		}
+	}
+	/* easeInOutCubic ( https://easings.net/ ) */
+	easing(x) {
+		return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 	}
 }
 
 /**
- * チェックすることで入力を受け入れる UI
- * <input type="checkbox" class="js-acceptInput" data-type="submit">
+ * 動画コントロール
  -------------------------------------------------- */
-export class CheckedAcceptInput {
+export class VideoControls {
 	constructor() {
-		if (document.querySelector('.js-acceptInput') !== null) {
-			this.init();
-		}
-	}
-	init() {
-		this.acceptData = {};
-		const elm = document.getElementsByClassName('js-acceptInput');
-		
-		let trigger, id;
-		for (let i = 0, len = elm.length; i < len; i++) {
-			// ラジオボタンの場合は、同じ name のラジオボタンすべてがリスナー
-			trigger = elm[i].type !== 'radio' ? elm[i] : elm[i].form.querySelectorAll(`input[type="radio"][name="${elm[i].name}"]`);
-			id = `accept-${i + 1}`;
-			this.setup(elm[i], id, trigger);
-		}
-		
-		setTimeout(() => {
-			for (let id in this.acceptData) {
-				!this.acceptData[id].checkbox.checked ? this.unAccept(id) : this.onAccept(id);
+		if (document.querySelector('.js-video') !== null) {
+			this.videoData = {};
+			const elms = document.getElementsByClassName('js-video');
+			for (let i = 0, len = elms.length; i < len; i++) {
+				this.setup(elms[i], `video-${i + 1}`);
 			}
-		}, 60);
-		// console.log(this.acceptData);
-	}
-	setup(elm, id, trigger) {
-		let target = null;
-		if (elm.dataset.type === 'submit') {
-			target = elm.form.querySelector('input[type="submit"], button[type="submit"]');
-		} else {
-			target = elm.parentNode.querySelector(`input[type="${elm.dataset.type}"]`);
+			// console.log(this.videoData);
 		}
-		this.acceptData[id] = {
-			checkType: elm.type,
-			targetType: target.type,
-			checkbox: elm,
-			target: target,
-			isAccepted: elm.checked
+	}
+	setup(elm, id) {
+		elm.id = id;
+		elm.tabIndex = -1;
+		const poster = elm.parentNode.nextElementSibling;
+		poster.tabIndex = 0;
+		poster.dataset.video = id;
+		this.videoData[id] = {
+			isPlaying: false,
+			container: elm.closest('.c-video'),
+			video: elm,
+			poster: poster
 		};
-		if (elm.type === 'radio') {
-			for (let i = 0, len = trigger.length; i < len; i++) {
-				this.addListener(trigger[i], id);
+		const play = poster.getElementsByClassName('play')[0];
+		play.tabIndex = -1;
+		
+		elm.addEventListener('ended', e => {
+			this.onPause(id);
+		});
+		// elm.addEventListener('playing', e => {
+		// 	console.log('playing', id, e);
+		// });
+		
+		poster.addEventListener('click', e => {
+			//const id = e.target.dataset.video;
+			this.playToggle(id);	
+		});
+		poster.addEventListener('keypress', e => {
+			e.preventDefault();
+			if (e.code.toLowerCase() === 'space' || e.code.toLowerCase() === 'enter') {
+				this.playToggle(id);	
 			}
-		} else {
-			this.addListener(trigger, id);
-		}
-	}
-	addListener(elm, id) {
-		elm.addEventListener('change', () => {
-			// 
-			!this.acceptData[id].isAccepted && this.acceptData[id].checkbox.checked ? this.onAccept(id) : this.unAccept(id);
 		});
 	}
-	onAccept(id) {
-		this.acceptData[id].isAccepted = true;
-		this.acceptData[id].target.disabled = false;
+	playToggle(id) {
+		if (!this.videoData[id].isPlaying) {
+			this.onPlay(id);
+		} else {
+			this.onPause(id);
+		}	
 	}
-	unAccept(id) {
-		this.acceptData[id].isAccepted = false;
-		this.acceptData[id].target.disabled = true;
-		
-		// 入力値があれば空にする
-		if (this.acceptData[id].targetType !== 'submit' && this.acceptData[id].target.value !== '') {
-			this.acceptData[id].target.value = '';
+	onPlay(id) {
+		this.videoData[id].isPlaying = true;
+		this.videoData[id].container.classList.add('is-playing');
+		this.videoData[id].video.play();
+	}
+	onPause(id) {
+		this.videoData[id].isPlaying = false;
+		this.videoData[id].container.classList.remove('is-playing');
+		this.videoData[id].video.pause();
+	}
+}
+
+/**
+ * シンタックスハイライト
+ -------------------------------------------------- */
+export class SyntacConvert {
+	constructor() {
+		if (document.querySelector('.c-syntax') !== null) {
+			this.insertTags();
+			this.loadJs();
+			this.loadCss();
 		}
+	}
+	insertTags() {
+		const elms = document.getElementsByClassName('c-syntax');
+		let lang, style;
+		for (let i = 0, len = elms.length; i < len; i++) {
+			lang = elms[i].dataset.lang;
+			style = '';
+			if (elms[i].dataset.style) {
+				style = ` style="${elms[i].dataset.style}"`;
+			}
+			elms[i].innerHTML = `<div class="wrap"${style} tabindex="0"><pre class="line-numbers" tabindex="-1"><code class="language-${lang}">${elms[i].innerHTML}</code></pre></div>`;
+		}
+	}
+	loadJs() {
+		new AfterLoadedJs('/component/assets/js/prism.js').then(
+		resolve => {
+			document.addEventListener('readystatechange', e => {
+				console.log(resolve, e.target.readyState);
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
+	}
+	loadCss() {
+		new AfterLoadedCss('/component/assets/css/prism.css').then(
+		resolve => {
+			document.addEventListener('readystatechange', e => {
+				console.log(resolve, e.target.readyState);
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
 	}
 }
 

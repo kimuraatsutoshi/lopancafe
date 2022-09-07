@@ -1,0 +1,432 @@
+@charset "utf-8";
+
+/**
+ * キービジュアル
+ * ---------------------------------------- */
+.p-keyvisual {
+	position: relative;
+	margin: 0 -48px;
+}
+@media (hover: hover) {
+	.p-keyvisual .c-button:hover {
+		color: white;
+		background: var(--themecolor);
+	}
+}
+@media screen and (min-width: 767px) {
+	.p-keyvisual .slider_item {
+		max-width: 1000px;
+	}
+	.p-keyvisual .slider_item img {
+		max-height: 400px;
+		object-fit: cover;
+	}
+}
+@media screen and (min-width: 601px) {
+	.p-keyvisual {
+		background: #86c0de;
+	}
+	.p-keyvisual .slider_item {
+		transition: opacity .3s;
+	}
+	.p-keyvisual .slider_item:not(.is-selected) {
+		opacity: .2;
+	}
+}
+@media screen and (max-width: 767px) {
+	.p-keyvisual {
+		margin-inline: -32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-keyvisual {
+		margin-inline: -24px;
+	}
+}
+.keyvisual_slider:not(.flickity-enabled) {
+	position: relative;
+}
+.keyvisual_slider:not(.flickity-enabled) .slider_item:not(:last-of-type) {
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+	background: var(--themecolor);
+}
+/* バッヂ */
+.p-keyvisual .c-badge {
+	z-index: 1;
+	position: absolute;
+	overflow: hidden;
+	left: 24px;
+	bottom: -40px;
+	width: 200px;
+	height: 200px;
+	color: #86c0de;
+	border: 4px solid #fafafd;
+	border-radius: 200px;
+	font-size: 12px;
+	line-height: 1.4;
+	font-weight: 700;
+	text-align: center;
+	background: #fafafd;
+	box-shadow: 0 2px 8px #3730391a;
+}
+.p-keyvisual .c-badge img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 240px;
+}
+.p-keyvisual .c-badge::before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 5em;
+	background: inherit;
+}
+.p-keyvisual .c-badge .text {
+	position: absolute;
+	top: calc(100% - 4em);
+	left: 0;
+	width: 100%;
+}
+@media screen and (max-width: 479px) {
+	.p-keyvisual .c-badge {
+		width: 160px;
+		height: 160px;
+		font-size: 10px;
+	}
+}
+
+
+/**
+ * このサイトについて
+ * ---------------------------------------- */
+.p-about .c-title {
+	text-transform: uppercase;
+}
+
+
+/**
+ * News
+ * ---------------------------------------- */
+.p-news .c-title {
+	text-transform: uppercase;
+}
+.p-news .c-archivelist .link {
+	margin: 4px 0 0 auto;
+}
+.p-news .c-archivelist .c-button {
+	min-height: auto;
+	font-size: 14px;
+}
+.p-news .c-button {
+	margin-top: 48px;
+}
+.p-news .c-archivelist {
+	margin-top: 40px;
+}
+.p-news .c-archivelist .text {
+	gap: 4px 8px;
+}
+.p-news .c-archivelist .summary {
+	margin-top: 4px;
+}
+@media (hover: hover) {
+	.p-news .c-archivelist .container {
+		transition: background-size .4s cubic-bezier(.3,1,.7,1);
+		background: linear-gradient(#86c0de1a, #86c0de1a) right bottom / 0 100% no-repeat;
+	}
+	.p-news .c-archivelist .container:hover {
+		background: linear-gradient(#86c0de1a, #86c0de1a) left bottom / 100% 100% no-repeat;
+		transition-duration: .1s;
+	}
+}
+
+
+/**
+ * Works
+ * ---------------------------------------- */
+.p-works .c-title {
+	text-transform: uppercase;
+}
+.p-works .works_button.c-pulltoggle {
+	margin-top: 24px;
+}
+.p-works .works_button.c-pulltoggle::before {
+	content: "";
+	z-index: -1;
+	position: absolute;
+	inset: 0;
+	border-image: linear-gradient(#dadcde, #dadcde) fill 0 / calc(50% - .5px) 0 / 0 50vw;
+}
+.p-works .works_content {
+	margin-top: 24px;
+}
+.p-works .works_content::after {
+	height: 80px;
+}
+@media screen and (max-width: 479px) {
+	.p-works .works_content::after {
+		height: 80px;
+	}
+}
+.p-works .c-archivelist .image {
+	overflow: hidden;
+	border-radius: 8px;
+}
+.p-works .c-archivelist .image img {
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	margin-left: auto;
+	border-radius: 0;
+	transform: scale(1.1);
+}
+@media (hover: hover) {
+	.p-works .c-archivelist .image img {
+		transition: transform .4s cubic-bezier(.3,1,.7,1);
+	}
+	.p-works .c-archivelist a:hover .image img {
+		transform: none;
+		transition-duration: .1s;
+	}
+}
+
+
+/**
+ * よくあるご質問
+ * ---------------------------------------- */
+.p-faq {}
+.c-faq {
+	list-style: inside;
+	margin-top: 40px;
+	font-size: 16px;
+	text-align: left;
+}
+.c-faq .faq_item {
+	counter-increment: num;
+	border-bottom: 1px solid #dadcde;
+}
+.c-faq .faq_item:first-child {
+	border-top: 1px solid #dadcde;
+}
+.c-faq .faq_q,
+.c-faq .faq_a {
+	position: relative;
+	padding: 24px 40px;
+	text-indent: -2.9em;
+}
+.c-faq .faq_q {
+	color: var(--themecolor);
+	font-size: 18px;
+	font-weight: 700;
+}
+.c-faq .faq_a {
+	padding-top: 16px;
+}
+.c-faq .faq_q,
+.c-faq .faq_a {
+	padding-left: calc(2.9em + 16px);
+
+}
+.c-faq .faq_item:nth-child(n+10) .faq_q,
+.c-faq .faq_item:nth-child(n+10) .faq_a {
+	padding-left: calc(3.8em + 16px);
+	text-indent: -3.8em;
+}
+.c-faq .faq_q::before,
+.c-faq .faq_a::before {
+	content: "Q" counter(num) ". ";
+	color: var(--themecolor);
+	font-size: 24px;
+	line-height: 1.2;
+	font-weight: 700;
+}
+.c-faq .faq_a::before {
+	content: "A" counter(num) ". ";
+	top: 16px;
+	color: #c2c4ca;
+}
+.c-faq .faq_q .ico {
+	position: absolute;
+	top: calc(50% - 8px);
+	right: 16px;
+	width: 16px;
+	height: 16px;
+	stroke: var(--themecolor);
+	stroke-width: 3;
+}
+@media (hover: hover) {
+	.c-faq .faq_q {
+		transition: background .4s;
+	}
+	.c-faq .faq_q:hover {
+		background: #fafafd;
+		transition-duration: .1s;
+	}
+}
+.faq_button {
+	margin-top: 40px;
+}
+
+
+/**
+ * よくあるレイアウト
+ * ---------------------------------------- */
+.p-store .c-title {
+	text-transform: uppercase;
+}
+.p-store .c-cassette {
+	margin-top: 40px;
+}
+.p-store .c-cassette .c-title {
+	font-size: 20px;
+}
+.p-store .c-cassette .lead {
+	margin-top: 1em;
+	font-size: 14px;
+}
+.p-store .c-cassette .c-button {
+	max-width: 240px;
+	min-height: 48px;
+	margin-top: 24px;
+}
+.p-store .c-cassette .image img {
+	border-radius: 8px;
+}
+@media screen and (max-width: 767px) {
+	.p-store .c-cassette .c-title,
+	.p-store .c-cassette .lead {
+		text-align: left;
+	}
+	.p-store .c-cassette .c-button {
+		margin-top: 16px;
+	}
+}
+
+
+/**
+ * テーブルスタイル
+ * ---------------------------------------- */
+.p-kana .c-table {
+	margin-top: 40px;
+}
+.p-kana .c-table tbody th {
+	white-space: nowrap;
+}
+.p-kana .c-table {
+	--border_color: var(--themecolor);
+}
+
+
+/**
+ * YouTube
+ * ---------------------------------------- */
+.p-video .c-video {
+	margin: 40px auto 0;
+}
+.p-video .c-button {
+	margin-top: 48px;
+}
+
+
+/**
+ * Google マップ
+ * ---------------------------------------- */
+.p-googlemap .p-map {
+	height: 480px;
+	margin: 40px calc(50% - 50vw) 0;
+}
+.gm-style img[src$="marker.svg"] {
+	filter: drop-shadow(2px 4px 6px rgba(0,0,0,.1));
+}
+.gm-style div[aria-label="マップ"] > div:first-child > div:nth-child(4) > div:last-child {
+	overflow: visible !important;
+}
+.p-googlemap .c-button {
+	margin-top: 40px;
+}
+
+
+/**
+ * お問い合わせ
+ * ---------------------------------------- */
+.c-conversion {
+	display: grid;
+	place-items: center;
+	place-content: center;
+	height: 400px;
+	margin-inline: -48px;
+	border: 8px solid var(--themecolor);
+	color: white;
+	white-space: nowrap;
+	text-align: center;
+	background: var(--themecolor);
+}
+.c-conversion .main {
+	font-size: 40px;
+	font-weight: 700;
+	letter-spacing: .1em;
+}
+.c-conversion .sub {
+	line-height: 1.6;
+}
+.c-conversion .arr {
+	position: relative;
+	top: -.1em;
+	width: 1em;
+	height: 1em;
+	margin-left: .5em;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	vertical-align: middle;
+}
+@media (hover: hover) {
+	.c-conversion {
+		transition: color .4s, background .4s;
+	}
+	.c-conversion .arr {
+		transition: transform .4s cubic-bezier(.3,1,.7,1);
+	}
+	.c-conversion:hover {
+		color: var(--themecolor);
+		background: white;
+		transition-duration: .1s;
+	}
+	.c-conversion:hover .arr {
+		transform: translateX(.2em);
+		transition-duration: .1s;
+	}
+}
+@media screen and (max-width: 767px) {
+	.c-conversion {
+		height: 320px;
+		margin-inline: -32px;
+	}
+	.c-conversion .main {
+		font-size: 32px;
+	}
+	.c-conversion .sub {
+		font-size: 14px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.c-conversion {
+		height: 240px;
+		margin-inline: -24px;
+	}
+	.c-conversion .main {
+		font-size: 24px;
+	}
+	.c-conversion .sub {
+		font-size: 12px;
+	}
+}

@@ -15,7 +15,7 @@ html {
 	scroll-behavior: smooth;
 	-webkit-text-size-adjust: 100%;
 }
-html.is-transformScroll {
+html.is-behaviorAuto {
 	scroll-behavior: auto;
 }
 body {
@@ -23,7 +23,7 @@ body {
 	color: #373039;
 	font-size: 1em;
 	line-height: 2;
-	font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+	font-family: "Roboto", "Noto Sans JP", sans-serif;
 	font-weight: 400;
 	letter-spacing: .06em;
 	font-feature-settings: "palt";
@@ -38,13 +38,18 @@ body.is-fixed {
 section[id] {
 	scroll-margin-top: 72px;
 }
-@media screen and (min-width: 768px) {
+@media print, (min-width: 768px) {
 	.v-mb { display: none; }
 }
 @media screen and (max-width: 767px) {
 	.v-dt { display: none; }
 	section[id] {
 		scroll-margin-top: 64px;
+	}
+}
+@media screen and (max-width: 479px) {
+	body {
+		font-size: .875em;
 	}
 }
 
@@ -68,8 +73,8 @@ section[id] {
 /**
  * mediaquery について
  * default style (desktop/mobile 共通の style)
- * @media screen and (min-width: 480px) {} mobile には適用したくない style
- * @media screen and (min-width: 768px) {} desktop だけの style
+ * @media print, (min-width: 480px) {} mobile には適用したくない style
+ * @media print, (min-width: 768px) {} desktop だけの style
  * @media screen and (max-width: 767px) {} desktop には適用したくない style
  * @media screen and (max-width: 479px) {} mobile だけの style
  * @media screen and (max-width: 359px) {} small mobile style
@@ -91,7 +96,7 @@ section[id] {
 	left: 0;
 	width: 100%;
 }
-@media screen and (min-width: 768px) {
+@media print, (min-width: 768px) {
 	.l-header {
 		display: flex;
 		justify-content: space-between;
@@ -138,7 +143,7 @@ section[id] {
 .menu .ico {
 	fill: currentcolor;
 }
-@media screen and (min-width: 768px) {
+@media print, (min-width: 768px) {
 	.l-header .menu {
 		display: flex;
 		height: 100%;
@@ -172,7 +177,7 @@ section[id] {
 }
 
 /* :::::: drawer :::::: */
-@media screen and (min-width: 768px) {
+@media print, (min-width: 768px) {
 	.l-drawer {
 		display: none;
 	}
@@ -246,6 +251,49 @@ section[id] {
 	}
 }
 
+/* :::::: ヴィジュアル :::::: */
+.p-visual {
+	min-height: 200px;
+	margin: 0 -48px;
+	background: var(--themecolor);
+}
+@media screen and (max-width: 767px) {
+	.p-visual {
+		margin-inline: -32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-visual {
+		margin-inline: -24px;
+	}
+}
+
+/* :::::: セクション :::::: */
+.l-section {
+	max-width: 960px;
+	margin: 160px auto;
+	text-align: center;
+}
+.l-section.-stickout {
+	max-width: none;
+	margin-inline: calc(50% - 50vw);
+}
+@media screen and (max-width: 767px) {
+	.l-section {
+		margin-block: 120px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.l-section {
+		margin-block: 80px;
+	}
+}
+.l-section hr {
+	margin: 48px 0;
+	border: 0;
+	border-top: 1px solid #dadcde;
+}
+
 
 /**
  * footer
@@ -302,7 +350,7 @@ section[id] {
 .l-footer .copyright small {
 	font-size: inherit;
 }
-@media screen and (min-width: 768px) {
+@media print, (min-width: 768px) {
 	.l-footer .contentsinfo {
 		display: grid;
 		grid-template: 64px auto auto / auto min-content;
@@ -389,7 +437,7 @@ section[id] {
 /**
  * menu
  * ---------------------------------------- */
-@media screen and (min-width: 768px) {
+@media print, (min-width: 768px) {
 	.l-menu {
 		display: none;
 	}
@@ -472,7 +520,7 @@ section[id] {
 
 
 /**
- * utility
+ * utility / javascript
  * -------------------------------------------------- */
 .visuallyhidden {
 	position: absolute;
@@ -481,6 +529,17 @@ section[id] {
 	width: 1px;
 	height: 1px;
 }
+.u-mt0 { margin-top: 0 !important; }
+.u-mt1 { margin-top: 8px !important; }
+.u-mt2 { margin-top: 16px !important; }
+.u-mt3 { margin-top: 24px !important; }
+.u-mt4 { margin-top: 32px !important; }
+.u-mt5 { margin-top: 40px !important; }
+.u-mt6 { margin-top: 48px !important; }
+.u-mt7 { margin-top: 56px !important; }
+.u-mt8 { margin-top: 64px !important; }
+.u-mt9 { margin-top: 72px !important; }
+.u-mt10 { margin-top: 80px !important; }
 
 /* transformScroll */
 .js-sc-wrap {
@@ -500,13 +559,13 @@ section[id] {
 	pointer-events: none;
 }
 
-/* flickity */
-.flickity-enabled:focus-visible,
-.flickity-button:focus-visible {
+/* slider */
+.js-slider.flickity-enabled:focus-visible,
+.js-slider .flickity-button:focus-visible {
 	outline: 2px solid #275dc5;
 	box-shadow: 0 0 0 3px white;
 }
-.flickity-enabled:focus-visible {
+.js-slider.flickity-enabled:focus-visible {
 	border-radius: 2px;
 }
 

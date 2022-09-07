@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+/**
+ * 動画コンテンツ
+ * ---------------------------------------- */
+.page-video .p-intro .c-title {
+	margin-bottom: 48px;
+}
+.p-video_elements .c-video,
+.p-video_yt .c-video {
+	margin-top: 16px;
+}
+.page-video .p-intro .c-title {
+	margin-bottom: 48px;
+}
+.page-video .pull_content {
+	margin-inline: -48px;
+}
+.page-video .pull_content .c-syntax {
+	margin: 0;
+}
+.page-video .pull_content::after {
+	height: 33.3333%;
+}
+.page-video .elements_section {
+	margin-top: 64px;
+}
+.page-video .elements_section .c-title {
+	font-size: 24px;
+}
+@media screen and (max-width: 767px) {
+	.page-video .pull_content {
+		margin-inline: -32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.page-video .pull_content {
+		margin-inline: -24px;
+	}
+}

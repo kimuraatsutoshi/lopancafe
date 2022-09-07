@@ -146,6 +146,52 @@ export class AfterLoadedJs {
 }
 
 /**
+ * css ファイル読み込み後の処理
+ -------------------------------------------------- */
+export class AfterLoadedCss {
+	constructor(href) {
+		return new Promise((resolve, reject) => {
+			let tag = document.createElement('link');
+			tag.rel = 'stylesheet';
+			tag.href = href;
+			document.getElementsByTagName('head')[0].appendChild(tag);
+			
+			tag.addEventListener('load', () => {
+	  			resolve(`Loaded: "${tag.href}"`);
+			});
+			tag.addEventListener('error', () => {
+  				reject( new Error(`Error: "${tag.href}"`) );
+			});
+		});
+	}
+}
+
+/**
+ * 現在のディレクトリからルートへの相対パスを返す
+ * @param {string} HOME directory
+ -------------------------------------------------- */
+export class ReturnRelativePath {
+	constructor(root) {
+		const dirArray = location.href.split('/');
+		if (root !== '/') {
+			this.pathLength = dirArray.length - 1 - dirArray.indexOf(root) - 1;
+		} else {
+			this.pathLength = 0;
+		}
+	}
+	returnRootPath() {
+		let path = './';
+		if (this.pathLength) {
+			path = '';
+			for (let i = this.pathLength; i--;) {
+				path += '../';
+			}
+		}
+		return path;
+	}
+}
+
+/**
  * イベントの間引き
  -------------------------------------------------- */
 export class Resized {

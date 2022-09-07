@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+/**
+ * プライバシーポリシー
+ * ---------------------------------------- */
+.p-privacypolicy {
+	max-width: 800px;
+	margin-top: 80px;
+}
+.p-privacypolicy .privacypolicy_title {
+	margin-bottom: 64px;
+	color: inherit;
+}
+.p-privacypolicy p,
+.p-privacypolicy li {
+	text-align: justify;
+	line-break: strict;
+	overflow-wrap: break-word;
+}
+.p-privacypolicy a[href] {
+	word-break: break-all;
+}
+.p-privacypolicy .c-lead {
+	margin-top: 24px;
+}
+.p-privacypolicy h1 {
+	font-size: 32px;
+}
+.p-privacypolicy h2 {
+	margin-top: 40px;
+	font-size: 24px;
+}
+.p-privacypolicy h3 {
+	margin-top: 1em;
+	font-size: 18px;
+}
+.p-privacypolicy p {
+	margin-top: .5em;
+}

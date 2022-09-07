@@ -2,13 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>Webサイト制作でよく使うテンプレートサンプル - @Lopan.jp</title>
+<title>Lopan café - Lopan.jpがよく使うパターン集</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Webサイトにありがちなレイアウトやよく使うUIや無難なエフェクトをまとめたテンプレートサンプル。">
-<meta property="og:site_name" content="@Lopan.jp">
+<meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta property="og:site_name" content="Lopan.jp">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Webサイト制作でよく使うテンプレートサンプル">
-<meta property="og:description" content="Webサイトにありがちなレイアウトやよく使うUIや無難なエフェクトをまとめたテンプレートサンプル。">
+<meta property="og:title" content="Lopan café">
+<meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
 <meta property="og:url" content="https://lopan.cafe/component/">
 <meta property="og:image" content="https://lopan.cafe/component/ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -20,9 +20,9 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <link rel="stylesheet" href="assets/css/common.css">
 <link rel="stylesheet" href="assets/css/component.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/home.css">
 <!-- <link rel="stylesheet" href="assets/css/display-wai-aria.css"> -->
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<!-- <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> -->
 <script src="assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
 <body>
@@ -61,218 +61,146 @@
 	</div>
 </nav>
 
-<div class="js-sc-wrap">
 <main class="l-main page-home">
 	<div class="p-keyvisual">
-		<div class="js-slider" data-loop data-cell=".slider_item" data-auto="6000">
+		<div class="keyvisual_slider js-slider" data-loop data-cell=".slider_item" data-auto="6000">
 			<figure class="slider_item"><picture>
-				<source srcset="assets/img/visual_1.png" media="(min-width:768px)" width="1200" height="400">
-				<source srcset="assets/img/visual_1_mb.png" media="(max-width:767px)" width="600" height="400">
-				<img src="assets/img/visual_1.png" alt="" width="1200" height="400" loading="lazy">
+				<source srcset="assets/img/visual_1.webp" media="(min-width:768px)" width="1200" height="600">
+				<source srcset="assets/img/visual_1_mb.webp" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_1.webp" alt="" width="1200" height="600" loading="lazy">
 			</picture></figure>
 			<figure class="slider_item"><picture>
-				<source srcset="assets/img/visual_2.png" media="(min-width:768px)" width="1200" height="400">
-				<source srcset="assets/img/visual_2_mb.png" media="(max-width:767px)" width="600" height="400">
-				<img src="assets/img/visual_2.png" alt="" width="1200" height="400" loading="lazy">
+				<source srcset="assets/img/visual_2.webp" media="(min-width:768px)" width="1200" height="600">
+				<source srcset="assets/img/visual_2_mb.webp" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_2.webp" alt="" width="1200" height="600" loading="lazy">
 			</picture></figure>
 			<figure class="slider_item"><picture>
-				<source srcset="assets/img/visual_3.png" media="(min-width:768px)" width="1200" height="400">
-				<source srcset="assets/img/visual_3_mb.png" media="(max-width:767px)" width="600" height="400">
-				<img src="assets/img/visual_3.png" alt="" width="1200" height="400" loading="lazy">
+				<source srcset="assets/img/visual_3.webp" media="(min-width:768px)" width="1200" height="600">
+				<source srcset="assets/img/visual_3_mb.webp" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_3.webp" alt="" width="1200" height="600" loading="lazy">
 			</picture></figure>
 			<figure class="slider_item"><picture>
-				<source srcset="assets/img/visual_4.png media="(min-width:768px)" width="1200" height="400">
-				<source srcset="assets/img/visual_4_mb.png" media="(max-width:767px)" width="600" height="400">
-				<img src="assets/img/visual_4.png" alt="" width="1200" height="400" loading="lazy">
+				<source srcset="assets/img/visual_4.webp media="(min-width:768px)" width="1200" height="600">
+				<source srcset="assets/img/visual_4_mb.webp" media="(max-width:767px)" width="600" height="400">
+				<img src="assets/img/visual_4.webp" alt="" width="1200" height="600" loading="lazy">
 			</picture></figure>
-			<figure class="slider_item"><picture>
-				<source srcset="assets/img/visual_5.png" media="(min-width:768px)" width="1200" height="400">
-				<source srcset="assets/img/visual_5_mb.png" media="(max-width:767px)" width="600" height="400">
-				<img src="assets/img/visual_5.png" alt="" width="1200" height="400" loading="lazy">
-			</picture></figure>
-			<a class="c-button" href="https://placy.org/">Placy (simple tool for generating image placeholders)</a>
+			<a class="c-badge" href="https://lopan.jp/css-animation/parallax/">
+				<img src="assets/img/css-animation/eyecatch.webp" alt="" width="600" height="400">
+				<span class="text">動くCSSのためのメモ。<br>パララックス</span>
+			</a>
 		</div>
 	</div>
 	
 	<section id="about" class="p-about l-section">
 		<h2 class="c-title -hyphen">About</h2>
-		<p class="c-lead">Webサイト制作でよく使うテンプレートまとめです。</p>
+		<p class="c-lead">Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。</p>
 	</section>
 	
 	<section id="news" class="p-news l-section">
 		<h2 class="c-title -hyphen">News</h2>
-		<p class="c-lead">よくある「アーカイブリスト」のレイアウトスタイル。アイキャッチと、日付、カテゴリ（タグ）、タイトルを含む記事一覧のイメージです。</p>
-		<ul class="c-archivelist js-inview" data-last="li:last-child">
-			<li class="archive_item">
+		<p class="c-lead">よくある「アーカイブ一覧」のレイアウトスタイル。アイキャッチ、日付、カテゴリやタグ、タイトル、概要文などを含む過去の記事の一覧です。</p>
+		<ul class="c-archivelist -tanzaku" data-last="li:last-child">
+			<li class="archive_item js-inview"><a href="archivelist/" class="container">
 				<dl class="text">
 					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">HTML</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-					<dd class="link"><a href="https://lopan.jp" class="c-button">詳しく見る</a></dd>
+					<dd class="tags"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">SVG</span></dd>
+					<dd class="title">ニュースの見出しなので、「〇〇を公開しました」とか長めのキャッチーなタイトル。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></dd>
 				</dl>
-				<figure class="image"><img data-src="assets/img/item_1.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</li>
-			<li class="archive_item">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">JavaScript</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-					<dd class="link"><a href="https://lopan.jp" class="c-button">詳しく見る</a></dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_2.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</li>
-			<li class="archive_item"><a href="https://lopan.jp" class="linkwrap">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
+				<figure class="image"><img src="assets/img/memorandum/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 			</a></li>
-			<li class="archive_item"><a href="https://lopan.jp" class="linkwrap">
+			<li class="archive_item js-inview"><a href="archivelist/" class="container">
 				<dl class="text">
 					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					<dd class="tags"><span class="c-tag">スキャンダル</span></dd>
+					<dd class="title">「〇〇を週刊文春にスクープされました」とか、文章的な長めタイトルが入っても良い想定。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></dd>
 				</dl>
-				<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
+				<figure class="image"><img src="assets/img/transparent-texture/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 			</a></li>
-			<li class="archive_item"><a href="https://lopan.jp" class="linkwrap">
+			<li class="archive_item js-inview"><a href="archivelist/" class="container">
 				<dl class="text">
 					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+					<dd class="tags"><span class="c-tag">掲載情報</span></dd>
+					<dd class="title">Lopan cafeが「朝はパンマガジン PANPAPAN 8月号」に掲載されました！<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></dd>
 				</dl>
-				<figure class="image"><img data-src="assets/img/item_5.png" alt="" width="400" height="300" loading="lazy"></figure>
+				<figure class="image"><img src="assets/img/illustrator-illustration/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 			</a></li>
 		</ul>
-	</section>
-	
-	<section class="p-flickity l-section">
-		<h2 class="c-title -bar">Flickity</h2>
-		<p class="c-lead">上のアーカイブリストをFlickityでレイアウトした時のスタイル。<small>※ul/li要素をdiv要素に変えること。</small></p>
-		<div class="c-archivelist js-slider" data-arrow data-dots>
-			<div class="archive_item">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">HTML</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-					<dd class="link"><a href="https://lopan.jp" class="c-button">詳しく見る</a></dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_1.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</div>
-			<div class="archive_item">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">JavaScript</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-					<dd class="link"><a href="https://lopan.jp" class="c-button">詳しく見る</a></dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_2.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</div>
-			<div class="archive_item"><a href="https://lopan.jp" class="linkwrap">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">PHP</span><span class="c-tag">JavaScript</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</a></div>
-			<div class="archive_item"><a href="https://lopan.jp" class="linkwrap">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span><span class="c-tag">HTML</span><span class="c-tag">Python</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_4.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</a></div>
-			<div class="archive_item"><a href="https://lopan.jp" class="linkwrap">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="category"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">JavaScript</span></dd>
-					<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-				</dl>
-				<figure class="image"><img data-src="assets/img/item_5.png" alt="" width="400" height="300" loading="lazy"></figure>
-			</a></div>
-		</div>
-		<a href="https://lopan.jp/" class="c-button js-inview">もっと見る</a>
+		<a href="archivelist/" class="c-button js-inview">アーカイブ一覧について</a>
 	</section>
 	
 	<section id="works" class="p-works l-section">
 		<h2 class="c-title -hyphen">Works</h2>
 		<p class="c-lead">プルダウンUIの使い処。ながーいコンテンツや、冗長な内容などを省略したい時に、冒頭だけちょっと見せて続きは隠しておきます。</p>
-		<button type="button" class="works_button -txt js-pullToggle" data-pull="target">
-			<span class="open">開く</span><span class="close">閉じる</span>
-		</button>
-		<div class="works_content js-pullContent" data-pull="target" data-default="320">
-			<ul class="c-archivelist">
-				<li class="archive_item">
+		<div class="works_content js-pullContent" data-pull="target" data-default="240">
+			<ul class="c-archivelist -block">
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品名が入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">チョココロネ</dd>
+						<dd class="summary">フランス産のビターチョコレートを詰めた、少し大人なチョココロネ。</dd>
+						<dt class="price">¥130</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_1.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_corne.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品タイトルが入るよ作品名が入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">カレーパン</dd>
+						<dd class="summary">スパイスの効いたキーマカレーを包んで、サラダ油でカラっと揚げた、カリカリ食感のカレーパン。</dd>
+						<dt class="price">¥200</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_2.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_pain_curry.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品名が入るよ作品名が入るよ作品名が入るよ作品名が入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">とろたまコッペ</dd>
+						<dd class="summary">たっぷりのふわふわたまごフィリングを、ふんわり食感のコッペパンでサンドしました。</dd>
+						<dt class="price">¥100</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_egg_coupe.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品名が入るよ作品名が入るよ作品名が入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">パンドーロ</dd>
+						<dd class="summary">卵黄とフレッシュバターを贅沢に使い、ふんわりと焼き上げたベローナ特産の自然醗酵菓子。</dd>
+						<dt class="price">¥180</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_pan_doro.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品タイトルが入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">クリンゲル</dd>
+						<dd class="summary">デニッシュ生地にドライフルーツを巻き込んだ、デニッシュペストリー。</dd>
+						<dt class="price">¥320</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_kringle.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品タイトルが入るよ作品タイトルが入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">カイザーゼンメル</dd>
+						<dd class="summary">サクッとした食感の王冠模様の丸パンに白ゴマを散りばめた、オーストリア生まれの皇帝ロール。</dd>
+						<dt class="price">¥160</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_kaisersemmeln.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品名が入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">パン・オ・ショコラ</dd>
+						<dd class="summary">高カカオチョコレートをデニッシュ生地で包み込み、アーモンドスライスを乗せて焼き上げました。</dd>
+						<dt class="price">¥200</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
-				</li>
-				<li class="archive_item">
+					<figure class="image"><img src="assets/img/menu/pain_pain_au_chocolat.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
-						<dt class="title">作品タイトルが入るよ</dt>
-						<dd class="summary">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-						<dd class="price">¥24,000</dd>
+						<dd class="title">スパンダワー</dd>
+						<dd class="summary">デニッシュ生地になめらかカスタードクリームと香ばしいアーモンドを乗せて、さっくりと焼き上げました。</dd>
+						<dt class="price">¥250</dt>
 					</dl>
-					<figure class="image"><img data-src="assets/img/item_3.png" alt="" width="400" height="300" loading="lazy"></figure>
+					<figure class="image"><img src="assets/img/menu/pain_spandauer.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
 				</li>
 			</ul>
 		</div>
-		<button type="button" class="works_button -arr js-pullToggle" data-pull="target">
+		<button type="button" class="works_button c-pulltoggle js-pullToggle" data-pull="target">
 			<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M22,6l-10,12L2,6"/></svg>
 		</button>
 	</section>
@@ -293,67 +221,24 @@
 				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
 				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
 			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">だいたい20文字くらいのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
-			<div class="faq_item js-acc">
-				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
-				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
-			</div>
 		</dl>
+		<a href="pulldown/" class="faq_button c-button js-inview">プルダウンUI・<wbr>アコーディオンUIについて</a>
 	</section>
 	
 	<section id="store" class="p-store l-section">
 		<h2 class="c-title -hyphen">Store</h2>
-		<p class="c-lead">トップページによくあるレイアウト。ページタイトルと、ページのリード文や概要（抜粋）テキスト、イメージ画像をレイアウトするスタイル。</p>
-		<section class="c-cassette">
-			<div class="text">
-				<h3 class="c-title -hyphen">よくあるレイアウトのタイトル</h3>
-				<p class="lead">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</p>
-				<a href="" class="c-button">詳しく見る</a>
-			</div>
-			<figure class="image"><picture>
-				<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
-				<source srcset="assets/img/_watercolor.webp" type="image/webp">
-				<img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy">
-			</figure>
+		<p class="c-lead">トップページによくあるレイアウト。ページタイトルとリード文や概要（抜粋）テキスト、イメージ画像が並ぶレイアウトについて。</p>
+		<section class="c-cassette -grid">
+			<h3 class="c-title -hyphen">よくあるレイアウトのやりくり</h3>
+			<p class="lead">よくあるタイプの、イメージ画像と、タイトルと概要文とリンクボタンが並ぶレイアウトの、HTMLの組み方と、使うCSSプロパティについて。</p>
+			<a href="cassette/" class="c-button">詳しく見る</a>
+			<figure class="image"><img src="assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 		</section>
-		<section class="c-cassette -reverse">
-			<div class="text">
-				<h3 class="c-title -hyphen js-sc-slip" data-ratio="200">よくあるレイアウトのタイトル</h3>
-				<p class="lead js-sc-slip" data-ratio="160">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</p>
-				<a href="" class="c-button js-sc-slip" data-ratio="120">詳しく見る</a>
-			</div>
-			<figure class="image"><picture class="js-sc-slip" data-ratio="-200">
-				<source srcset="assets/img/_watercolor.jpg" type="image/jpeg">
-				<source srcset="assets/img/_watercolor.webp" type="image/webp">
-				<img data-src="assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy">
-			</figure>
+		<section class="c-cassette -grid -reverse">
+			<h3 class="c-title -hyphen">よくあるレイアウトのやりくり</h3>
+			<p class="lead">よくあるタイプの、イメージ画像と、タイトルと概要文とリンクボタンが並ぶレイアウトの、HTMLの組み方と、使うCSSプロパティについて。</p>
+			<a href="cassette/" class="c-button">詳しく見る</a>
+			<figure class="image"><img src="assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 		</section>
 	</section>
 	
@@ -410,118 +295,35 @@
 	</section>
 	
 	<section class="p-video l-section">
-		<h2 class="c-title -pop">Video</h2>
-		<p class="c-lead -c">IFrame Player APIを使った「YouTube 埋め込みプレーヤー」の実装例。</p>
+		<h2 class="c-title -pop">動画コンテンツ</h2>
+		<p class="c-lead -c">video要素を使った動画メディアの実装と、YouTube IFrame Player APIを使った埋め込みプレーヤーの実装。</p>
 		<div class="c-video">
 			<div class="wrap">
-				<div class="js-yt" width="320" height="180" data-ytid="B3vsRXOSBqc" tabindex="-1"></div>
+				<video controls width="640" height="390" class="js-video">
+					<source src="assets/media/video.webm" type="video/webm">
+					<source src="assets/media/video.mp4" type="video/mp4">
+				</video>
 			</div>
 			<div class="poster">
-				<img src="http://img.youtube.com/vi/B3vsRXOSBqc/mqdefault.jpg" alt="" width="320" height="180">
+				<img src="assets/media/poster.webp" alt="" width="640" height="390">
 				<button type="button" class="play">再生する</button>
 			</div>
 		</div>
-		<div class="c-video">
-			<div class="wrap">
-				<div class="js-yt" width="320" height="180" data-ytid="2oZbfE-W3CM" tabindex="-1"></div>
-			</div>
-			<div class="poster">
-				<img src="http://img.youtube.com/vi/2oZbfE-W3CM/maxresdefault.jpg" alt="" width="320" height="180">
-				<button type="button" class="play">再生する</button>
-			</div>
-		</div>
+		<a href="video/" class="c-button js-inview">動画コンテンツについて</a>
 	</section>
 	
 	<section class="p-googlemap l-section">
-		<h2 class="c-title">Google Maps API</h2>
+		<h2 class="c-title">Google マップ</h2>
 		<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp"></div>
+		<a href="googlemaps/" class="c-button js-inview">Google マップについて</a>
 	</section>
 	
-	<section id="contact" class="p-contact l-section">
-		<h2 class="c-title -hyphen">Contact</h2>
-		<p class="c-lead">お問い合わせフォームのテンプレート、ラジオボタン、チェックボックス、伸縮するテキストエリア。</p>
-		<form action="" class="c-form">
-			<ul class="c-formlist">
-				<li class="form_item"><label>
-					<span class="form_label">お名前<small class="req">必須</small></span>
-					<input type="text" name="name" autocomplete="name" required>
-				</label></li>
-				<li class="form_item"><label>
-					<span class="form_label">メールアドレス<small class="req">必須</small></span>
-					<input type="email" name="email" autocomplete="email" required>
-				</label></li>
-				<li class="form_item"><label>
-					<span class="form_label" name="tel" autocomplete="tel">電話番号</span>
-					<input type="tel" name="tel">
-				</label></li>
-				<li class="form_item"><label>
-					<span class="form_label">Webサイト<small class="req">必須</small></span>
-					<input type="url" name="url" autocomplete="url" required>
-				</label></li>
-				<li class="form_item">
-					<span class="form_label">メルマガ配信</span>
-					<div class="c-radioui">
-						<label class="item">
-							<input type="radio" name="info" value="受け取る" checked>
-							<span class="label">受け取る</span>
-						</label>
-						<label class="item">
-							<input type="radio" name="info" value="受け取らない">
-							<span class="label">受け取らない</span>
-						</label>
-						<label class="item -other">
-							<input type="radio" name="info" value="other" class="js-acceptInput" data-type="text">
-							<span class="label">その他</span>
-							<input type="text" name="info">
-						</label>
-					</div>
-				</li>
-				<li class="form_item">
-					<span class="form_label">このサイトをどこで知りましたか？</span>
-					<div class="c-checkboxui">
-						<label class="item">
-							<input type="checkbox" name="reason" value="Google検索">
-							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Google検索</span>
-						</label>
-						<label class="item">
-							<input type="checkbox" name="reason" value="Twitter">
-							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Twitter</span>
-						</label>
-						<label class="item">
-							<input type="checkbox" name="reason" value="Lopan cafe">
-							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>Lopan cafe</span>
-						</label>
-						<label class="item">
-							<input type="checkbox" name="reason" value="口コミ">
-							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>口コミ</span>
-						</label>
-						<label class="item">
-							<input type="checkbox" name="reason" value="風の噂">
-							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>風の噂</span>
-						</label>
-						<label class="item -other">
-							<input type="checkbox" name="reason" value="other" class="js-acceptInput" data-type="text">
-							<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>その他</span>
-							<input type="text" name="reason">
-						</label>
-					</div>
-				</label></li>
-				<li class="form_item"><label>
-					<span class="form_label">そのほかメッセージなどありましたら</span>
-					<div class="js-flextextarea">
-						<textarea name="message" rows="4" cols="30" placeholder="入力した行数に合わせて伸縮するテキストエリア"></textarea>
-					</div>
-				</label></li>
-			</ul>
-			<p class="contact_accept c-checkboxui">
-				<label class="item">
-					<input type="checkbox" name="agree" value="同意する" class="js-acceptInput" data-type="submit">
-					<span class="label"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><path d="M19,5l-10,14-4-6"/></svg>当サイトの「<a href="privacypolicy/" class="c-textlink">プライバシーポリシー</a>」に同意する。</span>
-				</label>
-			</p>
-			<input type="submit" class="contact_submit c-button -balloon js-inview" value="送信する">
-		</form>
-	</section>
+	<div id="contact" class="p-contact">
+		<a href="contact/" class="c-conversion">
+			<span class="main">お問い合わせはこちら<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></span>
+			<span class="sub">お問い合わせフォームの<wbr>HTML要素とレイアウトと実装。</span>
+		</a>
+	</div>
 </main>
 
 <footer class="l-footer">
@@ -554,7 +356,6 @@
 	</div>
 	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
 </footer>
-</div>
 
 <svg class="visuallyhidden">
 <symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>

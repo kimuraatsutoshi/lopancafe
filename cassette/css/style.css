@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+/**
+ * よくあるレイアウト
+ * ---------------------------------------- */
+.page-cassette .c-cassette {
+	margin-top: 40px;
+}
+.page-cassette .c-cassette .c-title {
+	font-size: 20px;
+}
+.page-cassette .c-cassette .lead {
+	margin-bottom: 0;
+	font-size: 14px;
+}
+.page-cassette .c-cassette .c-button {
+	max-width: 240px;
+	min-height: 48px;
+	margin-top: 24px;
+}
+.page-cassette .c-cassette .image img {
+	border-radius: 8px;
+}
+@media screen and (max-width: 767px) {
+	.page-cassette .c-cassette .c-button {
+		margin-top: 16px;
+	}
+}

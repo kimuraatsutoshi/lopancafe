@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/**
+ * お問い合わせフォーム
+ * ---------------------------------------- */
+.page-contact .p-intro .c-lead {
+	text-align: center;
+}
+.page-contact .p-contactform {
+	max-width: 800px;
+}
+.page-contact .p-contactform .c-form {
+	margin-top: 40px;
+}
+.page-contact .p-contactform .c-radioui,
+.page-contact .p-contactform .c-checkboxui {
+	font-size: 14px;
+}
+.page-contact .p-contactform .contact_accept {
+	margin-top: 40px;
+	justify-content: center;
+}
+.page-contact .p-contactform .contact_submit {
+	margin: 40px 0 0;
+}

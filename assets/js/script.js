@@ -1,7 +1,11 @@
-import { WindowManagement, MainResizeObserver, FetchAjax, AfterLoadedJs, Resized, Throttle, AddFnc } from './common.js';
-import { DrawerMenu, AnchorScroll, AccordionUi, PulldownUi, FlexTextarea, CheckedAcceptInput, TextCopy } from './ui.js';
-import { FlickitySlider, GoogleMapsApi, YouTubeIframeApi } from './api.js';
-import { SimpleMapping, TransformScroll, InviewEffect, LazyImage, MagneticButton } from './gimmick.js';
+import { WindowManagement, MainResizeObserver, FetchAjax, AfterLoadedJs, ReturnRelativePath, Resized, Throttle, AddFnc } from './common.js';
+import { DrawerMenu, AccordionUi, PulldownUi, AnchorScroll, VideoControls, SyntacConvert, TextCopy } from './ui.js';
+import { InviewEffect, LazyImage, SimpleMapping, MagneticButton } from './gimmick.js';
+import { FlexTextarea, CheckedAcceptInput } from './form-ui.js';
+import { TransformScroll } from './transformscroll.js';
+import { YouTubeIframeApi } from './youtube.js';
+import { GoogleMapsApi } from './googlemap.js';
+import { FlickitySlider } from './flkty.js';
 
 (function() {
 	'use strict';
@@ -27,9 +31,12 @@ import { SimpleMapping, TransformScroll, InviewEffect, LazyImage, MagneticButton
 			LPN.Ts = new TransformScroll();
 			LPN.As = new AnchorScroll();
 			LPN.Dm = new DrawerMenu();
+			LPN.Rp = new ReturnRelativePath('component');
 			new MainResizeObserver(LPN.registFnc.onMainResize);
 		}
 		function uijs() {
+			new VideoControls();
+			new SyntacConvert();
 			new AccordionUi();
 			new PulldownUi();
 			new FlexTextarea();
@@ -38,7 +45,7 @@ import { SimpleMapping, TransformScroll, InviewEffect, LazyImage, MagneticButton
 		}
 		function apijs() {
 			new FlickitySlider();
-			new GoogleMapsApi(null);
+			new GoogleMapsApi('AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU');
 			new YouTubeIframeApi();
 		}
 		function gimmickjs() {
