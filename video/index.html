@@ -19,7 +19,6 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/common.css">
 <link rel="stylesheet" href="../assets/css/component.css">
-<link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
@@ -66,7 +65,7 @@
 		<a href="./" aria-current="page">動画コンテンツ</a>
 	</div>
 	<div class="p-intro l-section">
-		<h1 class="video_title c-title -sand">動画コンテンツ</h1>
+		<h1 class="intro_title c-title -sand">動画コンテンツ</h1>
 		<p class="c-lead">Webサイトに動画を読み込み再生する方法。</p>
 		<p>ここでは、HTMLの<b>video要素</b>を使って設置した動画メディア、または、<b>IFrame Player API</b>を使った「YouTube 埋め込み動画」を、別途設置したボタンから動画の再生、一時停止を操作する方法について。</p>
 	</div>
@@ -98,32 +97,39 @@
 			<h3 class="c-title -bar">実装例</h3>
 			<div class="c-video">
 				<div class="wrap">
-					<video width="640" height="360" class="js-video">
+					<video width="640" height="360" class="js-video" data-video="sampleVideo">
 						<source src="../assets/media/video.webm" type="video/webm">
 						<source src="../assets/media/video.mp4" type="video/mp4">
 					</video>
 				</div>
-				<div class="poster">
+				<div class="poster js-videoControl" data-video="sampleVideo">
 					<img src="../assets/media/poster.webp" alt="" width="640" height="360" loading="lazy">
-					<button type="button" class="play">再生する</button>
+					<span class="play">再生する</button>
 				</div>
 			</div>
-			<p>HTMLは以下の構成で用意。それをその下のCSSでスタイリング。</p>
+			<p>HTMLは以下の構成で用意。</p>
+			<ol class="c-numlist">
+				<li>div要素<small>（<code>.c-video</code>）</small>の中にdiv要素をふたつ<small>（<code>.wrap</code>と<code>.poster</code>）</small>用意。</li>
+				<li><code>.wrap</code>には<b>video要素</b>、<code>.poster</code>には一時停止時に表示される<b>アイキャッチ画像</b>と<b>再生ボタンとなる要素</b>を設置。</li>
+				<li>video要素のclass属性に「<code>js-video</code>」を指定し、<b>再生停止ボタンにしたい要素</b>のclass属性に「<code>js-videoControl</code>」を指定。</li>
+				<li><code>.js-video</code>と<code>.js-videoControl</code>に<b>data-video属性</b>を付与し、それぞれに同じユニークな値を指定し紐づける。</li>
+			</ol>
+			<p>それをその下のCSSでスタイリング。</p>
 			<figure class="c-syntax" data-lang="html">
 				&lt;div class="c-video"&gt;
 					&lt;div class="wrap"&gt;
-						&lt;video controls width="640" height="360" class="js-video"&gt;
+						&lt;video width="640" height="360" class="js-video" data-video="sampleVideo"&gt;
 							&lt;source src="../assets/media/video.webm" type="video/webm"&gt;
 							&lt;source src="../assets/media/video.mp4" type="video/mp4"&gt;
 						&lt;/video&gt;
 					&lt;/div&gt;
-					&lt;div class="poster"&gt;
+					&lt;div class="poster js-videoControl" data-video="sampleVideo"&gt;
 						&lt;img src="../assets/media/poster.webp" alt="" width="640" height="360" loading="lazy"&gt;
-						&lt;button type="button" class="play"&gt;再生する&lt;/button&gt;
+						&lt;span class="play"&gt;再生する&lt;/button&gt;
 					&lt;/div&gt;
 				&lt;/div&gt;
 			</figure>
-			<figure class="c-syntax -shortcut2" data-lang="css">
+			<figure class="c-syntax -shortcut" data-lang="css">
 				.c-video {
 					position: relative;
 					border: 10px solid #fff;
@@ -210,28 +216,33 @@
 				}
 			</figure>
 			<p></p>
-			<figure class="c-syntax" data-lang="js">
+			<figure class="c-syntax -shortcut" data-lang="js" data-caption="要約<small>（詳細は<a href='../assets/js/video.js' class='c-textlink'>ソースコード</a>を参照のこと）</small>">
 				const elm = document.getElementsByClassName('js-video')[0];
-				const poster = elm.parentNode.nextElementSibling;
-				var videoData = {
+				const id = elm.dataset.video;
+				const button = document.querySelector(`.js-videoControl[data-video=${id}]`);
+				button.tabIndex = 0;
+				this.videoData[id] = {
 					isPlaying: false,
 					container: elm.closest('.c-video'),
 					video: elm,
-					poster: poster
+					button: button
 				};
-				elm.addEventListener('ended', () => {
-					videoData.video.pause();
-				});
-				poster.addEventListener('click', () => {
-					if (!videoData.isPlaying) {
-						videoData.isPlaying = true;
-						videoData.container.classList.add('is-playing');
-						videoData.video.play();
+				button.addEventListener('click', e => {
+					if (!this.videoData[id].isPlaying) {
+						this.videoData[id].isPlaying = true;
+						this.videoData[id].video.play();
+						if (this.videoData[id].container !== null) {
+							// 親要素に c-video があったら is-playing を付与する
+							this.videoData[id].container.classList.add('is-playing');
+						}
 					} else {
-						videoData.isPlaying = false;
-						videoData.container.classList.remove('is-playing');
-						videoData.video.pause();
-					}
+						this.videoData[id].isPlaying = false;
+						this.videoData[id].video.pause();
+						if (this.videoData[id].container !== null) {
+							// 親要素に c-video があったら is-playing を外す
+							this.videoData[id].container.classList.remove('is-playing');
+						}
+					}	
 				});
 			</figure>
 		</section>
@@ -242,67 +253,88 @@
 		<p class="c-lead">IFrame Player APIを使った動画の実装。</p>
 		<div class="c-video">
 			<div class="wrap">
-				<div class="js-yt" width="640" height="360" data-ytid="2oZbfE-W3CM"></div>
+				<div class="js-yt" width="640" height="360" data-player="samplePlayer" data-ytid="2oZbfE-W3CM"></div>
 			</div>
-			<div class="poster">
+			<div class="poster js-ytControl" data-player="samplePlayer">
 				<img src="../assets/media/ytplayer.webp" alt="" width="640" height="360" loading="lazy">
-				<button type="button" class="play">再生する</button>
+				<span class="play">再生する</span>
 			</div>
 		</div>
-		<p>HTMLは上のvideo要素のところをdiv要素に変えて、data-ytid属性に<b>YouTube ID</b>を付与する。<br>CSSはvideo要素のと同じ。</p>
+		<p>HTMLは以下の構成で用意、ほとんどvideo要素のと同じ。</p>
+		<ol class="c-numlist">
+			<li>div要素<small>（<code>.c-video</code>）</small>の中にdiv要素をふたつ<small>（<code>.wrap</code>と<code>.poster</code>）</small>用意。</li>
+			<li><code>.wrap</code>には<b>div要素</b>を設置し、class属性に「<code>js-yt</code>」を指定、<b>data-ytid属性</b>にYouTubeの<b>動画ID</b>を指定する。</li>
+			<li><code>.poster</code>には一時停止時に表示される<b>アイキャッチ画像</b>と<b>再生ボタンとなる要素</b>を設置。</li>
+			<li><b>再生停止ボタンにしたい要素</b>のclass属性に「<code>js-videoControl</code>」を指定。</li>
+			<li><code>.js-yt</code>と<code>.js-ytControl</code>に<b>data-player属性</b>を付与し、それぞれに同じユニークな値を指定し紐づける。</li>
+		</ol>
+		<p>CSSはvideo要素のと同じ。</p>
 		<figure class="c-syntax" data-lang="html">
 			&lt;div class="c-video"&gt;
 				&lt;div class="wrap"&gt;
-					&lt;div class="js-yt" width="640" height="360" data-ytid="2oZbfE-W3CM"&gt;&lt;/div&gt;
+					&lt;div class="js-yt" width="640" height="360" data-player="samplePlayer" data-ytid="2oZbfE-W3CM"&gt;&lt;/div&gt;
 				&lt;/div&gt;
-				&lt;div class="poster"&gt;
-					&lt;img src="http://img.youtube.com/vi/2oZbfE-W3CM/maxresdefault.jpg" alt="" width="640" height="360" loading="lazy"&gt;
-					&lt;button type="button" class="play"&gt;再生する&lt;/button&gt;
+				&lt;div class="poster js-ytControl" data-player="samplePlayer"&gt;
+					&lt;img src="../assets/media/ytplayer.webp" alt="" width="640" height="360" loading="lazy"&gt;
+					&lt;span class="play"&gt;再生する&lt;/span&gt;
 				&lt;/div&gt;
 			&lt;/div&gt;
 		</figure>
 		<p></p>
-		<figure class="c-syntax" data-lang="js">
+		<figure class="c-syntax -shortcut" data-lang="js" data-caption="要約<small>（詳細は<a href='../assets/js/video.js' class='c-textlink'>ソースコード</a>を参照のこと）</small>">
 			const elm = document.getElementsByClassName('js-yt')[0];
+			const id = elm.dataset.player;
 			elm.tabIndex = -1;
-			elm.id = 'video';
-
-			const poster = elm.parentNode.nextElementSibling;
-			poster.tabIndex = 0;
-			poster.addEventListener('click', e => {
-				onPlay();
-			});
-			const play = poster.getElementsByClassName('play')[0];
-			play.tabIndex = -1;
+			elm.id = id;
+			
+			const w = elm.width ? elm.width : 560;
+			const h = elm.height ? elm.height : 315;
+			const ytid = elm.dataset.ytid;
 			
 			const playerVars = { controls: 0, modestbranding: 1, enablejsapi: 1, playsinline: 1, rel: 0 };
-			const ytPlayer = new YT.Player('video', {
-				width: 560,
-				height: 315,
-				videoId: elm.dataset.ytid,
-				playerVars: {
-					controls: 0,
-					modestbranding: 1,
-					enablejsapi: 1,
-					playsinline: 1,
-					rel: 0
-				},
+			if (elm.dataset.vars !== undefined) {
+				// data-vars 属性があったらパラメータにして playerVars に上書き
+				const vars = elm.dataset.vars.split('&');
+				let param = [];
+				for (let i = 0, len = vars.length; i < len; i++) {
+					param = vars[i].split('=');
+					playerVars[param[0]] = param[1];
+				}
+			}
+			const player = new YT.Player(id, {
+				width: w, height: h, videoId: ytid, playerVars: playerVars,
 				events: {
+					'onReady': e => {
+						if (parseInt(playerVars.autoplay)) {
+							e.target.mute();
+						}
+					},
 					'onStateChange': e => {
-						if (e.data === 1 || e.data === -1) {
-							e.target.getIframe().parentNode.parentNode.classList.add('is-playing');
-						} else {
-							e.target.getIframe().parentNode.parentNode.classList.remove('is-playing');
+						if (e.target.container !== null) {
+							// 親要素に c-video があったら is-playing を付け外しする
+							if (e.data === 1 || e.data === -1) {
+								e.target.container.classList.add('is-playing');
+							} else {
+								e.target.container.classList.remove('is-playing');
+							}
 						}
 					}
-				}
+				},
 			});
+			player.container = player.getIframe().closest('.c-video');
+			
+			const button = document.querySelector(`.js-ytControl[data-player=${id}]`);
+			button.tabIndex = 0;
+			button.addEventListener('click', () => {
+				onPlay();
+			});
+			
 			function onPlay() {
-				if (ytPlayer === undefined) return;
-				if (ytPlayer.getPlayerState() !== 1) {
-					ytPlayer.playVideo();
+				if (player === undefined) return;
+				if (player.getPlayerState() !== 1) {
+					player.playVideo();
 				} else {
-					ytPlayer.pauseVideo();
+					player.pauseVideo();
 				}
 			}
 		</figure>

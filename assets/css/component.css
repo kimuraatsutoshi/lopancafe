@@ -180,6 +180,53 @@ input.c-button:disabled {
 
 
 /**
+ * 一覧
+ * ---------------------------------------- */
+.c-list li {
+	padding-left: 1em;
+	line-height: 1.6;
+	text-indent: -1em;
+}
+.c-list li + li {
+	margin-top: .4em;
+}
+.c-list li * {
+	text-indent: 0;
+}
+.c-list li::before {
+	content: "";
+	display: inline-block;
+	width: .4em;
+	height: .4em;
+	margin-right: .6em;
+	border-radius: .4em;
+	text-indent: 0;
+	background: var(--themecolor);
+}
+.c-numlist li {
+	counter-increment: num;
+	padding-left: 1.6em;
+	line-height: 1.6;
+	text-indent: -1.6em;
+}
+.c-numlist li + li {
+	margin-top: .4em;
+}
+.c-numlist li * {
+	text-indent: 0;
+}
+.c-numlist li::before {
+	content: counter(num)".";
+	display: inline-block;
+	width: 1em;
+	margin-right: .6em;
+	color: currentcolor;
+	font-weight: 700;
+	text-indent: 0;
+}
+
+
+/**
  * リンク
  * ---------------------------------------- */
 .c-link {
@@ -326,60 +373,17 @@ input.c-button:disabled {
 
 
 /**
- * スクロールコンテナ
- * ---------------------------------------- */
-.c-scrollcontainer {
-	overflow: auto;
-	scrollbar-width: thin;
-	scroll-snap-align: center;
-}
-.c-scrollcontainer.-x {
-	overscroll-behavior: contain auto;
-	overflow-y: hidden;
-	scroll-snap-type: x mandatory;
-	padding-bottom: 8px;
-}
-.c-scrollcontainer.-y {
-	overscroll-behavior: auto contain;
-	overflow-x: hidden;
-	scroll-snap-type: y mandatory;
-	padding-right: 8px;
-}
-.c-scrollcontainer::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
-}
-.c-scrollcontainer::-webkit-scrollbar-thumb {
-	border-radius: 8px;
-	box-shadow: none;
-	background: #dadcde;
-}
-.c-scrollcontainer::-webkit-scrollbar-track {
-	width: 16px;
-	height: 16px;
-	border-radius: 6px;
-	background: #eeeff1;
-}
-@media (hover: hover) {
-	.c-scrollcontainer::-webkit-scrollbar-thumb {
-		transition: background .4s;
-	}
-	.c-scrollcontainer::-webkit-scrollbar-thumb:hover {
-		background: var(--gainsboro);
-		transition-duration: .1s;
-	}
-	.c-scrollcontainer::-webkit-scrollbar-track:decrement {
-		background: red;
-	}
-}
-
-
-/**
  * アーカイブリスト
  * ---------------------------------------- */
 /* 共通スタイル */
+.c-archivelist {
+	margin: 0;
+}
 .c-archivelist .archive_item {
 	position: relative;
+}
+.c-archivelist .container {
+	display: flex;
 }
 .c-archivelist .image {
 	order: -1;
@@ -448,7 +452,6 @@ input.c-button:disabled {
 	border-bottom: 1px solid #eeeff1;
 }
 .c-archivelist.-tanzaku .container {
-	display: flex;
 	gap: 24px;
 	padding: 16px 40px 16px 16px;
 }
@@ -558,9 +561,8 @@ input.c-button:disabled {
 	flex-grow: 0;
 }
 .c-archivelist.-block .container {
-	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	row-gap: 16px;
 }
 .c-archivelist.-block .text {
 	display: flex;
@@ -603,54 +605,7 @@ input.c-button:disabled {
 	}
 }
 
-/* :::::: スクロールレイアウト :::::: */
-.c-archivelist.-scroll {
-	display: flex;
-	justify-content: space-between;
-	gap: 32px;
-	margin-inline: calc(50% - 50vw);
-	padding-inline: calc(50vw - 50%);
-}
-.c-archivelist.-scroll .archive_item {
-	scroll-snap-align: center;
-	flex-basis: 280px;
-	min-width: 280px;
-}
-.c-archivelist.-scroll .container {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-}
-.c-archivelist.-scroll .image {
-	order: -1;
-}
-.c-archivelist.-scroll .text {
-	flex-grow: 1;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-	gap: 4px;
-}
-.c-archivelist.-scroll .summary,
-.c-archivelist.-scroll .tags {
-	flex-basis: 100%;
-}
-.c-archivelist.-scroll .tags {
-	margin-top: .3em;
-}
-@media screen and (max-width: 767px) {
-	.c-archivelist.-scroll {
-		gap: 24px;
-	}
-}
-@media screen and (max-width: 479px) {
-	.c-archivelist.-scroll {
-		gap: 16px;
-	}
-}
-
-/* :::::: スライダーレイアウト :::::: */
+/* :::::: スライダーレイアウト (on Flickity) :::::: */
 .c-archivelist.js-slider {
 	display: block;
 }
@@ -674,6 +629,7 @@ input.c-button:disabled {
 		margin-right: 16px;
 	}
 }
+/* Flickity */
 .c-archivelist .flickity-viewport {
 	margin-inline: calc(50% - 50vw);
 }
@@ -828,70 +784,235 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 
 
 /**
- * よくあるレイアウト (カセット)
+ * スクロールコンテナ
  * ---------------------------------------- */
+.c-scrollcontainer {
+	scroll-behavior: smooth;
+	overflow: auto;
+	scrollbar-width: thin;
+	scroll-snap-align: center;
+}
+.c-scrollcontainer.-x {
+	overscroll-behavior: contain auto;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+	padding-bottom: 8px;
+}
+.c-scrollcontainer.-y {
+	overscroll-behavior: auto contain;
+	overflow-x: hidden;
+	scroll-snap-type: y mandatory;
+	padding-right: 8px;
+}
+.c-scrollcontainer::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+.c-scrollcontainer::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	box-shadow: none;
+	background: #dadcde;
+}
+.c-scrollcontainer::-webkit-scrollbar-track {
+	width: 16px;
+	height: 16px;
+	border-radius: 6px;
+	background: #eeeff1;
+}
 @media (hover: hover) {
-	.c-cassette.-wrap .container:hover .c-button {
-		color: var(--themecolor);
-		background: white;
+	.c-scrollcontainer::-webkit-scrollbar-thumb {
+		transition: background .4s;
+	}
+	.c-scrollcontainer::-webkit-scrollbar-thumb:hover {
+		background: var(--gainsboro);
 		transition-duration: .1s;
 	}
+	.c-scrollcontainer::-webkit-scrollbar-track:decrement {
+		background: red;
+	}
 }
+
+
+/**
+ * スクロールカルーセル
+ * ---------------------------------------- */
+.js-scrollcarousel {
+	position: relative;
+}
+.js-carouselContainer {
+	scroll-behavior: smooth;
+	overscroll-behavior: contain auto;
+	overflow: auto;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+	padding-bottom: 8px;
+}
+.js-carouselContainer::-webkit-scrollbar {
+	width: 8px;
+	height: 2px;
+}
+.js-carouselContainer::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	box-shadow: none;
+	background: var(--themecolor);
+}
+.js-carouselContainer::-webkit-scrollbar-track {
+	width: 16px;
+	height: 16px;
+	border-radius: 6px;
+	background: #eeeff1;
+}
+.js-carouselItem {
+	scroll-snap-stop: always;
+	scroll-snap-align: center;
+	min-width: 100%;
+}
+.js-scrollcarousel .arrows {
+	position: absolute;
+	top: calc(50% - 40px);
+	left: 0;
+	width: 100%;
+}
+.js-scrollcarousel .arrow {
+	cursor: pointer;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	color: var(--themecolor);
+	transition: opacity .4s;
+}
+.js-scrollcarousel .arrow.-prev { left: 0; }
+.js-scrollcarousel .arrow.-next { right: 0; }
+.js-scrollcarousel .arrow:disabled {
+	pointer-events: none;
+	opacity: .2;
+	transition-duration: .1s;
+}
+.js-scrollcarousel .arrow .arr {
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.js-scrollcarousel .pagination {
+	display: flex;
+	justify-content: center;
+	column-gap: 16px;
+	margin-top: 16px;
+}
+.js-scrollcarousel .pagination .dot {
+	/* cursor: pointer; */
+	flex-basis: 6px;
+	height: 6px;
+	border-radius: 6px;
+	background: #eeeff1;
+	transition: background .4s, transform .4s cubic-bezier(.3,1,.7,1);
+}
+.js-scrollcarousel .pagination .dot.is-active {
+	animation: dotAnim .2s backwards;
+	background: var(--themecolor);
+	transform: scale(1.2);
+}
+@keyframes keypressAnim {
+	from { outline-offset: 0; }
+	10% { outline-offset: 4px; }
+	to { outline-offset: 0; }
+}
+@keyframes dotAnim {
+	from { transform: none; }
+	20% { transform: scale(1.4); background: var(--themecolor); }
+	to { transform: scale(1.2); }
+}
+
+/* :::::: スクロールカルーセルに入ったアーカイブリスト :::::: */
+:where(.js-scrollcarousel) .c-archivelist {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 32px;
+}
+:where(.js-scrollcarousel) .c-archivelist .container {
+	flex-direction: column;
+	row-gap: 16px;
+}
+:where(.js-scrollcarousel) .c-archivelist .archive_item {
+	min-width: calc(100% - 96px);
+}
+:where(.js-scrollcarousel) .c-archivelist .archive_item .image img {
+	transform: scale(.8);
+	transition: transform .1s cubic-bezier(.3,1,.7,1);
+}
+:where(.js-scrollcarousel) .c-archivelist .archive_item.is-active .image img {
+	transform: scale(1.2);
+	transition-duration: 3s;
+}
+:where(.js-scrollcarousel) .c-archivelist .text {
+	flex-grow: 1;
+}
+@media screen and (max-width: 767px) {
+	:where(.js-scrollcarousel) .c-archivelist {
+		gap: 24px;
+	}
+	:where(.js-scrollcarousel) .c-archivelist .archive_item {
+		min-width: calc(100% - 64px);
+	}
+}
+@media screen and (max-width: 479px) {
+	:where(.js-scrollcarousel) .c-archivelist {
+		gap: 16px;
+	}
+	:where(.js-scrollcarousel) .c-archivelist .archive_item {
+		min-width: calc(100% - 48px);
+	}
+}
+
+
+/**
+ * よくあるレイアウト (カセット)
+ * ---------------------------------------- */
 @media print, (min-width: 768px) {
-	.c-cassette.-flex {
-		display: flex;
-		align-items: center;
-		column-gap: 48px;
-	}
-	.c-cassette.-flex .text {
-		flex-basis: calc(60% - 24px);
-		text-align: left;
-	}
-	.c-cassette.-flex .image {
-		flex-basis: calc(40% - 24px);
-	}
-	.c-cassette.-flex.-reverse .image {
-		order: -1;
-	}
-	.c-cassette.-grid,
+	.c-cassette,
 	.c-cassette.-wrap .container  {
 		display: grid;
 		grid-template: 4fr auto 7fr / calc(60% - 24px) calc(40% - 24px);
 		column-gap: 48px;
 	}
-	.c-cassette.-grid.-reverse,
+	.c-cassette.-wrap  {
+		display: block;
+	}
+	.c-cassette.-reverse,
 	.c-cassette.-wrap.-reverse .container {
 		grid-template-columns: calc(40% - 24px) calc(60% - 24px);
 	}
-	.c-cassette.-grid .c-title,
+	.c-cassette .c-title,
 	.c-cassette.-wrap .container .c-title {
-		grid-area: 1 / 1 / 2 / 2;
+		grid-area: 1 / 1;
 		align-self: flex-end;
 	}
-	.c-cassette.-grid .lead,
+	.c-cassette .lead,
 	.c-cassette.-wrap .container .lead {
-		grid-area: 2 / 1 / 3 / 2;
+		grid-area: 2 / 1;
 		text-align: left;
 	}
-	.c-cassette.-grid .c-button,
+	.c-cassette .c-button,
 	.c-cassette.-wrap .container .c-button {
-		grid-area: 3 / 1 / 4 / 2;
+		grid-area: 3 / 1;
 		align-self: flex-start;
 	}
-	.c-cassette.-grid .image,
+	.c-cassette .image,
 	.c-cassette.-wrap .container .image {
 		grid-area: 1 / 2 / 4 / 3;
 		align-self: center;
 	}
-	.c-cassette.-grid.-reverse .c-title,
-	.c-cassette.-grid.-reverse .lead,
-	.c-cassette.-grid.-reverse .c-button,
+	.c-cassette.-reverse .c-title,
+	.c-cassette.-reverse .lead,
+	.c-cassette.-reverse .c-button,
 	.c-cassette.-wrap.-reverse .container .c-title,
 	.c-cassette.-wrap.-reverse .container .lead,
 	.c-cassette.-wrap.-reverse .container .c-button {
 		grid-column: 2 / 3;
 	}
-	.c-cassette.-grid.-reverse .image,
+	.c-cassette.-reverse .image,
 	.c-cassette.-wrap.-reverse .container .image {
 		grid-column: 1 / 2;
 	}
@@ -902,24 +1023,28 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 		display: flex;
 		flex-direction: column;
 	}
-	.c-cassette.-flex {
-		row-gap: 24px;
-	}
-	.c-cassette.-grid .c-title,
+	.c-cassette .c-title,
 	.c-cassette.-wrap .container .c-title {
 		order: -1;
 		align-self: flex-start;
 	}
-	.c-cassette.-grid .c-button,
+	.c-cassette .c-button,
 	.c-cassette.-wrap .container .c-button {
 		align-self: center;
 	}
-	.c-cassette.-grid .image,
+	.c-cassette .image,
 	.c-cassette.-wrap .container .image {
 		margin-top: 16px;
 	}
 	.c-cassette .image {
 		order: -1;
+	}
+}
+@media (hover: hover) {
+	.c-cassette.-wrap .container:hover .c-button {
+		color: var(--themecolor);
+		background: white;
+		transition-duration: .1s;
 	}
 }
 
@@ -936,6 +1061,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	border-radius: 8px;
 }
 .c-image figcaption {
+	margin-top: .5em;
 	font-size: 14px;
 }
 @media screen and (max-width: 479px) {
@@ -960,7 +1086,10 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	max-width: calc(100% + 96px);
 	margin: 1em -48px;
 	line-height: 1.6;
-	text-align: left;
+}
+.c-syntax figcaption {
+	margin-top: .5em;
+	font-size: 14px;
 }
 .c-syntax .wrap {
 	overflow: auto;
@@ -969,6 +1098,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	overscroll-behavior: none auto;
 	scrollbar-width: auto;
 	scrollbar-color: #dadcde #eeeff1;
+	text-align: left;
 }
 .c-syntax.-shortcut .wrap { max-height: calc(14px * 2.4 * 10 + 8px); }
 .c-syntax.-shortcut1 .wrap { max-height: calc(14px * 2.4 * 11 + 8px); }
@@ -1657,10 +1787,13 @@ html.wf-active .c-table .-v {
 .js-acc {
 	overflow: hidden;
 }
-.js-accHead {
+.js-acc .js-accHead {
 	cursor: pointer;
 }
-.js-accHead .ico {
+.js-acc .js-accBody {
+	margin: 0 !important;
+}
+.js-acc .js-accHead .ico {
 	fill: none;
 	stroke: currentcolor;
 	stroke-width: 2;
@@ -1681,6 +1814,76 @@ html.wf-active .c-table .-v {
 }
 .js-accHead.is-anim .ico {
 	transition: transform .4s cubic-bezier(.7,0,.3,1);
+}
+
+/* :::::: よくあるご質問 :::::: */
+.c-faq {
+	list-style: inside;
+	margin-top: 40px;
+	font-size: 16px;
+	text-align: left;
+}
+.c-faq .faq_item {
+	counter-increment: num;
+	border-bottom: 1px solid #dadcde;
+}
+.c-faq .faq_item:first-child {
+	border-top: 1px solid #dadcde;
+}
+.c-faq .faq_q,
+.c-faq .faq_a {
+	position: relative;
+	padding: 24px 40px;
+	text-indent: -2.9em;
+}
+.c-faq .faq_q {
+	color: var(--themecolor);
+	font-size: 18px;
+	font-weight: 700;
+}
+.c-faq .faq_a {
+	padding-top: 16px;
+}
+.c-faq .faq_q,
+.c-faq .faq_a {
+	padding-left: calc(2.9em + 16px);
+
+}
+.c-faq .faq_item:nth-child(n+10) .faq_q,
+.c-faq .faq_item:nth-child(n+10) .faq_a {
+	padding-left: calc(3.8em + 16px);
+	text-indent: -3.8em;
+}
+.c-faq .faq_q::before,
+.c-faq .faq_a::before {
+	content: "Q" counter(num) ". ";
+	color: var(--themecolor);
+	font-size: 24px;
+	line-height: 1.2;
+	font-weight: 700;
+}
+.c-faq .faq_a::before {
+	content: "A" counter(num) ". ";
+	top: 16px;
+	color: #c2c4ca;
+}
+.c-faq .faq_q .ico {
+	position: absolute;
+	top: calc(50% - 8px);
+	right: 16px;
+	width: 16px;
+	height: 16px;
+	stroke: var(--themecolor);
+	stroke-width: 3;
+}
+@media (hover: hover) {
+	.c-faq .faq_q {
+		transition: background .4s;
+	}
+	.c-faq .faq_q:hover {
+		background: #fafafd;
+		transition-duration: .1s;
+	}
 }
 
 
@@ -1825,4 +2028,6 @@ html.wf-active .c-table .-v {
 	resize: none;
 	position: absolute;
 	inset: 0;
+	width: 100%;
+	height: 100%;
 }

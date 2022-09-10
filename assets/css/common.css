@@ -294,6 +294,30 @@ section[id] {
 	border-top: 1px solid #dadcde;
 }
 
+/* :::::: コンテンツ :::::: */
+.l-main .p-intro {
+	margin-top: 80px;
+}
+:where(.l-section) p,
+:where(.l-section) ul,
+:where(.l-section) ol {
+	margin: 1em 0;
+	text-align: left;
+}
+:where(.l-section) p + p {
+	margin: .6em 0;
+}
+:where(.l-section) .c-lead {
+	margin-bottom: 0;
+}
+:where(.l-section) code {
+	margin: 0 .2em;
+	padding: .2em;
+	border-radius: 4px;
+	font-family: "Ubuntu Mono", consolas, "Source Code Pro", "Noto Sans JP", monospace;
+	background: #eeeff1;
+}
+
 
 /**
  * footer
@@ -576,6 +600,23 @@ section[id] {
 }
 .js-inview.is-anim {
 	transition: opacity .6s, transform .6s cubic-bezier(.3,1,.7,1);
+}
+/* variation */
+.js-inview.c-pop:not(.is-inview) {
+	opacity: 0;
+	transform: scale(.2);
+}
+.js-inview.c-pop.is-anim {
+	animation: pop 1s;
+	transition: opacity .3s;
+}
+@keyframes pop {
+	from { transform: scale(.2); }
+	20% { transform: scale(1.4); }
+	40% { transform: scale(.9); }
+	60% { transform: scale(1.1); }
+	80% { transform: scale(.96); }
+	to { transform: none; }
 }
 
 /* lazy */

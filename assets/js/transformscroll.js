@@ -2,6 +2,7 @@
  * .js-sc-wrap 内のスクロールを transform: translate に置き換える (※scroll-behavior は auto にしておく)
  * <div class="js-sc-wrap">{コンテンツ}</div>
  * <div class="js-sc-slip">{ずれる要素}</div>
+ * 参考: https://github.com/min30327/luxy.js/blob/master/src/js/luxy.js
  -------------------------------------------------- */
 export class TransformScroll {
 	constructor() {

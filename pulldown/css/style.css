@@ -3,5 +3,40 @@
 /**
  * プルダウン
  * ---------------------------------------- */
-.page-pulldown {
+.p-pulldown .works_button.c-pulltoggle {
+	margin-top: 24px;
+}
+.p-pulldown .works_button.c-pulltoggle::before {
+	content: "";
+	z-index: -1;
+	position: absolute;
+	inset: 0;
+	border-image: linear-gradient(#dadcde, #dadcde) fill 0 / calc(50% - .5px) 0 / 0 50vw;
+}
+.p-pulldown .works_content {
+	margin-top: 24px;
+}
+.p-pulldown .works_content::after {
+	height: 80px;
+}
+
+.p-pulldown .c-archivelist .image {
+	overflow: hidden;
+	border-radius: 8px;
+}
+.p-pulldown .c-archivelist .image img {
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	margin-left: auto;
+	border-radius: 0;
+	transform: scale(1.1);
+}
+@media (hover: hover) {
+	.p-pulldown .c-archivelist .image img {
+		transition: transform .4s cubic-bezier(.3,1,.7,1);
+	}
+	.p-pulldown .c-archivelist a:hover .image img {
+		transform: none;
+		transition-duration: .1s;
+	}
 }

@@ -110,6 +110,9 @@
 .p-about .c-title {
 	text-transform: uppercase;
 }
+.p-about .c-button {
+	margin-top: 40px;
+}
 
 
 /**
@@ -171,11 +174,6 @@
 .p-works .works_content::after {
 	height: 80px;
 }
-@media screen and (max-width: 479px) {
-	.p-works .works_content::after {
-		height: 80px;
-	}
-}
 .p-works .c-archivelist .image {
 	overflow: hidden;
 	border-radius: 8px;
@@ -201,76 +199,7 @@
 /**
  * よくあるご質問
  * ---------------------------------------- */
-.p-faq {}
-.c-faq {
-	list-style: inside;
-	margin-top: 40px;
-	font-size: 16px;
-	text-align: left;
-}
-.c-faq .faq_item {
-	counter-increment: num;
-	border-bottom: 1px solid #dadcde;
-}
-.c-faq .faq_item:first-child {
-	border-top: 1px solid #dadcde;
-}
-.c-faq .faq_q,
-.c-faq .faq_a {
-	position: relative;
-	padding: 24px 40px;
-	text-indent: -2.9em;
-}
-.c-faq .faq_q {
-	color: var(--themecolor);
-	font-size: 18px;
-	font-weight: 700;
-}
-.c-faq .faq_a {
-	padding-top: 16px;
-}
-.c-faq .faq_q,
-.c-faq .faq_a {
-	padding-left: calc(2.9em + 16px);
-
-}
-.c-faq .faq_item:nth-child(n+10) .faq_q,
-.c-faq .faq_item:nth-child(n+10) .faq_a {
-	padding-left: calc(3.8em + 16px);
-	text-indent: -3.8em;
-}
-.c-faq .faq_q::before,
-.c-faq .faq_a::before {
-	content: "Q" counter(num) ". ";
-	color: var(--themecolor);
-	font-size: 24px;
-	line-height: 1.2;
-	font-weight: 700;
-}
-.c-faq .faq_a::before {
-	content: "A" counter(num) ". ";
-	top: 16px;
-	color: #c2c4ca;
-}
-.c-faq .faq_q .ico {
-	position: absolute;
-	top: calc(50% - 8px);
-	right: 16px;
-	width: 16px;
-	height: 16px;
-	stroke: var(--themecolor);
-	stroke-width: 3;
-}
-@media (hover: hover) {
-	.c-faq .faq_q {
-		transition: background .4s;
-	}
-	.c-faq .faq_q:hover {
-		background: #fafafd;
-		transition-duration: .1s;
-	}
-}
-.faq_button {
+.p-faq .faq_button {
 	margin-top: 40px;
 }
 
@@ -288,7 +217,7 @@
 	font-size: 20px;
 }
 .p-store .c-cassette .lead {
-	margin-top: 1em;
+	margin-bottom: 0;
 	font-size: 14px;
 }
 .p-store .c-cassette .c-button {
@@ -376,17 +305,13 @@
 .c-conversion .sub {
 	line-height: 1.6;
 }
-.c-conversion .arr {
+.c-conversion .ico {
 	position: relative;
 	top: -.1em;
-	width: 1em;
-	height: 1em;
-	margin-left: .5em;
-	fill: none;
-	stroke: currentcolor;
-	stroke-width: 3;
-	stroke-linecap: round;
-	stroke-linejoin: round;
+	width: 1.2em;
+	height: 1.2em;
+	margin-right: .4em;
+	fill: currentcolor;
 	vertical-align: middle;
 }
 @media (hover: hover) {

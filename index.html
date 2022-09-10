@@ -94,6 +94,7 @@
 	<section id="about" class="p-about l-section">
 		<h2 class="c-title -hyphen">About</h2>
 		<p class="c-lead">Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。</p>
+		<a href="default/" class="c-button js-inview">裸のコンポーネントはこちら</a>
 	</section>
 	
 	<section id="news" class="p-news l-section">
@@ -228,13 +229,13 @@
 	<section id="store" class="p-store l-section">
 		<h2 class="c-title -hyphen">Store</h2>
 		<p class="c-lead">トップページによくあるレイアウト。ページタイトルとリード文や概要（抜粋）テキスト、イメージ画像が並ぶレイアウトについて。</p>
-		<section class="c-cassette -grid">
+		<section class="c-cassette">
 			<h3 class="c-title -hyphen">よくあるレイアウトのやりくり</h3>
 			<p class="lead">よくあるタイプの、イメージ画像と、タイトルと概要文とリンクボタンが並ぶレイアウトの、HTMLの組み方と、使うCSSプロパティについて。</p>
 			<a href="cassette/" class="c-button">詳しく見る</a>
 			<figure class="image"><img src="assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 		</section>
-		<section class="c-cassette -grid -reverse">
+		<section class="c-cassette -reverse">
 			<h3 class="c-title -hyphen">よくあるレイアウトのやりくり</h3>
 			<p class="lead">よくあるタイプの、イメージ画像と、タイトルと概要文とリンクボタンが並ぶレイアウトの、HTMLの組み方と、使うCSSプロパティについて。</p>
 			<a href="cassette/" class="c-button">詳しく見る</a>
@@ -299,12 +300,12 @@
 		<p class="c-lead -c">video要素を使った動画メディアの実装と、YouTube IFrame Player APIを使った埋め込みプレーヤーの実装。</p>
 		<div class="c-video">
 			<div class="wrap">
-				<video controls width="640" height="390" class="js-video">
+				<video width="640" height="390" class="js-video" data-video="sampleVideo">
 					<source src="assets/media/video.webm" type="video/webm">
 					<source src="assets/media/video.mp4" type="video/mp4">
 				</video>
 			</div>
-			<div class="poster">
+			<div class="poster js-videoControl" data-video="sampleVideo">
 				<img src="assets/media/poster.webp" alt="" width="640" height="390">
 				<button type="button" class="play">再生する</button>
 			</div>
@@ -320,7 +321,7 @@
 	
 	<div id="contact" class="p-contact">
 		<a href="contact/" class="c-conversion">
-			<span class="main">お問い合わせはこちら<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></span>
+			<span class="main"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#contact"/></svg>お問い合わせはこちら</span>
 			<span class="sub">お問い合わせフォームの<wbr>HTML要素とレイアウトと実装。</span>
 		</a>
 	</div>

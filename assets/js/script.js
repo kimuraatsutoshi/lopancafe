@@ -1,9 +1,9 @@
 import { WindowManagement, MainResizeObserver, FetchAjax, AfterLoadedJs, ReturnRelativePath, Resized, Throttle, AddFnc } from './common.js';
-import { DrawerMenu, AccordionUi, PulldownUi, AnchorScroll, VideoControls, SyntacConvert, TextCopy } from './ui.js';
+import { DrawerMenu, AccordionUi, PulldownUi, AnchorScroll, SyntacConvert, ScrollCarousel, TextCopy } from './ui.js';
 import { InviewEffect, LazyImage, SimpleMapping, MagneticButton } from './gimmick.js';
 import { FlexTextarea, CheckedAcceptInput } from './form-ui.js';
+import { VideoControls, YouTubeIframeApi } from './video.js';
 import { TransformScroll } from './transformscroll.js';
-import { YouTubeIframeApi } from './youtube.js';
 import { GoogleMapsApi } from './googlemap.js';
 import { FlickitySlider } from './flkty.js';
 
@@ -41,6 +41,7 @@ import { FlickitySlider } from './flkty.js';
 			new PulldownUi();
 			new FlexTextarea();
 			new CheckedAcceptInput();
+			new ScrollCarousel();
 			new TextCopy();
 		}
 		function apijs() {

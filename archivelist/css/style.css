@@ -46,33 +46,79 @@
 }
 
 /* :::::: 商品一覧 :::::: */
-.p-archivelist_products .c-archivelist {
+.p-archivelist_menu .c-archivelist {
+	width: fit-content;
 	margin-top: 40px;
 }
-.p-archivelist_products .c-scrollcontainer {
-	margin-inline: calc(50% - 50vw);
-	padding-inline: calc(50vw - 50%);
-}
-.p-archivelist_products .c-archivelist {
-	width: fit-content;
-}
-.p-archivelist_products .c-archivelist .image {
+.p-archivelist_menu .c-archivelist .image {
 	overflow: hidden;
 	border-radius: 8px;
 }
-.p-archivelist_products .c-archivelist .image img {
+.p-archivelist_menu .c-archivelist .image img {
 	aspect-ratio: 16 / 9;
 	object-fit: cover;
 	margin-left: auto;
 	border-radius: 0;
 	transform: scale(1.1);
 }
-@media (hover: hover) {
-	.p-archivelist_products .c-archivelist .image img {
-		transition: transform .4s cubic-bezier(.3,1,.7,1);
+.js-scrollcarousel::before,
+.js-scrollcarousel::after {
+	content: "";
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 48px;
+}
+.js-scrollcarousel::before {
+	right: 100%;
+	background: linear-gradient(to left, #ffffff00, #ffffff);
+}
+.js-scrollcarousel::after {
+	left: 100%;
+	background: linear-gradient(to right, #ffffff00, #ffffff);
+}
+.p-archivelist_menu .js-carouselContainer {
+	margin-inline: -48px;
+}
+.p-archivelist_menu .c-archivelist {
+	padding-inline: 48px;
+}
+.p-archivelist_menu .archive_item {
+	min-width: calc(960px - 96px);
+}
+@media screen and (max-width: 959px) {
+	.p-archivelist_menu .archive_item {
+		min-width: calc(100vw - 96px);
 	}
-	.p-archivelist_products .c-archivelist a:hover .image img {
-		transform: none;
-		transition-duration: .1s;
+}
+@media screen and (max-width: 767px) {
+	.js-scrollcarousel::before,
+	.js-scrollcarousel::after {
+		width: 32px;
+	}
+	.p-archivelist_menu .js-carouselContainer {
+		margin-inline: -32px;
+	}
+	.p-archivelist_menu .c-archivelist {
+		padding-inline: 32px;
+	}
+	.p-archivelist_menu .archive_item {
+		min-width: calc(100vw - 64px);
+	}
+}
+@media screen and (max-width: 479px) {
+	.js-scrollcarousel::before,
+	.js-scrollcarousel::after {
+		width: 24px;
+	}
+	.p-archivelist_menu .js-carouselContainer {
+		margin-inline: -24px;
+	}
+	..p-archivelist_menu .c-archivelist {
+		padding-inline: 24px;
+	}
+	.p-archivelist_menu .archive_item {
+		min-width: calc(100vw - 48px);
 	}
 }

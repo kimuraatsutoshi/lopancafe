@@ -3,9 +3,6 @@
 /**
  * お問い合わせフォーム
  * ---------------------------------------- */
-.page-contact .p-intro .c-lead {
-	text-align: center;
-}
 .page-contact .p-contactform {
 	max-width: 800px;
 }

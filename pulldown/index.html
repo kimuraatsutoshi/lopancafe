@@ -19,7 +19,6 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/common.css">
 <link rel="stylesheet" href="../assets/css/component.css">
-<link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
@@ -66,9 +65,99 @@
 		<a href="./" aria-current="page">プルダウンUI</a>
 	</div>
 	<div class="p-intro l-section">
-		<h1 class="video_title c-title -sand">プルダウンUI</h1>
-		<p class="c-lead">プルダウンUIについて。</p>
+		<h1 class="intro_title c-title -sand">プルダウンUI</h1>
+		<p class="c-lead -c">プルダウンUIと、アコーディオンUIについて。</p>
 	</div>
+	
+	<section id="pulldown" class="p-pulldown l-section">
+		<h2 class="c-title -hyphen">プルダウンUI</h2>
+		<p class="c-lead">冒頭だけ見せて途中から隠しておく。</p>
+		<div class="works_content js-pullContent" data-pull="menuList" data-default="240">
+			<ul class="c-archivelist -block">
+				<li class="archive_item"><a href="" class="container">
+					<dl class="text">
+						<dd class="title">チョココロネ</dd>
+						<dd class="summary">フランス産のビターチョコレートを詰めた、少し大人なチョココロネ。</dd>
+						<dt class="price">¥130</dt>
+					</dl>
+					<figure class="image"><img src="../assets/img/menu/pain_corne.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="" class="container">
+					<dl class="text">
+						<dd class="title">カレーパン</dd>
+						<dd class="summary">スパイスの効いたキーマカレーを包んで、サラダ油でカラっと揚げた、カリカリ食感のカレーパン。</dd>
+						<dt class="price">¥200</dt>
+					</dl>
+					<figure class="image"><img src="../assets/img/menu/pain_pain_curry.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="" class="container">
+					<dl class="text">
+						<dd class="title">とろたまコッペ</dd>
+						<dd class="summary">たっぷりのふわふわたまごフィリングを、ふんわり食感のコッペパンでサンドしました。</dd>
+						<dt class="price">¥100</dt>
+					</dl>
+					<figure class="image"><img src="../assets/img/menu/pain_egg_coupe.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="" class="container">
+					<dl class="text">
+						<dd class="title">パンドーロ</dd>
+						<dd class="summary">卵黄とフレッシュバターを贅沢に使い、ふんわりと焼き上げたベローナ特産の自然醗酵菓子。</dd>
+						<dt class="price">¥180</dt>
+					</dl>
+					<figure class="image"><img src="../assets/img/menu/pain_pan_doro.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				<li class="archive_item"><a href="" class="container">
+					<dl class="text">
+						<dd class="title">クリンゲル</dd>
+						<dd class="summary">デニッシュ生地にドライフルーツを巻き込んだ、デニッシュペストリー。</dd>
+						<dt class="price">¥320</dt>
+					</dl>
+					<figure class="image"><img src="../assets/img/menu/pain_kringle.webp" alt="" width="600" height="400" loading="lazy"></figure>
+				</a></li>
+				</li>
+			</ul>
+		</div>
+		<button type="button" class="works_button c-pulltoggle js-pullToggle" data-pull="menuList">
+			<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M22,6l-10,12L2,6"/></svg>
+		</button>
+		<figure class="c-syntax" data-lang="html">
+
+		</figure>
+	</section>
+	
+	<section id="accordion" class="p-accordion l-section">
+		<h2 class="c-title -hyphen">アコーディオンUI</h2>
+		<p class="c-lead">このサイトではアコーディオンはプルダウンの仲間。</p>
+		<dl class="c-faq">
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">だいたい20文字くらいのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="faq_item js-acc">
+				<dt class="faq_q js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
+				<dd class="faq_a js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+		</dl>
+		<p>HTMLは以下のようにマークアップ。<br>
+		親要素<code>.js-acc</code>で、最初に表示しておく要素<code>.js-accHead</code>と、隠しておく要素<code>.js-accBody</code>を内包する構造。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;dl class="c-faq"&gt;
+				&lt;div class="faq_item js-acc"&gt;
+					&lt;dt class="faq_q js-accHead"&gt;表示サイズを確認するためのサンプルテキスト&lt;/dt&gt;
+					&lt;dd class="faq_a js-accBody"&gt;この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。&lt;/dd&gt;
+				&lt;/div&gt;
+				︙
+			&lt;/dl&gt;
+		</figure>
+		<article class="js-acc">
+			<h3 class="js-accHead">表示サイズを確認するためのサンプルテキスト表示サイズを確認するためのサンプルテキスト表示サイズを確認するためのサンプルテキスト</h3>
+			<p class="js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</p>
+		</article>
+	</section>
 	
 </main>
 

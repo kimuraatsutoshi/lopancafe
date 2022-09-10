@@ -2,12 +2,12 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>アーカイブ一覧 - Lopan café</title>
+<title>素のコンポーネント - Lopan café</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
 <meta property="og:site_name" content="Lopan.jp">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Lopan café">
+<meta property="og:title" content="素のコンポーネント - Lopan café">
 <meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
 <meta property="og:url" content="https://lopan.cafe/component/">
 <meta property="og:image" content="https://lopan.cafe/component/ogp.jpg">
@@ -58,25 +58,20 @@
 	</div>
 </nav>
 
-<main class="l-main page-archivelist">
+<main class="l-main page-default">
 	<div class="p-visual"></div>
 	<div class="c-crumb">
 		<a href="../">Home</a>
-		<a href="./" aria-current="page">アーカイブ一覧</a>
+		<a href="./" aria-current="page">素のコンポーネント</a>
 	</div>
 	<div class="p-intro l-section">
-		<h1 class="intro_title c-title -sand">アーカイブ一覧</h1>
-		<p class="c-lead">アーカイブとは“履歴”。過去の記事や文書をまとめたもの。</p>
-		<blockquote class="c-blockquote" cite="https://ja.wikipedia.org/wiki/アーカイブ">
-			<p><b>アーカイブ</b> (archive; <span class="rt-commentedText nowrap"><span class="IPA nopopups noexcerpt"><a href="https://en.wikipedia.org/wiki/Help:IPA/English" class="extiw" title="en:Help:IPA/English">[<span style="border-bottom:1px dotted"><span title="/ˈ/: primary stress follows">ˈ</span><span title="/ɑːr/: 'ar' in 'far'">ɑːr</span><span title="'k' in 'kind'">k</span><span title="/aɪ/: 'i' in 'tide'">aɪ</span><span title="'v' in 'vie'">v</span></span>]</a></span></span>) とは、組織や個人の活動の中で作成される文書であり、単に収集・保存するのではなく、ある体系に基づいて編纂し、目的があって保存された文書の集合体である<sup id="cite_ref-kamura_1-0" class="reference"><a href="#cite_note-kamura-1">[1]</a></sup>。日本では一般的に<b><a href="/wiki/%E6%9B%B8%E5%BA%AB" title="書庫">書庫</a></b>や<b><a href="/wiki/%E4%BF%9D%E5%AD%98%E8%A8%98%E9%8C%B2" class="mw-redirect" title="保存記録">保存記録</a></b>と訳されることが多いが、元来は公記録保管所、または<a href="/wiki/%E5%85%AC%E6%96%87%E6%9B%B8" title="公文書">公文書</a>の保存所（<a href="/wiki/%E5%85%AC%E6%96%87%E6%9B%B8%E9%A4%A8" title="公文書館">公文書館</a>）、履歴などを意味し、記録を保存しておく場所である。</p>
-			<p class="cite"><a href="https://ja.wikipedia.org/wiki/アーカイブ" class="c-textlink" rel="noopener">アーカイブ - Wikipedia</a></p>
-		</blockquote>
-		<p class="c-lead">ニュース一覧やイベント一覧、ブログの記事一覧や商品一覧など、過去の文書を一覧にしたもの。アイキャッチ、日付、タイトル、概要文、カテゴリー、タグ、値段、著者、記事へのリンク、いいね数なの要素があり、レイアウトは短冊タイプ、ブロックタイプ、カードタイプなどさまざま。</p>
+		<h1 class="intro_title c-title -sand">素のコンポーネント</h1>
+		<p class="c-lead">最低限の装飾のコンポーネント素体一覧。</p>
+		<p>コンポーネントにはそのUIやレイアウトが成立するだけの最低限のスタイルしか適用されていない。サイト掲載時には、この素体にさらに固有のスタイルを適用する。</p>
 	</div>
 	
 	<section id="news" class="p-archivelist_news l-section">
-		<h2 class="c-title -bar">ニュース一覧</h2>
-		<p class="c-lead">アイキャッチと、日付、カテゴリやタグ、ニュースの見出しを含む、短冊タイプのニュース一覧のレイアウト。</p>
+		<h2 class="default_title c-title -bar">アーカイブ一覧<small>（短冊のすがた）</small></h2>
 		<ul class="c-archivelist -tanzaku">
 			<li class="archive_item"><a href="" class="container">
 				<dl class="text">
@@ -103,12 +98,23 @@
 				<figure class="image"><img src="../assets/img/illustrator-illustration/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 			</a></li>
 		</ul>
+		<figure class="c-syntax" data-lang="html">
+			&lt;ul class="c-archivelist -tanzaku"&gt;
+				&lt;li class="archive_item"&gt;&lt;a href="" class="container"&gt;
+					&lt;dl class="text"&gt;
+						&lt;dt class="date"&gt;2022.12.22&lt;/dt&gt;
+						&lt;dd class="tags"&gt;&lt;span class="c-tag"&gt;HTML&lt;/span&gt;&lt;span class="c-tag"&gt;CSS&lt;/span&gt;&lt;span class="c-tag"&gt;SVG&lt;/span&gt;&lt;/dd&gt;
+						&lt;dd class="title"&gt;ニュースの見出しなので、キャッチーな「〇〇」が公開しましたとか長めのタイトル。&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;path d="M6,2l12,10L6,22"/&gt;&lt;/svg&gt;&lt;/dd&gt;
+					&lt;/dl&gt;
+					&lt;figure class="image"&gt;&lt;img src="../assets/img/memorandum/eyecatch.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
+				&lt;/a&gt;&lt;/li&gt;
+				︙
+			&lt;/ul&gt;
+		</figure>
 	</section>
-		
+	
 	<section id="blog" class="p-archivelist_blog l-section">
-		<h2 class="c-title -bar">ブログ記事一覧</h2>
-		<p class="c-lead">アイキャッチと、日付、カテゴリやタグ、記事タイトルと抜粋テキストを含む、ブロックタイプの記事一覧のレイアウト。</p>
-		<p>テキスト情報は文字数を制限したとしても、スペースはデバイスの大きさによって左右されるため、たとえば抜粋テキストは<em>3行め以降をCSSで強制的に非表示</em>にするなどして、レイアウトが大きく崩れないように配慮する。</p>
+		<h2 class="default_title c-title -bar">アーカイブ一覧<small>（ブロックのすがた）</small></h2>
 		<div class="c-archivelist -block">
 			<article class="archive_item"><a href="https://lopan.jp/css-layout2/float/" class="container">
 				<dl class="text">
@@ -171,146 +177,71 @@
 				<figure class="image"><img src="../assets/img/css-layout2/grid_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 			</a></article>
 		</div>
-		<hr/>
-		<p class="c-lead">上の一覧をカルーセル<small>（<a href="https://flickity.metafizzy.co/" class="c-textlink" rel="noopener">Flickity</a>）</small>にしたところ。</p>
-		<div class="c-archivelist -block js-slider" data-arrow data-dots>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/float/" class="container">
-				<dl class="text">
-					<h2 class="title">フロートで2段組みレイアウト</h2>
-					<dd class="summary">floatプロパティは、画像の周りに文章を回り込ませたり、要素を左右に寄せるときに使われるプロパティ。そんなfloatプロパティを使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">フロート</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/float_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/inline-block/" class="container">
-				<dl class="text">
-					<dd class="title">インライン・ブロックで2段組みレイアウト</dd>
-					<dd class="summary">要素をインラインレベルのブロックコンテナとして表示する値「inline-block」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">テーブル</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/inline-block_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/table/" class="container">
-				<dl class="text">
-					<dd class="title">テーブルレイアウトで2段組みレイアウト</dd>
-					<dd class="summary">要素をtable要素のように表示する値「table/table-cell」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">インライン・ブロック</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/table_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/flexible/" class="container">
-				<dl class="text">
-					<dd class="title">フレキシブルボックスで2段組みレイアウト</dd>
-					<dd class="summary">要素をフレキシブルにレイアウトするための値「flex」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">フレキシブルボックス</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/flexible_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/columns/" class="container">
-				<dl class="text">
-					<dd class="title">カラムを使って2段組みレイアウト</dd>
-					<dd class="summary">columnsプロパティは、段落が横に長すぎる場合に、一定の幅で文章を列ブロックに分割するためのプロパティ。そんなcolumnsプロパティを使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">段組み</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/columns_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/grid/" class="container">
-				<dl class="text">
-					<dd class="title">グリッドで2段組みレイアウトとまとめ</dd>
-					<dd class="summary">要素内にグリッドを生成して自由にレイアウトするための値「grid」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">グリッド</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/grid_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-		</div>
 	</section>
 	
-	<section id="menu" class="p-archivelist_menu l-section">
-		<h2 class="c-title -bar">商品一覧</h2>
-		<p class="c-lead">商品画像と、商品名、カテゴリやタグ、お値段を含む、ブロックタイプの商品一覧のレイアウト。</p>
-		<div class="js-scrollcarousel">
-			<div class="js-carouselContainer">
-				<ul class="c-archivelist">
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">チョココロネ</dd>
-							<dd class="summary">フランス産のビターチョコレートを詰めた、少し大人なチョココロネ。</dd>
-							<dt class="price">¥130</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_corne.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">カレーパン</dd>
-							<dd class="summary">スパイスの効いたキーマカレーを包んで、サラダ油でカラっと揚げた、カリカリ食感のカレーパン。</dd>
-							<dt class="price">¥200</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_pain_curry.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">とろたまコッペ</dd>
-							<dd class="summary">たっぷりのふわふわたまごフィリングを、ふんわり食感のコッペパンでサンドしました。</dd>
-							<dt class="price">¥100</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_egg_coupe.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">パンドーロ</dd>
-							<dd class="summary">卵黄とフレッシュバターを贅沢に使い、ふんわりと焼き上げたベローナ特産の自然醗酵菓子。</dd>
-							<dt class="price">¥180</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_pan_doro.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">クリンゲル</dd>
-							<dd class="summary">デニッシュ生地にドライフルーツを巻き込んだ、デニッシュペストリー。</dd>
-							<dt class="price">¥320</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_kringle.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">カイザーゼンメル</dd>
-							<dd class="summary">サクッとした食感の王冠模様の丸パンに白ゴマを散りばめた、オーストリア生まれの皇帝ロール。</dd>
-							<dt class="price">¥160</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_kaisersemmeln.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">パン・オ・ショコラ</dd>
-							<dd class="summary">高カカオチョコレートをデニッシュ生地で包み込み、アーモンドスライスを乗せて焼き上げました。</dd>
-							<dt class="price">¥200</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_pain_au_chocolat.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-					<li class="archive_item js-carouselItem"><a href="" class="container">
-						<dl class="text">
-							<dd class="title">スパンダワー</dd>
-							<dd class="summary">デニッシュ生地になめらかカスタードクリームと香ばしいアーモンドを乗せて、さっくりと焼き上げました。</dd>
-							<dt class="price">¥250</dt>
-						</dl>
-						<figure class="image"><img src="../assets/img/menu/pain_spandauer.webp" alt="" width="600" height="400" loading="lazy"></figure>
-					</a></li>
-				</ul>
-			</div>
-		</div>
+	<section id="cassette" class="p-pulldown l-section">
+		<h2 class="default_title c-title -hyphen">よくあるレイアウト</h2>
+		<section class="c-cassette">
+			<h3 class="c-title -hyphen">使いまわせるSVG</h3>
+			<p class="lead">サイトのロゴとかシンボルとか、ボタンの矢印とかSNSアイコンとかの、小っこい画像をひとまとめに管理する「SVGスプライト」についてのまとめです。</p>
+			<a href="https://lopan.jp/renewal/about-svg/sprites/" class="c-button">詳しく見る</a>
+			<figure class="image"><img src="../assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
+		</section>
+		<section class="c-cassette -reverse">
+			<h3 class="c-title -hyphen">SVGのフィルター効果</h3>
+			<p class="lead">SVGでフィルター効果を与える「Filter primitive要素」について、わかるところまで、個人的なおまとめ。</p>
+			<a href="https://lopan.jp/renewal/about-svg/filter/" class="c-button">詳しく見る</a>
+			<figure class="image"><img src="../assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
+		</section>
 	</section>
+	
+	<section id="pulldown" class="p-pulldown l-section">
+		<h2 class="default_title c-title -hyphen">プルダウンUI</h2>
+		<div class="js-pullContent" data-pull="menuList" data-default="240">
+			<h4>二、活版所</h4>
+			<p>　ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして校庭の<ruby><rb>隅</rb><rp>（</rp><rt>すみ</rt><rp>）</rp></ruby>の<ruby><rb>桜</rb><rp>（</rp><rt>さくら</rt><rp>）</rp></ruby>の木のところに集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す<ruby><rb>烏瓜</rb><rp>（</rp><rt>からすうり</rt><rp>）</rp></ruby>を取りに行く相談らしかったのです。<br>　けれどもジョバンニは手を大きく<ruby><rb>振</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの<ruby><rb>枝</rb><rp>（</rp><rt>えだ</rt><rp>）</rp></ruby>にあかりをつけたりいろいろ<ruby><rb>仕度</rb><rp>（</rp><rt>したく</rt><rp>）</rp></ruby>をしているのでした。<br>　家へは帰らずジョバンニが町を三つ曲ってある大きな活版処にはいってすぐ入口の計算台に居ただぶだぶの白いシャツを着た人におじぎをしてジョバンニは<ruby><rb>靴</rb><rp>（</rp><rt>くつ</rt><rp>）</rp></ruby>をぬいで上りますと、<ruby><rb>突</rb><rp>（</rp><rt>つ</rt><rp>）</rp></ruby>き当りの大きな<ruby><rb>扉</rb><rp>（</rp><rt>と</rt><rp>）</rp></ruby>をあけました。中にはまだ昼なのに電燈がついてたくさんの輪転器がばたりばたりとまわり、きれで頭をしばったりラムプシェードをかけたりした人たちが、何か歌うように読んだり数えたりしながらたくさん働いて<ruby><rb>居</rb><rp>（</rp><rt>お</rt><rp>）</rp></ruby>りました。<br>　ジョバンニはすぐ入口から三番目の高い<ruby><rb>卓子</rb><rp>（</rp><rt>テーブル</rt><rp>）</rp></ruby>に<ruby><rb>座</rb><rp>（</rp><rt>すわ</rt><rp>）</rp></ruby>った人の所へ行っておじぎをしました。その人はしばらく<ruby><rb>棚</rb><rp>（</rp><rt>たな</rt><rp>）</rp></ruby>をさがしてから、<br>「これだけ拾って行けるかね。」と云いながら、一枚の紙切れを<ruby><rb>渡</rb><rp>（</rp><rt>わた</rt><rp>）</rp></ruby>しました。ジョバンニはその人の卓子の足もとから一つの小さな平たい<ruby><rb>函</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をとりだして向うの電燈のたくさんついた、たてかけてある<ruby><rb>壁</rb><rp>（</rp><rt>かべ</rt><rp>）</rp></ruby>の隅の所へしゃがみ<ruby><rb>込</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>むと小さなピンセットでまるで<ruby><rb>粟粒</rb><rp>（</rp><rt>あわつぶ</rt><rp>）</rp></ruby>ぐらいの活字を次から次と拾いはじめました。青い胸あてをした人がジョバンニのうしろを通りながら、<br>「よう、虫めがね君、お早う。」と云いますと、近くの四五人の人たちが声もたてずこっちも向かずに冷くわらいました。<br>　ジョバンニは何べんも眼を<ruby><rb>拭</rb><rp>（</rp><rt>ぬぐ</rt><rp>）</rp></ruby>いながら活字をだんだんひろいました。<br>　六時がうってしばらくたったころ、ジョバンニは拾った活字をいっぱいに入れた平たい<ruby><rb>箱</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をもういちど手にもった紙きれと引き合せてから、さっきの卓子の人へ持って来ました。その人は<ruby><rb>黙</rb><rp>（</rp><rt>だま</rt><rp>）</rp></ruby>ってそれを受け取って<ruby><rb>微</rb><rp>（</rp><rt>かす</rt><rp>）</rp></ruby>かにうなずきました。<br>　ジョバンニはおじぎをすると扉をあけてさっきの計算台のところに来ました。するとさっきの白服を着た人がやっぱりだまって小さな銀貨を一つジョバンニに渡しました。ジョバンニは<ruby><rb>俄</rb><rp>（</rp><rt>にわ</rt><rp>）</rp></ruby>かに顔いろがよくなって<ruby><rb>威勢</rb><rp>（</rp><rt>いせい</rt><rp>）</rp></ruby>よくおじぎをすると台の下に置いた<ruby><rb>鞄</rb><rp>（</rp><rt>かばん</rt><rp>）</rp></ruby>をもっておもてへ飛びだしました。それから元気よく<ruby><rb>口笛</rb><rp>（</rp><rt>くちぶえ</rt><rp>）</rp></ruby>を<ruby><rb>吹</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>きながらパン屋へ寄ってパンの<ruby><rb>塊</rb><rp>（</rp><rt>かたまり</rt><rp>）</rp></ruby>を一つと角砂糖を一<ruby><rb>袋</rb><rp>（</rp><rt>ふくろ</rt><rp>）</rp></ruby>買いますと<ruby><rb>一目散</rb><rp>（</rp><rt>いちもくさん</rt><rp>）</rp></ruby>に走りだしました。</p>
+		</div>
+		<button type="button" class="works_button c-pulltoggle js-pullToggle" data-pull="menuList">
+			<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M22,6l-10,12L2,6"/></svg>
+		</button>
+	</section>
+
+	<section id="accordion" class="p-accordion l-section">
+		<h2 class="default_title c-title -hyphen">アコーディオンUI</h2>
+		<dl>
+			<div class="js-acc">
+				<dt class="js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
+				<dd class="js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="js-acc">
+				<dt class="js-accHead">だいたい20文字くらいのサンプルテキスト</dt>
+				<dd class="js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+			<div class="js-acc">
+				<dt class="js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
+				<dd class="js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
+			</div>
+		</dl>
+	</section>
+	
+	<section class="elements_section l-section">
+		<h2 class="default_title c-title -bar">video要素</h2>
+		<video controls width="640" height="360" class="js-video" data-video="videoUniqueId">
+			<source src="../assets/media/video.webm" type="video/webm">
+			<source src="../assets/media/video.mp4" type="video/mp4">
+		</video>
+		<button type="button" class="js-videoControl" data-video="videoUniqueId">再生する</button>
+	</section>
+
+	<section class="p-video_yt l-section">
+		<h2 class="default_title c-title -bar">YouTube 埋め込みプレーヤー</h2>
+		<div class="js-yt" width="640" height="360" data-player="playerUniqueId1" data-ytid="H2PyYFi7UX0" data-vars="controls=1&autoplay=1&loop=1&playlist=H2PyYFi7UX0,Ltw1dKg5d2Q,x8-oqyN-0uM"></div>
+		<button type="button" class="js-ytControl" data-player="playerUniqueId1">再生する</button>
+		
+		<div class="js-yt" width="640" height="360" data-player="playerUniqueId2" data-ytid="seBsjCHoxOA" data-vars="autoplay=0"></div>
+		<button type="button" class="js-ytControl" data-player="playerUniqueId2">再生する</button>
+	</section>
+	
 </main>
 
 <footer class="l-footer">

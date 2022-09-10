@@ -19,7 +19,6 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/common.css">
 <link rel="stylesheet" href="../assets/css/component.css">
-<link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
@@ -66,7 +65,7 @@
 		<a href="./" aria-current="page">Google マップ</a>
 	</div>
 	<div class="p-intro l-section">
-		<h1 class="video_title c-title -sand">Google マップ</h1>
+		<h1 class="intro_title c-title -sand">Google マップ</h1>
 		<p class="c-lead">Google Maps APIを使ったり使わなかったりGoogle マップの実装例。</p>
 	</div>
 	
@@ -77,15 +76,24 @@
 		<figure class="c-syntax -wrap" data-lang="html">
 			&lt;iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.5837490032973!2d139.70084081556627!3d35.662625838598835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cac05404a1b%3A0xe7e4267bc5d3e90a!2sLopan.jp!5e0!3m2!1sja!2sjp!4v1662125872242!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="p-map"&gt;&lt;/iframe&gt;
 		</figure>
+		<p>コピペした後、要素の最後に<code>class="p-map"</code>を追記して、以下のCSSを適用している。</p>
+		<figure class="c-syntax" data-lang="css">
+			.p-map {
+				width: 100%;
+				height: 400px;
+				margin-top: 24px;
+				border-radius: 8px;
+			}
+		</figure>
 		<figure class="c-image"><picture>
 			<source srcset="img/embed.jpg" type="image/jpeg">
 			<source srcset="img/embed.webp" type="image/webp">
 			<img src="img/embed.jpg" alt="" width="1512" height="945">
 		</picture></figure>
 		<p class="u-mt4">「リンクを送信する」の「リンクをコピー」からGoogle マップ<small>（アプリ）</small>で閲覧できるURLも得られる。地図を載せたいだけならばこれで十分。ただし、Google のユーザー情報が載るし、見た目のカスタマイズはできない。</p>
-		<a href="https://goo.gl/maps/m7ge93u5UEcZ9ycg8" class="c-button" rel="noopener" target="_blank">Google マップで見る</a>
+		<a href="https://goo.gl/maps/m7ge93u5UEcZ9ycg8" class="c-button" rel="noopener">Google マップで見る</a>
 		<figure class="c-syntax -wrap" data-lang="html">
-			&lt;a href="https://goo.gl/maps/m7ge93u5UEcZ9ycg8" class="c-button" rel="noopener" target="_blank"&gt;Google マップで見る&lt;/a&gt;
+			&lt;a href="https://goo.gl/maps/m7ge93u5UEcZ9ycg8" class="c-button" rel="noopener"&gt;Google マップで見る&lt;/a&gt;
 		</figure>
 	</section>
 	
@@ -130,7 +138,7 @@
 					map: map
 				});
 				/* マーカーをクリックしたら中央に戻る処理 */
-				marker.addListener('click', e => {
+				marker.addListener('click', () => {
 					map.panTo(latlng);
 				});
 			</figure>
@@ -152,7 +160,7 @@
 				map.setMapTypeId('mono');
 			</figure>
 			<p class="c-lead u-mt4"><code>styles</code>の値を調整してもう少しカスタマイズ。</p>
-			<p>文字情報を非表示にすることもできる<small>（ついでにズームUIも非表示にしている）</small>。</p>
+			<p>文字情報を非表示にすることもできる<small>（ここではズームコントロールも表示していない）</small>。</p>
 			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker data-simple></div>
 			<figure class="c-syntax" data-lang="js">
 				const styles  = [{

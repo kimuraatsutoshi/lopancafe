@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+/**
+ * 素のコンポーネント
+ * ---------------------------------------- */
+.page-default .intro_title {
+    margin-bottom: 40px;
+}
+.page-default .default_title {
+    margin-bottom: 40px;
+}

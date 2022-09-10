@@ -3,15 +3,12 @@
 /**
  * 動画コンテンツ
  * ---------------------------------------- */
-.page-video .p-intro .c-title {
+.page-video .intro_title {
 	margin-bottom: 48px;
 }
 .p-video_elements .c-video,
 .p-video_yt .c-video {
 	margin-top: 16px;
-}
-.page-video .p-intro .c-title {
-	margin-bottom: 48px;
 }
 .page-video .pull_content {
 	margin-inline: -48px;
