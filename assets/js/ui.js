@@ -1,4 +1,4 @@
-import { AfterLoadedJs, AfterLoadedCss } from './common.js';
+import { AfterLoadedJs, AfterLoadedCss } from './utility.js';
 
 /**
  * ドロワーメニュー
@@ -144,7 +144,6 @@ export class DrawerMenu {
 			if (e.code.toLowerCase().startsWith('shift')) this.keyShifted = true;
 			if (this.isTabWrap) {
 				if (e.code.toLowerCase() === 'tab') {
-					e.preventDefault();
 					this.tabFocus(e);
 				}
 			}
@@ -157,12 +156,14 @@ export class DrawerMenu {
 		if (this.keyShifted) {
 			// タブを押した時、モーダル内の最初のリンクなら、最後のリンクにフォーカス
 			if (e.target === this.menuLinks[0]) {
+				e.preventDefault();
 				this.menuLinks[this.menuLinks.length - 1].focus();
 			}
 			
 		} else {
 			// タブを押した時、モーダル内の最後のリンクなら、最初のリンクにフォーカス
 			if (e.target === this.menuLinks[this.menuLinks.length - 1]) {
+				e.preventDefault();
 				this.menuLinks[0].focus();
 			}
 		}
@@ -224,7 +225,9 @@ export class AccordionUi {
 		this.closeAcc(id, false);
 	}
 	toggleAcc(id, anim) {
-		!this.accData[id].isOpen ? this.openAcc(id, anim) : this.closeAcc(id, anim);
+		if (!this.accData[id].isAnim) {
+			!this.accData[id].isOpen ? this.openAcc(id, anim) : this.closeAcc(id, anim);
+		}
 	}
 	openAcc(id, anim) {
 		this.accData[id].isOpen = true;
@@ -254,6 +257,7 @@ export class AccordionUi {
 		}, 60);
 	}
 	addAnim(id) {
+		this.accData[id].isAnim = true;
 		if (this.accData[id].isOpen) {
 			this.accData[id].head.classList.add('is-active', 'is-anim');
 		} else {
@@ -265,6 +269,7 @@ export class AccordionUi {
 		
 		this.accData[id].container.classList.add('is-anim');
 		this.accData[id].container.addEventListener('transitionend', e => {
+			this.accData[id].isAnim = false;
 			this.accData[id].container.classList.remove('is-anim');
 			if (this.accData[id].isOpen) {
 				this.accData[id].container.removeAttribute('style');
@@ -333,8 +338,10 @@ export class PulldownUi {
 		
 		// 中身に tab 移動させない
 		document.addEventListener('readystatechange', e => {
-			for (let i = 0, len = tabElms.length; i < len; i++) {
-				tabElms[i].tabIndex = -1;
+			if (tabElms.length !== 0) {
+				for (let i = 0, len = tabElms.length; i < len; i++) {
+					tabElms[i].tabIndex = -1;
+				}
 			}
 		}, { once: true });
 	}
@@ -355,10 +362,12 @@ export class PulldownUi {
 		}
 		this.pullData[id].content.ariaHidden = 'false';
 		
-		for (let i = 0, len = this.pullData[id].tabElms.length; i < len; i++) {
-			this.pullData[id].tabElms[i].tabIndex = 0;
+		if (this.pullData[id].tabElms.length !== 0) {
+			for (let i = 0, len = this.pullData[id].tabElms.length; i < len; i++) {
+				this.pullData[id].tabElms[i].tabIndex = 0;
+			}
+			this.pullData[id].tabElms[0].focus();
 		}
-		this.pullData[id].tabElms[0].focus();
 	}
 	closePull(id, anim) {
 		this.pullData[id].isOpen = false;
@@ -589,356 +598,14 @@ export class AnchorScroll {
 }
 
 /**
- * スクロールカルーセル
- * 参考: https://web.dev/patterns/components/carousel/
- -------------------------------------------------- */
-import {scrollend} from './scrollyfills.modern.js'
-
-export class ScrollCarousel {
-	constructor() {
-		if (document.querySelector('.js-scrollcarousel') !== null) {
-			this.setup();
-		}
-	}
-	setup() {
-		const elm = document.getElementsByClassName('js-scrollcarousel')[0];
-		this.controls = {
-			container: elm,
-			scroller: elm.getElementsByClassName('js-carouselContainer')[0],
-			list: elm.getElementsByClassName('js-carouselContainer')[0].firstElementChild,
-			items: elm.getElementsByClassName('js-carouselItem'),
-			prev: null, next: null, pagination: null
-		};
-		console.log(this.controls);
-		
-		this.current = undefined;
-		this.hasIntersected = new Set();
-		this.controls.container.tabIndex = -1;
-		this.controls.container.setAttribute('aria-roledescription', 'Carousel');
-		for (let i = 0, len = this.controls.items.length; i < len; i++) {
-			this.controls.items[i].id = `item-${i + 1}`;
-		}
-		this.createControls();
-		this.createPagination();
-		
-		this.createObservers();
-		this.initialize();
-		this.addListener();
-		this.refresh();
-	}
-	createObservers() {
-		this.carousel_observer = new IntersectionObserver(observations => {
-			for (let observation of observations) {
-				this.hasIntersected.add(observation);
-				observation.target.classList.toggle('is-active', observation.isIntersecting);
-				
-				// dots クリック以外はすぐに反映
-				if (!this.isPagination) this.refresh();
-			}
-		}, {
-			root: this.controls.scroller,
-			threshold: .6,
-		});
-		this.mutation_observer = new MutationObserver((mutationList, observer) => {
-			mutationList
-			.filter(x => x.removedNodes.length > 0)
-			.forEach(mutation => {
-				[...mutation.removedNodes]
-				.filter(x => x.querySelector('.js-scrollcarousel') === this.controls.container)
-				.forEach(removedEl => {
-					this.removeListener();
-				});
-			});
-		});
-	}
-	initialize() {
-		this.currentIndex = 0;
-		this.current = this.controls.items[this.currentIndex];
-		
-		let child = null;
-		for (let i = 0, len = this.controls.items.length; i < len; i++) {
-			child = this.controls.items[i];
-			this.hasIntersected.add({
-				isIntersecting: i === 0,
-				target: child
-			});
-			this.controls.pagination.insertAdjacentHTML('beforeend', this.returnDot(child, i));
-			child.ariaLabel = `${i + 1} of ${this.controls.items.length}`;
-			child.setAttribute('aria-roledescription', 'item');
-		}
-	}
-	addListener() {
-		// observe children intersection
-		for (let item of this.controls.items) {
-			this.carousel_observer.observe(item);
-		}
-		// watch document for removal of this carousel node
-		this.mutation_observer.observe(document, {
-			childList: true,
-			subtree: true
-		});
-		// scrollend listener for sync
-		this.controls.scroller.addEventListener('scrollend', this.refresh.bind(this))
-		this.controls.next.addEventListener('click', this.goNext.bind(this))
-		this.controls.prev.addEventListener('click', this.goPrev.bind(this))
-		// this.controls.pagination.addEventListener('click', this.handlePaginate.bind(this))
-		this.controls.container.addEventListener('keydown', this.handleKeydown.bind(this))
-	}
-	removeListener() {
-		for (let item of this.controls.items) {
-			this.carousel_observer.unobserve(item);
-		}
-		this.mutation_observer.disconnect();
-		this.controls.scroller.removeEventListener('scrollend', this.refresh);
-		this.controls.next.removeEventListener('click', this.goNext);
-		this.controls.prev.removeEventListener('click', this.goPrev);
-		// this.controls.pagination.removeEventListener('click', this.handlePaginate);
-		this.controls.container.removeEventListener('keydown', this.handleKeydown);
-	}
-	
-	// スクロール終わり
-	refresh() {
-		for (let observation of this.hasIntersected) {
-			observation.target.inert = !observation.isIntersecting;
-			
-			const dot = this.controls.pagination.children[this._getElementIndex(observation.target)];
-			if (observation.isIntersecting) {
-				dot.classList.add('is-active');
-			} else {
-				dot.classList.remove('is-active');
-			}
-			dot.ariaSelected = observation.isIntersecting;
-			dot.tabIndex = !observation.isIntersecting ? -1 : 0;
-			
-			if (observation.isIntersecting) {
-				const dots = [].slice.call(this.controls.pagination.children);
-				this.currentIndex = dots.indexOf(dot);
-				this.current = observation.target;
-				this.goToElement({
-					scrollport: this.controls.pagination,
-					element: dot
-				});
-			}
-		}
-		this.refreshArrows();
-		this.hasIntersected.clear();
-		this.isPagination = false;
-	}
-	refreshArrows() {
-		const {lastElementChild:last, firstElementChild:first} = this.controls.list;
-		const isAtEnd = this.current === last;
-		const isAtStart = this.current === first;
-		
-		if (document.activeElement === this.controls.next && isAtEnd) {
-			this.controls.prev.focus();
-		} else if (document.activeElement === this.controls.prev && isAtStart) {
-			this.controls.next.focus();
-		}
-		this.controls.next.disabled = isAtEnd;
-		this.controls.prev.disabled = isAtStart;
-	}
-	
-	goNext() {
-		const next = this.current.nextElementSibling;
-		if (this.current === next) return;
-		if (next) {
-			this.goToElement({
-				scrollport: this.controls.scroller,
-				element: next
-			})
-			this.current = next;
-			
-		} else {
-			console.log('at the end');
-		}
-	}
-	goPrev() {
-		const prev = this.current.previousElementSibling;
-		if (this.current === prev) return;
-		if (prev) {
-			this.goToElement({
-				scrollport: this.controls.scroller,
-				element: prev
-			})
-			this.current = prev;
-			
-		} else {
-			console.log('at the beginning');
-		}
-	}
-	goToElement(e) {
-		const dir = this._documentDirection();
-		const delta = Math.abs(e.scrollport.offsetLeft - e.element.offsetLeft);
-		const scrollerPadding = parseInt(getComputedStyle(e.scrollport)['padding-left']);
-		const pos = e.scrollport.clientWidth / 2 > delta ? delta - scrollerPadding : delta + scrollerPadding;
-		e.scrollport.scrollTo(dir === 'ltr' ? pos : pos * -1, 0);
-		// console.log(pos);
-	}
-	_documentDirection() {
-		return document.firstElementChild.getAttribute('dir') || 'ltr';
-	}
-	_getElementIndex(element) {
-		let index = 0
-		while (element = element.previousElementSibling) index++
-		return index
-	}
-	
-	// dots をクリック
-	handlePaginate(e) {
-		if (e.target.classList.contains('pagination')) return;
-		this.isPagination = true;
-		
-		this.controls.pagination.children[this.currentIndex].classList.remove('is-active');
-		e.target.classList.add('is-active');
-		e.target.ariaSelected = true;
-		const item = this.controls.items[this._getElementIndex(e.target)];
-		this.goToElement({
-			scrollport: this.controls.scroller,
-			element: item
-		});
-	}
-	
-	// 矢印キーを押下
-	handleKeydown(e) {
-		const dir = this._documentDirection();
-		const idx = this._getElementIndex(e.target);
-		switch (e.key) {
-			case 'ArrowRight':
-				e.preventDefault();
-				const nextOffset = dir === 'ltr' ? 1 : -1;
-				const nextControl = dir === 'ltr' ? this.controls.next : this.controls.prev;
-				
-				if (e.target.closest('.pagination')) {
-					this.controls.pagination.children[idx + nextOffset]?.focus();
-				} else {
-					if (document.activeElement === nextControl) {
-						this.keypressAnimation(nextControl);
-					}
-					nextControl.focus();
-				}
-				dir === 'ltr' ? this.goNext() : this.goPrev();
-			break;
-			case 'ArrowLeft':
-				e.preventDefault();
-				const prevOffset = dir === 'ltr' ? -1 : 1;
-				const prevControl = dir === 'ltr' ? this.controls.prev : this.controls.next;
-
-				if (e.target.closest('.pagination')) {
-					this.controls.pagination.children[idx + prevOffset]?.focus();
-				} else {
-					if (document.activeElement === prevControl) {
-						this.keypressAnimation(prevControl);
-					}
-					prevControl.focus();
-				}
-				dir === 'ltr' ? this.goPrev() : this.goNext();
-			break;
-		}
-	}
-	keypressAnimation(element) {
-		element.style.animation = 'keypressAnim .4s cubic-bezier(.3,1,.7,1)';
-		element.addEventListener('animationend', e => {
-			element.style.animation = null;
-		}, { once: true });
-	}
-	
-	returnDot(item, index) {
-		const title = item.getElementsByClassName('title')[0].textContent;
-		let dot = `<button type="button" class="dot" role="tab"`;
-		dot += ` aria-label="${title}"`;
-		dot += ` aria-setsize="${this.controls.items.length}"`;
-		dot += ` aria-posinset="${index}"`;
-		dot += ` aria-controls="item-${index}"></button>`;
-		return dot;
-	}
-	createPagination() {
-		this.controls.container.insertAdjacentHTML('beforeend', '<nav class="pagination"></nav>');
-		this.controls.pagination = this.controls.container.getElementsByClassName('pagination')[0];
-	}
-	createControls() {
-		let arrows = '<div class="arrows">';
-		arrows += '<button type="button" class="arrow -prev" aria-label="Previous">';
-		arrows += '<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M18,22L6,12,18,2"/></svg>';
-		arrows += '</button>';
-		arrows += '<button type="button" class="arrow -next" aria-label="Next">';
-		arrows += '<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg>';
-		arrows += '</button>';
-		arrows += '</div>';
-		this.controls.container.insertAdjacentHTML('beforeend', arrows);
-		this.controls.prev = this.controls.container.getElementsByClassName('-prev')[0];
-		this.controls.next = this.controls.container.getElementsByClassName('-next')[0];
-	}
-}
-
-/**
- * シンタックスハイライト
- -------------------------------------------------- */
-export class SyntacConvert {
-	constructor() {
-		if (document.querySelector('.c-syntax') !== null) {
-			this.insertTags();
-			this.loadJs();
-			this.loadCss();
-		}
-	}
-	insertTags() {
-		const elms = document.getElementsByClassName('c-syntax');
-		let lang, style, caption;
-		for (let i = 0, len = elms.length; i < len; i++) {
-			lang = elms[i].dataset.lang;
-			style = '';
-			if (elms[i].dataset.style) {
-				style = ` style="${elms[i].dataset.style}"`;
-			}
-			caption = '';
-			if (elms[i].dataset.caption) {
-				caption = `<figcaption>${elms[i].dataset.caption}</figcaption>`;
-			}
-			let html = `<div class="wrap"${style} tabindex="0">`;
-			html += `<pre class="line-numbers" tabindex="-1">`;
-			html += `<code class="language-${lang}">${elms[i].innerHTML}`;
-			html += `</code></pre></div>${caption}`;
-			elms[i].innerHTML = html;
-		}
-	}
-	loadJs() {
-		new AfterLoadedJs('/component/assets/js/prism.js').then(
-		resolve => {
-			document.addEventListener('readystatechange', e => {
-				console.log(resolve, e.target.readyState);
-			});
-		},
-		error => {
-			console.log(error.message);
-		});
-	}
-	loadCss() {
-		new AfterLoadedCss('/component/assets/css/prism.css').then(
-		resolve => {
-			document.addEventListener('readystatechange', e => {
-				console.log(resolve, e.target.readyState);
-			});
-		},
-		error => {
-			console.log(error.message);
-		});
-	}
-}
-
-/**
  * テキストコピー
  * .js-copy をクリックすると要素の内容をコピーする
  * <div class="js-copy"><textarea></div> or
  * class="js-copy" data-copytext="コピーテキスト"
  * -------------------------------------------------- */
 export class TextCopy {
-	constructor() {
-		if (document.querySelector('.js-copy') !== null) {
-			const elms = document.getElementsByClassName('js-copy');
-			for (let i = 0, len = elms.length; i < len; i++) {
-				elms[i].addEventListener('click', e => this.copyText(e));
-			}
-		}
+	constructor(elm) {
+		elm.addEventListener('click', e => this.copyText(e));
 	}
 	copyText(e) {
 		const t = e.target.className.indexOf('js-copy') >= 0 ? e.target : e.target.closest('.js-copy');

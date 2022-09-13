@@ -1,4 +1,4 @@
-import { AfterLoadedJs, AfterLoadedCss } from './common.js';
+import { AfterLoadedJs, AfterLoadedCss } from './utility.js';
 
 /**
  * Google Maps API

@@ -1,4 +1,4 @@
-import { AfterLoadedJs } from './common.js';
+import { AfterLoadedJs } from './utility.js';
 
 /**
  * in-view

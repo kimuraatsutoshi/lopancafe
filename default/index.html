@@ -67,13 +67,296 @@
 	<div class="p-intro l-section">
 		<h1 class="intro_title c-title -sand">素のコンポーネント</h1>
 		<p class="c-lead">最低限の装飾のコンポーネント素体一覧。</p>
-		<p>コンポーネントにはそのUIやレイアウトが成立するだけの最低限のスタイルしか適用されていない。サイト掲載時には、この素体にさらに固有のスタイルを適用する。</p>
+		<p>コンポーネントにはそのUIやレイアウトが成立するだけの最低限のスタイルしか適用せず、周囲のマージン、フォントサイズ、バランスの調整などは、別途CSS<small>（サイト固有のスタイルシート）</small>にて適用するようにする。<br>
+		※本サイト用に、ほどほどの見栄えを目指して、フォントサイズ、カラーなどは暫定で指定済みなので、コンポーネント自体、編集の余地あり。</p>
+		<ul class="c-toc">
+			<li class="item"><a href="#blog" class="js-anc">アーカイブ一覧</a></li>
+			<li class="item"><a href="#cassette" class="js-anc">よくあるレイアウト</a></li>
+			<li class="item"><a href="#pulldown" class="js-anc">プルダウンUI</a></li>
+			<li class="item"><a href="#accordion" class="js-anc">アコーディオンUI</a></li>
+			<li class="item"><a href="#video" class="js-anc">video要素</a></li>
+			<li class="item"><a href="#youtube" class="js-anc">YouTube 埋め込みプレーヤー</a></li>
+			<li class="item"><a href="#button" class="js-anc">ボタン・リンク系</a></li>
+			<li class="item"><a href="#list" class="js-anc">一覧系</a></li>
+			<li class="item"><a href="#video-ui" class="js-anc">動画UI</a></li>
+			<li class="item"><a href="#inlineframe" class="js-anc">インラインフレーム</a></li>
+		</ul>
 	</div>
 	
+	<section id="blog" class="p-archivelist_blog l-section">
+		<h2 class="default_title c-title -bar">アーカイブ一覧</h2>
+		<p class="c-lead">アーカイブ一覧にありそうなパーツ全部入りコンポーネント。</p>
+		<p>パーツには、タイトル・商品名<small>（<code>.title</code>）</small>、概要文<small>（<code>.summary</code>）</small>、値段<small>（<code>.price</code>）</small>、著者<small>（<code>.author</code>）</small>、日付<small>（<code>.date</code>）</small>、カテゴリー・タグ一覧<small>（<code>.tags</code>）</small>、リンクボタン<small>（<code>.link</code>）</small>、いいねボタン<small>（<code>.like</code>）</small>が入る想定。<br>
+		並べてみてバランスが悪い場合は、別途CSS<small>（サイト固有のスタイルシート）</small>で調整する。</p>
+		<hr class="rest">
+		<div class="c-archivelist">
+			<article class="archive_item container">
+				<div class="text">
+					<h3 class="title">カレーパン</h3>
+					<p class="summary">スパイスの効いたキーマカレーを包んで、サラダ油でカラっと揚げた、カリカリ食感のカレーパン。</p>
+					<p class="price">¥200</p>
+					<div class="like"><button type="button" class="c-likebutton"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../assets/img/ico.svg#heart"/></svg></button></div>
+					<div class="link"><a href="https://lopan.jp/" class="c-more">もっとみる</a></div>
+				</div>
+				<figure class="image"><img src="../assets/img/menu/pain_pain_curry.webp" alt="" width="600" height="400" loading="lazy"></figure>
+			</article>
+			<article class="archive_item"><a href="https://lopan.jp/css-layout2/float/" class="container">
+				<div class="text">
+					<h3 class="title">フロートで2段組みレイアウト</h3>
+					<div class="tags">
+						<span class="c-tag">CSS</span>
+						<span class="c-tag">レイアウト</span>
+						<span class="c-tag">フロート</span>
+					</div>
+					<p class="summary">floatプロパティは、画像の周りに文章を回り込ませたり、要素を左右に寄せるときに使われるプロパティ。そんなfloatプロパティを使って段組みレイアウトしてゆきます。</p>
+					<figure class="author">
+						<span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span>
+						<figcaption class="name">_watercolor</figcaption>
+					</figure>
+					<time class="date">2018.10.10</time>
+					<div class="link"><span class="c-more">もっとみる</span></div>
+				</div>
+				<figure class="image"><img src="../assets/img/css-layout2/float_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
+			</a></article>
+			<article class="archive_item container"><a href="https://lopan.jp/css-layout2/columns/" title="カラムを使って2段組みレイアウト" class="wraplink"></a>
+				<div class="text">
+					<h2 class="title">カラムを使って2段組みレイアウト</h2>
+					<div class="tags">
+						<a href="https://lopan.jp/?tag=css" class="c-tag">CSS</a>
+						<a href="https://lopan.jp/?tag=layout" class="c-tag">レイアウト</a>
+						<a href="https://lopan.jp/?tag=columns" class="c-tag">段組み</a>
+					</div>
+					<p class="summary">columnsプロパティは、段落が横に長すぎる場合に、一定の幅で文章を列ブロックに分割するためのプロパティ。そんなcolumnsプロパティを使って段組みレイアウトしてゆきます。</p>
+					<time class="date">2018.10.10</time>
+					<div class="like"><button type="button" class="c-likebutton"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../assets/img/ico.svg#heart"/></svg></button></div>
+					<div class="link"><span class="c-more">もっとみる</span></div>
+				</div>
+				<figure class="image"><img src="../assets/img/css-layout2/table_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
+			</article>
+		</div>
+		<hr class="rest">
+		<p>項目を包む要素に<code>.c-archivelist</code>を付与し、項目に<code>.archive_item</code>を付与する。<br>
+		中身は、タイトルや商品名、概要文などの<b>テキスト情報</b>を入れる「<code>.text</code>」と、<b>アイキャッチ画像</b>を入れる「<code>.image</code>」のふたつの要素を、<code>.container</code>で括る構造。通常<code>.container</code>は<code>.archive_item</code>と併記する。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;article class="archive_item container"&gt;
+				&lt;div class="text"&gt;
+					&lt;h3 class="title"&gt;カレーパン&lt;/h3&gt;
+					&lt;p class="summary"&gt;スパイスの効いたキーマカレーを包んで、サラダ油でカラっと揚げた、カリカリ食感のカレーパン。&lt;/p&gt;
+					&lt;p class="price"&gt;¥200&lt;/p&gt;
+					&lt;div class="like"&gt;&lt;button type="button" class="c-likebutton"&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="ico"&gt;&lt;use href="../assets/img/ico.svg#heart"/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;
+					&lt;div class="link"&gt;&lt;a href="https://lopan.jp/" class="c-more"&gt;もっとみる&lt;/a&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;figure class="image"&gt;&lt;img src="../assets/img/menu/pain_pain_curry.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
+			&lt;/article&gt;
+		</figure>
+		<p>項目全体をリンク対象にする場合は、<code>.archive_item</code>の中身を<b>a要素</b>で括り、そのa要素に<code>.container</code>を指定する。</p>
+		<figure class="c-syntax -shortcut" data-lang="html">
+			&lt;article class="archive_item"&gt;&lt;a href="https://lopan.jp/css-layout2/float/" class="container"&gt;
+				&lt;div class="text"&gt;
+					&lt;h3 class="title"&gt;フロートで2段組みレイアウト&lt;/h3&gt;
+					&lt;div class="tags"&gt;
+						&lt;span class="c-tag"&gt;CSS&lt;/span&gt;
+						&lt;span class="c-tag"&gt;レイアウト&lt;/span&gt;
+						&lt;span class="c-tag"&gt;フロート&lt;/span&gt;
+					&lt;/div&gt;
+					&lt;p class="summary"&gt;floatプロパティは、画像の周りに文章を回り込ませたり、要素を左右に寄せるときに使われるプロパティ。そんなfloatプロパティを使って段組みレイアウトしてゆきます。&lt;/p&gt;
+					&lt;figure class="author"&gt;
+						&lt;span class="ico"&gt;&lt;img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"&gt;&lt;/span&gt;
+						&lt;figcaption class="name"&gt;_watercolor&lt;/figcaption&gt;
+					&lt;/figure&gt;
+					&lt;time class="date"&gt;2018.10.10&lt;/time&gt;
+					&lt;div class="link"&gt;&lt;span class="c-more"&gt;もっとみる&lt;/span&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;figure class="image"&gt;&lt;img src="../assets/img/css-layout2/float_eyecatch.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
+			&lt;/a&gt;&lt;/article&gt;
+		</figure>
+		<p>項目全体をリンク対象にしたい上に、タグにもリンクを貼りたい場合は、<code>.archive_item</code>直下に<b>空のa要素</b>を置き<code>.wraplink</code>を指定する。念のため<b>title属性</b>にリンク先のタイトルを指定しておく。</p>
+		<figure class="c-syntax -shortcut" data-lang="html">
+			&lt;article class="archive_item container"&gt;&lt;a href="https://lopan.jp/css-layout2/columns/" title="カラムを使って2段組みレイアウト" class="wraplink"&gt;&lt;/a&gt;
+				&lt;div class="text"&gt;
+					&lt;h2 class="title"&gt;カラムを使って2段組みレイアウト&lt;/h2&gt;
+					&lt;div class="tags"&gt;
+						&lt;a href="https://lopan.jp/?tag=css" class="c-tag"&gt;CSS&lt;/a&gt;
+						&lt;a href="https://lopan.jp/?tag=layout" class="c-tag"&gt;レイアウト&lt;/a&gt;
+						&lt;a href="https://lopan.jp/?tag=columns" class="c-tag"&gt;段組み&lt;/a&gt;
+					&lt;/div&gt;
+					&lt;p class="summary"&gt;columnsプロパティは、段落が横に長すぎる場合に、一定の幅で文章を列ブロックに分割するためのプロパティ。そんなcolumnsプロパティを使って段組みレイアウトしてゆきます。&lt;/p&gt;
+					&lt;time class="date"&gt;2018.10.10&lt;/time&gt;
+					&lt;div class="like"&gt;&lt;button type="button" class="c-likebutton"&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="ico"&gt;&lt;use href="../assets/img/ico.svg#heart"/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;
+					&lt;div class="link"&gt;&lt;span class="c-more"&gt;もっとみる&lt;/span&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;figure class="image"&gt;&lt;img src="../assets/img/css-layout2/table_eyecatch.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
+			&lt;/article&gt;
+		</figure>
+		<p>CSSは以下ソースコードを参照のこと。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-archivelist {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 48px;
+				margin: 0;
+			}
+			.c-archivelist .archive_item {
+				flex-basis: calc(33.333% - 48px * 2 / 3);
+				flex-grow: 0;
+				position: relative;
+			}
+			.c-archivelist .container {
+				display: flex;
+				flex-direction: column;
+				row-gap: 16px;
+			}
+			.c-archivelist .image {
+				order: -1;
+			}
+			.c-archivelist .image img {
+				width: 100%;
+				border-radius: 8px;
+			}
+			.c-archivelist .text {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: 4px;
+				padding: 0 8px;
+				font-size: 14px;
+				line-height: 1.6;
+				text-align: left;
+			}
+			.c-archivelist .text * {
+				margin: 0;
+			}
+			/* タイトル */
+			.c-archivelist .title {
+				width: 100%;
+				font-size: 15px;
+				line-height: 1.6;
+				font-weight: 700;
+			}
+			/* 概要文 */
+			.c-archivelist .summary {
+				font-size: 14px;
+				line-height: 1.6;
+				text-align: justify;
+				line-break: strict;
+				word-break: break-all;
+				overflow-wrap: break-word;
+			}
+			/* 日付・値段・タグ一覧 */
+			.c-archivelist .date,
+			.c-archivelist .price {
+				color: #92939c;
+			}
+			.c-archivelist .date,
+			.c-archivelist .tags {
+				font-size: 12px;
+				line-height: 1.2;
+			}
+			.c-archivelist .tags {
+				flex-basis: 100%;
+				display: flex;
+				flex-wrap : wrap;
+				gap: 4px;
+			}
+			/* 著者 */
+			.c-archivelist .author {
+				display: flex;
+				align-items: center;
+				column-gap: 8px;
+				font-size: 12px;
+			}
+			.c-archivelist .author .ico img {
+				width: 2em;
+				height: 2em;
+				border-radius: 2em;
+				aspect-ratio: 1 / 1;
+				object-fit: cover;
+			}
+			/* リンクボタン */
+			.c-archivelist .link {
+				flex-basis: 100%;
+				flex-grow: 1;
+				justify-self: flex-end;
+				text-align: center;
+			}
+			/* いいねボタン */
+			.c-archivelist .like {
+				flex-grow: 0;
+				justify-self: flex-end;
+			}
+			/* 他にリンクを置きたい時 */
+			.c-archivelist .wraplink {
+				position: absolute;
+				inset: 0;
+			}
+			@media (hover: hover) {
+				.c-archivelist .container[href] .c-button,
+				.c-archivelist .wraplink ~ .text .c-button,
+				.c-archivelist .container[href] .c-more,
+				.c-archivelist .wraplink ~ .text .c-more {
+					transition: color .4s, background .4s;
+				}
+				.c-archivelist .container[href]:hover .c-button,
+				.c-archivelist .wraplink:hover ~ .text .c-button,
+				.c-archivelist .container[href]:hover .c-more,
+				.c-archivelist .wraplink:hover ~ .text .c-more {
+					color: var(--themecolor);
+					background: white;
+					transition-duration: .1s;
+				}
+			}
+			@media screen and (max-width: 767px) {
+				.c-archivelist {
+					gap: 32px;
+				}
+				.c-archivelist .archive_item {
+					flex-basis: calc(50% - 16px);
+				}
+			}
+			@media screen and (max-width: 479px) {
+				.c-archivelist .archive_item {
+					flex-basis: 100%;
+				}
+			}
+		</figure>
+	</section>
+	
 	<section id="news" class="p-archivelist_news l-section">
-		<h2 class="default_title c-title -bar">アーカイブ一覧<small>（短冊のすがた）</small></h2>
-		<ul class="c-archivelist -tanzaku">
-			<li class="archive_item"><a href="" class="container">
+		<h2 class="default_title c-title -bar">アーカイブ一覧<small>（バーのすがた）</small></h2>
+		<p class="c-lead">画像とテキストを横並びにした、ニュース一覧らしい省スペースなアーカイブ一覧。</p>
+		<p>項目を包む<code>.c-archivelist</code>に<code>.-bar</code>を付与すると、ニュース一覧なバージョンにレイアウトが変わる。</p>
+		<hr class="rest">
+		<ul class="c-archivelist -bar">
+			<li class="archive_item container">
+				<dl class="text">
+					<dt class="title">カレーパン</dt>
+					<dd class="summary">スパイスの効いたキーマカレーを包んで、サラダ油でカラっと揚げた、カリカリ食感のカレーパン。</dd>
+					<dd class="price">¥200</dd>
+					<dd class="like"><button type="button" class="c-likebutton"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../assets/img/ico.svg#heart"/></svg></button></div>
+					<dd class="link"><a href="https://lopan.jp/" class="c-more">もっとみる</a></dd>
+				</dl>
+				<figure class="image"><img src="../assets/img/menu/pain_pain_curry.webp" alt="" width="600" height="400" loading="lazy"></figure>
+			</li>
+			<li class="archive_item"><a href="https://lopan.jp/" class="container">
+				<dl class="text">
+					<dt class="title">フロートで2段組みレイアウト</dt>
+					<dd class="tags">
+						<span class="c-tag">CSS</span>
+						<span class="c-tag">レイアウト</span>
+						<span class="c-tag">フロート</span>
+					</dd>
+					<dd class="summary">floatプロパティは、画像の周りに文章を回り込ませたり、要素を左右に寄せるときに使われるプロパティ。そんなfloatプロパティを使って段組みレイアウトしてゆきます。</dd>
+					<dd class="author">
+						<span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span>
+						<span class="name">_watercolor</span>
+					</dd>
+					<dd class="date">2018.10.10</dd>
+					<dd class="link"><span class="c-more">もっとみる</span></dd>
+				</dl>
+				<figure class="image"><img src="../assets/img/css-layout2/float_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
+			</a></li>
+			<li class="archive_item"><a href="https://lopan.jp/" class="container">
 				<dl class="text">
 					<dt class="date">2022.12.22</dt>
 					<dd class="tags"><span class="c-tag">HTML</span><span class="c-tag">CSS</span><span class="c-tag">SVG</span></dd>
@@ -81,26 +364,14 @@
 				</dl>
 				<figure class="image"><img src="../assets/img/memorandum/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 			</a></li>
-			<li class="archive_item"><a href="" class="container">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="tags"><span class="c-tag">スキャンダル</span></dd>
-					<dd class="title">「週刊文春にスクープされました」とか、割と長めのテキストが入っても良い想定のタイトル。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/transparent-texture/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></li>
-			<li class="archive_item"><a href="" class="container">
-				<dl class="text">
-					<dt class="date">2022.12.22</dt>
-					<dd class="tags"><span class="c-tag">掲載情報</span></dd>
-					<dd class="title">Lopan cafeが「朝はパンマガジン PANPAPAN 8月号」に掲載されました！<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/illustrator-illustration/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></li>
 		</ul>
+		<hr class="rest">
+		<p>ニュース一覧を想定しているので、それなりに相応しい要素を厳選する。また、商品一覧とは違い「<em>リスト然</em>」としたマークアップ<small>（ul要素）</small>にし、<b>ニュース</b>なので「<em>その日の説明</em>」という意図のマークアップ<small>（dl要素）</small>にする。<br>
+		省スペースが念頭のレイアウトなので、リンクボタンも要らないし、項目全体がリンク対象である方がいい。代わりに<code>.title</code>の中に<b>矢印アイコン</b>を入れておくとより、“<em>らしく</em>”なる。</p>
 		<figure class="c-syntax" data-lang="html">
-			&lt;ul class="c-archivelist -tanzaku"&gt;
-				&lt;li class="archive_item"&gt;&lt;a href="" class="container"&gt;
+			&lt;ul class="c-archivelist -bar"&gt;
+				&lt;li class="archive_item"&gt;&lt;a href="https://lopan.jp/" class="container"&gt;
+					︙
 					&lt;dl class="text"&gt;
 						&lt;dt class="date"&gt;2022.12.22&lt;/dt&gt;
 						&lt;dd class="tags"&gt;&lt;span class="c-tag"&gt;HTML&lt;/span&gt;&lt;span class="c-tag"&gt;CSS&lt;/span&gt;&lt;span class="c-tag"&gt;SVG&lt;/span&gt;&lt;/dd&gt;
@@ -108,95 +379,233 @@
 					&lt;/dl&gt;
 					&lt;figure class="image"&gt;&lt;img src="../assets/img/memorandum/eyecatch.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
 				&lt;/a&gt;&lt;/li&gt;
-				︙
 			&lt;/ul&gt;
 		</figure>
-	</section>
-	
-	<section id="blog" class="p-archivelist_blog l-section">
-		<h2 class="default_title c-title -bar">アーカイブ一覧<small>（ブロックのすがた）</small></h2>
-		<div class="c-archivelist -block">
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/float/" class="container">
-				<dl class="text">
-					<h2 class="title">フロートで2段組みレイアウト</h2>
-					<dd class="summary">floatプロパティは、画像の周りに文章を回り込ませたり、要素を左右に寄せるときに使われるプロパティ。そんなfloatプロパティを使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">フロート</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/float_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/inline-block/" class="container">
-				<dl class="text">
-					<dd class="title">インライン・ブロックで2段組みレイアウト</dd>
-					<dd class="summary">要素をインラインレベルのブロックコンテナとして表示する値「inline-block」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">テーブル</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/inline-block_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/table/" class="container">
-				<dl class="text">
-					<dd class="title">テーブルレイアウトで2段組みレイアウト</dd>
-					<dd class="summary">要素をtable要素のように表示する値「table/table-cell」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">インライン・ブロック</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/table_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/flexible/" class="container">
-				<dl class="text">
-					<dd class="title">フレキシブルボックスで2段組みレイアウト</dd>
-					<dd class="summary">要素をフレキシブルにレイアウトするための値「flex」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">フレキシブルボックス</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/flexible_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/columns/" class="container">
-				<dl class="text">
-					<dd class="title">カラムを使って2段組みレイアウト</dd>
-					<dd class="summary">columnsプロパティは、段落が横に長すぎる場合に、一定の幅で文章を列ブロックに分割するためのプロパティ。そんなcolumnsプロパティを使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">段組み</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/columns_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-			<article class="archive_item"><a href="https://lopan.jp/css-layout2/grid/" class="container">
-				<dl class="text">
-					<dd class="title">グリッドで2段組みレイアウトとまとめ</dd>
-					<dd class="summary">要素内にグリッドを生成して自由にレイアウトするための値「grid」を使って段組みレイアウトしてゆきます。</dd>
-					<dd class="author"><span class="ico"><img src="../assets/img/_watercolor.webp" alt="" width="512" height="512" loading="lazy"></span><span class="name">_watercolor</span></dd>
-					<dt class="date">2018.10.10</dt>
-					<dd class="tags"><span class="c-tag">CSS</span><span class="c-tag">レイアウト</span><span class="c-tag">グリッド</span></dd>
-				</dl>
-				<figure class="image"><img src="../assets/img/css-layout2/grid_eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-			</a></article>
-		</div>
+		<p>以下ソースコードを参照のこと。<code>.-bar</code>を付与することでにスタイルが以下のよう変わる。<br>
+		ただしバーのすがたが有効なのは、ビューポートの幅が<code>480px</code>以上の時のみ。<code>479px</code>以下は縦積みレイアウト。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			@media print, (min-width: 480px) {
+				.c-archivelist.-bar {
+					flex-direction: column;
+					gap: 0;
+				}
+				.c-archivelist.-bar .archive_item {
+					position: relative;
+					border-top: 1px solid #eeeff1;
+				}
+				.c-archivelist.-bar .archive_item:last-child {
+					border-bottom: 1px solid #eeeff1;
+				}
+				.c-archivelist.-bar .container {
+					flex-direction: row;
+					gap: 24px;
+					padding: 16px 40px 16px 16px;
+				}
+				.c-archivelist.-bar .image {
+					flex-basis: 120px;
+					flex-shrink: 0;
+				}
+				.c-archivelist.-bar .image img {
+					aspect-ratio: 16 / 9;
+					object-fit: cover;
+				}
+				.c-archivelist.-bar .text {
+					flex-direction: column;
+					justify-content: center;
+					align-items: flex-start;
+				}
+				.c-archivelist.-bar .title {
+					-webkit-line-clamp: 2;
+					max-height: 3.2em;
+					white-space: normal;
+					font-size: 14px;
+				}
+				.c-archivelist.-bar .tags,
+				.c-archivelist.-bar .link {
+					flex-basis: auto;
+				}
+				.c-archivelist.-bar .arr {
+					position: absolute;
+					top: calc(50% - 8px);
+					right: 16px;
+					width: 16px;
+					height: auto;
+					fill: none;
+					stroke: var(--themecolor);
+					stroke-width: 3;
+					stroke-linecap: round;
+					stroke-linejoin: round;
+				}
+			}
+			@media (hover: hover) {
+				.c-archivelist.-bar .container[href] {
+					background: #86c0de00;
+					transition: background .4s cubic-bezier(.3,1,.7,1);
+				}
+				.c-archivelist.-bar .container[href]:hover {
+					background: #86c0de1a;
+					transition-duration: .1s;
+				}
+				.c-archivelist.-bar .container[href] .arr {
+					transition: transform .4s cubic-bezier(.3,1,.7,1);
+				}
+				.c-archivelist.-bar .container[href]:hover .arr {
+					transform: translateX(4px);
+					transition-duration: .1s;
+				}
+			}
+			@media screen and (max-width: 479px) {
+				.c-archivelist.-bar {
+					margin: 0 -24px;
+				}
+				.c-archivelist.-bar .container {
+					flex-direction: column;
+					gap: 16px;
+					padding-inline: 24px;
+				}
+				.c-archivelist.-bar .text {
+					position: relative;
+					padding: 0 24px 0 8px;
+				}
+				.c-archivelist.-bar .title {
+					flex-basis: 100%;
+				}
+				.c-archivelist.-bar .arr {
+					right: 0;
+				}
+			}
+			@media screen and (max-width: 359px) {
+				.c-archivelist.-bar .archive_item {
+					flex-direction: column;
+					gap: 8px;
+				}
+			}
+		</figure>
 	</section>
 	
 	<section id="cassette" class="p-pulldown l-section">
 		<h2 class="default_title c-title -hyphen">よくあるレイアウト</h2>
+		<p class="c-lead">トップページとかでありそうなレイアウト。</p>
+		<hr class="rest">
 		<section class="c-cassette">
 			<h3 class="c-title -hyphen">使いまわせるSVG</h3>
 			<p class="lead">サイトのロゴとかシンボルとか、ボタンの矢印とかSNSアイコンとかの、小っこい画像をひとまとめに管理する「SVGスプライト」についてのまとめです。</p>
 			<a href="https://lopan.jp/renewal/about-svg/sprites/" class="c-button">詳しく見る</a>
 			<figure class="image"><img src="../assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 		</section>
-		<section class="c-cassette -reverse">
+		<section class="c-cassette -reverse -wrap"><a href="https://lopan.jp/renewal/about-svg/filter/" class="container">
 			<h3 class="c-title -hyphen">SVGのフィルター効果</h3>
 			<p class="lead">SVGでフィルター効果を与える「Filter primitive要素」について、わかるところまで、個人的なおまとめ。</p>
-			<a href="https://lopan.jp/renewal/about-svg/filter/" class="c-button">詳しく見る</a>
+			<span class="c-button">詳しく見る</span>
 			<figure class="image"><img src="../assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
-		</section>
+		</a></section>
+		<hr class="rest">
+		<p>タイトル<small>（<code>.title</code>）</small>、リード文<small>（<code>.lead</code>）</small>、リンクボタン<small>（<code>.c-button</code>）</small>、イメージ画像<small>（<code>.image</code>）</small>を<code>.c-cassette</code>で括る構造。<br>
+		<code>.c-cassette</code>に<code>.-reverse</code>を併記すれば、テキスト群とイメージ画像を左右反転してレイアウトする<small>（ただしビューポート幅の狭い環境では縦積みのため変化なし）</small>。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;section class="c-cassette"&gt;
+				&lt;h3 class="c-title -hyphen"&gt;使いまわせるSVG&lt;/h3&gt;
+				&lt;p class="lead"&gt;サイトのロゴとかシンボルとか、ボタンの矢印とかSNSアイコンとかの、小っこい画像をひとまとめに管理する「SVGスプライト」についてのまとめです。&lt;/p&gt;
+				&lt;a href="https://lopan.jp/renewal/about-svg/sprites/" class="c-button"&gt;詳しく見る&lt;/a&gt;
+				&lt;figure class="image"&gt;&lt;img src="../assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
+			&lt;/section&gt;
+		</figure>
+		<p>セクション全体をリンク対象にする場合は、<code>.c-cassette</code>に<code>.-wrap</code>を併記し、中身をa要素で括り<code>.container</code>を付与する。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;section class="c-cassette -reverse -wrap"&gt;&lt;a href="https://lopan.jp/renewal/about-svg/filter/" class="container"&gt;
+				&lt;h3 class="c-title -hyphen"&gt;SVGのフィルター効果&lt;/h3&gt;
+				&lt;p class="lead"&gt;SVGでフィルター効果を与える「Filter primitive要素」について、わかるところまで、個人的なおまとめ。&lt;/p&gt;
+				&lt;span class="c-button"&gt;詳しく見る&lt;/span&gt;
+				&lt;figure class="image"&gt;&lt;img src="../assets/img/about-svg/eyecatch.webp" alt="" width="600" height="400" loading="lazy"&gt;&lt;/figure&gt;
+			&lt;/a&gt;&lt;/section&gt;
+		</figure>
+		<p>CSSは以下ソースコードを参照のこと。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			@media print, (min-width: 768px) {
+				.c-cassette,
+				.c-cassette.-wrap .container  {
+					display: grid;
+					grid-template: 4fr auto 7fr / calc(60% - 24px) calc(40% - 24px);
+					column-gap: 48px;
+				}
+				.c-cassette.-wrap  {
+					display: block;
+				}
+				.c-cassette.-reverse,
+				.c-cassette.-wrap.-reverse .container {
+					grid-template-columns: calc(40% - 24px) calc(60% - 24px);
+				}
+				.c-cassette .c-title,
+				.c-cassette.-wrap .container .c-title {
+					grid-area: 1 / 1;
+					align-self: flex-end;
+				}
+				.c-cassette .lead,
+				.c-cassette.-wrap .container .lead {
+					grid-area: 2 / 1;
+					text-align: left;
+				}
+				.c-cassette .c-button,
+				.c-cassette.-wrap .container .c-button {
+					grid-area: 3 / 1;
+					align-self: flex-start;
+				}
+				.c-cassette .image,
+				.c-cassette.-wrap .container .image {
+					grid-area: 1 / 2 / 4 / 3;
+					align-self: center;
+				}
+				.c-cassette.-reverse .c-title,
+				.c-cassette.-reverse .lead,
+				.c-cassette.-reverse .c-button,
+				.c-cassette.-wrap.-reverse .container .c-title,
+				.c-cassette.-wrap.-reverse .container .lead,
+				.c-cassette.-wrap.-reverse .container .c-button {
+					grid-column: 2 / 3;
+				}
+				.c-cassette.-reverse .image,
+				.c-cassette.-wrap.-reverse .container .image {
+					grid-column: 1 / 2;
+				}
+			}
+			@media screen and (max-width: 767px) {
+				.c-cassette,
+				.c-cassette.-wrap .container {
+					display: flex;
+					flex-direction: column;
+				}
+				.c-cassette .c-title,
+				.c-cassette.-wrap .container .c-title {
+					order: -1;
+					align-self: flex-start;
+				}
+				.c-cassette .c-button,
+				.c-cassette.-wrap .container .c-button {
+					align-self: center;
+				}
+				.c-cassette .image,
+				.c-cassette.-wrap .container .image {
+					margin-top: 16px;
+				}
+				.c-cassette .image {
+					order: -1;
+				}
+			}
+			@media (hover: hover) {
+				.c-cassette.-wrap .container:hover .c-button {
+					color: var(--themecolor);
+					background: white;
+					transition-duration: .1s;
+				}
+			}
+		</figure>
 	</section>
 	
 	<section id="pulldown" class="p-pulldown l-section">
 		<h2 class="default_title c-title -hyphen">プルダウンUI</h2>
+		<p class="c-lead">隠しておいたコンテンツを、ボタンクリックで開閉させるUI。</p>
+		<hr class="rest">
+		<p>ボタンはいくつも置ける。例えば「<span class="js-pullToggle" data-pull="menuList"><span class="open">ココ</span><span class="close">ここ</span></span>」をクリックしても開閉できる。</p>
 		<div class="js-pullContent" data-pull="menuList" data-default="240">
 			<h4>二、活版所</h4>
 			<p>　ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして校庭の<ruby><rb>隅</rb><rp>（</rp><rt>すみ</rt><rp>）</rp></ruby>の<ruby><rb>桜</rb><rp>（</rp><rt>さくら</rt><rp>）</rp></ruby>の木のところに集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す<ruby><rb>烏瓜</rb><rp>（</rp><rt>からすうり</rt><rp>）</rp></ruby>を取りに行く相談らしかったのです。<br>　けれどもジョバンニは手を大きく<ruby><rb>振</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの<ruby><rb>枝</rb><rp>（</rp><rt>えだ</rt><rp>）</rp></ruby>にあかりをつけたりいろいろ<ruby><rb>仕度</rb><rp>（</rp><rt>したく</rt><rp>）</rp></ruby>をしているのでした。<br>　家へは帰らずジョバンニが町を三つ曲ってある大きな活版処にはいってすぐ入口の計算台に居ただぶだぶの白いシャツを着た人におじぎをしてジョバンニは<ruby><rb>靴</rb><rp>（</rp><rt>くつ</rt><rp>）</rp></ruby>をぬいで上りますと、<ruby><rb>突</rb><rp>（</rp><rt>つ</rt><rp>）</rp></ruby>き当りの大きな<ruby><rb>扉</rb><rp>（</rp><rt>と</rt><rp>）</rp></ruby>をあけました。中にはまだ昼なのに電燈がついてたくさんの輪転器がばたりばたりとまわり、きれで頭をしばったりラムプシェードをかけたりした人たちが、何か歌うように読んだり数えたりしながらたくさん働いて<ruby><rb>居</rb><rp>（</rp><rt>お</rt><rp>）</rp></ruby>りました。<br>　ジョバンニはすぐ入口から三番目の高い<ruby><rb>卓子</rb><rp>（</rp><rt>テーブル</rt><rp>）</rp></ruby>に<ruby><rb>座</rb><rp>（</rp><rt>すわ</rt><rp>）</rp></ruby>った人の所へ行っておじぎをしました。その人はしばらく<ruby><rb>棚</rb><rp>（</rp><rt>たな</rt><rp>）</rp></ruby>をさがしてから、<br>「これだけ拾って行けるかね。」と云いながら、一枚の紙切れを<ruby><rb>渡</rb><rp>（</rp><rt>わた</rt><rp>）</rp></ruby>しました。ジョバンニはその人の卓子の足もとから一つの小さな平たい<ruby><rb>函</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をとりだして向うの電燈のたくさんついた、たてかけてある<ruby><rb>壁</rb><rp>（</rp><rt>かべ</rt><rp>）</rp></ruby>の隅の所へしゃがみ<ruby><rb>込</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>むと小さなピンセットでまるで<ruby><rb>粟粒</rb><rp>（</rp><rt>あわつぶ</rt><rp>）</rp></ruby>ぐらいの活字を次から次と拾いはじめました。青い胸あてをした人がジョバンニのうしろを通りながら、<br>「よう、虫めがね君、お早う。」と云いますと、近くの四五人の人たちが声もたてずこっちも向かずに冷くわらいました。<br>　ジョバンニは何べんも眼を<ruby><rb>拭</rb><rp>（</rp><rt>ぬぐ</rt><rp>）</rp></ruby>いながら活字をだんだんひろいました。<br>　六時がうってしばらくたったころ、ジョバンニは拾った活字をいっぱいに入れた平たい<ruby><rb>箱</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をもういちど手にもった紙きれと引き合せてから、さっきの卓子の人へ持って来ました。その人は<ruby><rb>黙</rb><rp>（</rp><rt>だま</rt><rp>）</rp></ruby>ってそれを受け取って<ruby><rb>微</rb><rp>（</rp><rt>かす</rt><rp>）</rp></ruby>かにうなずきました。<br>　ジョバンニはおじぎをすると扉をあけてさっきの計算台のところに来ました。するとさっきの白服を着た人がやっぱりだまって小さな銀貨を一つジョバンニに渡しました。ジョバンニは<ruby><rb>俄</rb><rp>（</rp><rt>にわ</rt><rp>）</rp></ruby>かに顔いろがよくなって<ruby><rb>威勢</rb><rp>（</rp><rt>いせい</rt><rp>）</rp></ruby>よくおじぎをすると台の下に置いた<ruby><rb>鞄</rb><rp>（</rp><rt>かばん</rt><rp>）</rp></ruby>をもっておもてへ飛びだしました。それから元気よく<ruby><rb>口笛</rb><rp>（</rp><rt>くちぶえ</rt><rp>）</rp></ruby>を<ruby><rb>吹</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>きながらパン屋へ寄ってパンの<ruby><rb>塊</rb><rp>（</rp><rt>かたまり</rt><rp>）</rp></ruby>を一つと角砂糖を一<ruby><rb>袋</rb><rp>（</rp><rt>ふくろ</rt><rp>）</rp></ruby>買いますと<ruby><rb>一目散</rb><rp>（</rp><rt>いちもくさん</rt><rp>）</rp></ruby>に走りだしました。</p>
@@ -204,10 +613,93 @@
 		<button type="button" class="works_button c-pulltoggle js-pullToggle" data-pull="menuList">
 			<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M22,6l-10,12L2,6"/></svg>
 		</button>
+		<hr class="rest">
+		<p>隠したいコンテンツを<code>.js-pullContent</code>で括り、展開するためのボタンに<code>.js-pullToggle</code>を付与する。それぞれに<b>data-pull属性</b>で、「ユニークな同じ値」を指定し紐づける。<br>
+		隠したいコンテンツに<b>data-default属性</b>で、隠しておく時の高さ<small>（px値）</small>を指定できる。初期値は「<code>0</code>」<small>（完全に隠れる）</small>。<br>
+		<code>.js-pullToggle</code>の中に、<code>.open</code>/<code>.close</code>という要素を入れると、開閉ボタンによくある感じの<b>エフェクト</b>が得られる。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;p&gt;ボタンはいくつも置ける。例えば「&lt;span class="js-pullToggle" data-pull="menuList"&gt;&lt;span class="open"&gt;ココ&lt;/span&gt;&lt;span class="close"&gt;ここ&lt;/span&gt;&lt;/span&gt;」をクリックしても開閉できる。&lt;/p&gt;
+			&lt;div class="js-pullContent" data-pull="menuList" data-default="240"&gt;
+			︙
+			&lt;/div&gt;
+			&lt;button type="button" class="works_button c-pulltoggle js-pullToggle" data-pull="menuList"&gt;
+				&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;path d="M22,6l-10,12L2,6"/&gt;&lt;/svg&gt;
+			&lt;/button&gt;
+		</figure>
+		<p>CSSは以下ソースコードを参照のこと。<br>
+		※開閉ボタンのデザインや、隠れている時のグラデーション具合は暫定。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.js-pullContent {
+				position: relative;
+				overflow: hidden;
+			}
+			.js-pullContent[data-default]::after {
+				content: "";
+				pointer-events: none;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 100%;
+				background: linear-gradient(to top, white, #fff2 80%, #fff0);
+			}
+			.js-pullToggle {
+				cursor: pointer;
+				position: relative;
+			}
+			.js-pullToggle .open,
+			.js-pullToggle .close {
+				display: block;
+				white-space: nowrap;
+			}
+			.js-pullToggle .close {
+				position: absolute;
+				inset: 0;
+				width: fit-content;
+				height: fit-content;
+				margin: auto;
+			}
+			/* motion */
+			.js-pullToggle.is-active .arr {
+				transform: rotateX(180deg);
+			}
+			.js-pullToggle.is-active .open,
+			.js-pullToggle:not(.is-active) .close {
+				opacity: 0;
+				transform: translateY(-.5em);
+			}
+			.js-pullToggle.is-anim.is-active .open,
+			.js-pullToggle.is-anim:not(.is-active) .close {
+				transform: translateY(.5em);
+			}
+			.js-pullContent[data-default].is-active::after,
+			.js-pullContent:not([data-default]):not(.is-active) {
+				opacity: 0;
+			}
+			.js-pullContent.is-anim {
+				transition: opacity .6s, height .6s cubic-bezier(.7,0,.3,1);
+			}
+			.js-pullContent.is-anim:not(.is-active) {
+				transition-timing-function: ease, cubic-bezier(.3,1,.7,1);
+			}
+			.js-pullContent[data-default].is-anim::after {
+				transition: opacity .4s;
+			}
+			.js-pullToggle.is-anim .arr {
+				transition: transform .4s cubic-bezier(.3,1,.7,1);
+			}
+			.js-pullToggle.is-anim .open,
+			.js-pullToggle.is-anim .close {
+				transition: opacity .4s, transform .4s cubic-bezier(.3,1,.7,1);
+			}
+		</figure>
 	</section>
 
 	<section id="accordion" class="p-accordion l-section">
 		<h2 class="default_title c-title -hyphen">アコーディオンUI</h2>
+		<p class="c-lead">プルダウンに似ているが違う構造の開閉UIアコーディオン。</p>
+		<p>プルダウンとの違いは、開閉する部分と開閉させる部分が対になっているところ。一問一答系のコンテンツに見合う。</p>
+		<hr class="rest">
 		<dl>
 			<div class="js-acc">
 				<dt class="js-accHead">表示サイズを確認するためのサンプルテキスト</dt>
@@ -222,26 +714,742 @@
 				<dd class="js-accBody">この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。</dd>
 			</div>
 		</dl>
+		<hr class="rest">
+		<p>開閉するボタンとなる要素に<code>.js-accHead</code>を付与し、隠れる要素に<code>.js-accBody</code>を付与。このふたつを<code>.js-acc</code>で括る構造。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;dl&gt;
+				&lt;div class="js-acc"&gt;
+					&lt;dt class="js-accHead"&gt;表示サイズを確認するためのサンプルテキスト&lt;/dt&gt;
+					&lt;dd class="js-accBody"&gt;この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。この文章は、表示サイズを確認するための、40文字くらいのサンプルテキストです。&lt;/dd&gt;
+				&lt;/div&gt;
+				︙
+			&lt;/dl&gt;
+		</figure>
+		<p>CSSは以下ソースコードを参照のこと。<br>
+		後述する「よくあるご質問」コンポーネントと併用するとしっくりくる。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.js-acc {
+				overflow: hidden;
+			}
+			.js-acc .js-accHead {
+				cursor: pointer;
+			}
+			.js-acc .js-accBody {
+				margin: 0 !important;
+			}
+			.js-acc .js-accHead .ico {
+				fill: none;
+				stroke: currentcolor;
+				stroke-width: 2;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			.js-accHead.is-active {
+				background: #fafafd;
+			}
+			.js-accHead.is-active .ico {
+				transform: rotateX(180deg);
+			}
+			.js-acc.is-anim {
+				transition: height .4s cubic-bezier(.3,1,.7,1);
+			}
+			.js-acc.is-anim .js-accBody {
+				transition: opacity .4s;
+			}
+			.js-accHead.is-anim {
+				transition: background .4s;
+			}
+			.js-accHead.is-anim .ico {
+				transition: transform .4s cubic-bezier(.7,0,.3,1);
+			}
+			@media (hover: hover) {
+				.js-acc .js-accHead {
+					transition: background .4s;
+				}
+				.js-acc .js-accHead:hover {
+					background: #fafafd;
+					transition-duration: .1s;
+				}
+			}
+		</figure>
 	</section>
 	
-	<section class="elements_section l-section">
+	<section id="video" class="elements_section l-section">
 		<h2 class="default_title c-title -bar">video要素</h2>
+		<p class="c-lead">video要素の再生・一時停止をJavaScriptで操作する。</p>
+		<hr class="rest">
 		<video controls width="640" height="360" class="js-video" data-video="videoUniqueId">
 			<source src="../assets/media/video.webm" type="video/webm">
 			<source src="../assets/media/video.mp4" type="video/mp4">
 		</video>
-		<button type="button" class="js-videoControl" data-video="videoUniqueId">再生する</button>
+		<button type="button" class="c-button js-videoControl" data-video="videoUniqueId">再生する</button>
+		<hr class="rest">
+		<p>video要素に<code>.js-video</code>を付与し、button要素に<code>.js-videoControl</code>を付与する。<br>
+		それぞれに<b>data-video属性</b>で「ユニークな同じ値」を指定し、紐づける。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;video controls width="640" height="360" class="js-video" data-video="videoUniqueId"&gt;
+				&lt;source src="../assets/media/video.webm" type="video/webm"&gt;
+				&lt;source src="../assets/media/video.mp4" type="video/mp4"&gt;
+			&lt;/video&gt;
+			&lt;button type="button" class="js-videoControl" data-video="videoUniqueId"&gt;再生する&lt;/button&gt;
+		</figure>
 	</section>
 
-	<section class="p-video_yt l-section">
+	<section id="youtube" class="p-video_yt l-section">
 		<h2 class="default_title c-title -bar">YouTube 埋め込みプレーヤー</h2>
-		<div class="js-yt" width="640" height="360" data-player="playerUniqueId1" data-ytid="H2PyYFi7UX0" data-vars="controls=1&autoplay=1&loop=1&playlist=H2PyYFi7UX0,Ltw1dKg5d2Q,x8-oqyN-0uM"></div>
-		<button type="button" class="js-ytControl" data-player="playerUniqueId1">再生する</button>
-		
-		<div class="js-yt" width="640" height="360" data-player="playerUniqueId2" data-ytid="seBsjCHoxOA" data-vars="autoplay=0"></div>
-		<button type="button" class="js-ytControl" data-player="playerUniqueId2">再生する</button>
+		<p class="c-lead">YouTube 埋め込みプレーヤーの再生・一時停止をJavaScriptで操作する。</p>
+		<hr class="rest">
+		<div class="js-yt" width="640" height="360" data-player="playerUniqueId1" data-ytid="H2PyYFi7UX0" data-vars="controls=1&loop=1&playsinline=0&playlist=H2PyYFi7UX0,Ltw1dKg5d2Q,x8-oqyN-0uM"></div>
+		<button type="button" class="c-more js-ytControl" data-player="playerUniqueId1">再生する</button>
+		<hr class="rest">
+		<div class="js-yt" width="640" height="360" data-player="playerUniqueId2" data-ytid="seBsjCHoxOA"></div>
+		<button type="button" class="c-textlink js-ytControl" data-player="playerUniqueId2">再生する</button>
+		<hr class="rest">
+		<p>空のdiv要素に<code>.js-yt</code>を付与し、<b>data-ytid属性</b>にYouTubeの<b>動画ID</b>を指定。button要素に<code>.js-ytControl</code>を付与する。<br>
+		それぞれに<b>data-player属性</b>で「ユニークな同じ値」を指定し、紐づける。<br>
+		<code>.js-yt</code>に<b>data-vars属性</b>で、埋め込みプレーヤーのパラメータを指定できる。埋め込みプレーヤーの<b>サポートされるパラメータ</b>については<a href="https://developers.google.com/youtube/player_parameters?hl=ja#Parameters" title="YouTube 埋め込みプレーヤーとプレーヤーのパラメータ" class="c-textlink">こちら</a>を参照のこと。</p>
+		<figure class="c-syntax -wrap" data-lang="html">
+			&lt;div class="js-yt" width="640" height="360" data-player="playerUniqueId1" data-ytid="H2PyYFi7UX0" data-vars="controls=1&loop=1&playlist=H2PyYFi7UX0,Ltw1dKg5d2Q,x8-oqyN-0uM"&gt;&lt;/div&gt;
+			&lt;button type="button" class="js-ytControl" data-player="playerUniqueId1"&gt;再生する&lt;/button&gt;
+		</figure>
+		<p>data-vars属性の指定がなくても、以下パラメータはデフォルトで指定済み。</p>
+		<ul class="c-list">
+			<li><code>controls="0"</code>（コントローラーを表示しない。）</li>
+			<li><code>modestbranding="1"</code>（プレーヤーにYouTubeロゴを表示しない。）</li>
+			<li><code>enablejsapi="1"</code>（JavaScript Player APIでプレーヤーを制御できるようにする。）</li>
+			<li><code>playsinline="1"</code>（全画面再生せず、その場で再生するようにする。）</li>
+			<li><code>rel="0"</code>（終了後の関連動画を、再生した動画と同じチャンネルの動画にする。）</li>
+		</ul>
+		<figure class="c-syntax -wrap" data-lang="html">
+			&lt;div class="js-yt" width="640" height="360" data-player="playerUniqueId2" data-ytid="seBsjCHoxOA"&gt;&lt;/div&gt;
+			&lt;button type="button" class="js-ytControl" data-player="playerUniqueId2"&gt;再生する&lt;/button&gt;
+		</figure>
+		<p>CSSは後述の「動画UI」コンポーネントを併用するとしっくりくる。</p>
 	</section>
 	
+	<section id="button" class="p-default_parts1 l-section">
+		<h2 class="default_title c-title -bar">ボタン・リンク系</h2>
+		<p class="c-lead">ボタン、リンク各種。</p>
+		<hr class="rest">
+		<button type="button" class="c-button">ボタン<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></button>
+		<a class="c-more">もっとみる<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></a>
+		<span class="c-tag">タグ</span>
+		<button class="c-pulltoggle"><svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M22,6l-10,12L2,6"/></svg></button>
+		<a class="c-link">リンク<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><path d="M6,2l12,10L6,22"/></svg></a>
+		<a class="c-textlink">テキストリンク</a>
+		<button type="button" class="c-likebutton"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../assets/img/ico.svg#heart"/></svg></button>
+		<hr class="rest">
+		<p>※<code>.c-pulltoggle</code>のみ、プルダウンUIとの併用を前提としたコンポーネント。</p>
+		<figure class="c-syntax -wrap" data-lang="html">
+			&lt;button type="button" class="c-button"&gt;ボタン&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;path d="M6,2l12,10L6,22"/&gt;&lt;/svg&gt;&lt;/button&gt;
+			&lt;a class="c-more"&gt;もっとみる&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;path d="M6,2l12,10L6,22"/&gt;&lt;/svg&gt;&lt;/a&gt;
+			&lt;button class="c-pulltoggle"&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;path d="M22,6l-10,12L2,6"/&gt;&lt;/svg&gt;&lt;/button&gt;
+			&lt;span class="c-tag"&gt;タグ&lt;/span&gt;
+			&lt;a class="c-link"&gt;リンク&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;path d="M6,2l12,10L6,22"/&gt;&lt;/svg&gt;&lt;/a&gt;
+			&lt;a class="c-textlink"&gt;テキストリンク&lt;/a&gt;
+			&lt;button type="button" class="c-likebutton"&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="ico"&gt;&lt;use href="../assets/img/ico.svg#heart"/&gt;&lt;/svg&gt;&lt;/button&gt;
+		</figure>
+		<p>ボタン</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-button,
+			.c-more {
+				display: inline-grid;
+				place-items: center;
+				position: relative;
+				width: 100%;
+				max-width: 320px;
+				min-height: 64px;
+				padding: .5em 1.5em;
+				border: 2px solid var(--themecolor);
+				border-radius: 8px;
+				color: white;
+				line-height: 1.4;
+				font-weight: 500;
+				white-space: nowrap;
+				letter-spacing: inherit;
+				background: var(--themecolor);
+			}
+			.c-button .arr,
+			.c-more .arr {
+				position: absolute;
+				top: calc(50% - .5em);
+				right: 16px;
+				width: 1em;
+				height: 1em;
+				fill: none;
+				stroke: currentcolor;
+				stroke-width: 3;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			@media (hover: hover) {
+				.c-button,
+				.c-more {
+					transition: border-color .4s, color .4s, background .4s;
+				}
+				.c-button:hover,
+				.c-more:hover {
+					color: var(--themecolor);
+					background: white;
+					transition-duration: .05s;
+				}
+				.c-button .arr,
+				.c-more .arr {
+					transition: transform .4s cubic-bezier(.3,1,.7,1);
+				}
+				.c-button:hover .arr,
+				.c-more:hover .arr {
+					transform: translateX(4px);
+					transition-duration: .1s;
+				}
+			}
+			/* 状態 */
+			button.c-button:disabled,
+			input.c-button:disabled {
+				pointer-events: none;
+				border-color: #dadcde;
+				color: #eeeff1;
+				background: #dadcde;
+			}
+			
+			/* :::::: もっとみる :::::: */
+			.c-more {
+				max-width: 160px;
+				min-height: 32px;
+				padding: .5em 1.5em;
+			}
+			.c-more .arr {
+				top: calc(50% - .4em);
+				right: 8px;
+				width: .8em;
+				height: .8em;
+			}
+			
+			/* :::::: バルーンボタン :::::: */
+			.c-button.-balloon {
+				width: 10em;
+				height: 10em;
+				margin: 2em auto;
+				border-radius: 10em;
+				text-align: center;
+			}
+		</figure>
+		<p>タグ</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-tag {
+				display: inline-block;
+				padding: 2px 8px;
+				border: 1px solid var(--themecolor);
+				border-radius: 4px;
+				color: white;
+				background: var(--themecolor);
+			}
+			.c-tag[href] {
+				position: relative;
+			}
+			@media (hover: hover) {
+				.c-tag[href] {
+					transition: color .4s, background .4s;
+				}
+				.c-tag[href]:hover {
+					color: var(--themecolor);
+					background: white;
+					transition-duration: .1s;
+				}
+			}
+		</figure>
+		<p>プルダウンボタン</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-pulltoggle {
+				display: inline-grid;
+				place-items: center;
+				position: relative;
+				width: 32px;
+				height: 32px;
+				border-radius: 48px;
+				border: 1.5px solid var(--themecolor);
+				border-radius: 32px;
+				color: white;
+				line-height: 0;
+				background: var(--themecolor);
+			}
+			.c-pulltoggle.is-active {
+				color: var(--themecolor);
+				background: white;
+			}
+			.c-pulltoggle .arr {
+				width: 40%;
+				fill: none;
+				stroke: currentcolor;
+				stroke-width: 3;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			@media (hover: hover) {
+				.c-pulltoggle {
+					transition: color .4s, background .4s;
+				}
+				.c-pulltoggle:hover {
+					color: var(--themecolor);
+					background: white;
+					transition-duration: .1s;
+				}
+				.c-pulltoggle.is-active:hover {
+					color: white;
+					background: var(--themecolor);
+				}
+			}
+		</figure>
+		<p>リンク</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-link {
+				display: inline-flex;
+				align-items: center;
+				column-gap: .5em;
+				color: var(--themecolor);
+				font-weight: 700;
+			}
+			.c-link .arr {
+				width: 1em;
+				height: 1em;
+				fill: none;
+				stroke: currentcolor;
+				stroke-width: 3;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			@media (hover: hover) {
+				.c-link .arr {
+					transition: transform .4s cubic-bezier(.3,1,.7,1);
+				}
+				.c-link:hover .arr,
+				a:hover .c-link .arr {
+					transform: translateX(4px);
+					transition-duration: .1s;
+				}
+			}
+		</figure>
+		<p>テキストリンク</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-textlink {
+				color: var(--themecolor);
+				line-height: 1.4;
+				background: linear-gradient(currentcolor, currentcolor) left bottom / 100% 1px no-repeat;
+			}
+			@media (hover: hover) {
+				.c-textlink {
+					transition: background-size .4s cubic-bezier(0.215, 0.61, 0.355, 1);
+				}
+				.c-textlink:hover {
+					background-position: right bottom;
+					background-size: 0 1px;
+				}
+			}
+		</figure>
+		<p>いいね</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-likebutton {
+				cursor: pointer;
+				position: relative;
+				fill: white;
+			}
+			.c-likebutton .ico {
+				width: 1.2em;
+				height: auto;
+				fill: inherit;
+				stroke: var(--themecolor);
+				stroke-width: 2;
+				stroke-linejoin: round;
+			}
+			@media (hover: hover) {
+				.c-likebutton {
+					transition: fill .4s;
+				}
+				.c-likebutton:hover {
+					fill: var(--themecolor);
+					transition-duration: .1s;
+				}
+			}
+		</figure>
+	</section>
+	
+	<section id="list" class="p-default_parts2 l-section">
+		<h2 class="default_title c-title -bar">一覧系</h2>
+		<hr class="rest">
+		<ul class="c-list">
+			<li>頭に中黒が付く普通の一覧</li>
+		</ul>
+		<ol class="c-numlist">
+			<li>頭に連番が付く一覧</li>
+			<li>順序のある一覧</li>
+		</ol>
+		<dl class="c-faq">
+			<div class="faq_item">
+				<dt class="faq_q">よくあるご質問のご質問</dt>
+				<dt class="faq_a">よくあるご質問のご質問に対するご回答</dt>
+			</div>
+		</dl>
+		<div class="c-crumb"><a href="">HOME</a><a href="">パンくず</a><a href="">リスト</a></div>
+		<hr class="rest">
+		<figure class="c-syntax -wrap" data-lang="html">
+			&lt;ul class="c-list"&gt;
+				&lt;li&gt;頭に中黒が付く普通の一覧&lt;/li&gt;
+			&lt;/ul&gt;
+			&lt;ol class="c-numlist"&gt;
+				&lt;li&gt;頭に連番が付く一覧&lt;/li&gt;
+				&lt;li&gt;順序のある一覧&lt;/li&gt;
+			&lt;/ol&gt;
+			&lt;dl class="c-faq"&gt;
+				&lt;div class="faq_item"&gt;
+					&lt;dt class="faq_q"&gt;よくあるご質問のご質問&lt;/dt&gt;
+					&lt;dt class="faq_a"&gt;よくあるご質問のご質問に対するご回答&lt;/dt&gt;
+				&lt;/div&gt;
+			&lt;/dl&gt;
+			&lt;div class="c-crumb"&gt;&lt;a href=""&gt;HOME&lt;/a&gt;&lt;a href=""&gt;パンくず&lt;/a&gt;&lt;a href=""&gt;リスト&lt;/a&gt;&lt;/div&gt;
+		</figure>
+		<p>一覧</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-list li {
+				padding-left: 1em;
+				line-height: 1.6;
+				text-indent: -1em;
+			}
+			.c-list li + li {
+				margin-top: .4em;
+			}
+			.c-list li * {
+				text-indent: 0;
+			}
+			.c-list li::before {
+				content: "";
+				display: inline-block;
+				position: relative;
+				top: -.1em;
+				width: .4em;
+				height: .4em;
+				margin-right: .6em;
+				border-radius: .4em;
+				text-indent: 0;
+				background: var(--themecolor);
+			}
+			.c-numlist li {
+				counter-increment: num;
+				padding-left: 1.6em;
+				line-height: 1.6;
+				text-indent: -1.6em;
+			}
+			.c-numlist li + li {
+				margin-top: .4em;
+			}
+			.c-numlist li * {
+				text-indent: 0;
+			}
+			.c-numlist li::before {
+				content: counter(num)".";
+				display: inline-block;
+				width: 1em;
+				margin-right: .6em;
+				color: currentcolor;
+				font-weight: 700;
+				text-indent: 0;
+			}
+		</figure>
+		<p>よくあるご質問</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-faq {
+				list-style: inside;
+				margin-top: 40px;
+				font-size: 16px;
+				text-align: left;
+			}
+			.c-faq .faq_item {
+				counter-increment: num;
+				border-bottom: 1px solid #dadcde;
+			}
+			.c-faq .faq_item:first-child {
+				border-top: 1px solid #dadcde;
+			}
+			.c-faq .faq_q,
+			.c-faq .faq_a {
+				position: relative;
+				padding: 24px 40px;
+				text-indent: -2.9em;
+			}
+			.c-faq .faq_q {
+				color: var(--themecolor);
+				font-size: 18px;
+				font-weight: 700;
+			}
+			.c-faq .faq_a {
+				padding-top: 16px;
+			}
+			.c-faq .faq_q,
+			.c-faq .faq_a {
+				padding-left: calc(2.9em + 16px);
+			
+			}
+			.c-faq .faq_item:nth-child(n+10) .faq_q,
+			.c-faq .faq_item:nth-child(n+10) .faq_a {
+				padding-left: calc(3.8em + 16px);
+				text-indent: -3.8em;
+			}
+			.c-faq .faq_q::before,
+			.c-faq .faq_a::before {
+				content: "Q" counter(num) ". ";
+				color: var(--themecolor);
+				font-size: 24px;
+				line-height: 1.2;
+				font-weight: 700;
+			}
+			.c-faq .faq_a::before {
+				content: "A" counter(num) ". ";
+				top: 16px;
+				color: #c2c4ca;
+			}
+			.c-faq .faq_q .ico {
+				position: absolute;
+				top: calc(50% - 8px);
+				right: 16px;
+				width: 16px;
+				height: 16px;
+				stroke: var(--themecolor);
+				stroke-width: 3;
+			}
+		</figure>
+		<p>パンくず</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-crumb {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px .5em;
+				max-width: 960px;
+				margin: 16px auto;
+				font-size: 12px;
+				line-height: 1;
+				text-transform: uppercase;
+			}
+			.c-crumb a {
+				position: relative;
+			}
+			.c-crumb a + a {
+				padding-left: 1em;
+			}
+			.c-crumb a + a::before {
+				content: ">";
+				position: absolute;
+				top: calc(50% - .5em);
+				left: 0;
+				color: var(--gainsboro);
+			}
+			@media screen and (max-width: 479px) {
+				.c-crumb {
+					font-size: 10px;
+				}
+			}
+		</figure>
+	</section>
+	
+	<section id="video-ui" class="p-default_parts3 l-section">
+		<h2 class="default_title c-title -bar">動画UI</h2>
+		<hr class="rest">
+		<p class="c-lead">video要素を直接操作するタイプ。</p>
+		<p>video要素に<b>controls属性</b><small>（値はいらない）</small>を付与することで、ブラウザ依存のコントローラーが使える。</p>
+		<figure class="c-video">
+			<div class="wrap">
+				<video controls width="640" height="360">
+					<source src="../assets/media/video.webm" type="video/webm">
+					<source src="../assets/media/video.mp4" type="video/mp4">
+				</video>
+			</div>
+		</figure>
+		<figure class="c-syntax" data-lang="html">
+			&lt;figure class="c-video"&gt;
+				&lt;div class="wrap"&gt;
+					&lt;video controls width="640" height="360"&gt;
+						&lt;source src="../assets/media/video.webm" type="video/webm"&gt;
+						&lt;source src="../assets/media/video.mp4" type="video/mp4"&gt;
+					&lt;/video&gt;
+				&lt;/div&gt;
+			&lt;/figure&gt;
+		</figure>
+		<hr class="rest">
+		<p class="c-lead">ブラウザ依存のコントローラーは非表示のまま、JavaScriptで再生・一時停止を操作するタイプ。</p>
+		<p>動画が停止時に任意のサムネイルを表示し、そのサムネイルをクリック・タップで再生・一時停止を操作できる。<br>
+		※前述の「再生・一時停止をJavaScriptで操作する」のと一緒に併用しないと動かない。</p>
+		<figure class="c-video">
+			<div class="wrap">
+				<video width="640" height="360" class="js-video" data-video="sampleVideo">
+					<source src="../assets/media/video.webm" type="video/webm">
+					<source src="../assets/media/video.mp4" type="video/mp4">
+				</video>
+			</div>
+			<div class="poster js-videoControl" data-video="sampleVideo">
+				<img src="../assets/media/poster.webp" alt="" width="640" height="360" loading="lazy">
+				<span class="play">再生する</button>
+			</div>
+		</figure>
+		<figure class="c-syntax" data-lang="html">
+			&lt;figure class="c-video"&gt;
+				&lt;div class="wrap"&gt;
+					&lt;video width="640" height="360" class="js-video" data-video="sampleVideo"&gt;
+						&lt;source src="../assets/media/video.webm" type="video/webm"&gt;
+						&lt;source src="../assets/media/video.mp4" type="video/mp4"&gt;
+					&lt;/video&gt;
+				&lt;/div&gt;
+				&lt;div class="poster js-videoControl" data-video="sampleVideo"&gt;
+					&lt;img src="../assets/media/poster.webp" alt="" width="640" height="360" loading="lazy"&gt;
+					&lt;span class="play"&gt;再生する&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/figure&gt;
+		</figure>
+		<p>CSSは以下ソースコードを参照のこと。<br>
+		※白枠や角丸やドロップシャドウなどのデザインは暫定。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-video {
+				position: relative;
+				border: 10px solid #fff;
+				border-radius: 16px;
+				background: #fff;
+				box-shadow: 0 2px 8px #3730391a;
+			}
+			.c-video .wrap {
+				aspect-ratio: 16 / 9;
+			}
+			.c-video .wrap > *,
+			.c-video .poster,
+			.c-video .poster::after {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			.c-video .wrap > *,
+			.c-video .poster::after,
+			.c-video .poster img {
+				border-radius: 8px;
+			}
+			.c-video .poster {
+				cursor: pointer;
+				transition: opacity .3s;
+			}
+			.c-video.is-playing .poster {
+				opacity: 0;
+			}
+			.c-video .poster::after {
+				content: "";
+				background: rgba(0,0,0,.2);
+			}
+			.c-video .poster img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.c-video .play {
+				pointer-events: none;
+				z-index: 1;
+				position: absolute;
+				top: calc(50% - 20px);
+				left: calc(50% - 20px);
+				width: 48px;
+				height: 48px;
+				padding: 0;
+				border: 0;
+				border-radius: 40px;
+				color: transparent;
+				background: rgba(255,255,255,.9);
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+			}
+			.c-video .play::after {
+				content: "";
+				position: absolute;
+				top: calc(50% - 8px);
+				left: calc(50% - 6px);
+				width: 15px;
+				height: 16px;
+				background: linear-gradient(to bottom left, transparent 48%, var(--themecolor) 52%) top left / 100% 50% no-repeat,
+					linear-gradient(to top left, transparent 48%, var(--themecolor) 52%) bottom left / 100% 50% no-repeat;
+			}
+			@media (hover: hover) {
+				.c-video .play {
+					transition: transform .4s cubic-bezier(.3,1,.7,1);
+				}
+				.c-video .poster::after {
+					transition: background .4s;
+				}
+				.c-video:hover .play {
+					transform: scale(1.2);
+					transition-duration: .1s;
+				}
+				.c-video:hover .poster::after {
+					background: rgba(0,0,0,.1);
+					transition-duration: .1s;
+				}
+			}
+		</figure>
+	</section>
+	
+	<section id="inlineframe" class="p-default_parts4 l-section">
+		<h2 class="default_title c-title -bar">インラインフレーム</h2>
+		<p class="c-lead">長いコンテンツを指定した高さの「インラインフレーム」に収める。</p>
+		<p><code>.c-scrollcontainer</code>で括れば、どんなに長いコンテンツも指定した高さの「スクロールバー付き<small>（※Firefoxを除く）</small>のインラインフレーム」に収める。横に長いコンテンツには<code>.-x</code>を付与、縦に長いコンテンツには<code>.-y</code>を付与する。<small>だいたい後者。</small><br>
+		ここではstyle属性で直接高さを指定しているが、本来は別途CSS<small>（サイト固有のスタイルシート）</small>にて指定するとよい。</p>
+		<hr class="rest">
+		<div class="c-scrollcontainer -y" style="height:200px;padding:24px">
+			<p class="c-title -sand" style="font-size:1.2em">括った要素を指定した高さでインラインフレームにする。</p>
+			<p>　ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして校庭の<ruby><rb>隅</rb><rp>（</rp><rt>すみ</rt><rp>）</rp></ruby>の<ruby><rb>桜</rb><rp>（</rp><rt>さくら</rt><rp>）</rp></ruby>の木のところに集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す<ruby><rb>烏瓜</rb><rp>（</rp><rt>からすうり</rt><rp>）</rp></ruby>を取りに行く相談らしかったのです。<br>　けれどもジョバンニは手を大きく<ruby><rb>振</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの<ruby><rb>枝</rb><rp>（</rp><rt>えだ</rt><rp>）</rp></ruby>にあかりをつけたりいろいろ<ruby><rb>仕度</rb><rp>（</rp><rt>したく</rt><rp>）</rp></ruby>をしているのでした。<br>　家へは帰らずジョバンニが町を三つ曲ってある大きな活版処にはいってすぐ入口の計算台に居ただぶだぶの白いシャツを着た人におじぎをしてジョバンニは<ruby><rb>靴</rb><rp>（</rp><rt>くつ</rt><rp>）</rp></ruby>をぬいで上りますと、<ruby><rb>突</rb><rp>（</rp><rt>つ</rt><rp>）</rp></ruby>き当りの大きな<ruby><rb>扉</rb><rp>（</rp><rt>と</rt><rp>）</rp></ruby>をあけました。中にはまだ昼なのに電燈がついてたくさんの輪転器がばたりばたりとまわり、きれで頭をしばったりラムプシェードをかけたりした人たちが、何か歌うように読んだり数えたりしながらたくさん働いて<ruby><rb>居</rb><rp>（</rp><rt>お</rt><rp>）</rp></ruby>りました。<br>　ジョバンニはすぐ入口から三番目の高い<ruby><rb>卓子</rb><rp>（</rp><rt>テーブル</rt><rp>）</rp></ruby>に<ruby><rb>座</rb><rp>（</rp><rt>すわ</rt><rp>）</rp></ruby>った人の所へ行っておじぎをしました。その人はしばらく<ruby><rb>棚</rb><rp>（</rp><rt>たな</rt><rp>）</rp></ruby>をさがしてから、<br>「これだけ拾って行けるかね。」と云いながら、一枚の紙切れを<ruby><rb>渡</rb><rp>（</rp><rt>わた</rt><rp>）</rp></ruby>しました。ジョバンニはその人の卓子の足もとから一つの小さな平たい<ruby><rb>函</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をとりだして向うの電燈のたくさんついた、たてかけてある<ruby><rb>壁</rb><rp>（</rp><rt>かべ</rt><rp>）</rp></ruby>の隅の所へしゃがみ<ruby><rb>込</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>むと小さなピンセットでまるで<ruby><rb>粟粒</rb><rp>（</rp><rt>あわつぶ</rt><rp>）</rp></ruby>ぐらいの活字を次から次と拾いはじめました。青い胸あてをした人がジョバンニのうしろを通りながら、<br>「よう、虫めがね君、お早う。」と云いますと、近くの四五人の人たちが声もたてずこっちも向かずに冷くわらいました。<br>　ジョバンニは何べんも眼を<ruby><rb>拭</rb><rp>（</rp><rt>ぬぐ</rt><rp>）</rp></ruby>いながら活字をだんだんひろいました。<br>　六時がうってしばらくたったころ、ジョバンニは拾った活字をいっぱいに入れた平たい<ruby><rb>箱</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をもういちど手にもった紙きれと引き合せてから、さっきの卓子の人へ持って来ました。その人は<ruby><rb>黙</rb><rp>（</rp><rt>だま</rt><rp>）</rp></ruby>ってそれを受け取って<ruby><rb>微</rb><rp>（</rp><rt>かす</rt><rp>）</rp></ruby>かにうなずきました。<br>　ジョバンニはおじぎをすると扉をあけてさっきの計算台のところに来ました。するとさっきの白服を着た人がやっぱりだまって小さな銀貨を一つジョバンニに渡しました。ジョバンニは<ruby><rb>俄</rb><rp>（</rp><rt>にわ</rt><rp>）</rp></ruby>かに顔いろがよくなって<ruby><rb>威勢</rb><rp>（</rp><rt>いせい</rt><rp>）</rp></ruby>よくおじぎをすると台の下に置いた<ruby><rb>鞄</rb><rp>（</rp><rt>かばん</rt><rp>）</rp></ruby>をもっておもてへ飛びだしました。それから元気よく<ruby><rb>口笛</rb><rp>（</rp><rt>くちぶえ</rt><rp>）</rp></ruby>を<ruby><rb>吹</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>きながらパン屋へ寄ってパンの<ruby><rb>塊</rb><rp>（</rp><rt>かたまり</rt><rp>）</rp></ruby>を一つと角砂糖を一<ruby><rb>袋</rb><rp>（</rp><rt>ふくろ</rt><rp>）</rp></ruby>買いますと<ruby><rb>一目散</rb><rp>（</rp><rt>いちもくさん</rt><rp>）</rp></ruby>に走りだしました。</p>
+		</div>
+		<hr class="rest">
+		<figure class="c-syntax" data-lang="html">
+			&lt;div class="c-scrollcontainer -y" style="height:200px;padding:24px"&gt;
+			︙
+			&lt;/div&gt;
+		</figure>
+		<p>CSSは以下ソースコードを参照のこと。</p>
+		<figure class="c-syntax -shortcut" data-lang="css">
+			.c-scrollcontainer {
+				scroll-behavior: smooth;
+				overflow: auto;
+				scrollbar-width: thin;
+				scroll-snap-align: center;
+				overscroll-behavior: auto;
+			}
+			.c-scrollcontainer.-x {
+				overflow-y: hidden;
+				padding-bottom: 8px;
+			}
+			.c-scrollcontainer.-y {
+				overflow-x: hidden;
+				padding-right: 8px;
+			}
+			.c-scrollcontainer::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+			.c-scrollcontainer::-webkit-scrollbar-thumb {
+				border-radius: 8px;
+				box-shadow: none;
+				background: #dadcde;
+			}
+			.c-scrollcontainer::-webkit-scrollbar-track {
+				width: 16px;
+				height: 16px;
+				border-radius: 6px;
+				background: #eeeff1;
+			}
+			@media (hover: hover) {
+				.c-scrollcontainer::-webkit-scrollbar-thumb {
+					transition: background .4s;
+				}
+				.c-scrollcontainer::-webkit-scrollbar-thumb:hover {
+					background: var(--gainsboro);
+					transition-duration: .1s;
+				}
+			}
+		</figure>
+	</section>
 </main>
 
 <footer class="l-footer">

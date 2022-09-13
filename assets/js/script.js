@@ -1,11 +1,12 @@
-import { WindowManagement, MainResizeObserver, FetchAjax, AfterLoadedJs, ReturnRelativePath, Resized, Throttle, AddFnc } from './common.js';
-import { DrawerMenu, AccordionUi, PulldownUi, AnchorScroll, SyntacConvert, ScrollCarousel, TextCopy } from './ui.js';
-import { InviewEffect, LazyImage, SimpleMapping, MagneticButton } from './gimmick.js';
+import { WindowManagement, MainResizeObserver, WebFontsLoader, ReturnRelativePath, SyntacConvert } from './common.js';
+import { AnchorScroll, DrawerMenu, AccordionUi, PulldownUi, TextCopy } from './ui.js';
+import { Resized, AddFnc } from './utility.js';
+import { TransformScroll } from './transformscroll.js';
 import { FlexTextarea, CheckedAcceptInput } from './form-ui.js';
 import { VideoControls, YouTubeIframeApi } from './video.js';
-import { TransformScroll } from './transformscroll.js';
-import { GoogleMapsApi } from './googlemap.js';
-import { FlickitySlider } from './flkty.js';
+import { Carousel, FlickitySlider } from './carousel.js';
+import { InviewEffect, LazyImage } from './effect.js';
+import { GoogleMapsApi } from './googlemap.js?v=1';
 
 (function() {
 	'use strict';
@@ -16,45 +17,56 @@ import { FlickitySlider } from './flkty.js';
 	LPN.registFnc = { onLoaded: [], onPopstate: [], onResize: [], onMainResize: [], loop: [] };
 	
 	document.addEventListener('DOMContentLoaded', e => {
-		new AddFnc([
-			webFontLoader,
-			
-			commonjs,
-			uijs,
-			apijs,
-			gimmickjs,
-			loop
-		]);
+		new AddFnc([ commonjs, loop ]);
 		
+		// いかなる時も実行する
 		function commonjs() {
-			LPN.Wm = new WindowManagement();
-			LPN.Ts = new TransformScroll();
-			LPN.As = new AnchorScroll();
-			LPN.Dm = new DrawerMenu();
 			LPN.Rp = new ReturnRelativePath('component');
-			new MainResizeObserver(LPN.registFnc.onMainResize);
+			LPN.Wf = new WebFontsLoader({
+				families: [ 'Noto+Sans+JP', 'Roboto', 'Ubuntu+Condensed' ],
+				urls: [ 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Ubuntu+Condensed&display=swap' ]
+			});
+			LPN.Wm = new WindowManagement();
+			if (document.querySelector('.js-sc-wrap') !== null) {
+				LPN.Ts = new TransformScroll();
+			}
+			LPN.As = new AnchorScroll();
+			if (document.querySelector('.js-menuToggle') !== null) {
+				LPN.Dm = new DrawerMenu();
+			}
 		}
-		function uijs() {
-			new VideoControls();
-			new SyntacConvert();
-			new AccordionUi();
-			new PulldownUi();
-			new FlexTextarea();
-			new CheckedAcceptInput();
-			new ScrollCarousel();
-			new TextCopy();
+		new SyntacConvert();
+		new MainResizeObserver(LPN.registFnc.onMainResize);
+		
+		// ui
+		new PulldownUi();
+		new AccordionUi();
+		new FlickitySlider();
+		if (document.querySelector('.js-carousel') !== null) {
+			const carouselElms = document.getElementsByClassName('js-carousel');
+			for (let i = 0, len = carouselElms.length; i < len; i++) {
+				new Carousel(carouselElms[i]);
+			}
 		}
-		function apijs() {
-			new FlickitySlider();
-			new GoogleMapsApi('AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU');
-			new YouTubeIframeApi();
+		
+		new VideoControls();
+		new YouTubeIframeApi();
+		new GoogleMapsApi('AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU');
+		if (document.querySelector('.js-copy') !== null) {
+			const copyElms = document.getElementsByClassName('js-copy');
+			for (let i = 0, len = copyElms.length; i < len; i++) {
+				new TextCopy(copyElms[i]);
+			}
 		}
-		function gimmickjs() {
-			new SimpleMapping();
-			new InviewEffect();
-			new LazyImage();
-			new MagneticButton();
-		}
+		
+		// form
+		new FlexTextarea();
+		new CheckedAcceptInput();
+		
+		// effect
+		new InviewEffect();
+		new LazyImage();
+		
 		const links = document.querySelectorAll('a[href]');
 		for (let i = 0, len = links.length; i < len; i++) {
 			links[i].tabIndex = 0;
@@ -82,37 +94,6 @@ import { FlickitySlider } from './flkty.js';
 			new AddFnc(LPN.registFnc.loop);
 		}
 	}
-	
-	/**
-	 * Web Font Loader
-	 -------------------------------------------------- */
-	function webFontLoader() {
-		wf.constructor();
-	}
-	const wf = {
-		constructor: function() {
-			window.WebFontConfig = {
-				custom: {
-					families: [ 'Noto+Sans+JP', 'Roboto', 'Ubuntu+Condensed' ],
-					urls: [ 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Ubuntu+Condensed&display=swap' ]
-				},
-				loading: function() {
-					// console.log('webFontLoader loading');
-				},
-				active: function() {
-					// console.log('webFontLoader active');
-					sessionStorage.fonts = true;
-				}
-			};
-			this.setup(document);
-		},
-		setup: function(d) {
-			const wf = d.createElement('script'), s = d.scripts[0];
-			wf.src = 'https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js';
-			wf.async = true;
-			s.parentNode.insertBefore(wf, s);
-		}
-	};
 	
 	/**
 	 * utility

@@ -21,8 +21,6 @@
 <link rel="stylesheet" href="assets/css/common.css">
 <link rel="stylesheet" href="assets/css/component.css">
 <link rel="stylesheet" href="assets/css/home.css">
-<!-- <link rel="stylesheet" href="assets/css/display-wai-aria.css"> -->
-<!-- <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> -->
 <script src="assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
 <body>
@@ -84,9 +82,9 @@
 				<source srcset="assets/img/visual_4_mb.webp" media="(max-width:767px)" width="600" height="400">
 				<img src="assets/img/visual_4.webp" alt="" width="1200" height="600" loading="lazy">
 			</picture></figure>
-			<a class="c-badge" href="https://lopan.jp/css-animation/parallax/">
+			<a class="c-badge" href="carousel/">
 				<img src="assets/img/css-animation/eyecatch.webp" alt="" width="600" height="400">
-				<span class="text">動くCSSのためのメモ。<br>パララックス</span>
+				<span class="text">カルーセルについて<br>詳しくはこちら</span>
 			</a>
 		</div>
 	</div>
@@ -94,13 +92,13 @@
 	<section id="about" class="p-about l-section">
 		<h2 class="c-title -hyphen">About</h2>
 		<p class="c-lead">Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。</p>
-		<a href="default/" class="c-button js-inview">裸のコンポーネントはこちら</a>
+		<!-- <a href="default/" class="c-button js-inview">裸のコンポーネントはこちら</a> -->
 	</section>
 	
 	<section id="news" class="p-news l-section">
 		<h2 class="c-title -hyphen">News</h2>
-		<p class="c-lead">よくある「アーカイブ一覧」のレイアウトスタイル。アイキャッチ、日付、カテゴリやタグ、タイトル、概要文などを含む過去の記事の一覧です。</p>
-		<ul class="c-archivelist -tanzaku" data-last="li:last-child">
+		<p class="c-lead">よくある「アーカイブ一覧」のレイアウトスタイル。</p>
+		<ul class="c-archivelist -bar" data-last="li:last-child">
 			<li class="archive_item js-inview"><a href="archivelist/" class="container">
 				<dl class="text">
 					<dt class="date">2022.12.22</dt>
@@ -133,7 +131,7 @@
 		<h2 class="c-title -hyphen">Works</h2>
 		<p class="c-lead">プルダウンUIの使い処。ながーいコンテンツや、冗長な内容などを省略したい時に、冒頭だけちょっと見せて続きは隠しておきます。</p>
 		<div class="works_content js-pullContent" data-pull="target" data-default="240">
-			<ul class="c-archivelist -block">
+			<ul class="c-archivelist">
 				<li class="archive_item"><a href="pulldown/" class="container">
 					<dl class="text">
 						<dd class="title">チョココロネ</dd>

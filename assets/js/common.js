@@ -1,3 +1,5 @@
+import { AfterLoadedJs, AfterLoadedCss, AddFnc } from './utility.js';
+
 /**
  * window の情報を管理する
  * モーダルが開いた時とかはここで画面をロックする
@@ -55,6 +57,7 @@ export class WindowManagement {
 
 /**
  * l-main のリサイズを監視する
+ * @param {array} リサイズ後に実行する関数配列
  -------------------------------------------------- */
 export class MainResizeObserver {
 	constructor(fns) {
@@ -84,85 +87,27 @@ export class MainResizeObserver {
 }
 
 /**
- * fetchAjax(request, function() {}, 'json');
- * -------------------------------------------------- */
-export class FetchAjax {
-	constructor(req, fn, format) {
-		fetch(req)
-		.then(response => {
-			this.handleErrors(response, fn, format);
-		})
-		.catch(error => {
-			//console.log('error');
-			this.onReject(error);
-		});
-	}
-	handleErrors(response, fn, format) {
-		if (!response.ok) {
-			// 4xx/5xx error
-			console.log(`${response.status} error`);
-			throw Error(response.statusText);
-		}
-		this.processData(response, fn, format);
-	}
-	processData(response, fn, format) {
-		//console.log('---> success');
-		return response[format]()
-		.then(data => {
-			//console.log('resolve');
-			this.onResolve(data, fn);
-		})
-		.catch(error => {
-			//console.log('reject');
-			this.onReject(error);
-		});
-	}
-	onResolve(data, fn) {
-		fn(data);
-	}
-	onReject(error) {
-		if (error.message !== '') console.log(error.message);
-	}
-}
-
-/**
- * js ファイル読み込み後の処理
+ * Web Fonts Loader
  -------------------------------------------------- */
-export class AfterLoadedJs {
-	constructor(src) {
-		return new Promise((resolve, reject) => {
-			let tag = document.createElement('script');
-			tag.src = src;
-			document.getElementsByTagName('head')[0].appendChild(tag);
-			
-			tag.addEventListener('load', () => {
-	  			resolve(`Loaded: "${tag.src}"`);
-			});
-			tag.addEventListener('error', () => {
-  				reject( new Error(`Error: "${tag.src}"`) );
-			});
-		});
+export class WebFontsLoader {
+	constructor(param) {
+		window.WebFontConfig = {
+			custom: param,
+			loading: function() {
+				// console.log('webFontLoader loading');
+			},
+			active: function() {
+				// console.log('webFontLoader active');
+				sessionStorage.fonts = true;
+			}
+		};
+		this.setup(document);
 	}
-}
-
-/**
- * css ファイル読み込み後の処理
- -------------------------------------------------- */
-export class AfterLoadedCss {
-	constructor(href) {
-		return new Promise((resolve, reject) => {
-			let tag = document.createElement('link');
-			tag.rel = 'stylesheet';
-			tag.href = href;
-			document.getElementsByTagName('head')[0].appendChild(tag);
-			
-			tag.addEventListener('load', () => {
-	  			resolve(`Loaded: "${tag.href}"`);
-			});
-			tag.addEventListener('error', () => {
-  				reject( new Error(`Error: "${tag.href}"`) );
-			});
-		});
+	setup(d) {
+		const wf = d.createElement('script'), s = d.scripts[0];
+		wf.src = 'https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js';
+		wf.async = true;
+		s.parentNode.insertBefore(wf, s);
 	}
 }
 
@@ -192,31 +137,56 @@ export class ReturnRelativePath {
 }
 
 /**
- * イベントの間引き
+ * シンタックスハイライト
  -------------------------------------------------- */
-export class Resized {
-	constructor(fn) {
-		if (LPN.timer !== false) clearTimeout(LPN.timer);
-		LPN.timer = setTimeout(fn, 200);
-	}
-}
-export class Throttle {
-	constructor(fn, interval) {
-		let lastTime = Date.now() - interval;
-		return () => {
-			if ((lastTime + interval) < Date.now()) {
-				lastTime = Date.now();
-				fn();
-			}
+export class SyntacConvert {
+	constructor() {
+		if (document.querySelector('.c-syntax') !== null) {
+			this.insertTags();
+			this.loadJs();
+			this.loadCss();
 		}
 	}
-}
-
-/**
- * 関数一遍実行
- -------------------------------------------------- */
-export class AddFnc {
-	constructor(fns) {
-		for (let i = 0, len = fns.length; i < len; i++) { fns[i](); }
+	insertTags() {
+		const elms = document.getElementsByClassName('c-syntax');
+		let lang, style, caption;
+		for (let i = 0, len = elms.length; i < len; i++) {
+			lang = elms[i].dataset.lang;
+			style = '';
+			if (elms[i].dataset.style) {
+				style = ` style="${elms[i].dataset.style}"`;
+			}
+			caption = '';
+			if (elms[i].dataset.caption) {
+				caption = `<figcaption>${elms[i].dataset.caption}</figcaption>`;
+			}
+			let html = `<div class="wrap"${style} tabindex="0">`;
+			html += `<pre class="line-numbers" tabindex="-1">`;
+			html += `<code class="language-${lang}">${elms[i].innerHTML}`;
+			html += `</code></pre></div>${caption}`;
+			elms[i].innerHTML = html;
+		}
+	}
+	loadJs() {
+		new AfterLoadedJs('/component/assets/js/prism.js').then(
+		resolve => {
+			document.addEventListener('readystatechange', e => {
+				console.log(resolve, e.target.readyState);
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
+	}
+	loadCss() {
+		new AfterLoadedCss('/component/assets/css/prism.css').then(
+		resolve => {
+			document.addEventListener('readystatechange', e => {
+				console.log(resolve, e.target.readyState);
+			});
+		},
+		error => {
+			console.log(error.message);
+		});
 	}
 }

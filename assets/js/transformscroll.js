@@ -6,10 +6,8 @@
  -------------------------------------------------- */
 export class TransformScroll {
 	constructor() {
-		if (document.querySelector('.js-sc-wrap') !== null) {
-			LPN.Wm.html.classList.add('is-behaviorAuto');
-			this.setup();
-		}
+		LPN.Wm.html.classList.add('is-behaviorAuto');
+		this.setup();
 	}
 	setup() {
 		if (!LPN.isTouch) {
