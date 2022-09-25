@@ -1,22 +1,216 @@
 @charset "utf-8";
 
 /**
- * お問い合わせフォーム
+ * Contact
  * ---------------------------------------- */
 .page-contact .p-contactform {
 	max-width: 800px;
 }
-.page-contact .p-contactform .c-form {
+.page-contact .c-form {
 	margin-top: 40px;
 }
-.page-contact .p-contactform .c-radioui,
-.page-contact .p-contactform .c-checkboxui {
+.page-contact .form_item + .form_item {
+	margin-top: 32px;
+}
+.page-contact .c-radioui,
+.page-contact .c-checkboxui {
 	font-size: 14px;
 }
-.page-contact .p-contactform .contact_accept {
-	margin-top: 40px;
+.page-contact .contact_accept {
 	justify-content: center;
+	margin-top: 80px;
 }
-.page-contact .p-contactform .contact_submit {
-	margin: 40px 0 0;
+.page-contact .contact_submit {
+	margin-top: 24px;
+}
+.page-contact .contact_caution {
+	margin-top: 40px;
+}
+
+
+/**
+ * お問い合わせフォーム
+ * ---------------------------------------- */
+.c-form {}
+.c-formlist {
+	text-align: left;
+}
+.c-formlist .form_item + .form_item {
+	margin-top: 1em;
+}
+.c-formlist .form_label {
+	font-size: 12px;
+	line-height: 1.4;
+}
+.c-formlist .form_label + * {
+	margin-top: .2em;
+}
+.c-formlist .form_label .req {
+	position: relative;
+	top: -.1em;
+	margin-left: .5em;
+	padding: .1em .5em;
+	border: 1px solid currentcolor;
+	border-radius: 4px;
+	color: var(--themecolor);
+	font-size: 10px;
+	vertical-align: middle;
+	background: white;
+}
+
+/* :::::: テキストフォーム :::::: */
+.c-form input:focus:not(:focus-visible),
+.c-form button:focus:not(:focus-visible),
+.c-form textarea:focus:not(:focus-visible) {
+	outline: 0;
+}
+.c-form input[type="text"],
+.c-form input[type="email"],
+.c-form input[type="tel"],
+.c-form input[type="url"],
+.c-form textarea {
+	resize: vertical;
+	width: 100%;
+	border-radius: 8px;
+	padding: .5em 1em;
+	border: 1px solid #dadcde;
+	color: inherit;
+	font-size: 1rem;
+	letter-spacing: .1em;
+	white-space: pre-wrap;
+	word-break: break-all;
+	background: #fff;
+	transition: border .4s, color .4s, background .4s;
+}
+.c-form input[type="text"]:focus,
+.c-form input[type="email"]:focus,
+.c-form input[type="tel"]:focus,
+.c-form input[type="url"]:focus,
+.c-form textarea:focus {
+	border-color: #92939c;
+	transition-duration: .1s;
+}
+.c-form input[type="text"]:disabled,
+.c-form input[type="email"]:disabled,
+.c-form input[type="tel"]:disabled,
+.c-form input[type="url"]:disabled,
+.c-form textarea:disabled {
+	color: #eeeff1;
+	border-color: currentcolor;
+	background: #fafafd;
+}
+.c-form input::placeholder,
+.c-form textarea::placeholder {
+	color: #c2c4ca;
+}
+
+/* :::::: ラジオボタン / チェックボックス :::::: */
+.c-radioui,
+.c-checkboxui {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 24px;
+}
+.c-radioui .item,
+.c-checkboxui .item {
+	position: relative;
+}
+.c-radioui .label,
+.c-checkboxui .label {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	column-gap: .5em;
+	white-space: nowrap;
+}
+.c-radioui input[type="radio"],
+.c-checkboxui input[type="checkbox"] {
+	position: absolute;
+	top: calc(50% - 12px);
+	left: 0;
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.c-radioui input[type="radio"] + .label::before,
+.c-checkboxui input[type="checkbox"] + .label::before {
+	content: "";
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: white;
+}
+.c-radioui input[type="radio"] + .label::before {
+	border-radius: 24px;
+	border: 8px solid white;
+	box-shadow: 0 0 0 1px #dadcde;
+	transition: border-width .4s var(--easeOut), background .4s;
+}
+.c-checkboxui input[type="checkbox"] + .label::before {
+	border: 1px solid #dadcde;
+	transition: border-color .4s, background .4s;
+}
+.c-checkboxui input[type="checkbox"] + .label .ico {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	fill: none;
+	stroke: white;
+	stroke-width: 2;
+	stroke-dasharray: 25.4px 25.4px;
+	stroke-dashoffset: -25.4px;
+	transition: stroke-dashoffset .4s var(--easeOut);
+}
+.c-radioui input[type="radio"]:checked + .label::before,
+.c-checkboxui input[type="checkbox"]:checked + .label::before {
+	background: var(--themecolor);
+	transition-duration: .1s;
+}
+.c-radioui input[type="radio"]:checked + .label::before {
+	border-width: 4px;
+	transition-timing-function: cubic-bezier(.3,1.8,.7,1), ease;
+}
+.c-checkboxui input[type="checkbox"]:checked + .label::before {
+	border-color: var(--themecolor);
+}
+.c-checkboxui input[type="checkbox"]:checked + .label .ico {
+	stroke-dashoffset: 0;
+	transition-duration: .1s;
+}
+
+/* :::::: その他 :::::: */
+.c-radioui .item:where(.-other),
+.c-checkboxui .item:where(.-other) {
+	flex-basis: 100%;
+	display: flex;
+	align-items: center;
+	column-gap: 1em;
+}
+.c-radioui .item:where(.-other) input[type="radio"] ~ input[type="text"],
+.c-checkboxui .item:where(.-other) input[type="checkbox"] ~ input[type="text"] {
+	padding-block: .1em;
+}
+
+/* :::::: 伸縮するテキストエリア :::::: */
+.js-flextextarea {
+	position: relative;
+}
+.js-flextextarea .dummy {
+	/* 3行 * 行高 + 上下パディング + 上下ボーダー */
+	min-height: calc(3em * 2 + 1em + 2px);
+	padding: .5em 1em;
+	border: 1px solid transparent;
+	letter-spacing: .1em;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.js-flextextarea textarea {
+	resize: none;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
 }

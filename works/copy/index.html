@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>コピーする - Works - Lopan café</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta property="og:site_name" content="Lopan café">
+<meta property="og:type" content="website">
+<meta property="og:title" content="コピーする">
+<meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta property="og:url" content="https://lopan.cafe/component/">
+<meta property="og:image" content="https://lopan.cafe/component/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@_watercolor">
+<meta name="theme-color" content="#86c0de">
+<meta name="msapplication-navbutton-color" content="#86c0de">
+<link rel="icon" href="../../assets/icon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/article.css">
+<link rel="stylesheet" href="../../assets/css/component.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="../../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
+</head>
+<body>
+<header class="l-header">
+	<h1 class="logo"><a href="https://lopan.cafe/component/"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
+	<ul class="menu -nav">
+		<li><a href="../../about/">About</a></li>
+		<li><a href="../../news/">News</a></li>
+		<li><a href="../">Works</a></li>
+		<li><a href="../../company/">Company</a></li>
+		<li><a href="../../contact/">Contact</a></li>
+	</ul>
+	<ul class="menu -sns">
+		<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+		<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+	</ul>
+</header>
+
+<button type="button" class="l-drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
+<nav class="l-menu">
+	<div class="overlay js-menuToggle"></div>
+	<div class="container">
+		<h2 class="u-visuallyhidden">ナビゲーション</h2>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../../news/">News</a></li>
+			<li><a href="../">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		</ul>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+</nav>
+
+<main class="l-main page-works">
+	<div class="p-visual">
+		<h1 class="c-title">Works</h1>
+	</div>
+	<div class="c-crumb">
+		<a href="../../">Home</a>
+		<a href="../">Works</a>
+		<a href="./" aria-current="page">コピーする</a>
+	</div>
+	
+	<section id="copy" class="p-copy l-section">
+		<h2 class="c-title -bar">コピーする</h2>
+		<p><b>button要素</b>にクラス<code>js-copy</code>を付与し、<strong>data-text属性</strong>にコピーする文言、<strong>data-msg属性</strong>にコピーした後に表示するメッセージを指定する。button要素の中身はなんでも良い、ここでは<em>小さめボタンのスタイル</em>を指定したり、<em>コピーできそうなアイコン</em>を入れている。ただし、コピー後に表示するメッセージは、吹き出しの横幅が<em>最大12文字分</em>なので、長い文章の場合は途中で改行を入れること。<br>
+		data-text属性に<code>$url</code>という値を入れた時のみ、<em>現在ページのURL</em>をコピーする。</p>
+		<button type="button" class="c-more js-copy" data-text="コピーする文言" data-msg="「コピーする文言」を<br>コピーしました！">コピーするよ</button>
+		<button type="button" class="js-copy" data-text="$url" data-msg="URLをコピーしました！"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#copy"/></svg></button>
+		<figure class="c-syntax -wrap" data-lang="html">
+			&lt;button type="button" class="c-button js-copy" data-text="コピーする文言" data-msg="「コピーする文言」を&lt;br&gt;コピーしました！"&gt;コピーするよ&lt;/button&gt;
+			&lt;button type="button" class="js-copy" data-text="$url" data-msg="URLをコピーしました！"&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="ico"&gt;&lt;use href="../../assets/img/ico.svg#copy"/&gt;&lt;/svg&gt;&lt;/button&gt;
+		</figure>
+	</section>
+</main>
+
+<footer class="l-footer">
+	<div class="contentsinfo">
+		<h1 class="logo"><a href="https://lopan.cafe/component/">
+			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
+			<span class="madeby">Made by Lopan.jp</span>
+		</a></h1>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../../news/">News</a></li>
+			<li><a href="../">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -other">
+			<li><a href="../../privacypolicy/">プライバシーポリシー</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+			<li><a href="https://line.me/ja/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#line"/></svg></a></li>
+			<li><a href="https://ja-jp.facebook.com/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#facebook"/></svg></a></li>
+			<li><a href="https://www.youtube.com/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#youtube"/></svg></a></li>
+			<li><a href="https://www.tiktok.com/ja-JP/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#tiktok"/></svg></a></li>
+			<li><a href="https://www.spotify.com/jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#spotify"/></svg></a></li>
+		</ul>
+		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
+</footer>
+
+<svg class="u-visuallyhidden">
+<symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>
+</svg>
+</body>
+</html>

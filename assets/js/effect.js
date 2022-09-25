@@ -1,4 +1,4 @@
-import { AfterLoadedJs } from './utility.js';
+import { AfterLoadedJs } from './_utility.js';
 
 /**
  * in-view
@@ -8,7 +8,7 @@ import { AfterLoadedJs } from './utility.js';
 export class InviewEffect {
 	constructor(elm) {
 		const container = !elm ? document : elm;
-		if (container.querySelector('.js-inview') !== null) this.init(container);
+		this.init(container);
 	}
 	init(c) {
 		const elms = c.getElementsByClassName('js-inview');
@@ -92,12 +92,10 @@ export class InviewEffect {
 export class LazyImage {
 	constructor(elm) {
 		const container = !elm ? document : elm;
-		if (container.querySelector('[data-src]') !== null) {
-			if (typeof imagesLoaded !== 'undefined') {
-				this.init(container);
-			} else {
-				this.loadAPI(container);
-			}
+		if (typeof imagesLoaded !== 'undefined') {
+			this.init(container);
+		} else {
+			this.loadAPI(container);
 		}
 	}
 	loadAPI(container) {

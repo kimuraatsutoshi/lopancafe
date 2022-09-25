@@ -1,76 +1,71 @@
-import { WindowManagement, MainResizeObserver, WebFontsLoader, ReturnRelativePath, SyntacConvert } from './common.js';
-import { AnchorScroll, DrawerMenu, AccordionUi, PulldownUi, TextCopy } from './ui.js';
-import { Resized, AddFnc } from './utility.js';
+import { ReturnRelativePath, WindowManagement, MainResizeObserver, WebFontsLoader } from './common.js';
 import { TransformScroll } from './transformscroll.js';
 import { FlexTextarea, CheckedAcceptInput } from './form-ui.js';
-import { VideoControls, YouTubeIframeApi } from './video.js';
-import { Carousel, FlickitySlider } from './carousel.js';
 import { InviewEffect, LazyImage } from './effect.js';
-import { GoogleMapsApi } from './googlemap.js?v=1';
+import { SyntacConvert } from './syntax.js';
+import { UiBundle } from './ui.js';
 
 (function() {
 	'use strict';
 	
 	window.LPN = window.LPN || {};
 	const LPN = window.LPN;
-	
 	LPN.registFnc = { onLoaded: [], onPopstate: [], onResize: [], onMainResize: [], loop: [] };
 	
+	// HTML 要素に関係なく実行する
+	LPN.Rp = new ReturnRelativePath('component');
+	LPN.Wf = new WebFontsLoader({
+		families: [ 'Noto+Sans+JP', 'Roboto', 'Ubuntu+Condensed' ],
+		urls: [ 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Ubuntu+Condensed&display=swap' ]
+	});
+	LPN.Wm = new WindowManagement();
+	
+	// フォントの読み込み完了を待つ
+	document.fonts.addEventListener('loadingdone', e => {
+		console.log('fonts.loadingdone', e);
+	});
+	
+	// HTML 文書の読み込み完了を待つ
 	document.addEventListener('DOMContentLoaded', e => {
-		new AddFnc([ commonjs, loop ]);
-		
-		// いかなる時も実行する
-		function commonjs() {
-			LPN.Rp = new ReturnRelativePath('component');
-			LPN.Wf = new WebFontsLoader({
-				families: [ 'Noto+Sans+JP', 'Roboto', 'Ubuntu+Condensed' ],
-				urls: [ 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Ubuntu+Condensed&display=swap' ]
-			});
-			LPN.Wm = new WindowManagement();
-			if (document.querySelector('.js-sc-wrap') !== null) {
-				LPN.Ts = new TransformScroll();
-			}
-			LPN.As = new AnchorScroll();
-			if (document.querySelector('.js-menuToggle') !== null) {
-				LPN.Dm = new DrawerMenu();
-			}
-		}
-		new SyntacConvert();
 		new MainResizeObserver(LPN.registFnc.onMainResize);
 		
-		// ui
-		new PulldownUi();
-		new AccordionUi();
-		new FlickitySlider();
-		if (document.querySelector('.js-carousel') !== null) {
-			const carouselElms = document.getElementsByClassName('js-carousel');
-			for (let i = 0, len = carouselElms.length; i < len; i++) {
-				new Carousel(carouselElms[i]);
-			}
+		// TransformScroll は最初に実装しとく
+		if (document.querySelector('.js-sc-wrap') !== null) {
+			LPN.Ts = new TransformScroll();
 		}
 		
-		new VideoControls();
-		new YouTubeIframeApi();
-		new GoogleMapsApi('AIzaSyBtrT0BTN-uUaKugxrwVv3-DowAtnMQ-UU');
-		if (document.querySelector('.js-copy') !== null) {
-			const copyElms = document.getElementsByClassName('js-copy');
-			for (let i = 0, len = copyElms.length; i < len; i++) {
-				new TextCopy(copyElms[i]);
-			}
-		}
+		// UI 一括 (アンカースクロール, ドロワーメニュー, アコーディオン, プルダウン, テキストコピー, シェアする, Flickity, カルーセル, 動画, YouTube, GoogleMap)
+		new UiBundle();
 		
 		// form
-		new FlexTextarea();
-		new CheckedAcceptInput();
-		
-		// effect
-		new InviewEffect();
-		new LazyImage();
-		
-		const links = document.querySelectorAll('a[href]');
-		for (let i = 0, len = links.length; i < len; i++) {
-			links[i].tabIndex = 0;
+		if (document.querySelector('.c-form') !== null) {
+			if (document.querySelector('.js-acceptInput') !== null) {
+				new CheckedAcceptInput();
+			}
+			if (document.querySelector('.js-flextextarea') !== null) {
+				new FlexTextarea();
+			}
 		}
+		
+		// シンタックスハイライト
+		if (document.querySelector('.c-syntax') !== null) {
+			new SyntacConvert();
+		}
+		
+		// エフェクト
+		if (document.querySelector('.js-inview') !== null) {
+			new InviewEffect(document);
+		}
+		if (document.querySelector('[data-src]') !== null) {
+			new LazyImage(document);
+		}
+		
+		// const links = document.querySelectorAll('a[href]');
+		// for (let i = 0, len = links.length; i < len; i++) {
+		// 	links[i].tabIndex = 0;
+		// }
+		
+		loop();
 		
 		if (location.search) console.log( returnObject(location.search.substring(1)) );
 		if (document.querySelector('path') !== null) setPathLen();
@@ -82,7 +77,7 @@ import { GoogleMapsApi } from './googlemap.js?v=1';
 		}
 	});
 	window.addEventListener('resize', e => {
-		new Resized(() => {
+		resized(() => {
 			if (LPN.registFnc.onResize.length) {
 				new AddFnc(LPN.registFnc.onResize);
 			}
@@ -124,6 +119,15 @@ import { GoogleMapsApi } from './googlemap.js?v=1';
 		}
 		// console.log(style);
 	}
+	function resized(fn) {
+		if (LPN.timer !== false) clearTimeout(LPN.timer);
+		LPN.timer = setTimeout(fn, 200);
+	}
+	function AddFnc(fns) {
+		for (let i = 0, len = fns.length; i < len; i++) {
+			fns[i]();
+		}
+	}
 	
 	/**
 	 * common
@@ -133,14 +137,12 @@ import { GoogleMapsApi } from './googlemap.js?v=1';
 		LPN.isIE = ( ua.indexOf('msie') != -1 || ua.indexOf('trident') != -1 );
 		LPN.isWindows = ua.indexOf('windows nt') !== -1;
 		LPN.isTouch = !!( 'ontouchstart' in window || (navigator.pointerEnabled && navigator.maxTouchPoints > 0) );
-		if (LPN.isIE) doc.classList.add('isIE');
+		if (LPN.isIE) doc.classList.add('is-ie');
 		if (LPN.isWindows) doc.classList.add('is-windows');
 		if (LPN.isTouch) doc.classList.add('is-touch');
 		if (window.innerWidth !== doc.clientWidth) {
-			doc.classList.add('hasScrollbar');
+			doc.classList.add('has-scrollbar');
 			doc.style.setProperty('--scroll-bar-width', window.innerWidth - doc.clientWidth + 'px');
 		}
 	})();
-	// Element.closest() Polyfill
-	Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(e){var t=this;do{if(Element.prototype.matches.call(t,e))return t;t=t.parentElement||t.parentNode}while(null!==t&&1===t.nodeType);return null});
 })();

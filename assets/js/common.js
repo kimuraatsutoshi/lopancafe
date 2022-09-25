@@ -1,5 +1,3 @@
-import { AfterLoadedJs, AfterLoadedCss, AddFnc } from './utility.js';
-
 /**
  * window の情報を管理する
  * モーダルが開いた時とかはここで画面をロックする
@@ -72,9 +70,7 @@ export class MainResizeObserver {
 			const rect = entries[0].contentRect;
 			if (this.mainHeight !== rect.height) {
 				if (this.fns.length) {
-					this.resized(() => {
-						new AddFnc(this.fns);
-					});
+					this.resized(() => { this.addFnc(this.fns); });
 				}
 				this.mainHeight = rect.height;
 			}
@@ -84,10 +80,16 @@ export class MainResizeObserver {
 		if (this.timer !== false) clearTimeout(this.timer);
 		this.timer = setTimeout(fn, 200);
 	}
+	addFnc(fns) {
+		for (let i = 0, len = fns.length; i < len; i++) {
+			fns[i]();
+		}
+	}
 }
 
 /**
  * Web Fonts Loader
+ * @param {object}
  -------------------------------------------------- */
 export class WebFontsLoader {
 	constructor(param) {
@@ -133,60 +135,5 @@ export class ReturnRelativePath {
 			}
 		}
 		return path;
-	}
-}
-
-/**
- * シンタックスハイライト
- -------------------------------------------------- */
-export class SyntacConvert {
-	constructor() {
-		if (document.querySelector('.c-syntax') !== null) {
-			this.insertTags();
-			this.loadJs();
-			this.loadCss();
-		}
-	}
-	insertTags() {
-		const elms = document.getElementsByClassName('c-syntax');
-		let lang, style, caption;
-		for (let i = 0, len = elms.length; i < len; i++) {
-			lang = elms[i].dataset.lang;
-			style = '';
-			if (elms[i].dataset.style) {
-				style = ` style="${elms[i].dataset.style}"`;
-			}
-			caption = '';
-			if (elms[i].dataset.caption) {
-				caption = `<figcaption>${elms[i].dataset.caption}</figcaption>`;
-			}
-			let html = `<div class="wrap"${style} tabindex="0">`;
-			html += `<pre class="line-numbers" tabindex="-1">`;
-			html += `<code class="language-${lang}">${elms[i].innerHTML}`;
-			html += `</code></pre></div>${caption}`;
-			elms[i].innerHTML = html;
-		}
-	}
-	loadJs() {
-		new AfterLoadedJs('/component/assets/js/prism.js').then(
-		resolve => {
-			document.addEventListener('readystatechange', e => {
-				console.log(resolve, e.target.readyState);
-			});
-		},
-		error => {
-			console.log(error.message);
-		});
-	}
-	loadCss() {
-		new AfterLoadedCss('/component/assets/css/prism.css').then(
-		resolve => {
-			document.addEventListener('readystatechange', e => {
-				console.log(resolve, e.target.readyState);
-			});
-		},
-		error => {
-			console.log(error.message);
-		});
 	}
 }

@@ -105,12 +105,14 @@
 }
 
 
-/**
- * このサイトについて
- * ---------------------------------------- */
-.p-about .c-title {
+.c-title {
 	text-transform: uppercase;
 }
+
+
+/**
+ * About
+ * ---------------------------------------- */
 .p-about .c-button {
 	margin-top: 40px;
 }
@@ -119,31 +121,15 @@
 /**
  * News
  * ---------------------------------------- */
-.p-news .c-title {
-	text-transform: uppercase;
-}
-.p-news .c-archivelist .link {
-	margin: 4px 0 0 auto;
-}
-.p-news .c-archivelist .c-button {
-	min-height: auto;
-	font-size: 14px;
-}
-.p-news .c-button {
-	margin-top: 48px;
-}
 .p-news .c-archivelist {
 	margin-top: 40px;
 }
-.p-news .c-archivelist .text {
-	gap: 4px 8px;
-}
-.p-news .c-archivelist .summary {
-	margin-top: 4px;
+.p-news .c-button {
+	margin-top: 40px;
 }
 @media (hover: hover) {
 	.p-news .c-archivelist .container {
-		transition: background-size .4s cubic-bezier(.3,1,.7,1);
+		transition: background-size .4s var(--easeOut);
 		background: linear-gradient(#86c0de1a, #86c0de1a) right bottom / 0 100% no-repeat;
 	}
 	.p-news .c-archivelist .container:hover {
@@ -154,114 +140,65 @@
 
 
 /**
- * Works
+ * Works / Company
  * ---------------------------------------- */
-.p-works .c-title {
-	text-transform: uppercase;
+.p-works,
+.p-company {
+	max-width: 1200px;
 }
-.p-works .works_button.c-pulltoggle {
-	margin-top: 24px;
+.p-works .c-lead,
+.p-company .c-lead  {
+	margin-top: 0;
 }
-.p-works .works_button.c-pulltoggle::before {
-	content: "";
-	z-index: -1;
-	position: absolute;
-	inset: 0;
-	border-image: linear-gradient(#dadcde, #dadcde) fill 0 / calc(50% - .5px) 0 / 0 50vw;
+.c-cassette {
+	grid-template-rows: 30% auto 40%;
+	gap: 16px 48px;
 }
-.p-works .works_content {
-	margin-top: 24px;
+.c-cassette .image {
+	margin: 0;
 }
-.p-works .works_content::after {
-	height: 80px;
-}
-.p-works .c-archivelist .image {
-	overflow: hidden;
+.c-cassette .image img {
 	border-radius: 8px;
 }
-.p-works .c-archivelist .image img {
-	aspect-ratio: 16 / 9;
-	object-fit: cover;
-	margin-left: auto;
-	border-radius: 0;
-	transform: scale(1.1);
+.c-cassette .c-lead {
+	text-align: justify;
 }
-@media (hover: hover) {
-	.p-works .c-archivelist .image img {
-		transition: transform .4s cubic-bezier(.3,1,.7,1);
+.c-cassette .c-button {
+	margin-top: 16px;
+}
+.p-works.c-cassette {
+	grid-template-columns: minmax(320px, calc(40% - 24px)) 1fr;
+}
+.p-company.c-cassette {
+	grid-template-columns: 1fr minmax(320px, calc(40% - 24px));
+}
+@media print, (min-width: 768px) {
+	.c-cassette .image,
+	.c-cassette .image img {
+		height: 100%;
 	}
-	.p-works .c-archivelist a:hover .image img {
-		transform: none;
-		transition-duration: .1s;
+	.c-cassette .image img {
+		object-fit: cover;
 	}
-}
-
-
-/**
- * よくあるご質問
- * ---------------------------------------- */
-.p-faq .faq_button {
-	margin-top: 40px;
-}
-
-
-/**
- * よくあるレイアウト
- * ---------------------------------------- */
-.p-store .c-title {
-	text-transform: uppercase;
-}
-.p-store .c-cassette {
-	margin-top: 40px;
-}
-.p-store .c-cassette .c-title {
-	font-size: 20px;
-}
-.p-store .c-cassette .lead {
-	margin-bottom: 0;
-	font-size: 14px;
-}
-.p-store .c-cassette .c-button {
-	max-width: 240px;
-	min-height: 48px;
-	margin-top: 24px;
-}
-.p-store .c-cassette .image img {
-	border-radius: 8px;
 }
 @media screen and (max-width: 767px) {
-	.p-store .c-cassette .c-title,
-	.p-store .c-cassette .lead {
-		text-align: left;
+	.c-cassette {
+		align-items: center;
 	}
-	.p-store .c-cassette .c-button {
-		margin-top: 16px;
+	.c-cassette .image {
+		margin-inline: calc(var(--sideGap) * -1);
 	}
-}
-
-
-/**
- * テーブルスタイル
- * ---------------------------------------- */
-.p-kana .c-table {
-	margin-top: 40px;
-}
-.p-kana .c-table tbody th {
-	white-space: nowrap;
-}
-.p-kana .c-table {
-	--border_color: var(--themecolor);
+	.c-cassette .image img {
+		width: 100%;
+	}
 }
 
 
 /**
  * YouTube
  * ---------------------------------------- */
-.p-video .c-video {
-	margin: 40px auto 0;
-}
 .p-video .c-button {
-	margin-top: 48px;
+	margin-top: 40px;
 }
 
 
@@ -320,7 +257,7 @@
 		transition: color .4s, background .4s;
 	}
 	.c-conversion .arr {
-		transition: transform .4s cubic-bezier(.3,1,.7,1);
+		transition: transform .4s var(--easeOut);
 	}
 	.c-conversion:hover {
 		color: var(--themecolor);

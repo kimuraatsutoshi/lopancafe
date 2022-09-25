@@ -1,0 +1,516 @@
+@charset "utf-8";
+
+/**
+ * 記事用
+ * ---------------------------------------- */
+:where(.l-section) p,
+:where(.l-section) ul,
+:where(.l-section) ol,
+:where(.l-section) dl {
+	margin: 1em 0;
+	text-align: left;
+}
+:where(.l-section) p,
+:where(.l-section) li,
+:where(.l-section) dd {
+	line-break: strict;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+	word-break: break-word;
+}
+:where(.l-section) p + p {
+	margin: .6em 0;
+}
+:where(.l-section) strong {
+	color: #593869;
+	font-weight: 900;
+	background: linear-gradient(#86c0de68, #86c0de68) left bottom / 100% .4em no-repeat;
+}
+:where(.l-section) b {
+	font-weight: 900;
+}
+:where(.l-section) em {
+	font-style: normal;
+	background: linear-gradient(#86c0de68, #86c0de68) left bottom / 100% .4em no-repeat;
+}
+:where(.l-section) .c-lead {
+	margin-bottom: 0;
+}
+:where(.l-section) code {
+	margin: 0 .2em;
+	padding: .2em;
+	border-radius: 4px;
+	font-family: "Ubuntu Mono", consolas, "Source Code Pro", "Noto Sans JP", monospace;
+	background: #eeeff1;
+}
+:where(.l-section) hr {
+	margin: 80px 0;
+	border: 0;
+	border-top: 1px solid #dadcde;
+}
+:where(.l-section) hr.rest {
+	max-width: 40px;
+	margin: 40px auto;
+}
+
+/* :::::: セクション内セクション :::::: */
+:where(.l-section) .l-section {
+	margin: 80px 0;
+}
+:where(.l-section .l-section) .l-section {
+	margin-block: 48px;
+}
+@media screen and (max-width: 767px) {
+	:where(.l-section) .l-section {
+		margin-block: 64px;
+	}
+	:where(.l-section .l-section) .l-section {
+		margin-block: 32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	:where(.l-section) .l-section {
+		margin-block: 40px;
+	}
+	:where(.l-section .l-section) .l-section {
+		margin-block: 24px;
+	}
+}
+
+/* :::::: コラム :::::: */
+.l-section:where(.-column) {
+	padding: 40px var(--sideGap);
+	border: 1px solid gainsboro;
+	border-radius: 8px;
+}
+.l-section:where(.-column) :first-child {
+	margin-top: 0;
+}
+.l-section:where(.-column) :last-child {
+	margin-bottom: 0;
+}
+@media screen and (min-width: 1056px) {
+	.l-section:where(.-column) {
+		padding: 40px calc(var(--sideGap) + 24px);
+	}
+}
+
+/* :::::: 目次 :::::: */
+.c-toc {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 40px auto;
+	font-weight: 700;
+}
+.c-toc .item {
+	flex-grow: 1;
+}
+.c-toc .item a {
+	display: block;
+	padding: 16px;
+}
+.c-toc .item a::before {
+	content: "";
+	display: inline-block;
+	position: relative;
+	top: -.1em;
+	width: .4em;
+	margin-right: .6em;
+	border-top: .2em solid var(--themecolor);
+	vertical-align: middle;
+}
+@media (hover: hover) {
+	.c-toc .item a {
+		transition: background .4s;
+	}
+	.c-toc .item a:hover {
+		background: #fafafd;
+		transition-duration: .1s;
+	}
+}
+
+/* :::::: 画像 :::::: */
+.c-image {
+	margin: 32px auto;
+}
+.c-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+.c-image figcaption {
+	margin-top: .5em;
+	font-size: 14px;
+}
+@media screen and (max-width: 479px) {
+	.c-image {
+		max-width: calc(100% + 48px);
+		margin-inline: -24px;
+	}
+	.c-image img {
+		border-radius: 0;
+	}
+	.c-image figcaption {
+		font-size: 12px;
+	}
+}
+
+/* :::::: 注釈 :::::: */
+.c-note,
+.c-caution {
+	padding-left: 1em;
+	text-indent: -1em;
+}
+.c-note {
+	font-size: 12px;
+	line-height: 1.6;
+}
+.c-note > *,
+.c-caution > * {
+	text-indent: 0;
+}
+
+/* :::::: 引用 :::::: */
+.c-blockquote {
+	margin: 24px 0;
+	padding: 24px var(--sideGap);
+	border: 1px solid #eeeff1;
+	border-radius: 8px;
+	background: #fafafd;
+	font-size: 14px;
+	text-align: left;
+}
+.c-blockquote p:not(:first-child) {
+	margin-top: .3em;
+}
+.c-blockquote .cite {
+	text-align: right;
+}
+:where(.c-blockquote[cite*="wikipedia"] p:not([class])) a {
+	text-decoration: none;
+	color: #3366cc;
+	background: none;
+}
+@media (hover: hover) {
+	:where(.c-blockquote[cite*="wikipedia"] p:not([class])) a:hover {
+		text-decoration: underline;
+	}
+}
+
+
+/**
+ * シンタックスハイライト with Prism.js
+ * ---------------------------------------- */
+.c-syntax {
+	position: relative;
+	max-width: calc(100% + 96px);
+	margin: 1em calc(var(--sideGap) * -1);
+	line-height: 1.6;
+	text-align: left;
+}
+.c-syntax figcaption {
+	margin-top: .5em;
+	font-size: 14px;
+	text-align: center;
+}
+.c-syntax .wrap {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	will-change: scroll-position;
+	overscroll-behavior: none auto;
+	scrollbar-width: auto;
+	scrollbar-color: #dadcde #eeeff1;
+}
+.c-syntax:where(.-shortcut) .wrap { max-height: calc(14px * 2.4 * 10 + 8px); }
+.c-syntax:where(.-shortcut1) .wrap { max-height: calc(14px * 2.4 * 11 + 8px); }
+.c-syntax:where(.-shortcut2) .wrap { max-height: calc(14px * 2.4 * 12 + 8px); }
+.c-syntax:where(.-shortcut3) .wrap { max-height: calc(14px * 2.4 * 13 + 8px); }
+.c-syntax:where(.-shortcut4) .wrap { max-height: calc(14px * 2.4 * 14 + 8px); }
+.c-syntax:where(.-shortcut5) .wrap { max-height: calc(14px * 2.4 * 15 + 8px); }
+.c-syntax:where(.-shortcut6) .wrap { max-height: calc(14px * 2.4 * 16 + 8px); }
+.c-syntax .wrap::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+.c-syntax .wrap::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	box-shadow: none;
+	background: #dadcde;
+}
+.c-syntax .wrap::-webkit-scrollbar-track {
+	width: 16px;
+	height: 16px;
+	border-radius: 6px;
+	background: #eeeff1;
+}
+@-moz-document url-prefix() {
+	.c-syntax {
+		padding-bottom: 16px;
+	}
+}
+.c-syntax::selection {
+	color: #373039;
+	background: #fafafd;
+}
+.c-syntax::before {
+	content: attr(data-lang);
+	margin-left: 48px;
+	color: var(--gray4);
+	font-size: 12px;
+	text-transform: uppercase;
+}
+/* pullContents に入っている時 wrap にフォーカスすると
+ * wrap の位置までズレてしまうため ::before を wrap と同じ位置に固定 */
+html:not(.is-touch) .c-syntax::before {
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	right: 24px;
+	padding: .1em .5em;
+	border-radius: 0 0 4px 4px;
+	color: var(--gray5);
+	background: #fafafda1;
+}
+.c-syntax + .c-syntax {
+	margin-top: 0;
+}
+.c-syntax .wrap pre,
+.c-syntax .wrap pre[class*=language-] {
+	overflow: visible;
+	min-width: fit-content;
+	margin: 0;
+	padding-block: 0;
+	border-radius: 8px;
+	tab-size: 4;
+	font-size: 14px;
+	line-height: 2.2;
+}
+.c-syntax:where(.-wrap) pre,
+.c-syntax:where(.-wrap) pre[class*=language-] {
+	min-width: 40em;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+.c-syntax .wrap code,
+.c-syntax .wrap code[class*=language-] {
+	display: block;
+	margin: 0;
+	padding: 0;
+	tab-size: inherit;
+	line-height: inherit;
+	font-family: "Ubuntu Mono", consolas, "Source Code Pro", "Noto Sans JP", monospace;
+}
+.c-syntax:where(.-wrap) .wrap code,
+.c-syntax:where(.-wrap) .wrap code[class*=language-] {
+	word-wrap: inherit;
+}
+.c-syntax .line-numbers .line-numbers-rows {
+	border-right: 0;
+}
+@media (hover: hover) {
+	.c-syntax::-webkit-scrollbar-thumb {
+		transition: background .4s;
+	}
+	.c-syntax::-webkit-scrollbar-thumb:hover {
+		background: var(--gainsboro);
+		transition-duration: .1s;
+	}
+}
+@media screen and (max-width: 1055px) {
+	.c-syntax .wrap pre,
+	.c-syntax .wrap pre[class*=language-] {
+		padding-right: 24px;
+		border-radius: 0;
+	}
+}
+@media screen and (max-width: 767px) {
+	.c-syntax::before {
+		margin-left: var(--sideGap);
+	}
+}
+@media screen and (max-width: 479px) {
+	.c-syntax {
+		font-size: 14px;
+	}
+	.c-syntax figcaption {
+		font-size: 12px;
+	}
+	.c-syntax .wrap pre,
+	.c-syntax .wrap pre[class*=language-] {
+		font-size: 12px;
+		line-height: 2;
+	}
+}
+/* :::::: color :::::: */
+.c-syntax{
+	--white: #373039;
+	--black: #fafafd;
+	--lopan: #9181cc;
+	--dark-black: #252127;
+	/* mono */
+	--gray1: #eeeff1;
+	--gray2: #dadcde;
+	--gray3: #c2c4ca;
+	--gray4: #92939c;
+	--gray5: #696975;
+	--gray6: #52515c;
+	--gray7: #46434c;
+	/* color */
+	--red: #dc6688;
+	--orange: #ec9268;
+	--yellow: #eab952;
+	--green: #68aa68;
+	--skyblue: #86c0de;
+	--blue: #7aadf6;
+	--vioret: #9294e8;
+}
+.c-syntax pre[class*=language-],
+.c-syntax code[class*=language-] {
+	color: var(--black);
+	text-shadow: none;
+}
+.c-syntax pre[class*=language-] {
+	background: repeating-linear-gradient(var(--gray6), var(--gray6) 2.2em, var(--gray7) 2.2em, var(--gray7) 4.4em);
+}
+.c-syntax .token.punctuation {
+	color: var(--gray3);
+}
+.c-syntax .language-css .token.string,
+.c-syntax .style .token.string,
+.c-syntax .token.entity,
+.c-syntax .token.operator,
+.c-syntax .token.url {
+	background: none;
+}
+.c-syntax .token.comment {
+	color: var(--gray4);
+}
+.c-syntax .token.prolog,
+.c-syntax .token.doctype,
+.c-syntax .token.cdata {
+	color: var(--gray2);
+}
+.c-syntax .token.punctuation,
+.c-syntax .token.attr-equals {
+	color: var(--gray2);
+}
+.c-syntax .token.namespace {
+	opacity: .7;
+}
+.c-syntax .token.property,
+.c-syntax .token.tag,
+.c-syntax .token.boolean,
+.c-syntax .token.constant,
+.c-syntax .token.symbol,
+.c-syntax .token.deleted {
+	color: var(--red);
+}
+.c-syntax .token.function,
+.c-syntax .token.class-name {
+	color: var(--red);
+}
+.c-syntax .token.selector,
+.c-syntax .token.attr-name,
+.c-syntax .token.string,
+.c-syntax .token.char,
+.c-syntax .token.builtin,
+.c-syntax .token.inserted {
+	color: var(--orange);
+}
+.c-syntax .token.regex,
+.c-syntax .token.important,
+.c-syntax .token.variable,
+.c-syntax .token.regex-source {
+	color: var(--yellow);
+}
+.c-syntax .token.operator,
+.c-syntax .token.entity,
+.c-syntax .token.url,
+.c-syntax .language-css .token.string,
+.c-syntax .style .token.string {
+	color: var(--green);
+}
+.c-syntax .token.atrule,
+.c-syntax .token.attr-value,
+.c-syntax .token.keyword {
+	color: var(--blue);
+}
+.c-syntax .token.number {
+	color: var(--skyblue);
+}
+.c-syntax .token.bold,
+.c-syntax .token.important {
+	font-weight: bold;
+}
+.c-syntax .token.italic {
+	font-style: italic;
+}
+.c-syntax .token.entity {
+	cursor: help;
+}
+/* 行数とハイライト */
+.c-syntax .line-numbers {
+	position: relative;
+	padding-left: 4.8rem;
+	counter-reset: row;
+}
+.c-syntax .line-numbers > code {
+	padding-left: 0;
+}
+/* 行数 */
+.c-syntax .line-numbers-rows {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 3.6rem;
+	line-height: inherit;
+	text-align: right;
+	-webkit-user-select: none;
+	user-select: none;
+	pointer-events: none;
+}
+.c-syntax .line-numbers-rows > span {
+	display: block;
+	counter-increment: row;
+	font-family: inherit;
+}
+.c-syntax .line-numbers-rows > span::before {
+	display: block;
+	padding-right: 0;
+	content: "00" counter(row);
+	color: var(--gray5);
+	font-family: inherit;
+}
+.c-syntax .line-numbers-rows > span:nth-child(n+10)::before {
+	content: "0" counter(row);
+}
+.c-syntax .line-numbers-rows > span:nth-child(n+100)::before {
+	content: counter(row);
+}
+/* ハイライト */
+.c-syntax .line-highlight {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background: url(../img/stripe_yellow.svg) center;
+	opacity: .8;
+	pointer-events: none;
+}
+@media (prefers-color-scheme: dark) {
+	.c-syntax .line-highlight {
+		opacity: .6;
+	}
+}
+/* ブラウザが背景色を白に置き換えるのを防ぐ
+ * 表示されたコードの上に要素が階層化されているため必要らしい */
+@media print {
+	.c-syntax .line-highlight {
+		-webkit-print-color-adjust: exact;
+		color-adjust: exact;
+	}
+}
+@media screen and (max-width: 479px) {
+	.c-syntax pre[class*=language-] {
+		background: repeating-linear-gradient(var(--gray6), var(--gray6) 2em, var(--gray7) 2em, var(--gray7) 4em);
+	}
+}

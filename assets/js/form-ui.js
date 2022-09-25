@@ -4,11 +4,6 @@
  -------------------------------------------------- */
 export class CheckedAcceptInput {
 	constructor() {
-		if (document.querySelector('.js-acceptInput') !== null) {
-			this.init();
-		}
-	}
-	init() {
 		this.acceptData = {};
 		const elm = document.getElementsByClassName('js-acceptInput');
 		
@@ -28,12 +23,7 @@ export class CheckedAcceptInput {
 		// console.log(this.acceptData);
 	}
 	setup(elm, id, trigger) {
-		let target = null;
-		if (elm.dataset.type === 'submit') {
-			target = elm.form.querySelector('input[type="submit"], button[type="submit"]');
-		} else {
-			target = elm.parentNode.querySelector(`input[type="${elm.dataset.type}"]`);
-		}
+		const target = elm.form.querySelector(`[data-target="${elm.dataset.trigger}"]`);
 		this.acceptData[id] = {
 			checkType: elm.type,
 			targetType: target.type,
@@ -76,11 +66,6 @@ export class CheckedAcceptInput {
  -------------------------------------------------- */
 export class FlexTextarea {
 	constructor() {
-		if (document.querySelector('.js-flextextarea') !== null) {
-			this.init();
-		}
-	}
-	init() {
 		const elm = document.querySelectorAll('.js-flextextarea');
 		let dummy, textarea;
 		elm.forEach(el => {

@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+/**
+ * Company
+ * ---------------------------------------- */
+.page-company {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.p-access {}
+.access_container .address {
+    line-height: 1.6;
+    white-space: nowrap;
+}
+.access_container .p-map {
+    height: 320px;
+    margin-top: 40px;
+}
+@media print, (min-width: 768px) {
+    .access_container {
+        display: grid;
+        grid-template: 56% 44% / 1fr 240px;
+        justify-content: flex-start;
+        gap: 24px 48px;
+        margin-left: calc(50% - 50vw);
+    }
+    .access_container .address {
+        grid-area: 1 / 2 / 2 / 3;
+        align-self: flex-end;
+        margin: 0;
+    }
+    .access_container .c-button {
+        grid-area: 2 / 2 / 3 / 3;
+        align-self: flex-start;
+        min-height: 32px;
+        max-width: 240px;
+    }
+    .access_container .p-map {
+	    grid-area: 1 / 1 / 3 / 2;
+    }
+}
+@media screen and (max-width: 767px) {
+    .access_container .c-button {
+        margin-top: 24px;
+    }
+    .access_container .p-map {
+        margin-inline: calc(var(--sideGap) * -1);
+    }
+}
