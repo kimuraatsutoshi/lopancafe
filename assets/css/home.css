@@ -46,7 +46,11 @@
 .keyvisual_slider:not(.flickity-enabled) {
 	position: relative;
 }
-.keyvisual_slider:not(.flickity-enabled) .slider_item:not(:last-of-type) {
+.keyvisual_slider:not(.flickity-enabled) .slider_item:first-of-type {
+	width: fit-content;
+	margin-inline: auto;
+}
+.keyvisual_slider:not(.flickity-enabled) .slider_item:not(:first-of-type) {
 	z-index: -1;
 	position: absolute;
 	top: 0;
@@ -127,16 +131,6 @@
 .p-news .c-button {
 	margin-top: 40px;
 }
-@media (hover: hover) {
-	.p-news .c-archivelist .container {
-		transition: background-size .4s var(--easeOut);
-		background: linear-gradient(#86c0de1a, #86c0de1a) right bottom / 0 100% no-repeat;
-	}
-	.p-news .c-archivelist .container:hover {
-		background: linear-gradient(#86c0de1a, #86c0de1a) left bottom / 100% 100% no-repeat;
-		transition-duration: .1s;
-	}
-}
 
 
 /**
@@ -150,46 +144,20 @@
 .p-company .c-lead  {
 	margin-top: 0;
 }
-.c-cassette {
-	grid-template-rows: 30% auto 40%;
+.c-storyboard {
 	gap: 16px 48px;
 }
-.c-cassette .image {
-	margin: 0;
-}
-.c-cassette .image img {
-	border-radius: 8px;
-}
-.c-cassette .c-lead {
-	text-align: justify;
-}
-.c-cassette .c-button {
-	margin-top: 16px;
-}
-.p-works.c-cassette {
-	grid-template-columns: minmax(320px, calc(40% - 24px)) 1fr;
-}
-.p-company.c-cassette {
-	grid-template-columns: 1fr minmax(320px, calc(40% - 24px));
-}
-@media print, (min-width: 768px) {
-	.c-cassette .image,
-	.c-cassette .image img {
-		height: 100%;
-	}
-	.c-cassette .image img {
-		object-fit: cover;
+@media screen and (min-width: 768px) {
+	.c-storyboard .image img {
+		border-radius: 8px;
 	}
 }
 @media screen and (max-width: 767px) {
-	.c-cassette {
+	.c-storyboard {
 		align-items: center;
 	}
-	.c-cassette .image {
+	.c-storyboard .image {
 		margin-inline: calc(var(--sideGap) * -1);
-	}
-	.c-cassette .image img {
-		width: 100%;
 	}
 }
 
@@ -199,6 +167,10 @@
  * ---------------------------------------- */
 .p-video .c-button {
 	margin-top: 40px;
+}
+.c-video.js-inview.is-anim {
+	filter: url(#fluctuation);
+	transition-duration: 2s;
 }
 
 

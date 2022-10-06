@@ -13,7 +13,7 @@ import { UiBundle } from './ui.js';
 	LPN.registFnc = { onLoaded: [], onPopstate: [], onResize: [], onMainResize: [], loop: [] };
 	
 	// HTML 要素に関係なく実行する
-	LPN.Rp = new ReturnRelativePath('component');
+	LPN.Rp = new ReturnRelativePath('lopan.cafe');
 	LPN.Wf = new WebFontsLoader({
 		families: [ 'Noto+Sans+JP', 'Roboto', 'Ubuntu+Condensed' ],
 		urls: [ 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Ubuntu+Condensed&display=swap' ]

@@ -180,19 +180,26 @@
 	font-size: 14px;
 	text-align: left;
 }
-.c-blockquote p:not(:first-child) {
-	margin-top: .3em;
+blockquote p {
+	margin: .3em 0;
+	text-align: justify;
 }
-.c-blockquote .cite {
+blockquote > :first-child {
+	margin-top: 0;
+}
+blockquote > :last-child {
+	margin-bottom: 0;
+}
+:where(blockquote[cite]) .cite {
 	text-align: right;
 }
-:where(.c-blockquote[cite*="wikipedia"] p:not([class])) a {
+:where(blockquote[cite*="wikipedia"] p:not([class])) a {
 	text-decoration: none;
-	color: #3366cc;
+	color: #36c;
 	background: none;
 }
 @media (hover: hover) {
-	:where(.c-blockquote[cite*="wikipedia"] p:not([class])) a:hover {
+	:where(blockquote[cite*="wikipedia"] p:not([class])) a:hover {
 		text-decoration: underline;
 	}
 }

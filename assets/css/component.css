@@ -242,7 +242,7 @@ input.c-button:disabled {
 }
 
 /* :::::: プルダウンボタン :::::: */
-.c-pulltoggle {
+.c-pullbutton {
 	display: inline-grid;
 	place-items: center;
 	position: relative;
@@ -255,11 +255,11 @@ input.c-button:disabled {
 	line-height: 0;
 	background: var(--themecolor);
 }
-.c-pulltoggle.is-active {
+.c-pullbutton.is-active {
 	color: var(--themecolor);
 	background: white;
 }
-.c-pulltoggle .arr {
+.c-pullbutton .arr {
 	width: 40%;
 	fill: none;
 	stroke: currentcolor;
@@ -268,15 +268,15 @@ input.c-button:disabled {
 	stroke-linejoin: round;
 }
 @media (hover: hover) {
-	.c-pulltoggle {
+	.c-pullbutton {
 		transition: color .4s, background .4s;
 	}
-	.c-pulltoggle:hover {
+	.c-pullbutton:hover {
 		color: var(--themecolor);
 		background: white;
 		transition-duration: .1s;
 	}
-	.c-pulltoggle.is-active:hover {
+	.c-pullbutton.is-active:hover {
 		color: white;
 		background: var(--themecolor);
 	}
@@ -523,9 +523,6 @@ input.c-button:disabled {
 .c-datalist {
 	text-align: left;
 }
-.c-datalist .item {
-	margin-top: 1em;
-}
 .c-datalist dt {
 	font-weight: 700;
 }
@@ -533,17 +530,86 @@ input.c-button:disabled {
 	content: "";
 	display: inline-block;
 	width: .4em;
-	margin-right: .4em;
+	margin-right: .6em;
 	border-top: .2em solid var(--themecolor);
+	vertical-align: middle;
 }
-.c-datalist > dd + dt {
+.c-datalist dd + dt {
 	margin-top: 1em;
 }
-.c-datalist > dd {
+.c-datalist dd {
 	padding-left: 1em;
 }
-.c-datalist > dd + dd {
+.c-datalist dd + dd {
 	margin-top: .5em;
+}
+
+/* :::::: 表組みリスト (dl) :::::: */
+.c-tablelist {
+	--borderWidth: 3px;
+	--borderColor: #eeeff1;
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+}
+.c-tablelist > .row {
+	display: table-row;
+	border-block: 3px dotted var(--borderColor);
+}
+.c-tablelist > .row > dt,
+.c-tablelist > .row > dd {
+	display: table-cell;
+	padding: 1em;
+	line-height: 1.6;
+}
+.c-tablelist > .row > dt {
+	font-weight: 700;
+	white-space: nowrap;
+}
+.c-tablelist > .row > dd {
+	border-left: 3px dotted transparent;
+}
+.c-tablelist > .row > dd > :first-child {
+	margin-top: 0;
+}
+.c-tablelist > .row > dd > :last-child {
+	margin-bottom: 0;
+}
+.c-tablelist ruby rp,
+.c-tablelist ruby rt {
+	display: inline;
+	font-size: smaller;
+}
+
+/* :::::: グリッド組みリスト (dl) :::::: */
+.c-gridlist {
+	--borderWidth: 3px;
+	--borderColor: #eeeff1;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	border-bottom: var(--borderWidth) dotted var(--borderColor);
+	text-align: left;
+}
+.c-gridlist > dt,
+.c-gridlist > dd {
+	border-top: var(--borderWidth) dotted var(--borderColor);
+	padding: 1em;
+	line-height: 1.6;
+}
+.c-gridlist > dt {
+	grid-column: 1;
+	font-weight: 700;
+	white-space: nowrap;
+}
+.c-gridlist > dd {
+	grid-column: 2;
+	margin-left: var(--borderWidth);
+}
+.c-gridlist > dd > :first-child {
+	margin-top: 0;
+}
+.c-gridlist > dd > :last-child {
+	margin-bottom: 0;
 }
 
 
@@ -574,6 +640,7 @@ input.c-button:disabled {
 	font-size: 18px;
 	line-height: 1.6;
 	font-weight: 700;
+	background: #fafafd;
 }
 .c-faq .faq_a {
 	padding-top: 16px;
@@ -652,6 +719,8 @@ input.c-button:disabled {
 .c-archivelist .image img {
 	width: 100%;
 	border-radius: 8px;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
 }
 .c-archivelist .text {
 	display: flex;
@@ -659,6 +728,7 @@ input.c-button:disabled {
 	align-items: center;
 	justify-content: space-between;
 	gap: 4px;
+	margin-block: 0;
 	padding: 0 8px;
 	font-size: 14px;
 	line-height: 1.6;
@@ -799,10 +869,6 @@ input.c-button:disabled {
 	.c-archivelist:where(.-bar) .image {
 		flex-basis: 120px;
 		flex-shrink: 0;
-	}
-	.c-archivelist:where(.-bar) .image img {
-		aspect-ratio: 16 / 9;
-		object-fit: cover;
 	}
 	.c-archivelist:where(.-bar) .text {
 		flex-direction: column;
@@ -1006,7 +1072,16 @@ html.is-touch .c-archivelist .flickity-viewport::after {
  * スクロールカルーセル
  * ---------------------------------------- */
 .js-carousel {
+	--cellWidth: 400px;
+	--sideSpace: 0px;
 	position: relative;
+	max-width: var(--cellWidth);
+	margin-inline: auto;
+}
+@media screen and (max-width: 479px) {
+	.js-carousel {
+		--cellWidth: calc(100vw - 48px);
+	}
 }
 .carousel_container {
 	scroll-behavior: smooth;
@@ -1025,7 +1100,12 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	column-gap: 0;
 	margin: 0;
 }
+.carousel_reel {
+	width: max-content;
+}
 .carousel_reel > * {
+	/* MEMO: carousel_reel が width: ${item.length}*100% なら要らない */
+	width: var(--cellWidth);
 	scroll-snap-stop: always;
 	scroll-snap-align: center;
 }
@@ -1075,11 +1155,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	display: flex;
 	justify-content: center;
 	column-gap: 16px;
-	z-index: 2;
-	position: absolute;
-	right: 0;
-	bottom: 16px;
-	left: 0;
+	margin-top: 16px;
 }
 @media screen and (max-width: 479px) {
 	.carousel_arrow {
@@ -1112,6 +1188,81 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	from { transform: none; }
 	20% { transform: scale(1.4); background: currentcolor; }
 	to { transform: scale(1.2); }
+}
+
+/* :::::: 両脇をグラデーション :::::: */
+.js-carousel.-gradient {
+	--sideSpace: 48px;
+}
+.js-carousel.-gradient .carousel_reel > * {
+	width: calc(var(--cellWidth) - var(--sideSpace));
+}
+@media screen and (max-width: 767px) {
+	.js-carousel.-gradient {
+		--sideSpace: 32px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.js-carousel.-gradient {
+		--sideSpace: 24px;
+	}
+}
+.js-carousel.-gradient .carousel_container {
+	margin-inline: calc(var(--sideSpace) * -1);
+	-webkit-mask-image: linear-gradient(
+		to right,
+		#fff0,
+		#fff2 calc(var(--sideSpace) / 3),
+		#fff var(--sideSpace),
+		#fff calc(100% - var(--sideSpace)),
+		#fff2 calc(100% - var(--sideSpace) / 3),
+		#fff0
+	);
+	mask-image: linear-gradient(
+		to left, #fff0, #fff var(--sideSpace), #fff calc(100% - var(--sideSpace)), #fff0
+	);
+}
+.js-carousel.-gradient .carousel_reel {
+
+	padding-inline: var(--sideSpace);
+}
+
+/* :::::: インスタグラム風 :::::: */
+.js-carousel.-instagram .carousel_reel .image img {
+	aspect-ratio: 1 / 1;
+	object-fit: contain;
+	background: #373039;
+}
+/* 左右の矢印のデザイン */
+.js-carousel.-instagram .carousel_arrow {
+	top: calc(50% - 12px);
+	width: 24px;
+	height: 24px;
+	filter: drop-shadow(0 2px 2px #3730391a);
+}
+.js-carousel.-instagram .carousel_arrow.-prev { left: 8px; }
+.js-carousel.-instagram .carousel_arrow.-next { right: 8px; }
+.js-carousel.-instagram .carousel_arrow .arr {
+	stroke: #dadcde;
+	stroke-width: 4;
+}
+/* ページネーションの位置 */
+.js-carousel.-instagram .carousel_pagination {
+	z-index: 2;
+	position: absolute;
+	right: 0;
+	bottom: 16px;
+	left: 0;
+}
+.js-carousel.-instagram .carousel_pagination .dot {
+	color: white;
+}
+.js-carousel.-instagram .carousel_pagination .dot:not(.is-active) {
+	opacity: .3;
+}
+.js-carousel.-instagram .carousel_pagination .dot.is-active {
+	animation: none;
+	background: white;
 }
 
 
@@ -1165,85 +1316,73 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 /**
  * よくあるレイアウト (カセット)
  * ---------------------------------------- */
+.c-storyboard .image img {
+	width: 100%;
+}
 @media print, (min-width: 768px) {
-	.c-cassette,
-	.c-cassette:where(.-wrap) .container  {
+	.c-storyboard {
 		display: grid;
-		grid-template: 1fr auto 1fr / calc(60% - 24px) calc(40% - 24px);
+		grid-template-columns: calc(40% - 24px) calc(60% - 24px);
 		gap: 16px 48px;
 		align-items: center;
 	}
-	.c-cassette:where(.-wrap)  {
+	.c-storyboard:where(.-wrap) {
 		display: block;
 	}
-	.c-cassette:where(.-reverse),
-	.c-cassette:where(.-wrap).-reverse .container {
-		grid-template-columns: calc(40% - 24px) calc(60% - 24px);
+	.c-storyboard:where(.-reverse) {
+		grid-template: auto / calc(60% - 24px) calc(40% - 24px);
 	}
-	.c-cassette .c-title,
-	.c-cassette:where(.-wrap) .container .c-title {
-		grid-area: 1 / 1;
+	.c-storyboard > * {
+		margin: 0;
+	}
+	.c-storyboard .c-title {
+		grid-area: 1 / 2 ;
 		align-self: flex-end;
 	}
-	.c-cassette .c-lead,
-	.c-cassette:where(.-wrap) .container .c-lead {
-		grid-area: 2 / 1;
+	.c-storyboard .c-lead {
+		grid-area: 2 / 2;
 	}
-	.c-cassette .c-button,
-	.c-cassette .c-more,
-	.c-cassette:where(.-wrap) .container .c-button,
-	.c-cassette:where(.-wrap) .container .c-more {
-		grid-area: 3 / 1;
+	.c-storyboard .c-button,
+	.c-storyboard .c-more {
+		grid-area: 3 / 2;
 		align-self: flex-start;
 	}
-	.c-cassette .image,
-	.c-cassette:where(.-wrap) .container .image {
-		grid-area: 1 / 2 / 4 / 3;
+	.c-storyboard .image {
+		grid-area: 1 / 1 / 4 / 2;
 		align-self: center;
 	}
-	.c-cassette:where(.-reverse) .c-title,
-	.c-cassette:where(.-reverse) .c-lead,
-	.c-cassette:where(.-reverse) .c-button,
-	.c-cassette:where(.-reverse) .c-more,
-	.c-cassette:where(.-wrap).-reverse .container .c-title,
-	.c-cassette:where(.-wrap).-reverse .container .c-lead,
-	.c-cassette:where(.-wrap).-reverse .container .c-button,
-	.c-cassette:where(.-wrap).-reverse .container .c-more {
-		grid-column: 2 / 3;
+	.c-storyboard .image,
+	.c-storyboard .image img {
+		height: 100%;
 	}
-	.c-cassette:where(.-reverse) .image,
-	.c-cassette:where(.-wrap).-reverse .container .image {
+	.c-storyboard .image img {
+		object-fit: cover;
+	}
+	.c-storyboard:where(.-reverse) .c-title,
+	.c-storyboard:where(.-reverse) .c-lead,
+	.c-storyboard:where(.-reverse) .c-button,
+	.c-storyboard:where(.-reverse) .c-more {
 		grid-column: 1 / 2;
+	}
+	.c-storyboard:where(.-reverse) .image {
+		grid-column: 2 / 3;
 	}
 }
 @media screen and (max-width: 767px) {
-	.c-cassette,
-	.c-cassette:where(.-wrap) .container {
+	.c-storyboard {
 		display: flex;
 		flex-direction: column;
 	}
-	.c-cassette .c-title,
-	.c-cassette:where(.-wrap) .container .c-title {
+	.c-storyboard .c-title {
 		order: -1;
 		align-self: flex-start;
 	}
-	.c-cassette .c-button,
-	.c-cassette:where(.-wrap) .container .c-button {
+	.c-storyboard .c-button {
 		align-self: center;
 	}
-	.c-cassette .image,
-	.c-cassette:where(.-wrap) .container .image {
-		margin-top: 16px;
-	}
-	.c-cassette .image {
+	.c-storyboard .image {
 		order: -1;
-	}
-}
-@media (hover: hover) {
-	.c-cassette:where(.-wrap) .container:hover .c-button {
-		color: var(--themecolor);
-		background: white;
-		transition-duration: .1s;
+		margin-top: 16px;
 	}
 }
 
@@ -1398,8 +1537,16 @@ html.wf-active .c-table .-v {
 	box-shadow: 0 2px 8px #3730391a;
 }
 .js-yt,
+.js-video,
 .c-video .wrap {
 	aspect-ratio: 16 / 9;
+}
+.js-yt {
+	height: auto;
+}
+.c-video .wrap .js-yt,
+.c-video .wrap .js-video {
+	aspect-ratio: auto;
 }
 .c-video .wrap > *,
 .c-video .poster,
@@ -1495,8 +1642,8 @@ html.wf-active .c-table .-v {
 	stroke-linecap: round;
 	stroke-linejoin: round;
 }
-.acc_head.is-active {
-	background: #fafafd;
+.acc_head:not(.is-active) {
+	background: none;
 }
 .acc_head.is-active .ico {
 	transform: rotateX(180deg);

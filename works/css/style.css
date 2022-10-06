@@ -15,18 +15,60 @@
 
 
 
+/* :::::: アーカイブ一覧カルーセル :::::: */
+.p-carousel_archivelist .js-carousel .c-archivelist > * {
+	width: calc(var(--cellWidth) - var(--sideSpace) * 2);
+}
+.p-carousel_archivelist .js-carousel .c-archivelist {
+	column-gap: 32px;
+}
+@media screen and (max-width: 767px) {
+	.p-carousel_archivelist .js-carousel .c-archivelist {
+		column-gap: 24px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-carousel_archivelist .js-carousel .c-archivelist {
+		column-gap: 16px;
+	}
+}
+@media screen and (max-width: 767px) {
+	.p-carousel_archivelist .js-carousel {
+		--cellWidth: 368px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-carousel_archivelist .js-carousel {
+		--cellWidth: 280px;
+	}
+}
+/* 左右の矢印の位置 */
+.p-carousel_archivelist .carousel_arrow.-prev {
+	left: var(--shiftWidth);
+}
+.p-carousel_archivelist .carousel_arrow.-next {
+	right: var(--shiftWidth);
+}
+.p-carousel_archivelist .carousel_arrows {
+	top: 101px;
+	--shiftWidth: -64px;
+}
+@media screen and (max-width: 767px) {
+	.p-carousel_archivelist .carousel_arrows {
+		--shiftWidth: -48px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.p-carousel_archivelist .carousel_arrows {
+		top: 77px;
+		--shiftWidth: -16px;
+	}
+}
 
 
-
-
-
-
-
-
-
-
-
-/* :::::: Google マップ :::::: */
+/**
+ * Google マップ
+ * ---------------------------------------- */
 .page-works .p-map {
 	width: 100%;
 	height: 400px;

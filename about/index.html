@@ -9,8 +9,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="About">
 <meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
-<meta property="og:url" content="https://lopan.cafe/component/">
-<meta property="og:image" content="https://lopan.cafe/component/ogp.jpg">
+<meta property="og:url" content="https://lopan.cafe/about/">
+<meta property="og:image" content="https://lopan.cafe/ogp.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
@@ -25,7 +25,7 @@
 </head>
 <body>
 <header class="l-header">
-	<h1 class="logo"><a href="https://lopan.cafe/component/"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
+	<h1 class="logo"><a href="https://lopan.cafe/"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
 	<ul class="menu -nav">
 		<li><a href="./" aria-current="page">About</a></li>
 		<li><a href="../news/">News</a></li>
@@ -62,6 +62,7 @@
 <main class="l-main page-about">
 	<div class="p-visual">
 		<h1 class="c-title">About</h1>
+		<figure class="bg"><img src="../assets/img/ogp.webp" alt="" width="1200" height="630"></figure>
 	</div>
 	<div class="c-crumb">
 		<a href="../">Home</a>
@@ -73,7 +74,8 @@
 		<p>「Lopan café」は、Lopan.jpがよく使うパターンを集めた、レイアウトとパーツ、UI、エフェクト、コンポーネントのフレームワーク・スタイルガイド。</p>
 		<dl class="c-datalist">
 			<dt><a href="#cssfile" class="js-anc">CSSファイルで管理</a></dt>
-			<dd>全ページで読み込む<b>ベースCSSファイル</b>と、ページごとに読み込む<b>専用CSSファイル</b>で構成し、サイトに登場する大きなレイアウトパターンと、パーツ要素、UI感を網羅したコンポーネントを、<em>専用CSSファイル内で調整</em>する段取り。</dd>
+			<dd>全ページで読み込む<strong>ベースCSSファイル</strong>と、<em>ページごと</em>に読み込む<strong>専用CSSファイル</strong>で構成。<br>
+			サイトに登場する大きな<b>レイアウトパターン</b>と、パーツ要素、UI感を網羅した<b>コンポーネント</b>を、<em>専用CSSファイルで調整</em>する段取り。</dd>
 			<dt><a href="#naming" class="js-anc">命名規則と構造</a></dt>
 			<dd>レイアウト、コンポーネント、ユーティリティなどのクラスは、スタイリングの目的ごとに<ruby><b>接頭辞</b><rt>プレフィックス</ruby>を付ける命名規則。</dd>
 			<dt><a href="#rule" class="js-anc">書式ルール</a></dt>
@@ -108,7 +110,7 @@
 				a{color:inherit;text-decoration:inherit;text-decoration-skip-ink:auto;}
 				img,picture,video,iframe{display:block;max-width:100%;}
 				img,svg,video,iframe{vertical-align:middle;}
-				img[height]{height:auto;}
+				img[height],video[height]{height:auto;}
 				input,button,textarea,select{font:inherit;}
 				button{border:0;padding:0;background:none;}
 				sub{vertical-align:baseline;}
@@ -143,19 +145,13 @@
 				@media screen and (max-width: 479px) {
 					body { font-size: .875em; }
 				}
-				section[id] {
-					scroll-margin-top: 72px;
-				}
-				@media screen and (max-width: 767px) {
-					section[id] { scroll-margin-top: 64px; }
-				}
 			</figure>
 		</section>
 	</section>
 	
 	<section id="naming" class="p-naming l-section">
 		<h2 class="c-title -bar">命名規則と構造</h2>
-		<p>大きく、<b>レイアウト</b>、<b>セクション</b>、<b>コンポーネント</b>に分け、<b>定型</b>、<b>専用</b>と、<b>属性</b>、<b>状態</b>が付随する。<br>
+		<p>大きく、<b>レイアウト</b>、<b>セクション</b>、<b>コンポーネント</b>に分け、<b>定型</b>、<b>専用</b>と、<b>特性</b>、<b>状態</b>が付随する。<br>
 		別途、<b>ページ識別</b>と、<b>ユーティリティ</b>がある。</p>
 		
 		<section class="l-section">
@@ -234,8 +230,8 @@
 		</section>
 		
 		<section class="l-section">
-			<h3 class="c-title -hyphen -s">属性</h3>
-			<p>「<strong>属性</strong>」はコンポーネントに付随する<code>-</code>で始まる文字数少なめのクラス。コンポーネントに<code>:where()</code>を使って付与する。<br>
+			<h3 class="c-title -hyphen -s">特性</h3>
+			<p>「<strong>特性</strong>」はコンポーネントに付随する<code>-</code>で始まる文字数少なめのクラス。コンポーネントに<code>:where()</code>を使って付与する。<br>
 			<b>コンポーネント</b>の<b>タイプ</b>や<b>バージョン</b>、<b>意図</b>を示したり、<b>パーツ</b>の<b>種類</b>や<b>位置</b>、<b>機能</b>などを示す。</p>
 			<figure class="c-syntax" data-lang="css">
 				.c-button:where(.-l) {}
@@ -249,7 +245,7 @@
 		
 		<section class="l-section">
 			<h3 class="c-title -hyphen -s">状態</h3>
-			<p>「<strong>状態</strong>」は接頭辞に<code>is-</code>を使う。JavaScriptを介して付与されるクラス。</p>
+			<p>「<strong>状態</strong>」は接頭辞に<code>is-</code>を使う。<em>JavaScriptを介して付与</em>されるクラス。表示／非表示、アニメーション中、再生／停止など、コンポーネントの状態を表す。</p>
 			<figure class="c-syntax" data-lang="css">
 				body.is-fixed {}
 				.l-menu.is-anim {}
@@ -262,7 +258,7 @@
 		
 		<section class="l-section">
 			<h3 class="c-title -hyphen -s">ページ識別</h3>
-			<p>「<strong>ページ識別</strong>」は、各ページの<code>.l-main</code><small>（はたまたbody要素）</small>に、そのページの識別子として付けるクラス。</p>
+			<p>「<strong>ページ識別</strong>」は接頭辞に<code>page-</code>を使う。各ページの<code>.l-main</code><small>（はたまたbody要素）</small>に、そのページの識別子として付けるクラス。</p>
 			<figure class="c-syntax" data-lang="css">	
 				.page-home .c-button {}
 				.page-reqruit .p-visual {}
@@ -272,7 +268,7 @@
 		
 		<section class="l-section">
 			<h3 class="c-title -hyphen -s">ユーティリティ</h3>
-			<p>「<strong>ユーティリティ</strong>」は接頭辞に<code>u-</code>を使う。「個ページ専用のCSS」に書くのも億劫なスタイルを手短に適用したい時のための便利クラス。デバイス間の差異を考慮しないため、マージンなどスペーシングには使い所に配慮が必要。</p>
+			<p>「<strong>ユーティリティ</strong>」は接頭辞に<code>u-</code>を使う<small>（Utilityの<code>u</code>）</small>。「個ページ専用のCSS」に書くのも億劫なスタイルを手短に適用したい時のための便利クラス。デバイス間の差異<small>（レスポンシブ）</small>を考慮しないため、マージンなどスペーシングには使い所に配慮が必要。</p>
 			<figure class="c-syntax" data-lang="css">	
 				.u-u-visuallyhidden {}
 				.u-alignc {}
@@ -341,8 +337,8 @@
 	<section id="rule" class="p-rule l-section">
 		<h2 class="c-title -bar">書式ルール</h2>
 		<p>コンポーネントごとに<strong>ひとかたまり</strong>になるよう、関連スタイルは<em>行を詰めて</em>記述し、コンポーネント名を<b>複数行コメント</b>で記述。<br>
-		「別バージョン」はコンポーネント名の配下に<strong>1行</strong>空けて、バージョン名を<b>コロン6つで飾ったコメント</b>で記述。<br>
-		コンポーネント間は<strong>2行</strong>空ける。</p>
+		「別バージョン」はコンポーネント名の配下に<strong>1行空け</strong>て、バージョン名を<b>コロン6つで飾ったコメント</b>で記述。<br>
+		コンポーネント間は<strong>2行空け</strong>る。</p>
 		<figure class="c-syntax" data-lang="css">
 			@charset "utf-8";
 			
@@ -362,9 +358,9 @@
 			.c-component2 {}
 			︙
 		</figure>
-		<p><b>セレクタ</b>の後に半角スペースを空けて開き波括弧<small>（<code>{</code>）</small>の後で改行。<br>
-		波括弧内は<strong>タブ</strong>でインデント。<b>プロパティ</b>の後にコロン<small>（<code>:</code>）</small>、半角スペースを空けて<b>値</b>を記述し、行末にセミコロン<small>（<code>;</code>）</small>を付けて改行。<br>
-		スタイル終わりの行は閉じ波括弧<small>（<code>}</code>）</small>のみ。</p>
+		<p><b>セレクタ</b>の後に半角スペースを空けて<b>開き波括弧</b><small>（<code>{</code>）</small>の後で改行。<br>
+		波括弧内は<strong>タブ</strong>でインデント。<b>プロパティ</b>の後に<b>コロン</b><small>（<code>:</code>）</small>、半角スペースを空けて<b>値</b>を記述し、行末に<b>セミコロン</b><small>（<code>;</code>）</small>を付けて改行。<br>
+		スタイル終わりの行は<b>閉じ波括弧</b><small>（<code>}</code>）</small>のみ。</p>
 		<figure class="c-syntax" data-lang="css">
 			.c-component {
 				display: grid;
@@ -374,12 +370,13 @@
 		<p>指定するスタイルがひとつだけの場合には、セレクタ、プロパティ、値を改行せず1行で記述してもよい。<small>※あくまで読み易さを意識する。</small></p>
 		<figure class="c-syntax" data-lang="css">
 			.carousel_arrow {
+				--arrowPosition: -24px;
 				cursor: pointer;
 				position: absolute;
 				︙
 			}
-			.carousel_arrow:where(.-prev) { left: -24px; }
-			.carousel_arrow:where(.-next) { right: -24px; }
+			.carousel_arrow:where(.-prev) { left: var(--arrowPosition); }
+			.carousel_arrow:where(.-next) { right: var(--arrowPosition); }
 		</figure>
 	</section>
 	
@@ -392,7 +389,7 @@
 
 <footer class="l-footer">
 	<div class="contentsinfo">
-		<h1 class="logo"><a href="https://lopan.cafe/component/">
+		<h1 class="logo"><a href="https://lopan.cafe/">
 			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
 			<span class="madeby">Made by Lopan.jp</span>
 		</a></h1>

@@ -2,8 +2,9 @@ import { AfterLoadedJs } from './_utility.js';
 
 /**
  * in-view
- * <ul class="js-inview" data-last=":last-child"></ul>
- * <ul class="js-inview" data-anim="animationName"></ul>
+ * <ul class="js-inview" data-last="li:last-child"></ul>
+ * <p class="js-inview" data-anim="animationName"></p>
+ * <figure class="js-inview" data-fluctuation></figure>
  * -------------------------------------------------- */
 export class InviewEffect {
 	constructor(elm) {
@@ -49,6 +50,25 @@ export class InviewEffect {
 					this.lastElmEnd(el, e);
 				}, { once: true });
 				
+			} else if (el.dataset.fluctuation !== undefined) {
+				if (document.querySelector('#fluctuation') !== null) {
+					anime({
+						targets: '#fluctuation feTurbulence',
+						baseFrequency: [0.01, 0],
+						duration: 2000,
+						easing: 'easeOutCubic'
+					});
+					anime({
+						targets: '#fluctuation feDisplacementMap',
+						scale: [100, 0],
+						duration: 2000,
+						easing: 'easeOutCubic'
+					});
+				}
+				el.addEventListener('transitionend', e => {
+					this.transitionendEnd(el, e);
+				}, { once: true });
+				
 			} else {
 				el.addEventListener('transitionend', e => {
 					this.transitionendEnd(el, e);
@@ -59,12 +79,18 @@ export class InviewEffect {
 		}
 	}
 	animationEnd(el, e) {
+		// animation-name が data-anim の値と同じだったら終了
 		if (e.animationName === el.dataset.anim) {
 			el.classList.remove('is-anim', 'js-inview');
 			el.removeAttribute('data-anim');
+		} else {
+			el.addEventListener('animationend', e => {
+				this.animationEnd(el, e);
+			}, { once: true });
 		}
 	}
 	lastElmEnd(el, e) {
+		// e.target が data-last に指定した要素だったら終了
 		if (e.target === el.querySelector(el.dataset.last)) {
 			el.classList.remove('is-anim', 'js-inview');
 			el.removeAttribute('data-last');
@@ -75,6 +101,7 @@ export class InviewEffect {
 		}
 	}
 	transitionendEnd(el, e) {
+		// e.target が 自身だったら終了
 		if (e.target === el) {
 			el.classList.remove('is-anim', 'js-inview');
 		} else {
@@ -185,7 +212,9 @@ export class SimpleMapping {
  -------------------------------------------------- */
 export class MagneticButton {
 	constructor() {
-		if (!LPN.isTouch && document.querySelector('.js-mgntc') !== null) this.setup();
+		if (!LPN.isTouch && document.querySelector('.js-mgntc') !== null) {
+			this.setup();
+		}
 	}
 	setup() {
 		this.winsize = this.calcWinsize();

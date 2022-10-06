@@ -30,7 +30,7 @@ export class SyntacConvert {
 		}
 	}
 	loadJs() {
-		new AfterLoadedJs('/component/assets/js/prism.js').then(
+		new AfterLoadedJs(`${LPN.Rp.returnRootPath()}assets/js/prism.js`).then(
 		resolve => {
 			document.addEventListener('readystatechange', e => {
 				// console.log(resolve, e.target.readyState);
@@ -41,7 +41,7 @@ export class SyntacConvert {
 		});
 	}
 	loadCss() {
-		new AfterLoadedCss('/component/assets/css/prism.css').then(
+		new AfterLoadedCss(`${LPN.Rp.returnRootPath()}assets/css/prism.css`).then(
 		resolve => {
 			document.addEventListener('readystatechange', e => {
 				// console.log(resolve, e.target.readyState);

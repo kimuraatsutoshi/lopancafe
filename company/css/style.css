@@ -14,6 +14,16 @@
 
 
 
+/* :::::: 会社概要 :::::: */
+.p-overview {}
+.p-overview ruby rp,
+.p-overview ruby rt {
+    display: inline;
+    font-size: smaller;
+}
+.p-overview .lie {
+    font-family: inherit;
+}
 
 
 
@@ -21,8 +31,7 @@
 
 
 
-
-
+/* :::::: アクセス :::::: */
 .p-access {}
 .access_container .address {
     line-height: 1.6;

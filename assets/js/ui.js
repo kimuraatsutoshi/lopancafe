@@ -31,7 +31,7 @@ export class UiBundle {
 			}
 		}
 		
-		if (document.querySelector('js-slider') !== null) {
+		if (document.querySelector('.js-slider') !== null) {
 			new FlickitySlider();
 		}
 		if (document.querySelector('.js-carousel') !== null) {
@@ -64,7 +64,7 @@ export class AnchorScroll {
 		} else {
 			// smooth なら pagetop の目的地 #top を用意しておく
 			if (document.querySelector('#top') === null) {
-				document.body.insertAdjacentHTML('afterbegin', '<a id="top"></a>');
+				document.body.insertAdjacentHTML('afterbegin', '<a id="top" class="u-visuallyhidden">ページの一番上</a>');
 			}
 		}
 	}

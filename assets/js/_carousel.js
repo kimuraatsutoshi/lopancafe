@@ -348,6 +348,8 @@ export class FlickitySlider {
 			draggable: opt.lock,
 			wrapAround: opt.loop,
 			autoPlay: opt.auto,
+			selectedAttraction: 0.01,
+			friction: 0.2,
 			cellSelector: opt.cell,
 			prevNextButtons: opt.arrow,
 			pageDots: opt.dots,
