@@ -7,10 +7,7 @@ import { AfterLoadedJs } from './_utility.js';
  -------------------------------------------------- */
 export class GoogleMapsApi {
 	constructor(APIkey) {
-		if (APIkey === undefined) {
-			console.log('※API キーがありません。');
-			
-		} else {
+		if (APIkey !== 'null') {
 			this.APIkey = APIkey;
 			this.loadAPI();
 		}

@@ -48,7 +48,8 @@ export class UiBundle {
 		}
 		
 		if (document.querySelector('.js-gm') !== null) {
-			new GoogleMapsApi('AIzaSyDAZ7gUMgcXPQuRUoIy3XQvckMa_BtLV9U');
+			const APIkey = null;
+			new GoogleMapsApi(`${APIkey}`);
 		}
 	}
 }
