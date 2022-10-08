@@ -476,7 +476,7 @@ export class PulldownUi {
 		}
 		this.refresh();
 		LPN.registFnc.onMainResize.push(() => {
-			this.refresh();
+			this.refresh(true);
 		});
 	}
 	setup(id, elm) {
@@ -484,6 +484,7 @@ export class PulldownUi {
 		const tabElms = elm.querySelectorAll('a[href], button');
 		this.SPF = 1000 / 60;
 		this.duration = 1000;
+		this.cancelScroll();
 		this.pullData[id] = {
 			isOpen: true,
 			toggle: toggle,
@@ -627,18 +628,30 @@ export class PulldownUi {
 		}
 		window.scrollTo(0, this.currentPos);
 	}
-	refresh() {
+	refresh(isResize) {
+		console.log(isResize);
 		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
 		this.scBtm = document.body.offsetHeight - window.innerHeight;
 		this.scMax = document.body.clientHeight - window.innerHeight;
+		
+		// .js-pullContent 内の最後の要素の底辺座標から最初の要素の頂点座標を引いて、中身の高さを取得
+		let lastElm, firstElm, bottomY, topY;
 		for (let id in this.pullData) {
-			if (!this.pullData[id].isOpen) {
-				this.pullData[id].content.removeAttribute('style');
-			}
-			this.pullData[id].contentHeight = this.pullData[id].content.getBoundingClientRect().height;
-			if (!this.pullData[id].isOpen) {
-				this.pullData[id].content.style.height = `${this.pullData[id].defaultHeight}px`;
-			}
+			lastElm = this.pullData[id].content.lastElementChild;
+			firstElm = this.pullData[id].content.firstElementChild;
+			bottomY = lastElm.getBoundingClientRect().bottom + parseFloat(window.getComputedStyle(lastElm)['margin-bottom']);
+			topY = firstElm.getBoundingClientRect().top - parseFloat(window.getComputedStyle(firstElm)['margin-top']);
+			this.pullData[id].contentHeight = bottomY - topY;
+		}
+	}
+	/* スワイプするかマウスホイールを操作したらスクロールを止める */
+	cancelScroll() {
+		if (LPN.isTouch) {
+			window.addEventListener('touchmove', () => { cancelAnimationFrame(this.timer); }, { once: true });
+		} else {
+			this.wheel = () => { cancelAnimationFrame(this.timer); }
+			window.addEventListener('DOMMouseScroll', () => { this.wheel(); }, { once: true });
+			window.onmousewheel = document.onmousewheel = this.wheel;
 		}
 	}
 	/* easeOutCubic ( https://easings.net/ ) */

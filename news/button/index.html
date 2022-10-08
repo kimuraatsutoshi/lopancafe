@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <title>ボタン - News - Lopan café</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta name="description" content="a要素やbutton要素に付与すれば押せそうな感じなるスタイル。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
 <meta property="og:site_name" content="Lopan café">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ボタン">
-<meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
-<meta property="og:url" content="https://lopan.cafe/">
-<meta property="og:image" content="https://lopan.cafe/ogp.jpg">
+<meta property="og:description" content="a要素やbutton要素に付与すれば押せそうな感じなるスタイル。">
+<meta property="og:url" content="https://lopan.cafe/news/button/">
+<meta property="og:image" content="https://lopan.cafe/news/button/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
@@ -20,7 +21,6 @@
 <link rel="stylesheet" href="../../assets/css/common.css">
 <link rel="stylesheet" href="../../assets/css/article.css">
 <link rel="stylesheet" href="../../assets/css/component.css">
-<link rel="stylesheet" href="../css/style.css">
 <script src="../../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
 <body>
@@ -62,6 +62,7 @@
 <main class="l-main page-news">
 	<div class="p-visual">
 		<h1 class="c-title">News</h1>
+		<figure class="bg"><img src="../../assets/img/news.webp" alt="" width="1200" height="630"></figure>
 	</div>
 	<div class="c-crumb">
 		<a href="../../">Home</a>
@@ -71,7 +72,7 @@
 	
 	<section id="buttonstyle" class="p-buttonstyle l-section">
 		<h2 class="c-title -bar">ボタン</h2>
-		<p class="c-lead">ボタンのためのスタイル。</p>
+		<p class="c-lead"><b>a要素</b>や<b>button要素</b>に付与すれば押せそうな感じなるスタイル。</p>
 		<p>ボタンの<ruby>基本<rt>ベース</ruby>スタイル、<b>a要素</b>にクラス<code>c-button</code>を付与し、a要素の中身は<em>文字列のみ</em>。<br>
 		矢印アイコンは<b>svg要素</b>で入れクラス<code>arr</code>を付与する。</p>
 		<a href="#" class="c-button">ボタン</a>
@@ -87,15 +88,43 @@
 		<figure class="c-syntax -wrap" data-lang="html">
 			&lt;a href="#" class="c-button"&gt;ボタン&lt;small&gt;（矢印はSVGで入れる）&lt;/small&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;use href="../../assets/img/ico.svg#arrow"/&gt;&lt;/svg&gt;&lt;/a&gt;
 		</figure>
-		<p>ただし、横幅を<em>最大320px</em>に固定しているため、長い文字列を入れる場合は意図的に<code>&lt;br&gt;</code>タグを入れるなどする。</p>
-		<a href="#" class="c-button">途中に&lt;wbr&gt;とか入るだけで<wbr>文字列が分断される<small>（改行されたわけではない）</small><svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="../../assets/img/ico.svg#arrow"/></svg></a>
+		<p>ただし、横幅を<em>最大320px</em>に固定しているため、長い文字列を入れる場合は意図的に<code>&lt;br&gt;</code>タグを入れるなどすると良い。</p>
+		<a href="#" class="c-button">途中に&lt;wbr&gt;とか入るだけで<wbr>文字列が縦に分断される<small>（改行されたわけではない）</small><svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="../../assets/img/ico.svg#arrow"/></svg></a>
 		<figure class="c-syntax -wrap" data-lang="html">
 			&lt;a href="#" class="c-button"&gt;途中に&lt;wbr&gt;とか入るだけで&lt;wbr&gt;文字列が分断される&lt;small&gt;（改行されたわけではない）&lt;/small&gt;&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;use href="../../assets/img/ico.svg#arrow"/&gt;&lt;/svg&gt;&lt;/a&gt;
 		</figure>
 		
+		<section class="p-disabled l-section">
+			<h3 class="c-title -s -bar">非活性</h3>
+			<p><b>input要素</b>もしくは<b>button要素</b>のボタンで、<strong>disabled属性</strong>が付与されている時はグレーアウトする。</p>
+			<input type="submit" class="c-button" disabled>
+			<button type="button" class="c-button" disabled>送信できない</button>
+			<figure class="c-syntax -wrap" data-lang="html">
+				&lt;input type="submit" class="c-button" disabled&gt;
+				&lt;button type="button" class="c-button" disabled&gt;送信できない&lt;/button&gt;
+			</figure>
+		</section>
+		
+		<section class="p-buttonsize l-section">
+			<h3 class="c-title -s -bar">サイズバリエーション</h3>
+			<p>サイズ違いがよっつ用意してある。<br>
+			クラス<code>-l</code>を併記すると<em>大きめボタン</em>、クラス<code>-s</code>を併記すると<em>小さめボタン</em>、クラス<code>-xl</code>を併記すると親要素の横幅いっぱいに広がる<em>大きいボタン</em>、クラス<code>-xs</code>を併記すると文字量に伴い横幅が広がる<em>小さいボタン</em>になる。<br>
+			コンポーネントから削除してもいいしカスタムしても良い。</p>
+			<input type="button" value="大きめボタン" class="c-button -l">
+			<button type="button" class="c-button -s">小さめボタン</button>
+			<button type="submit" class="c-button -xl">大きいボタン</button>
+			<input type="button" value="小さいボタン" class="c-button -xs">
+			<figure class="c-syntax -wrap" data-lang="html">
+				&lt;input type="button" value="大きめボタン" class="c-button -l"&gt;
+				&lt;button type="button" class="c-button -s"&gt;小さめボタン&lt;/button&gt;
+				&lt;button type="submit" class="c-button -xl"&gt;大きいボタン&lt;/button&gt;
+				&lt;input type="button" value="小さいボタン" class="c-button -xs"&gt;
+			</figure>
+		</section>
+		
 		<section class="p-morebutton l-section">
-			<h3 class="c-title -s -bar">ひとまわり小さめ</h3>
-			<p>通常ボタンより<em>ひとまわり小さいボタン</em>は、主に「もっと見る」に使われることを見越してクラス<code>c-more</code>を使う。</p>
+			<h3 class="c-title -s -bar">もっと見る</h3>
+			<p>「小さめボタン」よりもう少し小さな、主に「<b>もっと見る</b>」に使われることを見越したクラス<code>c-more</code>も用意。</p>
 			<a href="#" class="c-more">もっと見る</a>
 			<figure class="c-syntax -wrap" data-lang="html">
 				&lt;a href="#" class="c-more"&gt;もっと見る&lt;/a&gt;
@@ -104,48 +133,26 @@
 		
 		<section class="p-tagbutton l-section">
 			<h3 class="c-title -s -bar">タグ</h3>
-			<p>さらに小さなボタンぽいデザイン「<strong>タグ</strong>」は、<b>a要素</b>もしくは<b>span要素</b>にクラス<code>c-tag</code>を付与する。ボタンと違い、横幅は文字量にフィットする。</p>
-			<span class="c-tag">イラスト</span><a href="#" class="c-tag">グラフィックデザイン</a>
+			<p>さらに小さなボタンぽいスタイル「<strong>タグ</strong>」は、<b>span要素</b>はたまた<b>a要素</b>にクラス<code>c-tag</code>を付与する。<br>
+			ボタンと違い、周囲の余白が少なく、角丸も小さくスタイリングされる。</p>
+			<span class="c-tag">イラスト</span>
+			<a href="#" class="c-tag">グラフィックデザイン</a>
 			<figure class="c-syntax -wrap" data-lang="html">
-				&lt;span class="c-tag"&gt;イラスト&lt;/span&gt;&lt;a href="#" class="c-tag"&gt;グラフィックデザイン&lt;/a&gt;
+				&lt;span class="c-tag"&gt;イラスト&lt;/span&gt;
+				&lt;span class="c-tag"&gt;グラフィックデザイン&lt;/span&gt;
 			</figure>
-			<p>アーカイブ一覧で使用するとフォントサイズが小さめになる。</p>
+			<p>コンポーネント「アーカイブ一覧」の中で使用するとフォントサイズが小さめになる。</p>
 			<ul class="c-archivelist -bar">
 				<li class="archive_item container">
 					<dl class="text">
 						<dt class="date">2022.12.22</dt>
 						<dd class="tags"><span class="c-tag">Media</span><span class="c-tag">スキャンダル</span></dd>
-						<dd class="title">「週刊文春にスクープされました」とか、割と長めのテキストが入っても良い想定のタイトル。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="../../assets/img/ico.svg#arrow"/></svg></dd>
+						<dd class="title">「週刊文春にスクープされました」とか、割と長めのテキストが入っても良い想定のタイトル。</dd>
 					</dl>
 					<figure class="image"><img src="../../assets/img/transparent-texture/eyecatch.webp" alt="" width="600" height="400" loading="lazy"></figure>
 				</li>
 			</ul>
-		</section>
-		
-		<section class="p-pullbutton l-section">
-			<h3 class="c-title -s -bar">プルダウン専用</h3>
-			<p>プルダウンUIで使う用のボタン、<code>arr</code>を付与したSVGの下向き矢印を、<b>button要素</b>で括りクラス<code>c-pullbutton</code>を付与する。</p>
-			<button type="button" class="c-pullbutton">
-				<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="../../assets/img/ico.svg#pull"/></svg>
-			</button>
-			<figure class="c-syntax -wrap" data-lang="html">
-				&lt;button type="button" class="c-pullbutton"&gt;
-					&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;use href="../../assets/img/ico.svg#pull"/&gt;&lt;/svg&gt;
-				&lt;/button&gt;
-			</figure>
-		</section>
-		
-		<section class="p-pullbutton l-section">
-			<h3 class="c-title -s -bar">いいね</h3>
-			<p>SVGで置いた<b>ハートアイコン</b>にクラス<code>ico</code>を付与し、それを<b>button要素</b>で括りクラス<code>c-likebutton</code>を付与する。</p>
-			<button type="button" class="c-likebutton">
-				<svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#heart"/></svg>
-			</button>
-			<figure class="c-syntax -wrap" data-lang="html">
-				&lt;button type="button" class="c-likebutton"&gt;
-					&lt;svg width="24" height="24" viewBox="0 0 24 24" class="ico"&gt;&lt;use href="../../assets/img/ico.svg#heart"/&gt;&lt;/svg&gt;
-				&lt;/button&gt;
-			</figure>
+			<a href="../archivelist/" class="c-button -xs">アーカイブ一覧について</a>
 		</section>
 	</section>
 </main>
@@ -154,7 +161,7 @@
 	<div class="contentsinfo">
 		<h1 class="logo"><a href="https://lopan.cafe/">
 			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
-			<span class="madeby">Made by Lopan.jp</span>
+			<span class="madeby">Lopan café</span>
 		</a></h1>
 		<ul class="menu -nav">
 			<li><a href="../../about/">About</a></li>
@@ -178,7 +185,7 @@
 		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
 		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
 	</div>
-	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
 </footer>
 
 <svg class="u-visuallyhidden">

@@ -137,6 +137,7 @@
  * ---------------------------------------- */
 .c-button,
 .c-more {
+	cursor: pointer;
 	display: inline-grid;
 	place-items: center;
 	position: relative;
@@ -147,7 +148,7 @@
 	border: 2px solid var(--themecolor);
 	border-radius: 8px;
 	color: white;
-	line-height: 1.4;
+	line-height: 1.6;
 	font-weight: 500;
 	white-space: nowrap;
 	letter-spacing: inherit;
@@ -195,6 +196,23 @@ input.c-button:disabled {
 	color: #eeeff1;
 	background: #dadcde;
 }
+/* サイズ */
+.c-button:where(.-xl) {
+	max-width: none;
+	min-height: 96px;
+}
+.c-button:where(.-l) {
+	max-width: 400px;
+	min-height: 72px;
+}
+.c-button:where(.-s) {
+	max-width: 240px;
+	min-height: 56px;
+}
+.c-button:where(.-xs) {
+	width: fit-content;
+	min-height: 0;
+}
 
 /* :::::: もっとみる :::::: */
 .c-more {
@@ -225,6 +243,7 @@ input.c-button:disabled {
 	border: 1px solid var(--themecolor);
 	border-radius: 4px;
 	color: white;
+	line-height: 1.2;
 	background: var(--themecolor);
 }
 .c-tag[href] {
@@ -238,47 +257,6 @@ input.c-button:disabled {
 		color: var(--themecolor);
 		background: white;
 		transition-duration: .1s;
-	}
-}
-
-/* :::::: プルダウンボタン :::::: */
-.c-pullbutton {
-	display: inline-grid;
-	place-items: center;
-	position: relative;
-	width: 32px;
-	height: 32px;
-	border-radius: 48px;
-	border: 1.5px solid var(--themecolor);
-	border-radius: 32px;
-	color: white;
-	line-height: 0;
-	background: var(--themecolor);
-}
-.c-pullbutton.is-active {
-	color: var(--themecolor);
-	background: white;
-}
-.c-pullbutton .arr {
-	width: 40%;
-	fill: none;
-	stroke: currentcolor;
-	stroke-width: 3;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-}
-@media (hover: hover) {
-	.c-pullbutton {
-		transition: color .4s, background .4s;
-	}
-	.c-pullbutton:hover {
-		color: var(--themecolor);
-		background: white;
-		transition-duration: .1s;
-	}
-	.c-pullbutton.is-active:hover {
-		color: white;
-		background: var(--themecolor);
 	}
 }
 
@@ -1219,7 +1197,13 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 		#fff0
 	);
 	mask-image: linear-gradient(
-		to left, #fff0, #fff var(--sideSpace), #fff calc(100% - var(--sideSpace)), #fff0
+		to right,
+		#fff0,
+		#fff2 calc(var(--sideSpace) / 3),
+		#fff var(--sideSpace),
+		#fff calc(100% - var(--sideSpace)),
+		#fff2 calc(100% - var(--sideSpace) / 3),
+		#fff0
 	);
 }
 .js-carousel.-gradient .carousel_reel {
@@ -1336,19 +1320,10 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 		margin: 0;
 	}
 	.c-storyboard .c-title {
-		grid-area: 1 / 2 ;
 		align-self: flex-end;
 	}
-	.c-storyboard .c-lead {
-		grid-area: 2 / 2;
-	}
-	.c-storyboard .c-button,
-	.c-storyboard .c-more {
-		grid-area: 3 / 2;
-		align-self: flex-start;
-	}
 	.c-storyboard .image {
-		grid-area: 1 / 1 / 4 / 2;
+		grid-row: 1 / 4;
 		align-self: center;
 	}
 	.c-storyboard .image,
@@ -1358,13 +1333,12 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	.c-storyboard .image img {
 		object-fit: cover;
 	}
-	.c-storyboard:where(.-reverse) .c-title,
-	.c-storyboard:where(.-reverse) .c-lead,
-	.c-storyboard:where(.-reverse) .c-button,
-	.c-storyboard:where(.-reverse) .c-more {
-		grid-column: 1 / 2;
+	.c-storyboard .image,
+	.c-storyboard.-reverse :not(.image) {
+		grid-column: 1 / 2 ;
 	}
-	.c-storyboard:where(.-reverse) .image {
+	.c-storyboard :not(.image),
+	.c-storyboard.-reverse .image {
 		grid-column: 2 / 3;
 	}
 }
@@ -1447,7 +1421,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 .c-table th {
 	padding: .6em 1em;
 	border: 1px solid var(--gainsboro);
-	line-height: 1.4;
+	line-height: 1.6;
 }
 .c-table th {
 	white-space: nowrap;
@@ -1488,7 +1462,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	white-space: nowrap;
 }
 html.wf-active .c-table .-v {
-	line-height: 1.4;
+	line-height: 1.6;
 }
 
 /* 角丸にしたい時は separate じゃないと駄目 */
@@ -1678,15 +1652,19 @@ html.wf-active .c-table .-v {
 	position: relative;
 	overflow: hidden;
 }
-.js-pullContent[data-default]::after {
-	content: "";
-	pointer-events: none;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	height: 100%;
-	background: linear-gradient(to top, #fff, #fff2 80%, #fff0);
+.js-pullContent.-gradient[data-default] {
+	-webkit-mask-position: center top;
+	-webkit-mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-image: linear-gradient(
+		to bottom, #fff 30%, #fff2 70%, #fff0
+	);
+	mask-position: center top;
+	mask-size: 100% 100%;
+	mask-repeat: no-repeat;
+	mask-image: linear-gradient(
+		to bottom, #fff 30%, #fff2 70%, #fff0
+	);
 }
 .js-pullToggle {
 	cursor: pointer;
@@ -1704,7 +1682,63 @@ html.wf-active .c-table .-v {
 	height: fit-content;
 	margin: auto;
 }
+/* button */
+.c-pull {
+	display: inline-grid;
+	place-items: center;
+	position: relative;
+	width: 32px;
+	height: 32px;
+	border-radius: 48px;
+	border: 1.5px solid var(--themecolor);
+	border-radius: 32px;
+	color: white;
+	line-height: 0;
+	background: var(--themecolor);
+}
+:where(.js-pullContent[data-default]) + .c-pull {
+	top: -16px;
+}
+.c-pull.-border::before {
+	content: "";
+	z-index: -1;
+	position: absolute;
+	top: calc(50% - 1px);
+	border-image: linear-gradient(gainsboro, gainsboro) fill 0 / 0 / .5px 50vw;
+}
+.c-pull.is-active {
+	color: var(--themecolor);
+	background: white;
+}
+.c-pull .arr {
+	width: 40%;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+@media (hover: hover) {
+	.c-pull {
+		transition: color .4s, background .4s;
+	}
+	.c-pull:hover {
+		color: var(--themecolor);
+		background: white;
+		transition-duration: .1s;
+	}
+	.c-pull.is-active:hover {
+		color: white;
+		background: var(--themecolor);
+	}
+}
 /* motion */
+.js-pullContent.-gradient[data-default].is-active {
+	-webkit-mask-size: 100% 300%;
+}
+.js-pullContent:not([data-default]):not(.is-active) {
+	opacity: 0;
+}
 .js-pullToggle.is-active .arr {
 	transform: rotateX(180deg);
 }
@@ -1717,18 +1751,20 @@ html.wf-active .c-table .-v {
 .js-pullToggle.is-anim:not(.is-active) .close {
 	transform: translateY(.5em);
 }
-.js-pullContent[data-default].is-active::after,
-.js-pullContent:not([data-default]):not(.is-active) {
-	opacity: 0;
+.js-pullContent[data-default].is-anim {
+	transition: height .6s var(--easeInOut);
 }
-.js-pullContent.is-anim {
+.js-pullContent.-gradient[data-default].is-anim {
+	animation: gradientFade .6s both;
+}
+.js-pullContent.-gradient[data-default].is-anim:not(.is-active) {
+	animation: gradientFade .6s reverse both;
+}
+.js-pullContent:not([data-default]).is-anim {
 	transition: opacity .6s, height .6s var(--easeInOut);
 }
-.js-pullContent.is-anim:not(.is-active) {
+.js-pullContent:not([data-default]).is-anim:not(.is-active) {
 	transition-timing-function: ease, var(--easeOut);
-}
-.js-pullContent[data-default].is-anim::after {
-	transition: opacity .4s;
 }
 .js-pullToggle.is-anim .arr {
 	transition: transform .4s var(--easeOut);
@@ -1736,4 +1772,8 @@ html.wf-active .c-table .-v {
 .js-pullToggle.is-anim .open,
 .js-pullToggle.is-anim .close {
 	transition: opacity .4s, transform .4s var(--easeOut);
+}
+@keyframes gradientFade {
+	from { -webkit-mask-size: 100% 100%; }
+	to { -webkit-mask-size: 100% 300%; }
 }

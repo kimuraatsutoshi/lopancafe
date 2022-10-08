@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <title>Google マップ - Works - Lopan café</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta name="description" content="WebサイトにGoogle マップを埋め込む方法と、Maps JavaScript APIを使ったGoogle マップの実装。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
 <meta property="og:site_name" content="Lopan café">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Google マップ">
-<meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
-<meta property="og:url" content="https://lopan.cafe/">
-<meta property="og:image" content="https://lopan.cafe/ogp.jpg">
+<meta property="og:description" content="WebサイトにGoogle マップを埋め込む方法と、Maps JavaScript APIを使ったGoogle マップの実装。">
+<meta property="og:url" content="https://lopan.cafe/works/gm/">
+<meta property="og:image" content="https://lopan.cafe/works/gm/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
@@ -62,6 +63,7 @@
 <main class="l-main page-works">
 	<div class="p-visual">
 		<h1 class="c-title">Works</h1>
+		<figure class="bg"><img src="../../assets/img/works.webp" alt="" width="1200" height="630"></figure>
 	</div>
 	<div class="c-crumb">
 		<a href="../../">Home</a>
@@ -69,14 +71,14 @@
 		<a href="./" aria-current="page">Google マップ</a>
 	</div>
 	
-	<section class="p-embed l-section">
+	<section id="embed" class="p-embed l-section">
 		<h2 class="c-title -bar">地図を埋め込む</h2>
-		<p>Googleの検索結果で「共有」を選択して「<b>地図を埋め込む</b>」の「HTML をコピー」したものをペーストした結果。</p>
+		<p class="c-lead">Googleの検索結果で「共有」を選択して「<b>地図を埋め込む</b>」の「HTML をコピー」したHTMLをペーストする。</p>
 		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.5837490032973!2d139.70084081556627!3d35.662625838598835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cac05404a1b%3A0xe7e4267bc5d3e90a!2sLopan.jp!5e0!3m2!1sja!2sjp!4v1662125872242!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="p-map"></iframe>
 		<figure class="c-syntax -wrap" data-lang="html">
 			&lt;iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.5837490032973!2d139.70084081556627!3d35.662625838598835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cac05404a1b%3A0xe7e4267bc5d3e90a!2sLopan.jp!5e0!3m2!1sja!2sjp!4v1662125872242!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="p-map"&gt;&lt;/iframe&gt;
 		</figure>
-		<p>コピペした後、要素の最後に<code>class="p-map"</code>を追記して、以下のCSSを適用している。</p>
+		<p>コピペした後、<b>iframe要素</b>の最後に<b>class属性</b>を足し、<code>p-map</code>を指定し、以下のCSSを適用している。</p>
 		<figure class="c-syntax" data-lang="css">
 			.p-map {
 				width: 100%;
@@ -90,7 +92,7 @@
 			<source srcset="img/embed.webp" type="image/webp">
 			<img src="img/embed.jpg" alt="" width="1512" height="945">
 		</picture></figure>
-		<p class="u-mt4">「リンクを送信する」の「リンクをコピー」から、Google マップ<small>（アプリ）</small>で閲覧できるURLも得られる。</p>
+		<p class="u-mt4">「<b>リンクを送信する</b>」から「リンクをコピー」すれば、Google マップ<small>（アプリ）</small>で閲覧できるURLも得られる。</p>
 		<a href="https://goo.gl/maps/m7ge93u5UEcZ9ycg8" class="c-button" rel="noopener">Google マップで見る</a>
 		<figure class="c-syntax -wrap" data-lang="html">
 			&lt;a href="https://goo.gl/maps/m7ge93u5UEcZ9ycg8" class="c-button" rel="noopener"&gt;Google マップで見る&lt;/a&gt;
@@ -98,91 +100,123 @@
 		<p>地図を載せたいだけならばこれで十分。ただし、Googleのユーザー情報が載るし、見た目のカスタマイズはできない。</p>
 	</section>
 	
-	<section class="p-api l-section">
+	<section id="api" class="p-api l-section">
 		<h2 class="c-title -bar">Maps JavaScript API</h2>
-		<p>「地図を埋め込む」と違い、iframeではなく<em>サイトに直接Google マップを生成</em>する。ここでは、Google マップ上の<b>デフォルトのUI</b>を非表示にして、<b>ズームコントロール</b>だけ表示している。</p>
-		<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp"></div>
-		<p>head要素内にscript要素を使って、APIを読み込む。<br>APIを利用するために必要な<strong>API キー</strong>は、<a href="https://console.cloud.google.com/apis/library?hl=ja" class="c-textlink">Google Cloud プラットフォーム</a>にて作成。</p>
+		<p class="c-lead">「地図を埋め込む」と違い、JavaScriptを介して<em>サイトに直接Google マップを生成</em>する。</p>
+		<p>まず、<b>head要素内</b>にscript要素を使って、<strong>JavaScript API</strong>を読み込む。<br>APIを利用するために必要な<strong>API キー</strong>は、<a href="https://console.cloud.google.com/apis/library?hl=ja" class="c-textlink">Google Cloud プラットフォーム</a>にて作成する。</p>
 		<figure class="c-syntax" data-lang="html">
 			&lt;script src="https://maps.googleapis.com/maps/api/js?key={API キー}" defer&gt;&lt;/script&gt;
 		</figure>
-		<p>地図を表示したい場所に、任意のid属性を付けたdiv要素を設置。</p>
-		<figure class="c-syntax" data-lang="html">
-			&lt;div id="googlemap" class="p-map"&gt;&lt;/div&gt;
-		</figure>
-		<p>JavaScriptで<strong>google.maps.Mapクラス</strong>を使ってGoogle マップを生成。オプションの<code>disableDefaultUI: true</code>がデフォルトのUIを非表示にする。</p>
-		<figure class="c-syntax" data-lang="js">
-			const latlng = { lat: 35.6625258, lng: 139.7028806 };
-			const map = new google.maps.Map(document.getElementById('googlemap'), {
-				name: 'lopan',
-				center: latlng,
-				zoom: 18,
-				disableDefaultUI: true, // デフォルトの UI を非表示にする
-				zoomControl: true // ズームコントロールだけ表示する
-			});
-		</figure>
-		<a href="https://developers.google.com/maps/documentation/javascript/reference/map#Map" class="c-button">Mapクラスについて<br>詳しくはこちらを参照のこと</a>
 		
 		<section class="api_section l-section">
-			<h3 class="c-title -hyphen -s">マーカーを追加する</h3>
-			<p>上のマップの座標に、オリジナルの<b>マーカー</b>を設置したところ。</p>
-			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker></div>
-			<p>マーカーを設置するには<strong>google.maps.Markerクラス</strong>を使う。オプションの<code>icon</code>がなければデフォルトのマーカーが表示される。</p>
-			<figure class="c-syntax" data-lang="js">
-				const marker = new google.maps.Marker({
-					position: latlng,
-					title: 'Lopan.jp',
-					icon: {
-						url: 'marker.svg',
-						scaledSize: new google.maps.Size(60,70)
-					},
-					map: map
-				});
-				/* マーカーをクリックしたら中央に戻る処理 */
-				marker.addListener('click', () => {
-					map.panTo(latlng);
-				});
+			<h3 class="c-title -bar -s">地図を設置する</h3>
+			<p>地図を表示したい場所に、<b>空のdiv要素</b>を置きクラス<code>js-gm</code>を付与し、<b>カスタムdata属性</b>「<code>data-gm</code>」の値に、<b>緯度</b>、<b>経度</b>の順に<em>カンマ区切り</em>で記述する。<br>
+			Google マップ上の<b>デフォルトのUI</b>を非表示にして、<b>ズームコントロール</b>だけ表示されたGoogle マップが生成される。</p>
+			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18"></div>
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="p-map js-gm" data-gm="35.6625258,139.7028806,18"&gt;&lt;/div&gt;
 			</figure>
-			<a href="https://developers.google.com/maps/documentation/javascript/reference/marker#Marker" class="c-button">Markerクラスについて<br>詳しくはこちらを参照のこと</a>
+			<section class="l-section -column">
+				<h3 class="c-title -hyphen -xs">Google マップを生成する「Mapクラス」</h3>
+				<p>JavaScriptで<strong>google.maps.Mapクラス</strong>を使ってGoogle マップを生成する。<br>
+				オプションの<code>disableDefaultUI: true</code>が、Google マップのデフォルトのUIを非表示にする。</p>
+				<figure class="c-syntax" data-lang="js">
+					const latlng = { lat: 35.6625258, lng: 139.7028806 };
+					const map = new google.maps.Map(document.querySelector('.js-gm'), {
+						name: 'Lopan.jp',
+						center: latlng,
+						zoom: 18,
+						disableDefaultUI: true, // デフォルトの UI を非表示にする
+						zoomControl: true // ズームコントロールだけ表示する
+					});
+				</figure>
+				<a href="https://developers.google.com/maps/documentation/javascript/reference/map#Map" class="c-button">Mapクラスについて<br>詳しくはこちらを参照のこと</a>
+			</section>
 		</section>
 		
 		<section class="api_section l-section">
-			<h3 class="c-title -hyphen -s">地図のスタイルを変える</h3>
-			<p>マップの見た目をグレーに変更したところ。</p>
+			<h3 class="c-title -bar -s">マーカーを追加する</h3>
+			<p>クラス<code>js-gm</code>を付与した空のdiv要素に、カスタムdata属性「<code>data-marker</code><small>（値はなし）</small>」を指定するとマーカーが表示される。<br>
+			<b>data-gm属性</b>の値に、さらにカンマで区切って<em>文字列</em>を入れるとそれはマーカーの<b>title属性</b>となる<small>（カーソルを合わせると表示される）</small>。</p>
+			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker></div>
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker&gt;&lt;/div&gt;
+			</figure>
+			<section class="l-section -column">
+				<h4 class="c-title -hyphen -xs">マーカーを追加する「Markerクラス」</h4>
+				<p>マーカーを設置するには<strong>google.maps.Markerクラス</strong>を使う。オプションの<code>icon</code>がなければデフォルトのマーカーが表示される。</p>
+				<figure class="c-syntax" data-lang="js">
+					const marker = new google.maps.Marker({
+						position: latlng,
+						title: 'Lopan.jp',
+						icon: {
+							url: 'marker.svg',
+							scaledSize: new google.maps.Size(60,70)
+						},
+						map: map
+					});
+					/* マーカーをクリックしたら中央に戻る処理 */
+					marker.addListener('click', () => {
+						map.panTo(latlng);
+					});
+				</figure>
+				<a href="https://developers.google.com/maps/documentation/javascript/reference/marker#Marker" class="c-button">Markerクラスについて<br>詳しくはこちらを参照のこと</a>
+			</section>
+		</section>
+		
+		<section class="api_section l-section">
+			<h3 class="c-title -bar -s">地図のスタイルを変える</h3>
+			<p>さらに、カスタムdata属性「<code>data-mono</code><small>（値はなし）</small>」を指定すると、地図がモノクロになる。</p>
 			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker data-mono></div>
-			<p>マップのスタイルを変更するには<strong>google.maps.StyledMapTypeクラス</strong>を使う。</p>
-			<figure class="c-syntax" data-lang="js">
-				const styles  = [{
-					"stylers": [{
-						"saturation": -100 // 彩度を無にする
-					}]
-				}];
-				const monoType = new google.maps.StyledMapType(styles, { name: 'MonoMap' });
-				map.mapTypes.set('mono', monoType);
-				map.setMapTypeId('mono');
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker data-mono&gt;&lt;/div&gt;
 			</figure>
-			<p class="u-mt4"><code>styles</code>の値を調整してもう少しカスタマイズ。<br>
-			文字情報を非表示にすることもできる<small>（ここではズームコントロールも表示していない）</small>。</p>
+			<section class="l-section -column">
+				<h4 class="c-title -hyphen -xs">地図のスタイルを変える「StyledMapTypeクラス」</h4>
+				<p>マップのスタイルを変更するには<strong>google.maps.StyledMapTypeクラス</strong>を使う。</p>
+				<figure class="c-syntax" data-lang="js">
+					const styles  = [{
+						"stylers": [{
+							"saturation": -100 // 彩度を無にする
+						}]
+					}];
+					const monoType = new google.maps.StyledMapType(styles, { name: 'MonoMap' });
+					map.mapTypes.set('mono', monoType);
+					map.setMapTypeId('mono');
+				</figure>
+			</section>
+		</section>
+		
+		<section class="api_section l-section">
+			<h3 class="c-title -bar -s">地図をもっとシンプルにする</h3>
+			<p>さらに、カスタムdata属性「<code>data-simple</code><small>（値はなし）</small>」を指定すると、地図がもっとシンプルになる。</p>
 			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker data-simple></div>
-			<figure class="c-syntax" data-lang="js">
-				const styles  = [{
-					"elementType": "geometry",
-					"stylers": [{
-						"saturation": -50 // ジオメトリ (地形描画) の彩度を淡くする
-					}, {
-						"visibility": "simplified" // ジオメトリの表示をシンプル設定する
-					}]
-				},{
-					"elementType": "labels",
-					"stylers": [{
-						"visibility": "off" // ラベル (文字情報) を非表示にする
-					}]
-				}];
-				const simpleType = new google.maps.StyledMapType(styles, { name: 'SimpleMap' });
-				map.mapTypes.set('simple', simpleType);
-				map.setMapTypeId('simple');
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker data-simple&gt;&lt;/div&gt;
 			</figure>
-			<a href="https://developers.google.com/maps/documentation/javascript/reference/image-overlay#StyledMapType" class="c-button">StyledMapTypeクラスについて<br>詳しくはこちらを参照のこと</a>
+			<section class="l-section -column">
+				<h4 class="c-title -hyphen -xs">StyledMapTypeクラスの細かな調整</h4>
+				<p>地図の<strong>ジオメトリ<small>（地形描画）</small></strong>と、<strong>ラベル<small>（文字情報）</small></strong>ごとに、細かくスタイルを調整できる。</p>
+				<figure class="c-syntax" data-lang="js">
+					const styles  = [{
+						"elementType": "geometry",
+						"stylers": [{
+							"saturation": -50 // ジオメトリ (地形描画) の彩度を淡くする
+						}, {
+							"visibility": "simplified" // ジオメトリの表示をシンプル設定する
+						}]
+					},{
+						"elementType": "labels",
+						"stylers": [{
+							"visibility": "off" // ラベル (文字情報) を非表示にする
+						}]
+					}];
+					const simpleType = new google.maps.StyledMapType(styles, { name: 'SimpleMap' });
+					map.mapTypes.set('simple', simpleType);
+					map.setMapTypeId('simple');
+				</figure>
+				<a href="https://developers.google.com/maps/documentation/javascript/reference/image-overlay#StyledMapType" class="c-button">StyledMapTypeクラスについて<br>詳しくはこちらを参照のこと</a>
+			</section>
 		</section>
 	</section>
 </main>
@@ -191,7 +225,7 @@
 	<div class="contentsinfo">
 		<h1 class="logo"><a href="https://lopan.cafe/">
 			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
-			<span class="madeby">Made by Lopan.jp</span>
+			<span class="madeby">Lopan café</span>
 		</a></h1>
 		<ul class="menu -nav">
 			<li><a href="../../about/">About</a></li>
@@ -215,7 +249,7 @@
 		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
 		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
 	</div>
-	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
 </footer>
 
 <svg class="u-visuallyhidden">

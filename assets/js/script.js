@@ -22,7 +22,7 @@ import { UiBundle } from './ui.js';
 	
 	// フォントの読み込み完了を待つ
 	document.fonts.addEventListener('loadingdone', e => {
-		console.log('fonts.loadingdone', e);
+		// console.log('fonts.loadingdone', e);
 	});
 	
 	// HTML 文書の読み込み完了を待つ

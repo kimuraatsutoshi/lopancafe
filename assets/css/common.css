@@ -353,7 +353,7 @@ section[id] {
 	margin: 0 auto;
 }
 .l-footer .logo a {
-	display: flex;
+	display: inline-flex;
 	align-items: flex-end;
 	padding: 8px 4px;
 }
@@ -365,9 +365,10 @@ section[id] {
 }
 .l-footer .logo .madeby {
 	margin-left: .5em;
-	font-size: 16px;
+	font-size: 20px;
 	line-height: 1.4;
 	font-family: 'Ubuntu Condensed', sans-serif;
+	letter-spacing: .068em;
 	white-space: nowrap;
 }
 .l-footer .address {
@@ -380,6 +381,9 @@ section[id] {
 	flex-wrap: wrap;
 	column-gap: 8px;
 	margin: 8px 0 0;
+}
+.l-footer .menu:where(.-sns) {
+	margin-top: 16px;
 }
 .l-footer .menu a {
 	padding: 8px;
@@ -604,6 +608,11 @@ section[id] {
 .u-mt8 { margin-top: 64px !important; }
 .u-mt9 { margin-top: 72px !important; }
 .u-mt10 { margin-top: 80px !important; }
+.u-mb0 { margin-bottom: 0 !important; }
+
+.u-alignl { text-align: left !important; }
+.u-alignc { text-align: center !important; }
+.u-alignr { text-align: right !important; }
 
 @media print, (min-width: 768px) {
 	.u-mb { display: none; }

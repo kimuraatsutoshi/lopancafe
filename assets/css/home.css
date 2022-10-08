@@ -117,8 +117,16 @@
 /**
  * About
  * ---------------------------------------- */
+.p-about .c-title {
+	color: inherit;
+}
 .p-about .c-button {
 	margin-top: 40px;
+}
+@media screen and (min-width: 768px) {
+	.p-about .c-lead {
+		text-align: center;
+	}
 }
 
 
@@ -128,8 +136,8 @@
 .p-news .c-archivelist {
 	margin-top: 40px;
 }
-.p-news .c-button {
-	margin-top: 40px;
+.p-news .c-more {
+	margin-top: 24px;
 }
 
 

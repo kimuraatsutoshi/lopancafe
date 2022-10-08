@@ -5,12 +5,6 @@
  * ---------------------------------------- */
 .page-news {}
 
-/* :::::: ボタン :::::: */
-.c-button.-l {
-	max-width: fit-content;
-	padding-right: calc(.5em + 32px);
-}
-
 
 /* :::::: ブログの記事一覧 :::::: */
 @media (hover: hover) {

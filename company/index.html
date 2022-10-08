@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <title>Company - Lopan café</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta name="description" content="Companyページにありそうなレイアウトやマークアップ。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
 <meta property="og:site_name" content="Lopan café">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Company">
-<meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta property="og:description" content="Companyページにありそうなレイアウトやマークアップ。例えば会社概要や沿革やアクセスマップ。">
 <meta property="og:url" content="https://lopan.cafe/company/">
 <meta property="og:image" content="https://lopan.cafe/company/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
@@ -69,8 +70,8 @@
 		<a href="./" aria-current="page">Company</a>
 	</div>
 	
-	<section class="p-greet c-storyboard l-section">
-		<h3 class="c-title -hyphen">ごあいさつ</h3>
+	<section class="p-greet c-storyboard l-section u-mb0">
+		<h2 class="c-title -hyphen">ごあいさつ<small>（ストーリーボード）</small></h2>
 		<p class="c-lead">おはようよう、こんにちえいそ！</p>
 		<blockquote cite="https://ja.wikipedia.org/wiki/アーカイブ">
 			<p><ruby class="yomigana" style="ruby-position:inline; display:inline"><rb style="display:inline; white-space:normal; font-variant-east-asian:normal"><b>挨拶</b></rb><span class="rp">（</span><rt style="display:inline; white-space:normal; font-size:inherit; font-variant-east-asian:normal">あいさつ</rt><span class="rp">）</span></ruby>（<a href="/wiki/%E3%83%95%E3%83%A9%E3%83%B3%E3%82%B9%E8%AA%9E" title="フランス語">仏</a>: <span lang="fr">salutation</span>）とは、出会う際や別れ際など、特定の際に純粋な<a href="/wiki/%E3%83%9E%E3%83%8A%E3%83%BC" title="マナー">礼儀</a>やその他の意図をもって行われる形式的（<a href="/wiki/%E8%8B%B1%E8%AA%9E" title="英語">英</a>: <span lang="en">formal</span>）な<a href="/wiki/%E8%AA%9E" title="語">語</a><a href="/wiki/%E5%8F%A5" title="句">句</a>や<a href="/wiki/%E8%A1%8C%E5%8B%95" title="行動">動作</a>のこと。あるいは、式典などで儀礼的に述べる<ruby class="yomigana"><rb title="読み：じ">辞</rb><rp style="font-size:0px">（</rp><rt style="font-size:0px">じ</rt><rp style="font-size:0px">）</rp></ruby>をいうこともある。</p>
@@ -79,8 +80,28 @@
 		<figure class="image"><img src="../assets/img/ex.webp" alt="" width="1200" height="630" loading="lazy"></figure>
 	</section>
 	
+	<section class="p-storyboard l-section -column u-mt5">
+		<h2 class="c-title -s -hyphen">ストーリーボード</h2>
+		<p class="c-lead">画像と文字情報を左右に並べるレイアウト。ただしビューポートが狭い時は、タイトル、画像、その他文字情報の順に縦に積まれる。</p>
+		<p>親要素にクラス<code>c-storyboard</code>を付与し、中身は、タイトル<small>（<code>.c-title</code>）</small>、その他<em>文字情報を含む要素をふたつ</em>、画像<small>（<code>.image</code>）</small>の順に置く。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;section class="p-greet c-storyboard l-section"&gt;
+				&lt;h3 class="c-title -hyphen"&gt;ごあいさつ&lt;/h3&gt;
+				&lt;p class="c-lead"&gt;おはようよう、こんにちえいそ！&lt;/p&gt;
+				&lt;blockquote cite="https://ja.wikipedia.org/wiki/アーカイブ"&gt;
+					︙
+				&lt;/blockquote&gt;
+				&lt;figure class="image"&gt;&lt;img src="../assets/img/ex.webp" alt="" width="1200" height="630" loading="lazy"&gt;&lt;/figure&gt;
+			&lt;/section&gt;
+		</figure>
+	</section>
+	
 	<section class="p-overview l-section">
-		<h3 class="c-title -hyphen">会社概要</h3>
+		<h2 class="c-title -hyphen">会社概要<small>（テーブルリスト）</small></h2>
+		<p class="c-lead">さまざまな事項を一覧表にレイアウトするスタイル<small>（一問一答向け）</small>。</p>
+		<p>項目に対する内容が<em>ひとつ</em>の場合に使えるスタイル。<b>dl要素</b>でマークアップした内容を、<strong>テーブル要素</strong>のようにレイアウトする。<br>
+		dl要素にクラス<code>c-tablelist</code>を付与し、中身は項目ごとに、クラス<code>row</code>を付与した<b>div要素</b>で仕分け、その中に<em>一組の</em><b>dt/dd要素</b>を入れる。<br>
+		この中では、ruby要素でマークアップした<b>ふりがな</b>も<b>インライン要素</b>として展開される。</p>
 		<dl class="c-tablelist">
 			<div class="row">
 				<dt>屋号</dt>
@@ -116,7 +137,7 @@
 					<dt>Lopan.jp</dt>
 					<dd>Webデザインとかサイト制作について、知ってる事知らない事を展開するサイト。</dd>
 					<dt>Lopan café</dt>
-					<dd>Lopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。</dd>
+					<dd>Webサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。</dd>
 				</dl></dd>
 			</div>
 		</dl>
@@ -132,7 +153,10 @@
 	</section>
 	
 	<section class="p-history l-section">
-		<h3 class="c-title -hyphen">沿革</h3>
+		<h2 class="c-title -hyphen">沿革<small>（グリッドリスト）</small></h2>
+		<p class="c-lead">さまざまな事項を一覧表にレイアウトするスタイル<small>（年表とかスケジュール向け）</small>。</p>
+		<p><b>dl要素</b>でマークアップした内容を、<strong>グリッド</strong>でレイアウトする。<br>
+		dl要素にクラス<code>c-gridlist</code>を付与し、その中に直接<b>dt/dd要素</b>を項目ごとに並べる。</p>
 		<dl class="c-gridlist">
 			<dt>2012</dt>
 			<dd>土曜、仏滅、七夕、個人事業開業届を出しに行く</dd>
@@ -157,11 +181,11 @@
 	</section>
 	
 	<section class="p-access l-section">
-		<h3 class="c-title -hyphen">Access</h3>
+		<h2 class="c-title -hyphen">Access</h2>
 		<div class="access_container">
 			<div class="p-map js-gm" data-gm="35.6625258,139.7028806,18,Lopan.jp" data-marker data-simple></div>
 			<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10 <wbr>Shibuya-ku Shibuya <wbr>Tokyo</p>
-			<a href="../works/gm/" class="c-button">Google マップについて</a>
+			<a href="../works/gm/#api" class="c-button">Google マップについて</a>
 		</div>
 		<figure class="c-syntax" data-lang="html">
 			&lt;div class="access_container"&gt;
@@ -177,7 +201,7 @@
 	<div class="contentsinfo">
 		<h1 class="logo"><a href="https://lopan.cafe/">
 			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
-			<span class="madeby">Made by Lopan.jp</span>
+			<span class="madeby">Lopan café</span>
 		</a></h1>
 		<ul class="menu -nav">
 			<li><a href="../about/">About</a></li>
@@ -201,7 +225,7 @@
 		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
 		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
 	</div>
-	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
 </footer>
 
 <svg class="u-visuallyhidden">

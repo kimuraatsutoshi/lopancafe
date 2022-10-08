@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <title>プルダウンUI - Works - Lopan café</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
+<meta name="description" content="コンテンツを途中まで隠すUI。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
 <meta property="og:site_name" content="Lopan café">
 <meta property="og:type" content="website">
 <meta property="og:title" content="カルーセル">
-<meta property="og:description" content="Lopan caféはLopan.jpがよく使うパターン集。レイアウトとUIとエフェクトとコンポーネント、例えばアーカイブ一覧やモーダルやタブやアコーディオン。">
-<meta property="og:url" content="https://lopan.cafe/">
-<meta property="og:image" content="https://lopan.cafe/ogp.jpg">
+<meta property="og:description" content="コンテンツを途中まで隠すUI。">
+<meta property="og:url" content="https://lopan.cafe/works/pulldown/">
+<meta property="og:image" content="https://lopan.cafe/works/pulldown/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
@@ -20,7 +21,6 @@
 <link rel="stylesheet" href="../../assets/css/common.css">
 <link rel="stylesheet" href="../../assets/css/article.css">
 <link rel="stylesheet" href="../../assets/css/component.css">
-<link rel="stylesheet" href="css/style.css">
 <script src="../../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
 <body>
@@ -62,6 +62,7 @@
 <main class="l-main page-works">
 	<div class="p-visual">
 		<h1 class="c-title">Works</h1>
+		<figure class="bg"><img src="../../assets/img/works.webp" alt="" width="1200" height="630"></figure>
 	</div>
 	<div class="c-crumb">
 		<a href="../../">Home</a>
@@ -71,22 +72,24 @@
 	
 	<section id="pulldown" class="p-pulldown l-section">
 		<h2 class="c-title -bar">プルダウンUI</h2>
+		<p class="c-lead">コンテンツを途中まで隠すUI。</p>
 		<p>隠したい要素にクラス<code>js-pullContent</code>を付与し、開閉させるボタンにクラス<code>js-pullToggle</code>を付与。それぞれに<b>data-pull属性</b>で「ユニークな同じ値<small>（ここでは<code>story2</code>）</small>」を指定し紐付ける。<br>
-		隠したい要素には<b>data-default属性</b>で<em>隠しておく時の要素の高さ</em>を指定する。指定がない場合は、初期値「<code>0</code>」で、完全に隠れる。</p>
+		隠したい要素には<b>data-default属性</b>で<em>隠しておく時の要素の高さ</em>を指定する。指定がない場合は、初期値「<code>0</code>」で、完全に隠れる。<br>
+		開閉させるボタンに、span要素を使って<code>.open</code>要素と<code>.close</code>要素を入れておくと、開閉時に切り替わる。</p>
 		<div class="js-pullContent" data-pull="story2" data-default="240">
 			<h4>二、活版所</h4>
 			<p>　ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして校庭の<ruby><rb>隅</rb><rp>（</rp><rt>すみ</rt><rp>）</rp></ruby>の<ruby><rb>桜</rb><rp>（</rp><rt>さくら</rt><rp>）</rp></ruby>の木のところに集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す<ruby><rb>烏瓜</rb><rp>（</rp><rt>からすうり</rt><rp>）</rp></ruby>を取りに行く相談らしかったのです。<br>　けれどもジョバンニは手を大きく<ruby><rb>振</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの<ruby><rb>枝</rb><rp>（</rp><rt>えだ</rt><rp>）</rp></ruby>にあかりをつけたりいろいろ<ruby><rb>仕度</rb><rp>（</rp><rt>したく</rt><rp>）</rp></ruby>をしているのでした。<br>　家へは帰らずジョバンニが町を三つ曲ってある大きな活版処にはいってすぐ入口の計算台に居ただぶだぶの白いシャツを着た人におじぎをしてジョバンニは<ruby><rb>靴</rb><rp>（</rp><rt>くつ</rt><rp>）</rp></ruby>をぬいで上りますと、<ruby><rb>突</rb><rp>（</rp><rt>つ</rt><rp>）</rp></ruby>き当りの大きな<ruby><rb>扉</rb><rp>（</rp><rt>と</rt><rp>）</rp></ruby>をあけました。中にはまだ昼なのに電燈がついてたくさんの輪転器がばたりばたりとまわり、きれで頭をしばったりラムプシェードをかけたりした人たちが、何か歌うように読んだり数えたりしながらたくさん働いて<ruby><rb>居</rb><rp>（</rp><rt>お</rt><rp>）</rp></ruby>りました。<br>　ジョバンニはすぐ入口から三番目の高い<ruby><rb>卓子</rb><rp>（</rp><rt>テーブル</rt><rp>）</rp></ruby>に<ruby><rb>座</rb><rp>（</rp><rt>すわ</rt><rp>）</rp></ruby>った人の所へ行っておじぎをしました。その人はしばらく<ruby><rb>棚</rb><rp>（</rp><rt>たな</rt><rp>）</rp></ruby>をさがしてから、<br>「これだけ拾って行けるかね。」と云いながら、一枚の紙切れを<ruby><rb>渡</rb><rp>（</rp><rt>わた</rt><rp>）</rp></ruby>しました。ジョバンニはその人の卓子の足もとから一つの小さな平たい<ruby><rb>函</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をとりだして向うの電燈のたくさんついた、たてかけてある<ruby><rb>壁</rb><rp>（</rp><rt>かべ</rt><rp>）</rp></ruby>の隅の所へしゃがみ<ruby><rb>込</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>むと小さなピンセットでまるで<ruby><rb>粟粒</rb><rp>（</rp><rt>あわつぶ</rt><rp>）</rp></ruby>ぐらいの活字を次から次と拾いはじめました。青い胸あてをした人がジョバンニのうしろを通りながら、<br>「よう、虫めがね君、お早う。」と云いますと、近くの四五人の人たちが声もたてずこっちも向かずに冷くわらいました。<br>　ジョバンニは何べんも眼を<ruby><rb>拭</rb><rp>（</rp><rt>ぬぐ</rt><rp>）</rp></ruby>いながら活字をだんだんひろいました。<br>　六時がうってしばらくたったころ、ジョバンニは拾った活字をいっぱいに入れた平たい<ruby><rb>箱</rb><rp>（</rp><rt>はこ</rt><rp>）</rp></ruby>をもういちど手にもった紙きれと引き合せてから、さっきの卓子の人へ持って来ました。その人は<ruby><rb>黙</rb><rp>（</rp><rt>だま</rt><rp>）</rp></ruby>ってそれを受け取って<ruby><rb>微</rb><rp>（</rp><rt>かす</rt><rp>）</rp></ruby>かにうなずきました。<br>　ジョバンニはおじぎをすると扉をあけてさっきの計算台のところに来ました。するとさっきの白服を着た人がやっぱりだまって小さな銀貨を一つジョバンニに渡しました。ジョバンニは<ruby><rb>俄</rb><rp>（</rp><rt>にわ</rt><rp>）</rp></ruby>かに顔いろがよくなって<ruby><rb>威勢</rb><rp>（</rp><rt>いせい</rt><rp>）</rp></ruby>よくおじぎをすると台の下に置いた<ruby><rb>鞄</rb><rp>（</rp><rt>かばん</rt><rp>）</rp></ruby>をもっておもてへ飛びだしました。それから元気よく<ruby><rb>口笛</rb><rp>（</rp><rt>くちぶえ</rt><rp>）</rp></ruby>を<ruby><rb>吹</rb><rp>（</rp><rt>ふ</rt><rp>）</rp></ruby>きながらパン屋へ寄ってパンの<ruby><rb>塊</rb><rp>（</rp><rt>かたまり</rt><rp>）</rp></ruby>を一つと角砂糖を一<ruby><rb>袋</rb><rp>（</rp><rt>ふくろ</rt><rp>）</rp></ruby>買いますと<ruby><rb>一目散</rb><rp>（</rp><rt>いちもくさん</rt><rp>）</rp></ruby>に走りだしました。</p>
 		</div>
-		<button type="button" class="c-pullbutton js-pullToggle" data-pull="story2">
-			<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="../../assets/img/ico.svg#pull"/></svg>
+		<button type="button" class="c-more -xs js-pullToggle" data-pull="story2">
+			<span class="open">もっと見る</span><span class="close">閉じる</span>
 		</button>
 		<figure class="c-syntax" data-lang="html">
 			&lt;div class="js-pullContent" data-pull="story2" data-default="240"&gt;
 				&lt;h4&gt;二、活版所&lt;/h4&gt;
 				︙
 			&lt;/div&gt;
-			&lt;button type="button" class="c-pullbutton js-pullToggle" data-pull="story2"&gt;
-				&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;use href="../../assets/img/ico.svg#pull"/&gt;&lt;/svg&gt;
+			&lt;button type="button" class="c-more -xs js-pullToggle" data-pull="story2"&gt;
+				&lt;span class="open"&gt;もっと見る&lt;/span&gt;&lt;span class="close"&gt;閉じる&lt;/span&gt;
 			&lt;/button&gt;
 		</figure>
 		<div class="l-section -column">
@@ -95,6 +98,48 @@
 				&lt;p&gt;開閉させるボタンはいくつでも置け、&lt;b&gt;data-pull属性&lt;/b&gt;で紐付けた隠したい要素を開閉させることができるので、例えば、&lt;span class="c-textlink js-pullToggle" data-pull="story2"&gt;ここをクリック&lt;/span&gt;しても、上のコンテンツを開閉できる。&lt;/p&gt;
 			</figure>
 		</div>
+		
+		<section class="l-section">
+			<h3 class="c-title -bar -s">プルダウンしそうなボタン</h3>
+			<p>プルダウン専用のボタンも用意してある。button要素にクラス<code>c-pull</code>を付与し、中身には下向き矢印アイコンを置く。</p>
+			<div class="js-pullContent" data-pull="story5" data-default="200">
+				<h4>五、<ruby><rb>天気輪</rb><rp>（</rp><rt>てんきりん</rt><rp>）</rp></ruby>の柱</h4>
+				<p>　牧場のうしろはゆるい丘になって、その黒い平らな頂上は、北の<ruby><rb>大熊星</rb><rp>（</rp><rt>おおぐまぼし</rt><rp>）</rp></ruby>の下に、ぼんやりふだんよりも低く連って見えました。<br>　ジョバンニは、もう露の降りかかった小さな林のこみちを、どんどんのぼって行きました。まっくらな草や、いろいろな形に見えるやぶのしげみの間を、その小さなみちが、一すじ白く星あかりに照らしだされてあったのです。草の中には、ぴかぴか青びかりを出す小さな虫もいて、ある葉は青くすかし出され、ジョバンニは、さっきみんなの持って行った<ruby><rb>烏瓜</rb><rp>（</rp><rt>からすうり</rt><rp>）</rp></ruby>のあかりのようだとも思いました。<br>　そのまっ黒な、松や<ruby><rb>楢</rb><rp>（</rp><rt>なら</rt><rp>）</rp></ruby>の林を<ruby><rb>越</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>えると、<ruby><rb>俄</rb><rp>（</rp><rt>にわ</rt><rp>）</rp></ruby>かにがらんと空がひらけて、<ruby><rb>天</rb><rp>（</rp><rt>あま</rt><rp>）</rp></ruby>の<ruby><rb>川</rb><rp>（</rp><rt>がわ</rt><rp>）</rp></ruby>がしらしらと南から北へ<ruby><rb>亘</rb><rp>（</rp><rt>わた</rt><rp>）</rp></ruby>っているのが見え、また<ruby><rb>頂</rb><rp>（</rp><rt>いただき</rt><rp>）</rp></ruby>の、天気輪の柱も見わけられたのでした。つりがねそうか野ぎくかの花が、そこらいちめんに、<ruby><rb>夢</rb><rp>（</rp><rt>ゆめ</rt><rp>）</rp></ruby>の中からでも<ruby><rb>薫</rb><rp>（</rp><rt>かお</rt><rp>）</rp></ruby>りだしたというように咲き、鳥が一<ruby><rb>疋</rb><rp>（</rp><rt>ぴき</rt><rp>）</rp></ruby>、丘の上を鳴き続けながら通って行きました。<br>　ジョバンニは、頂の天気輪の柱の下に来て、どかどかするからだを、つめたい草に投げました。<br>　町の灯は、<ruby><rb>暗</rb><rp>（</rp><rt>やみ</rt><rp>）</rp></ruby>の中をまるで海の底のお宮のけしきのようにともり、子供らの歌う声や口笛、きれぎれの<ruby><rb>叫</rb><rp>（</rp><rt>さけ</rt><rp>）</rp></ruby>び声もかすかに聞えて来るのでした。風が遠くで鳴り、丘の草もしずかにそよぎ、ジョバンニの<ruby><rb>汗</rb><rp>（</rp><rt>あせ</rt><rp>）</rp></ruby>でぬれたシャツもつめたく冷されました。ジョバンニは町のはずれから遠く黒くひろがった野原を見わたしました。<br>　そこから汽車の音が聞えてきました。その小さな列車の窓は一列小さく赤く見え、その中にはたくさんの旅人が、<ruby><rb>苹果</rb><rp>（</rp><rt>りんご</rt><rp>）</rp></ruby>を<ruby><rb>剥</rb><rp>（</rp><rt>む</rt><rp>）</rp></ruby>いたり、わらったり、いろいろな風にしていると考えますと、ジョバンニは、もう何とも云えずかなしくなって、また眼をそらに挙げました。<br>　あああの白いそらの帯がみんな星だというぞ。<br>　ところがいくら見ていても、そのそらはひる先生の云ったような、がらんとした冷いとこだとは思われませんでした。それどころでなく、見れば見るほど、そこは小さな林や牧場やらある野原のように考えられて仕方なかったのです。そしてジョバンニは青い<ruby><rb>琴</rb><rp>（</rp><rt>こと</rt><rp>）</rp></ruby>の星が、三つにも四つにもなって、ちらちら<ruby><rb>瞬</rb><rp>（</rp><rt>またた</rt><rp>）</rp></ruby>き、脚が何べんも出たり引っ<ruby><rb>込</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>んだりして、とうとう<ruby><rb>蕈</rb><rp>（</rp><rt>きのこ</rt><rp>）</rp></ruby>のように長く延びるのを見ました。またすぐ眼の下のまちまでがやっぱりぼんやりしたたくさんの星の集りか一つの大きなけむりかのように見えるように思いました。</p>
+			</div>
+			<button type="button" class="c-pull -border js-pullToggle" data-pull="story5">
+				<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="../../assets/img/ico.svg#pull"/></svg>
+			</button>
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="js-pullContent" data-pull="story5" data-default="200"&gt;
+					&lt;h4&gt;五、&lt;ruby&gt;&lt;rb&gt;天気輪&lt;/rb&gt;&lt;rp&gt;（&lt;/rp&gt;&lt;rt&gt;てんきりん&lt;/rt&gt;&lt;rp&gt;）&lt;/rp&gt;&lt;/ruby&gt;の柱&lt;/h4&gt;
+					︙
+				&lt;/div&gt;
+				&lt;button type="button" class="c-pull -border js-pullToggle" data-pull="story5"&gt;
+					&lt;svg width="24" height="24" viewBox="0 0 24 24" class="arr"&gt;&lt;use href="../../assets/img/ico.svg#pull"/&gt;&lt;/svg&gt;
+				&lt;/button&gt;
+			</figure>
+		</section>
+		
+		<section class="l-section">
+			<h3 class="c-title -bar -s">グラデーションして隠す</h3>
+			<p>隠したい要素にクラス<code>-gradient</code>を併記すると、隠れる時に下部がグラデーションで消えてゆくようになる。</p>
+			<div class="js-pullContent -gradient" data-pull="story6" data-default="200">
+				<h4>六、銀河ステーション</h4>
+				<p>　そしてジョバンニはすぐうしろの天気輪の柱がいつかぼんやりした三角標の形になって、しばらく<ruby><rb>蛍</rb><rp>（</rp><rt>ほたる</rt><rp>）</rp></ruby>のように、ぺかぺか消えたりともったりしているのを見ました。それはだんだんはっきりして、とうとうりんとうごかないようになり、<ruby><rb>濃</rb><rp>（</rp><rt>こ</rt><rp>）</rp></ruby>い<ruby><rb>鋼青</rb><rp>（</rp><rt>こうせい</rt><rp>）</rp></ruby>のそらの野原にたちました。いま新らしく<ruby><rb>灼</rb><rp>（</rp><rt>や</rt><rp>）</rp></ruby>いたばかりの青い<ruby><rb>鋼</rb><rp>（</rp><rt>はがね</rt><rp>）</rp></ruby>の板のような、そらの野原に、まっすぐにすきっと立ったのです。<br>　するとどこかで、ふしぎな声が、銀河ステーション、銀河ステーションと<ruby><rb>云</rb><rp>（</rp><rt>い</rt><rp>）</rp></ruby>う声がしたと思うといきなり眼の前が、ぱっと明るくなって、まるで億万の<ruby><rb>蛍烏賊</rb><rp>（</rp><rt>ほたるいか</rt><rp>）</rp></ruby>の火を一ぺんに化石させて、そら中に<ruby><rb>沈</rb><rp>（</rp><rt>しず</rt><rp>）</rp></ruby>めたという<ruby><rb>工合</rb><rp>（</rp><rt>ぐあい</rt><rp>）</rp></ruby>、またダイアモンド会社で、ねだんがやすくならないために、わざと<ruby><rb>穫</rb><rp>（</rp><rt>と</rt><rp>）</rp></ruby>れないふりをして、かくして置いた<ruby><rb>金剛石</rb><rp>（</rp><rt>こんごうせき</rt><rp>）</rp></ruby>を、<ruby><rb>誰</rb><rp>（</rp><rt>たれ</rt><rp>）</rp></ruby>かがいきなりひっくりかえして、ばら<ruby><rb>撒</rb><rp>（</rp><rt>ま</rt><rp>）</rp></ruby>いたという風に、眼の前がさあっと明るくなって、ジョバンニは、思わず何べんも眼を<ruby><rb>擦</rb><rp>（</rp><rt>こす</rt><rp>）</rp></ruby>ってしまいました。<br>　気がついてみると、さっきから、ごとごとごとごと、ジョバンニの乗っている小さな列車が走りつづけていたのでした。ほんとうにジョバンニは、夜の軽便鉄道の、小さな黄いろの電燈のならんだ車室に、窓から外を見ながら<ruby><rb>座</rb><rp>（</rp><rt>すわ</rt><rp>）</rp></ruby>っていたのです。車室の中は、青い<ruby><rb>天蚕絨</rb><rp>（</rp><rt>びろうど</rt><rp>）</rp></ruby>を張った<ruby><rb>腰掛</rb><rp>（</rp><rt>こしか</rt><rp>）</rp></ruby>けが、まるでがら明きで、向うの<ruby><rb>鼠</rb><rp>（</rp><rt>ねずみ</rt><rp>）</rp></ruby>いろのワニスを塗った<ruby><rb>壁</rb><rp>（</rp><rt>かべ</rt><rp>）</rp></ruby>には、<ruby><rb>真鍮</rb><rp>（</rp><rt>しんちゅう</rt><rp>）</rp></ruby>の大きなぼたんが二つ光っているのでした。<br>　すぐ前の席に、ぬれたようにまっ黒な上着を着た、せいの高い子供が、窓から頭を出して外を見ているのに気が付きました。そしてそのこどもの<ruby><rb>肩</rb><rp>（</rp><rt>かた</rt><rp>）</rp></ruby>のあたりが、どうも見たことのあるような気がして、そう思うと、もうどうしても誰だかわかりたくて、たまらなくなりました。いきなりこっちも窓から顔を出そうとしたとき、俄かにその子供が頭を引っ込めて、こっちを見ました。<br>　それはカムパネルラだったのです。<br />
+			</div>
+			<button type="button" class="c-more -xs js-pullToggle" data-pull="story6">
+				<span class="open">もっと見る</span><span class="close">閉じる</span>
+			</button>
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="js-pullContent -gradient" data-pull="story6" data-default="200"&gt;
+					&lt;h4&gt;六、銀河ステーション&lt;/h4&gt;
+					︙
+				&lt;/div&gt;
+				&lt;button type="button" class="c-more -xs js-pullToggle" data-pull="story6"&gt;
+					&lt;span class="open"&gt;もっと見る&lt;/span&gt;&lt;span class="close"&gt;閉じる&lt;/span&gt;
+				&lt;/button&gt;
+			</figure>
+		</section>
 	</section>
 </main>
 
@@ -102,7 +147,7 @@
 	<div class="contentsinfo">
 		<h1 class="logo"><a href="https://lopan.cafe/">
 			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
-			<span class="madeby">Made by Lopan.jp</span>
+			<span class="madeby">Lopan café</span>
 		</a></h1>
 		<ul class="menu -nav">
 			<li><a href="../../about/">About</a></li>
@@ -126,7 +171,7 @@
 		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
 		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
 	</div>
-	<p class="copyright"><small>© 2006 Lopan.jp</small></p>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
 </footer>
 
 <svg class="u-visuallyhidden">
