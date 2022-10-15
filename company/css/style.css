@@ -41,6 +41,9 @@
     height: 320px;
     margin-top: 40px;
 }
+.access_container .p-map:not([style]) {
+	background: whitesmoke;
+}
 @media print, (min-width: 768px) {
     .access_container {
         display: grid;

@@ -63,6 +63,9 @@
 	margin-block: 24px;
 	border-radius: 8px;
 }
+.page-works .p-map:not([style]) {
+	background: whitesmoke;
+}
 .page-works .api_section {
 	margin-top: 64px;
 }
