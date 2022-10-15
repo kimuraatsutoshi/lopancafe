@@ -17,6 +17,9 @@ export class UiBundle {
 		if (document.querySelector('.js-pullContent') !== null) {
 			new PulldownUi();
 		}
+		if (document.querySelector('.c-pullmenu') !== null) {
+			new PullmenuUi();
+		}
 		
 		if (document.querySelector('.js-copy') !== null) {
 			const copyElms = document.getElementsByClassName('js-copy');
@@ -48,7 +51,7 @@ export class UiBundle {
 		}
 		
 		if (document.querySelector('.js-gm') !== null) {
-			const APIkey = null;
+			const APIkey = 'AIzaSyDAZ7gUMgcXPQuRUoIy3XQvckMa_BtLV9U';
 			new GoogleMapsApi(`${APIkey}`);
 		}
 	}
@@ -630,7 +633,7 @@ export class PulldownUi {
 		window.scrollTo(0, this.currentPos);
 	}
 	refresh(isResize) {
-		console.log(isResize);
+		// console.log(isResize);
 		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
 		this.scBtm = document.body.offsetHeight - window.innerHeight;
 		this.scMax = document.body.clientHeight - window.innerHeight;
@@ -658,6 +661,27 @@ export class PulldownUi {
 	/* easeOutCubic ( https://easings.net/ ) */
 	easing(x) {
 		return 1 - Math.pow(1 - x, 3);
+	}
+}
+
+/**
+ * プルメニュー UI (767px 未満はアコーディオン)
+ -------------------------------------------------- */
+export class PullmenuUi {
+	constructor() {
+		const menu = document.getElementsByClassName('c-pullmenu')[0];
+		const parent = menu.getElementsByClassName('parent');
+	}
+	// 最後の要素の底辺座標から最初の要素の頂点座標を引いて、中身の高さを取得
+	returnContainerHeight(elms) {
+		const lastElm = elms.lastElementChild;
+		const firstElm = elms.firstElementChild;
+		const bottomY = lastElm.getBoundingClientRect().bottom + parseFloat(window.getComputedStyle(lastElm)['margin-bottom']);
+		const topY = firstElm.getBoundingClientRect().top - parseFloat(window.getComputedStyle(firstElm)['margin-top']);
+		return bottomY - topY;
+	}
+	addListener(elm) {
+		
 	}
 }
 

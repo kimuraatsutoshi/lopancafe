@@ -171,36 +171,6 @@
 
 
 /**
- * YouTube
- * ---------------------------------------- */
-.p-video .c-button {
-	margin-top: 40px;
-}
-.c-video.js-inview.is-anim {
-	filter: url(#fluctuation);
-	transition-duration: 2s;
-}
-
-
-/**
- * Google マップ
- * ---------------------------------------- */
-.p-googlemap .p-map {
-	height: 480px;
-	margin: 40px calc(50% - 50vw) 0;
-}
-.gm-style img[src$="marker.svg"] {
-	filter: drop-shadow(2px 4px 6px rgba(0,0,0,.1));
-}
-.gm-style div[aria-label="マップ"] > div:first-child > div:nth-child(4) > div:last-child {
-	overflow: visible !important;
-}
-.p-googlemap .c-button {
-	margin-top: 40px;
-}
-
-
-/**
  * お問い合わせ
  * ---------------------------------------- */
 .c-conversion {

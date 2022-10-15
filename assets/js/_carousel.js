@@ -55,6 +55,7 @@ export class Carousel {
 		});
 		// DOM ツリーが変更されたことを監視する
 		this.mutationObserver = new MutationObserver((mutationList, observer) => {
+			if (mutationList[0].target !== document.documentElement) return;
 			mutationList
 			.filter(x => x.removedNodes.length > 0)
 			.forEach(mutation => {
@@ -305,7 +306,7 @@ export class FlickitySlider {
 		new AfterLoadedJs('https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js').then(
 		resolve => {
 			document.addEventListener('readystatechange', e => {
-				console.log(resolve, e.target.readyState);
+				// console.log(resolve, e.target.readyState);
 				this.init();
 			});
 		},
@@ -316,7 +317,7 @@ export class FlickitySlider {
 	loadCss() {
 		new AfterLoadedCss(`${LPN.Rp.returnRootPath()}assets/css/flickity.css`).then(
 		resolve => {
-			console.log('readystatechange:', resolve);
+			// console.log('readystatechange:', resolve);
 		},
 		error => {
 			console.log(error.message);

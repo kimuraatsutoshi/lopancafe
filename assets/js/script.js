@@ -142,7 +142,7 @@ import { UiBundle } from './ui.js';
 		if (LPN.isTouch) doc.classList.add('is-touch');
 		if (window.innerWidth !== doc.clientWidth) {
 			doc.classList.add('has-scrollbar');
-			doc.style.setProperty('--scroll-bar-width', window.innerWidth - doc.clientWidth + 'px');
+			doc.style.setProperty('--scrollBarWidth', window.innerWidth - doc.clientWidth + 'px');
 		}
 	})();
 })();

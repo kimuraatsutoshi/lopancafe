@@ -1025,7 +1025,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 @media print, (min-width: 1104px) {
 	/* MEMO: セクション幅 960px + 矢印ボタンのズレ 72px * 2 = 1104px */
 	.c-archivelist .flickity-viewport {
-		margin-inline: calc(50% - 50vw);
+		margin-inline: var(--breakout);
 	}
 	.c-archivelist .flickity-slider {
 		width: calc(100% - (100vw - 480px * 2));
@@ -1036,13 +1036,155 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 		width: calc(50vw - 480px);
 	}
 	.c-archivelist .flickity-viewport::before {
-		left: calc(50% - 50vw);
+		left: var(--breakout);
 	}
 	.c-archivelist .flickity-viewport::after {
-		right: calc(50% - 50vw);
+		right: var(--breakout);
 	}
 	.c-archivelist .flickity-prev-next-button.previous { left: -64px; }
 	.c-archivelist .flickity-prev-next-button.next { right: -64px; }
+}
+
+
+/**
+ * プルメニュー
+ * ---------------------------------------- */
+.c-pullmenu {
+	display: flex;
+	z-index: 1;
+	position: relative;
+	max-width: 100%;
+}
+.c-pullmenu li {
+	white-space: nowrap;
+	flex-grow: 1;
+	text-align: center;
+}
+.c-pullmenu a,
+.c-pullmenu button {
+	display: block;
+	width: 100%;
+	padding: .5em 2em;
+	background: #fafafd;
+	text-align: inherit;
+}
+.c-pullmenu a:focus,
+.c-pullmenu button:focus {
+	z-index: 1;
+	position: relative;
+}
+.c-pullmenu .parent {
+	position: relative;
+}
+.c-pullmenu .children {
+	z-index: 1;
+	position: absolute;
+	margin: 0;
+}
+/* 矢印アイコン */
+.c-pullmenu .parent button {
+	position: relative;
+}
+.c-pullmenu .parent button::after {
+	content: "";
+	z-index: 1;
+	width: .6em;
+	height: .6em;
+	fill: none;
+	stroke: currentcolor;
+	background: url("data:image/svg+xml, %3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M22%2C6l-10%2C12L2%2C6%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
+	/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22,6l-10,12L2,6"/></svg> */
+	transition: transform .4s var(--easeOut);
+}
+.c-pullmenu .parent button:hover::after,
+.c-pullmenu .parent button:focus-within::after,
+.c-pullmenu button:has(~ .children :hover)::after,
+.c-pullmenu button:has(~ .children :focus-within)::after {
+	transform: translateY(.3em);
+	transition-duration: .1s;
+}
+.c-pullmenu button:focus-within,
+.c-pullmenu button:has(~ .children :focus-within) {
+	background: #eeeff1;
+}
+@media (hover: hover) {
+	.c-pullmenu a:hover {
+		color: white;
+		background: var(--themecolor);
+	}
+	.c-pullmenu button:hover,
+	.c-pullmenu button:has(~ .children :hover) {
+		background: #eeeff1;
+	}
+}
+@media print, (min-width: 768px) {
+	/* 768px 以上はメニュー下にプルダウン */
+	.c-pullmenu .parent button::after {
+		position: absolute;
+		top: calc(50% - .3em);
+		right: 1em;
+	}
+	.c-pullmenu .parent .parent button::after {
+		rotate: -90deg;
+	}
+	.c-pullmenu .children {
+		min-width: 100%;
+		margin: 0;
+		transition: clip-path .4s var(--easeOut);
+	}
+	.c-pullmenu .children li {
+		text-align: left;
+	}
+	/* 子 */
+	.c-pullmenu .parent > .children {
+		top: 100%;
+		left: 0;
+		clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+	}
+	.c-pullmenu .parent:hover > .children,
+	.c-pullmenu .parent:focus-within > .children {
+		clip-path: polygon(0 0, 300% 0, 300% 100%, 0 100%);
+		transition-duration: .1s;
+	}
+	/* 孫 */
+	.c-pullmenu .parent .parent > .children {
+		top: 0;
+		left: 100%;
+		clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+	}
+	.c-pullmenu .parent .parent:hover > .children,
+	.c-pullmenu .parent .parent:focus-within > .children {
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		transition-duration: .1s;
+	}
+}
+@media screen and (max-width: 767px) {
+	/* 768px 未満はメニューに重なってプルダウン */
+	.c-pullmenu {
+		flex-direction: column;
+	}
+	.c-pullmenu li {
+		text-align: left;
+	}
+	.c-pullmenu .parent button::after {
+		display: inline-block;
+		margin-left: 1em;
+	}
+	.c-pullmenu .children {
+		top: 100%;
+		left: 3em;
+		box-shadow: 0 4px 8px rgba(0,0,0,.1);
+		transition: opacity .4s, transform .4s var(--easeOut);
+	}
+	.c-pullmenu .parent:not(:hover):not(:focus-within) > .children {
+		pointer-events: none;
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+	.c-pullmenu .parent:hover > .children,
+	.c-pullmenu .parent:focus-within > .children {
+		transition-duration: .1s;
+	}
 }
 
 

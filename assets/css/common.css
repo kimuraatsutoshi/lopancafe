@@ -54,6 +54,11 @@ section[id] {
 	--easeIn: cubic-bezier(.3,0,.7,0);
 	--easeOut: cubic-bezier(.3,1,.7,1);
 	--easeInOut: cubic-bezier(.7,0,.3,1);
+	--breakout: calc(50% - 50vw);
+	--scrollBarWidth: 15px;
+}
+.has-scrollbar {
+	--breakout: calc(50% - 50vw + var(--scrollBarWidth));
 }
 
 /**
@@ -278,7 +283,7 @@ section[id] {
 	z-index: -1;
 	position: absolute;
 	overflow: hidden;
-	inset: 0 calc(50% - 50vw);
+	inset: 0 calc(50% - 50vw + var(--scrollBarWidth) / 2);
 }
 .p-visual .bg img {
 	width: 100%;
@@ -325,7 +330,7 @@ section[id] {
 }
 .l-section:where(.-stickout) {
 	max-width: none;
-	margin-inline: calc(50% - 50vw);
+	margin-inline: var(--breakout);
 }
 @media screen and (max-width: 767px) {
 	.l-section {

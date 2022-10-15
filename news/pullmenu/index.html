@@ -36,6 +36,7 @@
 	<ul class="menu -sns">
 		<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
 		<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		<li><a href="https://github.com/kimuraatsutoshi/lopancafe" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#github"/></svg></a></li>
 	</ul>
 </header>
 
@@ -72,7 +73,71 @@
 	
 	<section id="pullmenu" class="p-pullmenu l-section">
 		<h2 class="c-title -bar">プルメニュー</h2>
-		<p class="c-lead">まとめ中。</p>
+		<p class="c-lead">メニューリンクにカーソルを合わせると下層メニュー<small>（3階層めまで）</small>がプルダウンするメニュー。</p>
+		<p>ビューポートの横幅が広い時は<b>横並び</b>メニューで、メニュー下にプルダウンする。ビューポートの横幅が狭い時は<b>縦並び</b>メニューで、親リンク下に<em>メニューに重なって</em>プルダウンする。</p>
+		<ul class="c-pullmenu">
+			<li><a href="/about/">About</a></li>
+			<li class="parent">
+				<button type="button">News</button>
+				<ul class="children">
+					<li><a href="/news/button/">ボタン</a></li>
+					<li><a href="/news/link/">リンク</a></li>
+					<li class="parent">
+						<button type="button">アーカイブ一覧</button>
+						<ul class="children">
+							<li><a href="/news/archivelist/#bloglist">ブログの記事一覧</a></li>
+							<li><a href="/news/archivelist/#menulist">商品一覧</a></li>
+							<li><a href="/news/archivelist/#newslist">ニュース一覧</a></li>
+						</ul>
+					</li>
+					<li><a href="/news/faq/">よくあるご質問</a></li>
+					<li><a href="/news/crumb/">パンくずリスト</a></li>
+				</ul>
+			</li>
+			<li class="parent">
+				<button type="button">Works</button>
+				<ul class="children">
+					<li><a href="/works/slider/">スライダー</a></li>
+					<li class="parent">
+						<button type="button">カルーセル</button>
+						<ul class="children">
+							<li><a href="/works/carousel/#carousel">デフォルト</a></li>
+							<li><a href="/works/carousel/#archivelist">アーカイブ一覧のカルーセル</a></li>
+							<li><a href="/works/carousel/#instagram">Instagram風</a></li>
+						</ul>
+					</li>
+					<li><a href="/works/video/">動画</a></li>
+					<li><a href="/works/yt/">YouTube</a></li>
+				</ul>
+			</li>
+			<li><a href="/company/">Company</a></li>
+			<li><a href="/contact/">Contact</a></li>
+		</ul>
+		<p><b>ul/li要素</b>でマークアップしたメニューの、ul要素にクラス<code>c-pullmenu</code>を付与。<br>
+		下層メニューがある<b>li要素</b>にクラス<code>parent</code>を付与し、a要素ではなく<b>button要素</b>でリンクを置く。<code>.parent</code>要素の直下に、クラス<code>children</code>を付与した<b>ul要素</b>で下層メニューを置く。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;ul class="c-pullmenu"&gt;
+				&lt;li&gt;&lt;a href="/about/"&gt;About&lt;/a&gt;&lt;/li&gt;
+				&lt;li class="parent"&gt;
+					&lt;button type="button"&gt;News&lt;/button&gt;
+					&lt;ul class="children"&gt;
+						&lt;li&gt;&lt;a href="/news/button/"&gt;ボタン&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="/news/link/"&gt;リンク&lt;/a&gt;&lt;/li&gt;
+						&lt;li class="parent"&gt;
+							&lt;button type="button"&gt;アーカイブ一覧&lt;/button&gt;
+							&lt;ul class="children"&gt;
+								&lt;li&gt;&lt;a href="/news/archivelist/#bloglist"&gt;ブログの記事一覧&lt;/a&gt;&lt;/li&gt;
+								&lt;li&gt;&lt;a href="/news/archivelist/#menulist"&gt;商品一覧&lt;/a&gt;&lt;/li&gt;
+								&lt;li&gt;&lt;a href="/news/archivelist/#newslist"&gt;ニュース一覧&lt;/a&gt;&lt;/li&gt;
+							&lt;/ul&gt;
+						&lt;/li&gt;
+						&lt;li&gt;&lt;a href="/news/faq/"&gt;よくあるご質問&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="/news/crumb/"&gt;パンくずリスト&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+				&lt;/li&gt;
+				︙
+			&lt;/ul&gt;
+		</figure>
 	</section>
 </main>
 
