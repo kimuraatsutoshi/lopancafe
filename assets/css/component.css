@@ -1051,7 +1051,7 @@ html.is-touch .c-archivelist .flickity-viewport::after {
  * ---------------------------------------- */
 .c-pullmenu {
 	display: flex;
-	z-index: 1;
+	z-index: 2;
 	position: relative;
 	max-width: 100%;
 }
@@ -1145,6 +1145,10 @@ html.is-touch .c-archivelist .flickity-viewport::after {
 	.c-pullmenu .parent:focus-within > .children {
 		clip-path: polygon(0 0, 300% 0, 300% 100%, 0 100%);
 		transition-duration: .1s;
+	}
+	.c-pullmenu .children:has(> .parent:hover),
+	.c-pullmenu .children:has(> .parent:focus-within) {
+		clip-path: polygon(0 0, 300% 0, 300% 300%, 0 300%);
 	}
 	/* 孫 */
 	.c-pullmenu .parent .parent > .children {
