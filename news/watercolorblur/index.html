@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>にじみマスク - News - Lopan café</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="水彩絵具の滲みのようなマスク。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
+<meta property="og:site_name" content="Lopan café">
+<meta property="og:type" content="website">
+<meta property="og:title" content="プルメニュー">
+<meta property="og:description" content="水彩絵具の滲みのようなマスク。">
+<meta property="og:url" content="https://lopan.cafe/news/watercolorblur/">
+<meta property="og:image" content="https://lopan.cafe/news/watercolorblur/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@_watercolor">
+<meta name="theme-color" content="#86c0de">
+<meta name="msapplication-navbutton-color" content="#86c0de">
+<link rel="icon" href="../../assets/icon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/article.css">
+<link rel="stylesheet" href="../../assets/css/component.css">
+<script src="../../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
+<script>
+function addKeyframes() {
+	let styleSheet = document.styleSheets[0];
+	let value = 'from, to { -webkit-mask-position: 0 0; mask-position: 0 0; }\n';
+	let array = [0, 25, 50, 75, 100];
+	let progress, horizontal, vertical;
+	for (let i = 1; i < 45; i++) {
+		// 経過率 (全 45 コマを 100% で等分)
+		progress = Math.round(10000 / 45 * i) / 100;
+		// 水平 (5 列を 1 フレームごとに順繰りズラす)
+		horizontal = array[i % 5];
+		// 垂直 (5 フレーム置きに 1 行ずつ下にズラす)
+		vertical = Math.floor(i / 5) * (100 / 8);
+		value += `${progress}% { -webkit-mask-position: ${horizontal}% ${vertical}%; mask-position: ${horizontal}% ${vertical}%; }\n`;
+	}
+	keyframes = '@keyframes watercolorblurAnim {' + value + '}';
+	styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+}
+addKeyframes();
+</script>
+<style>
+.c-watercolorblur {
+	display: inline-block;
+	width: 350px;
+	height: 250px;
+	margin-inline: auto;
+	-webkit-mask-image: url(frame.webp);
+	-webkit-mask-size: 500% 900%;
+	mask-image: url(frame.webp);
+	mask-size: 500% 900%;
+	animation: watercolorblurAnim 3s steps(1) infinite;
+	line-height: 1.7;
+	vertical-align: middle;
+	background: whitesmoke;
+}
+.c-watercolorblur img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+</style>
+</head>
+<body>
+<header class="l-header">
+	<h1 class="logo"><a href="https://lopan.cafe/"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
+	<ul class="menu -nav">
+		<li><a href="../../about/">About</a></li>
+		<li><a href="../">News</a></li>
+		<li><a href="../../works/">Works</a></li>
+		<li><a href="../../company/">Company</a></li>
+		<li><a href="../../contact/">Contact</a></li>
+	</ul>
+	<ul class="menu -sns">
+		<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+		<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		<li><a href="https://github.com/kimuraatsutoshi/lopancafe" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#github"/></svg></a></li>
+	</ul>
+</header>
+
+<button type="button" class="l-drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
+<nav class="l-menu">
+	<div class="overlay js-menuToggle"></div>
+	<div class="container">
+		<h2 class="u-visuallyhidden">ナビゲーション</h2>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../">News</a></li>
+			<li><a href="../../works/">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		</ul>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+</nav>
+
+<main class="l-main page-news">
+	<div class="p-visual">
+		<h1 class="c-title">News</h1>
+		<figure class="bg"><img src="../../assets/img/news.webp" alt="" width="1200" height="630"></figure>
+	</div>
+	<div class="c-crumb">
+		<a href="../../">Home</a>
+		<a href="../">News</a>
+		<a href="./" aria-current="page">にじみマスク</a>
+	</div>
+	
+	<section id="watercolorblur" class="p-watercolorblur l-section">
+		<h2 class="c-title -bar">にじみマスク</h2>
+		<p class="c-lead">水彩絵具の滲みのようなマスクを適用する。</p>
+		<p>クラス<code>c-watercolorblur</code>を付与した要素を、にじむアニメーションする。</p>
+		<figure class="c-watercolorblur">
+			<img src="../../assets/img/ogp.webp" alt="" width="1200" height="630" loading="lazy">
+		</figure>
+		<div class="c-watercolorblur">
+			<p>ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして校庭の隅の桜の木のところに集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す烏瓜を取りに行く相談らしかったのです。けれどもジョバンニは手を大きく振ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの枝にあかりをつけたりいろいろ仕度をしているのでした。</p>
+		</div>
+		<p><b>-webkit-mask-imageプロパティ</b>を使って、5列9行に並べた<em>45コマのスプライト画像</em>でマスクし、<code>@keyframes</code>で定義した<em>マスク位置をズラすアニメーション</em>を適用。</p>
+		<figure class="c-syntax" data-lang="html">
+			&lt;figure class="c-watercolorblur"&gt;
+				&lt;img src="../../assets/img/ogp.webp" alt="" width="1200" height="630" loading="lazy"&gt;
+			&lt;/figure&gt;
+			&lt;div class="c-watercolorblur"&gt;
+				&lt;p&gt;ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして校庭の隅の桜の木のところに集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す烏瓜を取りに行く相談らしかったのです。けれどもジョバンニは手を大きく振ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの枝にあかりをつけたりいろいろ仕度をしているのでした。&lt;/p&gt;
+			&lt;/div&gt;
+		</figure>
+		<figure class="c-syntax" data-lang="css">
+			.c-watercolorblur {
+				-webkit-mask-image: url(frame.webp);
+				-webkit-mask-size: 500% 900%;
+				mask-image: url(frame.webp);
+				mask-size: 500% 900%;
+				animation: watercolorAnim 3s steps(1) infinite;
+			}
+			@keyframes watercolorblurAnim {
+				from, to { -webkit-mask-position: 0 0; mask-position: 0 0; }
+				2.22% { -webkit-mask-position: 25% 0%; mask-position: 25% 0%; }
+				4.44% { -webkit-mask-position: 50% 0%; mask-position: 50% 0%; }
+				6.67% { -webkit-mask-position: 75% 0%; mask-position: 75% 0%; }
+				8.89% { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+				11.11% { -webkit-mask-position: 0% 12.5%; mask-position: 0% 12.5%; }
+				13.33% { -webkit-mask-position: 25% 12.5%; mask-position: 25% 12.5%; }
+				15.56% { -webkit-mask-position: 50% 12.5%; mask-position: 50% 12.5%; }
+				17.78% { -webkit-mask-position: 75% 12.5%; mask-position: 75% 12.5%; }
+				20% { -webkit-mask-position: 100% 12.5%; mask-position: 100% 12.5%; }
+				22.22% { -webkit-mask-position: 0% 25%; mask-position: 0% 25%; }
+				24.44% { -webkit-mask-position: 25% 25%; mask-position: 25% 25%; }
+				26.67% { -webkit-mask-position: 50% 25%; mask-position: 50% 25%; }
+				28.89% { -webkit-mask-position: 75% 25%; mask-position: 75% 25%; }
+				31.11% { -webkit-mask-position: 100% 25%; mask-position: 100% 25%; }
+				33.33% { -webkit-mask-position: 0% 37.5%; mask-position: 0% 37.5%; }
+				35.56% { -webkit-mask-position: 25% 37.5%; mask-position: 25% 37.5%; }
+				37.78% { -webkit-mask-position: 50% 37.5%; mask-position: 50% 37.5%; }
+				40% { -webkit-mask-position: 75% 37.5%; mask-position: 75% 37.5%; }
+				42.22% { -webkit-mask-position: 100% 37.5%; mask-position: 100% 37.5%; }
+				44.44% { -webkit-mask-position: 0% 50%; mask-position: 0% 50%; }
+				46.67% { -webkit-mask-position: 25% 50%; mask-position: 25% 50%; }
+				48.89% { -webkit-mask-position: 50% 50%; mask-position: 50% 50%; }
+				51.11% { -webkit-mask-position: 75% 50%; mask-position: 75% 50%; }
+				53.33% { -webkit-mask-position: 100% 50%; mask-position: 100% 50%; }
+				55.56% { -webkit-mask-position: 0% 62.5%; mask-position: 0% 62.5%; }
+				57.78% { -webkit-mask-position: 25% 62.5%; mask-position: 25% 62.5%; }
+				60% { -webkit-mask-position: 50% 62.5%; mask-position: 50% 62.5%; }
+				62.22% { -webkit-mask-position: 75% 62.5%; mask-position: 75% 62.5%; }
+				64.44% { -webkit-mask-position: 100% 62.5%; mask-position: 100% 62.5%; }
+				66.67% { -webkit-mask-position: 0% 75%; mask-position: 0% 75%; }
+				68.89% { -webkit-mask-position: 25% 75%; mask-position: 25% 75%; }
+				71.11% { -webkit-mask-position: 50% 75%; mask-position: 50% 75%; }
+				73.33% { -webkit-mask-position: 75% 75%; mask-position: 75% 75%; }
+				75.56% { -webkit-mask-position: 100% 75%; mask-position: 100% 75%; }
+				77.78% { -webkit-mask-position: 0% 87.5%; mask-position: 0% 87.5%; }
+				80% { -webkit-mask-position: 25% 87.5%; mask-position: 25% 87.5%; }
+				82.22% { -webkit-mask-position: 50% 87.5%; mask-position: 50% 87.5%; }
+				84.44% { -webkit-mask-position: 75% 87.5%; mask-position: 75% 87.5%; }
+				86.67% { -webkit-mask-position: 100% 87.5%; mask-position: 100% 87.5%; }
+				88.89% { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; }
+				91.11% { -webkit-mask-position: 25% 100%; mask-position: 25% 100%; }
+				93.33% { -webkit-mask-position: 50% 100%; mask-position: 50% 100%; }
+				95.56% { -webkit-mask-position: 75% 100%; mask-position: 75% 100%; }
+				97.78% { -webkit-mask-position: 100% 100%; mask-position: 100% 100%; }
+			}
+		</figure>
+	</section>
+</main>
+
+<footer class="l-footer">
+	<div class="contentsinfo">
+		<h1 class="logo"><a href="https://lopan.cafe/">
+			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
+			<span class="madeby">Lopan café</span>
+		</a></h1>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../">News</a></li>
+			<li><a href="../../works/">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -other">
+			<li><a href="../../privacypolicy/">プライバシーポリシー</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+			<li><a href="https://line.me/ja/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#line"/></svg></a></li>
+			<li><a href="https://ja-jp.facebook.com/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#facebook"/></svg></a></li>
+			<li><a href="https://www.youtube.com/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#youtube"/></svg></a></li>
+			<li><a href="https://www.tiktok.com/ja-JP/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#tiktok"/></svg></a></li>
+			<li><a href="https://www.spotify.com/jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#spotify"/></svg></a></li>
+		</ul>
+		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
+</footer>
+
+<svg class="u-visuallyhidden">
+<symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>
+</svg>
+</body>
+</html>
