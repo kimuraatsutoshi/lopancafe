@@ -319,7 +319,7 @@ html:not(.is-touch) .c-syntax::before {
 		transition: background .4s;
 	}
 	.c-syntax::-webkit-scrollbar-thumb:hover {
-		background: var(--gainsboro);
+		background: #dadcde;
 		transition-duration: .1s;
 	}
 }

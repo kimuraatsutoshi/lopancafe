@@ -36,5 +36,23 @@
 	}
 }
 
-
-
+/* :::::: スクロールコンテナ :::::: */
+.p-scrollcontainer .c-scrollcontainer {
+	max-height: 400px;
+	max-width: 800px;
+	margin-inline: auto;
+	padding: 40px;
+}
+.p-scrollcontainer .c-scrollcontainer .c-lead {
+	margin-top: 32px;
+}
+.p-scrollcontainer .c-scrollcontainer .c-title {
+	font-size: 24px;
+}
+.p-scrollcontainer .c-scrollcontainer .c-title.-s {
+	margin-top: 32px;
+	font-size: 20px;
+}
+.p-scrollcontainer .c-scrollcontainer p {
+	font-size: 16px;
+}
