@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>マーカーライン - News - Lopan café</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="水彩絵具の滲みのようなマスク。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
+<meta property="og:site_name" content="Lopan café">
+<meta property="og:type" content="website">
+<meta property="og:title" content="プルメニュー">
+<meta property="og:description" content="水彩絵具の滲みのようなマスク。">
+<meta property="og:url" content="https://lopan.cafe/news/marker/">
+<meta property="og:image" content="https://lopan.cafe/news/marker/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@_watercolor">
+<meta name="theme-color" content="#86c0de">
+<meta name="msapplication-navbutton-color" content="#86c0de">
+<link rel="icon" href="../../assets/icon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/article.css">
+<link rel="stylesheet" href="../../assets/css/component.css?v=230105">
+<link rel="stylesheet" href="../css/style.css?v=230105">
+<script src="../../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
+</head>
+<body>
+<header class="l-header">
+	<h1 class="logo"><a href="https://lopan.cafe/"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
+	<ul class="menu -nav">
+		<li><a href="../../about/">About</a></li>
+		<li><a href="../">News</a></li>
+		<li><a href="../../works/">Works</a></li>
+		<li><a href="../../company/">Company</a></li>
+		<li><a href="../../contact/">Contact</a></li>
+	</ul>
+	<ul class="menu -sns">
+		<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+		<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		<li><a href="https://github.com/kimuraatsutoshi/lopancafe" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#github"/></svg></a></li>
+	</ul>
+</header>
+
+<button type="button" class="l-drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
+<nav class="l-menu">
+	<div class="overlay js-menuToggle"></div>
+	<div class="container">
+		<h2 class="u-visuallyhidden">ナビゲーション</h2>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../">News</a></li>
+			<li><a href="../../works/">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		</ul>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+</nav>
+
+<main class="l-main page-news">
+	<div class="p-visual">
+		<h1 class="c-title">News</h1>
+		<figure class="bg"><img src="../../assets/img/news.webp" alt="" width="1200" height="630"></figure>
+	</div>
+	<div class="c-crumb">
+		<a href="../../">Home</a>
+		<a href="../">News</a>
+		<a href="./" aria-current="page">マーカーライン</a>
+	</div>
+	
+	<section id="marker" class="p-marker l-section">
+		<h2 class="c-title -bar">マーカーライン</h2>
+		<p class="c-lead">蛍光ペンでラインを引いたようなスタイル。</p>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">text-decorationプロパティでマーカー</h3>
+			<div class="marker_preview">
+				<p class="c-marker -deco">ブロック要素の中でも<em>テキスト部分</em>にのみ線が引かれる。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.c-marker.-deco {
+					text-decoration: underline;
+					text-decoration-color: var(--themecolor);
+					text-underline-offset: -.3em;
+					text-decoration-thickness: .6em;
+				}
+			</figure>
+			<p>コンポーネントはここまでで、それ以外の調整は<b>専用CSSファイル</b>にて行う。</p>
+			<div class="marker_preview -position">
+				<p class="c-marker -deco">マーカーの位置は<b>text-underline-offsetプロパティ</b>で調整。</p>
+			</div>
+			<div class="marker_preview -width">
+				<p class="c-marker -deco">マーカーの太さは<b>text-decoration-thicknessプロパティ</b>で調整。下方向へ太くなる。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-position .c-marker.-deco {
+					text-underline-offset: -1.3em;
+				}
+				.-width .c-marker.-deco {
+					text-underline-offset: -1.3em;
+					text-decoration-thickness: 2em;
+				}
+			</figure>
+			<p>マーカーの位置は<b>text-decoration-lineプロパティ</b>でも調整できるが、<code>underline</code>以外は数値による位置調整ができない。打ち消し線<small>（<code>line-through</code>）</small>はテキストの上に被る。</p>
+			<div class="marker_preview -overline">
+				<p class="c-marker -deco">マーカーの位置は<b>text-decoration-lineプロパティ</b>でも指定できる。これは上線。太さは上へと太くなる。</p>
+			</div>
+			<div class="marker_preview -through">
+				<p class="c-marker -deco">マーカーの位置は<b>text-decoration-lineプロパティ</b>でも指定できる。これは打ち消し線。太さは中央を中心に太くなる。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-overline .c-marker.-deco {
+					text-decoration-line: overline;
+				}
+				.-through .c-marker.-deco {
+					text-decoration-color: #86c0decc;
+					text-decoration-line: line-through;
+				}
+			</figure>
+			<p>マーカーのスタイルは<b>text-decoration-lineプロパティ</b>で変更できる。<br>
+			英字部分のみ途切れているのは<b>text-decoration-skip-inkプロパティ</b>の効果、<code>none</code>にすれば途切れない。</p>
+			<div class="marker_preview -double">
+				<p class="c-marker -deco">マーカーのスタイルは<b>text-underline-styleプロパティ</b>で指定できる。これは二重線。</p>
+			</div>
+			<div class="marker_preview -dotted">
+				<p class="c-marker -deco">マーカーのスタイルは<b>text-underline-styleプロパティ</b>で指定できる。これは点線。</p>
+			</div>
+			<div class="marker_preview -dashed">
+				<p class="c-marker -deco">マーカーのスタイルは<b>text-underline-styleプロパティ</b>で指定できる。これは破線。</p>
+			</div>
+			<div class="marker_preview -wavy">
+				<p class="c-marker -deco">マーカーのスタイルは<b>text-underline-styleプロパティ</b>で指定できる。これは波線。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-double .c-marker.-deco {
+					text-decoration-style: double;
+				}
+				.-dotted .c-marker.-deco {
+					text-decoration-style: dotted;
+				}
+				.-dashed .c-marker.-deco {
+					text-decoration-style: dashed;
+					text-decoration-skip-ink: none;
+				}
+				.-wavy .c-marker.-deco {
+					text-decoration-style: wavy;
+					text-decoration-skip-ink: none;
+				}
+			</figure>
+			<div class="marker_preview -anim">
+				<p class="c-marker -deco">アニメーション可能<small>（2023年1月現在、Safari/Firefoxのみ）</small>。ここではtext-underline-offsetプロパティとtext-decoration-thicknessプロパティで<em>位置</em>と<em>太さ</em>を変化させている。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-anim .c-marker.-deco {
+					text-decoration-skip-ink: none;
+					transition: text-underline-offset .4s, text-decoration-thickness .4s;
+				}
+				.-anim .c-marker.-deco:not(:hover) {
+					text-underline-offset: -1.2em;
+					text-decoration-thickness: .2em;
+				}
+			</figure>
+		</section>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">border-imageプロパティでマーカー</h3>
+			<div class="marker_preview">
+				<p class="c-marker -border">要素に対して下線を引くので、複数行に適用する場合には、別途インライン要素にする必要がある。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.c-marker.-border {
+					display: inline-block;
+					border-image-source: linear-gradient(var(--themecolor), var(--themecolor)) 0 fill / 1em 0 .4em;
+				}
+			</figure>
+			<p>コンポーネントはここまでで、それ以外の調整は<b>専用CSSファイル</b>にて行う。</p>
+			<div class="marker_preview -position">
+				<p class="c-marker -border">マーカーの位置と太さは<b>border-image-widthプロパティ</b>で調整。</p>
+			</div>
+			<div class="marker_preview -width">
+				<p class="c-marker -border">上辺の位置と底辺の位置で太さが決まる寸法。</p>
+			</div>
+			<div class="marker_preview -over">
+				<p class="c-marker -border">マーカーラインを左右にはみ出させるには<b>border-image-outsetプロパティ</b>を別途指定。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-position .c-marker.-border {
+					border-image-width: .5em 0 .5em;
+				}
+				.-width .c-marker.-border {
+					border-image-width: .2em 0 .2em;
+				}
+				.-over .c-marker.-border {
+					border-image-outset: 0 1em;
+				}
+			</figure>
+			<div class="marker_preview -anim">
+				<p class="c-marker -border">アニメーション可能。ここではborder-image-widthプロパティの<em>上下の位置</em>を変化させている。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-anim .c-marker.-border {
+					transition: border-image-width .4s;
+				}
+				.-anim .c-marker.-border:not(:hover) {
+					border-image-width: 2em 0 .2em;
+				}
+			</figure>
+		</section>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">backgroundプロパティでマーカー</h3>
+			<div class="marker_preview">
+				<p class="c-marker -bg">要素に対して背景色を敷くため、コンポーネントの時点でインライン要素にしている。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.c-marker.-bg {
+					display: inline;
+					background: linear-gradient(var(--themecolor), var(--themecolor)) left bottom / 100% .6em no-repeat;
+				}
+			</figure>
+			<p>コンポーネントはここまでで、それ以外の調整は<b>専用CSSファイル</b>にて行う。</p>
+			<div class="marker_preview -position">
+				<p class="c-marker -bg">マーカーの位置は<b>background-positionプロパティ</b>で<code>bottom</code>の後に数値を指定して調整。</p>
+			</div>
+			<div class="marker_preview -width">
+				<p class="c-marker -bg">マーカーの太さは<b>background-sizeプロパティ</b>で調整。</p>
+			</div>
+			<div class="marker_preview -over">
+				<p class="c-marker -bg">マーカーラインを左右にはみ出させるには<b>padding-inlineプロパティ</b>を別途指定。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-position .c-marker.-bg {
+					background-position: left bottom .3em;
+				}
+				.-width .c-marker.-bg {
+					background-size: 100% 2em;
+				}
+				.-over .c-marker.-bg {
+					padding-inline: 1em;
+				}
+			</figure>
+			<div class="marker_preview -anim">
+				<p class="c-marker -bg">アニメーション可能。ここではbackground-sizeプロパティの<em>横幅</em>を変化させている。</p>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.-anim .c-marker.-bg {
+					background-position: right bottom;
+					background-size: 0 .5em;
+					transition: background-size .4s;
+				}
+				.-anim .c-marker.-bg:hover {
+					background-position: left bottom;
+					background-size: 100% .5em;
+					transition-duration: .2s;
+				}
+			</figure>
+		</section>
+	</section>
+</main>
+
+<footer class="l-footer">
+	<div class="contentsinfo">
+		<h1 class="logo"><a href="https://lopan.cafe/">
+			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
+			<span class="madeby">Lopan café</span>
+		</a></h1>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../">News</a></li>
+			<li><a href="../../works/">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -other">
+			<li><a href="../../privacypolicy/">プライバシーポリシー</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+			<li><a href="https://line.me/ja/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#line"/></svg></a></li>
+			<li><a href="https://ja-jp.facebook.com/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#facebook"/></svg></a></li>
+			<li><a href="https://www.youtube.com/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#youtube"/></svg></a></li>
+			<li><a href="https://www.tiktok.com/ja-JP/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#tiktok"/></svg></a></li>
+			<li><a href="https://www.spotify.com/jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#spotify"/></svg></a></li>
+		</ul>
+		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
+		<a href="#top" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
+</footer>
+
+<svg class="u-visuallyhidden">
+<symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>
+</svg>
+</body>
+</html>

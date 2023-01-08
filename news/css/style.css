@@ -56,3 +56,91 @@
 .p-scrollcontainer .c-scrollcontainer p {
 	font-size: 16px;
 }
+
+/* :::::: マーカーライン :::::: */
+.p-marker .marker_preview {
+	margin-top: 1em;
+	text-align: left;
+}
+.p-marker .marker_preview + .marker_preview {
+	margin-top: 0;
+}
+.p-marker .marker_preview code {
+	mix-blend-mode: multiply;
+}
+.p-marker .marker_preview .c-marker {
+	margin: 0;
+}
+/* text-decoration */
+.p-marker .marker_preview.-position .c-marker.-deco {
+	text-underline-offset: -1.3em;
+}
+.p-marker .marker_preview.-width .c-marker.-deco {
+	text-underline-offset: -1.3em;
+	text-decoration-thickness: 2em;
+}
+.p-marker .marker_preview.-overline .c-marker.-deco {
+	text-decoration-line: overline;
+}
+.p-marker .marker_preview.-through .c-marker.-deco {
+	text-decoration-color: #86c0decc;
+	text-decoration-line: line-through;
+}
+.p-marker .marker_preview.-double .c-marker.-deco {
+	text-decoration-style: double;
+}
+.p-marker .marker_preview.-dotted .c-marker.-deco {
+	text-decoration-style: dotted;
+}
+.p-marker .marker_preview.-dashed .c-marker.-deco {
+	text-decoration-style: dashed;
+	text-decoration-skip-ink: none;
+}
+.p-marker .marker_preview.-wavy .c-marker.-deco {
+	text-decoration-style: wavy;
+	text-decoration-skip-ink: none;
+}
+.p-marker .marker_preview.-anim .c-marker.-deco {
+	text-decoration-skip-ink: none;
+	transition: text-underline-offset .4s, text-decoration-thickness .4s;
+}
+.p-marker .marker_preview.-anim .c-marker.-deco:hover {
+	text-underline-offset: -1.2em;
+	text-decoration-thickness: .2em;
+}
+/* border-image */
+.p-marker .marker_preview.-position .c-marker.-border {
+	border-image-width: .5em 0 .5em;
+}
+.p-marker .marker_preview.-width .c-marker.-border {
+	border-image-width: .2em 0 .2em;
+}
+.p-marker .marker_preview.-over .c-marker.-border {
+	border-image-outset: 0 1em;
+}
+.p-marker .marker_preview.-anim .c-marker.-border {
+	transition: border-image-width .4s;
+}
+.p-marker .marker_preview.-anim .c-marker.-border:not(:hover) {
+	border-image-width: 2em 0 .2em;
+}
+/* background */
+.p-marker .marker_preview.-position .c-marker.-bg {
+	background-position: left bottom .3em;
+}
+.p-marker .marker_preview.-width .c-marker.-bg {
+	background-size: 100% 2em;
+}
+.p-marker .marker_preview.-over .c-marker.-bg {
+	padding-inline: 1em;
+}
+.p-marker .marker_preview.-anim .c-marker.-bg {
+	background-position: right bottom;
+	background-size: 0 .5em;
+	transition: background-size .4s;
+}
+.p-marker .marker_preview.-anim .c-marker.-bg:hover {
+	background-position: left bottom;
+	background-size: 100% .5em;
+	transition-duration: .2s;
+}
