@@ -191,6 +191,7 @@ export class DrawerMenu {
 		this.toggle = document.getElementsByClassName('js-menuToggle');
 		this.btn = document.querySelector('.js-menuToggle.l-drawer');
 		this.overlay = document.querySelector('.js-menuToggle.overlay');
+		this.keyShifted = false;
 		
 		// ARIA: js-menuToggle をクリクするとナビゲーションが開くことを知らせる
 		for (let i = 0, len = this.toggle.length; i < len; i++) {
@@ -234,10 +235,19 @@ export class DrawerMenu {
 		}
 	}
 	toggleMenu() {
-		!this.isOpened ? this.openMenu() : this.closeMenu();
-		this.menu.addEventListener('transitionend', e => {
-			this.menuEnd(e);
-		}, { once: true });
+		if (!this.isOpened) {
+			this.openMenu();
+			// 開く時は overlay が先なので container をきっかけに remove
+			this.menu.querySelector('.container').addEventListener('transitionend', e => {
+				this.menu.classList.remove('is-anim');
+			}, { once: true });
+		} else {
+			this.closeMenu();
+			// 閉じる時は overlay が後なので overlay をきっかけに remove
+			this.menu.querySelector('.overlay').addEventListener('transitionend', e => {
+				this.menu.classList.remove('is-anim');
+			}, { once: true });
+		}
 	}
 	openMenu() {
 		this.isOpened = true;
@@ -291,32 +301,6 @@ export class DrawerMenu {
 			this.overlay.classList.remove('is-anim');
 		}, { once: true });
 	}
-	menuEnd(e) {
-		this.isOpened ? this.openEnd(e) : this.closeEnd(e);
-	}
-	openEnd(e) {
-		// 開く時は overlay が先なので container をきっかけに remove
-		if (e.target.className.indexOf('container') >= 0) {
-			this.menu.classList.remove('is-anim');
-			
-		} else {
-			// container じゃなかったらもっかい addEventListener
-			this.menu.addEventListener('transitionend', e => {
-				this.openEnd(e);
-			}, { once: true });
-		}
-	}
-	closeEnd(e) {
-		// 閉じる時は overlay が後なので overlay をきっかけに remove
-		if (e.target.className.indexOf('overlay') >= 0) {
-			this.menu.classList.remove('is-anim');
-			
-		} else {
-			this.menu.addEventListener('transitionend', e => {
-				this.closeEnd(e);
-			}, { once: true });
-		}
-	}
 	// モーダルが開いている間、tab でのフォーカスをモーダル内に閉じ込める
 	tabFocusControl() {
 		document.addEventListener('keydown', e => {
@@ -333,15 +317,25 @@ export class DrawerMenu {
 	}
 	tabFocus(e) {
 		if (this.keyShifted) {
-			// タブを押した時、モーダル内の最初のリンクなら、最後のリンクにフォーカス
 			if (e.target === this.menuLinks[0]) {
+				// タブを押した時、モーダル内の最初のリンクなら、≡ btn にフォーカス
+				e.preventDefault();
+				this.btn.focus();
+				
+			} else if (e.target === this.btn) {
+				// ≡ btn なら最後のリンクにフォーカス
 				e.preventDefault();
 				this.menuLinks[this.menuLinks.length - 1].focus();
 			}
 			
 		} else {
-			// タブを押した時、モーダル内の最後のリンクなら、最初のリンクにフォーカス
 			if (e.target === this.menuLinks[this.menuLinks.length - 1]) {
+				// タブを押した時、モーダル内の最後のリンクなら、≡ btn にフォーカス
+				e.preventDefault();
+				this.btn.focus();
+				
+			} else if (e.target === this.btn) {
+				// ≡ btn なら最初のリンクにフォーカス
 				e.preventDefault();
 				this.menuLinks[0].focus();
 			}

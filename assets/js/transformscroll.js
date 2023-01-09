@@ -70,7 +70,7 @@ export class TransformScroll {
 		this.startY = this.posY;
 		
 		/* isLock 時はパララックスしない */
-		if (this.isLock) {
+		if (this.isLock || LPN.Wm.isLock) {
 			if (this.friction !== 1) this.friction = 1;
 		} else {
 			if (this.friction !== this.frictionOrigin) this.friction = this.frictionOrigin;
@@ -92,7 +92,7 @@ export class TransformScroll {
 		}
 		
 		// ずれる要素の位置
-		if (!this.isLock && this.slipperData !== undefined) {
+		if (!this.isLock && LPN.Wm.isLock && this.slipperData !== undefined) {
 			let data;
 			const diff = LPN.Wm.winH / 2;
 			for (var i = this.slipper.length; i--;) {

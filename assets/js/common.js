@@ -24,9 +24,6 @@ export class WindowManagement {
 	}
 	posLock() {
 		this.isLock = true;
-		if (LPN.Ts !== undefined) {
-			LPN.Ts.isLock = this.isLock;
-		}
 		this.lockOffset = this.yOffset;
 		
 		if (this.isSmoothBehavior) {
@@ -41,9 +38,6 @@ export class WindowManagement {
 		window.scrollTo(0, this.lockOffset);
 		setTimeout(() => {
 			this.isLock = false;
-			if (LPN.Ts !== undefined) {
-				LPN.Ts.isLock = this.isLock;
-			}
 			if (this.isSmoothBehavior) {
 				this.html.removeAttribute('style');
 			}
