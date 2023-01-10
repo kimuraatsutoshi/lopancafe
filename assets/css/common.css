@@ -58,7 +58,7 @@ section[id] {
 	--scrollBarWidth: 15px;
 }
 .has-scrollbar {
-	--breakout: calc(50% - 50vw + var(--scrollBarWidth));
+	--breakout: calc(50% - 50vw + var(--scrollBarWidth) / 2);
 }
 
 /**
@@ -283,7 +283,7 @@ section[id] {
 	z-index: -1;
 	position: absolute;
 	overflow: hidden;
-	inset: 0 calc(50% - 50vw + var(--scrollBarWidth) / 2);
+	inset: 0 var(--breakout);
 }
 .p-visual .bg img {
 	width: 100%;

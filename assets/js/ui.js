@@ -4,6 +4,8 @@ import { GoogleMapsApi } from './_googlemap.js?v=1';
 
 /**
  * UI
+ * AnchorScroll, DrawerMenu, AccordionUi,
+ * PulldownUi, PullmenuUi, InsertShareLink, TextCopy
  -------------------------------------------------- */
 export class UiBundle {
 	constructor() {
@@ -60,7 +62,7 @@ export class UiBundle {
 /**
  * スムーススクロール
  -------------------------------------------------- */
-export class AnchorScroll {
+class AnchorScroll {
 	constructor() {
 		// overscroll-behavior: smooth なら実装しない
 		if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
@@ -182,7 +184,7 @@ export class AnchorScroll {
 /**
  * ドロワーメニュー
  -------------------------------------------------- */
-export class DrawerMenu {
+class DrawerMenu {
 	constructor() {
 		//console.log('-----> drawerMenu');
 		const id = 'navigation';
@@ -213,6 +215,13 @@ export class DrawerMenu {
 		} else {
 			this.menuAnchor();
 		}
+		
+		// is-anim のためにリンクの transitionend は伝搬させない
+		for (let i = this.menuLinks.length; i--;) {
+			this.menuLinks[i].addEventListener('transitionend', e => {
+				e.stopPropagation();
+			});
+		}
 		document.addEventListener('readystatechange', e => {
 			// 最初は tab 移動させない
 			for (let i = 0, len = this.menuLinks.length; i < len; i++) {
@@ -235,24 +244,17 @@ export class DrawerMenu {
 		}
 	}
 	toggleMenu() {
-		if (!this.isOpened) {
-			this.openMenu();
-			// 開く時は overlay が先なので container をきっかけに remove
-			this.menu.querySelector('.container').addEventListener('transitionend', e => {
-				this.menu.classList.remove('is-anim');
-			}, { once: true });
-		} else {
-			this.closeMenu();
-			// 閉じる時は overlay が後なので overlay をきっかけに remove
-			this.menu.querySelector('.overlay').addEventListener('transitionend', e => {
-				this.menu.classList.remove('is-anim');
-			}, { once: true });
-		}
+		!this.isOpened ? this.openMenu() : this.closeMenu();
 	}
 	openMenu() {
-		this.isOpened = true;
 		LPN.Wm.posLock();
 		this.menu.classList.add('is-active', 'is-anim');
+		
+		// 開く時は overlay が先なので container をきっかけに remove
+		this.menu.querySelector('.container').addEventListener('transitionend', e => {
+			this.isOpened = true;
+			this.menu.classList.remove('is-anim');
+		}, { once: true });
 		
 		// ARIA: ナビゲーションが開いたことを知らせる
 		this.menu.ariaHidden = 'false';
@@ -266,9 +268,14 @@ export class DrawerMenu {
 		}
 	}
 	closeMenu(fn) {
-		this.isOpened = false;
 		LPN.Wm.posUnlock(fn); // fn: スクロールのロック解除後にハッシュリンク
 		this.menu.classList.replace('is-active', 'is-anim');
+		
+		// 閉じる時は overlay が後なので overlay をきっかけに remove
+		this.menu.querySelector('.overlay').addEventListener('transitionend', e => {
+			this.isOpened = false;
+			this.menu.classList.remove('is-anim');
+		}, { once: true });
 		
 		// ARIA: ナビゲーションが閉じたことを知らせる
 		this.menu.ariaHidden = 'true';
@@ -347,7 +354,7 @@ export class DrawerMenu {
  * アコーディオン UI
  * MEMO: 閉じてる時にブラウザで文字列検索しても開かない問題は未解決
  -------------------------------------------------- */
-export class AccordionUi {
+class AccordionUi {
 	constructor() {
 		this.accData = {};
 		const elm = document.getElementsByClassName('js-accordion');
@@ -464,7 +471,7 @@ export class AccordionUi {
 /**
  * プルダウン UI
  -------------------------------------------------- */
-export class PulldownUi {
+class PulldownUi {
 	constructor() {
 		this.isSmooth = getComputedStyle(document.documentElement).scrollBehavior === 'smooth';
 		this.pullData = {};
@@ -661,7 +668,7 @@ export class PulldownUi {
 /**
  * プルメニュー UI (767px 未満はアコーディオン)
  -------------------------------------------------- */
-export class PullmenuUi {
+class PullmenuUi {
 	constructor() {
 		const menu = document.getElementsByClassName('c-pullmenu')[0];
 		const parent = menu.getElementsByClassName('parent');
@@ -724,7 +731,7 @@ class InsertShareLink {
  * <div class="js-copy"><textarea></div> or
  * class="js-copy" data-copytext="コピーテキスト"
  * -------------------------------------------------- */
-export class TextCopy {
+class TextCopy {
 	constructor(elm) {
 		this.copyMsg = !elm.dataset.msg ? 'Copied!' : elm.dataset.msg;
 		this.copyTxt = elm.dataset.text === '$url' ?  location.href : elm.dataset.text;

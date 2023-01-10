@@ -28,6 +28,7 @@ import { UiBundle } from './ui.js';
 	// HTML 文書の読み込み完了を待つ
 	document.addEventListener('DOMContentLoaded', e => {
 		new MainResizeObserver(LPN.registFnc.onMainResize);
+		insertNavMenu();
 		
 		// TransformScroll は最初に実装しとく
 		if (document.querySelector('.js-sc-wrap') !== null) {
@@ -88,6 +89,27 @@ import { UiBundle } from './ui.js';
 			requestAnimationFrame(loop);
 			new AddFnc(LPN.registFnc.loop);
 		}
+	}
+	
+	/**
+	 * insertNavMenu
+	 * すぐ表示されるわけじゃないから js で作ることにする
+	 * -------------------------------------------------- */
+	function insertNavMenu() {
+		const nav = document.getElementsByClassName('l-menu')[0];
+		const menu = document.querySelectorAll('.l-header .menu');
+		let html = '';
+		html += '<div class="overlay js-menuToggle"></div>';
+		html += '<div class="container">';
+		html += '<h2 class="u-visuallyhidden">ナビゲーション</h2>';
+		for (let i = 0, len = menu.length; i < len; i++) {
+			html += menu[i].outerHTML;
+		}
+		html += '<a href="#top" class="pagetop js-anc">';
+		html += '<svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico">';
+		html += '<path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>';
+		html += '</div>';
+		nav.innerHTML = html;
 	}
 	
 	/**
