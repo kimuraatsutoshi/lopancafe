@@ -6,6 +6,10 @@
 .flickity-enabled:focus {
 	outline: 0;
 }
+.flickity-enabled:focus-visible {
+	outline: 2px solid #275dc5;
+	box-shadow: 0 0 0 3px white;
+}
 .flickity-viewport {
 	overflow: hidden;
 	position: relative;
@@ -45,6 +49,10 @@
 .flickity-button:focus {
 	outline: 0;
 	box-shadow: 0 0 0 5px #19f;
+}
+.flickity-button:focus-visible {
+	outline: 2px solid #275dc5;
+	box-shadow: 0 0 0 3px white;
 }
 .flickity-button:active {
 	opacity: .6;

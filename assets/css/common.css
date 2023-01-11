@@ -9,6 +9,8 @@ img,svg,video,iframe{vertical-align:middle;}
 img[height],video[height]{height:auto;}
 input,button,textarea,select{font:inherit;}
 button{border:0;padding:0;background:none;}
+button:focus{outline:0;}
+button:focus-visible{outline:2px solid #275dc5;box-shadow:0 0 0 3px white;border-radius:2px;}
 sub{vertical-align:baseline;}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}}
 html {
@@ -642,16 +644,6 @@ section[id] {
 .js-sc-dummy {
 	z-index: -1;
 	pointer-events: none;
-}
-
-/* slider */
-.js-slider.flickity-enabled:focus-visible,
-.js-slider .flickity-button:focus-visible {
-	outline: 2px solid #275dc5;
-	box-shadow: 0 0 0 3px white;
-}
-.js-slider.flickity-enabled:focus-visible {
-	border-radius: 2px;
 }
 
 /* inview */
