@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>スライドショー - News - Lopan café</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="CSSでつくる観賞用スライドショー。「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。">
+<meta property="og:site_name" content="Lopan café">
+<meta property="og:type" content="website">
+<meta property="og:title" content="スライドショー">
+<meta property="og:description" content="CSSでつくる観賞用スライドショー。">
+<meta property="og:url" content="https://lopan.cafe/news/slideshow/">
+<meta property="og:image" content="https://lopan.cafe/news/slideshow/ogp.jpg">
+<meta property="fb:app_id" content="491752650877826">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@_watercolor">
+<meta name="theme-color" content="#86c0de">
+<meta name="msapplication-navbutton-color" content="#86c0de">
+<link rel="icon" href="../../assets/icon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/css/common.css">
+<link rel="stylesheet" href="../../assets/css/article.css">
+<link rel="stylesheet" href="../../assets/css/component.css?v=230105">
+<link rel="stylesheet" href="../css/style.css?v=230105">
+<script src="../../assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
+<script>
+class CreateKeyframes {
+	constructor(elm) {
+		const styleSheet = document.styleSheets[0];
+		
+		const num = elm.dataset.item;
+		const fadeTime = this.round(10 / num / 2);
+		const start = this.round(100 / num / 2);
+		const interval = this.round(start * 2);
+		
+		const fadeInStart = this.round(start - fadeTime);
+		const fadeInEnd = this.round(start + fadeTime);
+		const fadeOutStart = this.round(start + interval - fadeTime);
+		const fadeOutEnd = this.round(start + interval + fadeTime);
+		
+		let keyframes1 = `@keyframes slideshow_fade${num} {\n`;
+		keyframes1 += `\tfrom, ${fadeInStart}%, ${fadeOutEnd}%, to { opacity: 0; }\n`;
+		keyframes1 += `\t${fadeInEnd}%, ${fadeOutStart}% { opacity: 1; }\n`;
+		keyframes1 += `}`;
+		
+		let keyframes2 = `@keyframes slideshow_zoom${num} {\n`;
+		keyframes2 += `\tfrom, ${fadeInStart}%, to { transform: scale(1.1); }\n`;
+		keyframes2 += `\t${fadeOutEnd}% { transform: none; }\n`;
+		keyframes2 += `}`;
+		
+		styleSheet.insertRule(keyframes1, styleSheet.cssRules.length);
+		styleSheet.insertRule(keyframes2, styleSheet.cssRules.length);
+		console.log(`/* :::::: ${num}枚用 :::::: */\n${keyframes1}\n${keyframes2}`);
+	}
+	round(num) {
+		return Math.round(num * 100) / 100;
+	}
+}
+document.addEventListener('DOMContentLoaded', () => {
+	// const elms = document.getElementsByClassName('c-slideshow');
+	// for (let i = elms.length; i--;) {
+	// 	if (elms[i].dataset.item) {
+	// 		new CreateKeyframes(elms[i]);
+	// 	}
+	// }
+});
+</script>
+</head>
+<body>
+<header class="l-header">
+	<h1 class="logo"><a href="https://lopan.cafe/"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
+	<ul class="menu -nav">
+		<li><a href="../../about/">About</a></li>
+		<li><a href="../">News</a></li>
+		<li><a href="../../works/">Works</a></li>
+		<li><a href="../../company/">Company</a></li>
+		<li><a href="../../contact/">Contact</a></li>
+	</ul>
+	<ul class="menu -sns">
+		<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+		<li><a href="https://twitter.com/_watercolor" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+		<li><a href="https://github.com/kimuraatsutoshi/lopancafe" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#github"/></svg></a></li>
+	</ul>
+</header>
+
+<button type="button" class="l-drawer js-menuToggle"><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b1"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b2"><path d="M0,2.5H32"/></svg><svg width="32" height="5" viewBox="0 0 32 5" class="bar -b3"><path d="M0,2.5H32"/></svg></button>
+<nav class="l-menu"></nav>
+
+<main class="l-main page-news">
+	<div class="p-visual">
+		<h1 class="c-title">News</h1>
+		<figure class="bg"><img src="../../assets/img/news.webp" alt="" width="1200" height="630"></figure>
+	</div>
+	<div class="c-crumb">
+		<a href="../../">Home</a>
+		<a href="../">News</a>
+		<a href="./" aria-current="page">スライドショー</a>
+	</div>
+	
+	<section id="slideshow" class="p-slideshow l-section">
+		<h2 class="c-title -bar">スライドショー</h2>
+		<p class="c-lead">画像数枚がフェードで切り替わるだけの、操作とかできない、超シンプルな観賞用スライドショー。</p>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">基本構造</h3>
+			<p>クラス<code>c-slideshow</code>を付与した要素の中に、クラス<code>item</code>要素で括った<b>img要素</b>を並べる。</p>
+			<div class="c-slideshow" data-item="2">
+				<figure class="item"><img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"></figure>
+				<figure class="item"><img src="../../assets/img/visual_2_mb.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+			</div>
+			<figure class="c-syntax" data-lang="html">
+				&lt;div class="c-slideshow"&gt;
+					&lt;figure class="item"&gt;&lt;img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"&gt;&lt;/figure&gt;
+					&lt;figure class="item"&gt;&lt;img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"&gt;&lt;/figure&gt;
+				&lt;/div&gt;
+			</figure>
+			<p>基本CSSは以下の通り。スライドショーする画像はすべて同じサイズ推奨。サイズが違う場合は<em>一枚めの画像サイズ・アスペクト比</em>でトリミングされる。</p>
+			<figure class="c-syntax" data-lang="css">
+				.c-slideshow {
+					--interval: 8s;
+					position: relative;
+					overflow: hidden;
+				}
+				.c-slideshow .item:not(:first-child) {
+					position: absolute;
+					inset: 0;
+				}
+				.c-slideshow .item img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			</figure>
+			<p>画像切り替えは<strong>@keyframes規則</strong>で定義したキーフレームアニメーション。同じアニメーションを、画像ごとに開始位置（<small><code>animation-delay</code></small>）をズラして適用している。</p>
+			<figure class="c-syntax" data-lang="css">
+				.c-slideshow .item {
+					animation: slideshow_fade linear infinite, slideshow_zoom linear infinite;
+					animation-duration: calc(var(--interval) * 2);
+				}
+				@keyframes slideshow_fade {
+					from, 22.5%, 77.5%, to { opacity: 0; }
+					27.5%, 72.5% { opacity: 1; }
+				}
+				@keyframes slideshow_zoom {
+					from, 22.5%, to { transform: scale(1.1); }
+					77.5% { transform: none; }
+				}
+				.c-slideshow .item:nth-child(1) {
+					animation-delay: calc(var(--interval) * -.5);
+				}
+				.c-slideshow .item:nth-child(2) {
+					animation-delay: calc(var(--interval) * .5);
+				}
+				/* 3枚め以降 */
+				.c-slideshow .item:nth-child(3) { animation-delay: calc(var(--interval) * 1.5); }
+				.c-slideshow .item:nth-child(4) { animation-delay: calc(var(--interval) * 2.5); }
+				.c-slideshow .item:nth-child(5) { animation-delay: calc(var(--interval) * 3.5); }
+				.c-slideshow .item:nth-child(6) { animation-delay: calc(var(--interval) * 4.5); }
+			</figure>
+		</section>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">仕組み</h3>
+			<p>キーフレームは、<em>フェード用</em>と<em>ズーム用</em>の2種類。下図は画像が2枚の時用のキーフレーム。<br>
+			なので、1枚あたりの表示時間<small>（※以下、インターバルという）</small>はキーフレーム全体の<strong>二分の一<small>（50%）</small></strong>。</p>
+			<p>最初に<em>フェードインする猶予</em>を設けるため、<b>インターバル</b>の半分<small>（25%）</small>、透明の期間を空けておく。<br>
+			フェードにかける時間は、インターバルの<strong>十分の一<small>（5%）</small></strong>で、フェードの中間が<em>切り替わり地点</em>を跨ぐようにフェードする。（※<b>フェードインの時</b>でいうと、25%の<em>2.5%手前<small>（22.5%）</small></em>からフェードインし出して、<em>2.5%先<small>（77.5%）</small></em>でフェードインし切る、という具合。）</p>
+			<p>ズームは、<em>フェードインし出す地点<small>（22.5%）</small></em>から、<em>フェードアウトし終える地点<small>（77.5%）</small></em>にかけてズームアウトしていく。</p>
+			<figure class="c-image"><img src="img/keyframes.svg" alt="" width="960" height="360" loading="lazy"></figure>
+			<p><b>animationプロパティ</b>に、上で用意したキーフレームを、画像ごとに<em>インターバル分</em>ずつズラして適用している。<br>
+			1枚めは<strong>25%進んだところ</strong>から<ruby>開始<rt>スタート</ruby>し、2枚めはそこから<strong>50%待って</strong>から開始する。ここではインターバルを<em>8秒</em>に設定しているので、1枚めはキーフレームの<strong>4秒先</strong>から開始し、2枚めはそこ<small>（-4秒）</small>から<strong>8秒後</strong>に開始される。<br>
+			※インターバルは、CSS変数「<code>--interval</code>」で設定している。</p>
+			<figure class="c-image"><img src="img/slideshow.svg" alt="" width="960" height="360" loading="lazy"></figure>
+		</section>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">画像の枚数によってキーフレームを変える</h3>
+			<p>デフォルトは画像2枚用。画像の枚数ごとに、バリエーションクラス<small>（<code>-item3</code>、<code>-item4</code>…）</small>を付与する<small>（6枚まで用意してある）</small>。</p>
+			<div class="c-slideshow -item3" data-item="3">
+				<figure class="item"><img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"></figure>
+				<figure class="item"><img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+			</div>
+			<figure class="c-syntax -item3" data-lang="html">
+				&lt;div class="c-slideshow -item3"&gt;
+					&lt;figure class="item"&gt;&lt;img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"&gt;&lt;/figure&gt;
+					&lt;figure class="item"&gt;&lt;img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"&gt;&lt;/figure&gt;
+					&lt;figure class="item"&gt;&lt;img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"&gt;&lt;/figure&gt;
+				&lt;/div&gt;
+			</figure>
+			<p>バリエーションクラスにより、<b>animation-nameプロパティ</b><small>（アニメーション名）</small>と、<b>animation-durationプロパティ</b><small>（アニメーションする長さ）</small>が変わる。</p>
+			<figure class="c-syntax" data-lang="css">
+				.c-slideshow.-item3 .item {
+					animation-name: slideshow_fade3, slideshow_zoom3;
+					animation-duration: calc(var(--interval) * 3);
+				}
+				@keyframes slideshow_fade3 {
+					from, 15%, 51.67%, to { opacity: 0; }
+					18.33%, 48.33% { opacity: 1; }
+				}
+				@keyframes slideshow_zoom3 {
+					from, 15%, to { transform: scale(1.1); }
+					51.67% { transform: none; }
+				}
+			</figure>
+			<p>画像が3枚の時も、キーフレームの仕組みは2枚の時と同じ。<br>
+			インターバルはキーフレーム全体の<b>三分の一<small>（33.33%）</small></b>になり、フェードにかける時間はインターバルの<b>十分の一<small>（3.33%）</small></b>と、どちらも半端な数値なので計算がちょっとややこやしいけど、仕組みは同じ。</p>
+			<figure class="c-image"><img src="img/keyframes3.svg" alt="" width="960" height="360" loading="lazy"></figure>
+			<p>上のキーフレームを、インターバル分ズラして適用する。アニメーション全体の長さも、画像3枚分にする<small>（インターバル8秒なら24秒）</small>。<br>
+			1枚めは<em>0.5インターバル分進んだところ</em>から開始し、2枚め以降は、そこから<em>1インターバル分ずつ遅れて</em>開始される。</p>
+			<figure class="c-image"><img src="img/slideshow3.svg" alt="" width="960" height="480" loading="lazy"></figure>
+		</section>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">キーフレーム例</h3>
+			<p>画像が4枚<small>（1インターバル<b>25%</b>）</small>。</p>
+			<div class="c-slideshow -item4" data-item="4">
+				<figure class="item"><img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"></figure>
+				<figure class="item"><img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_4.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.c-slideshow.-item4 .item {
+					animation-name: slideshow_fade4, slideshow_zoom4;
+					animation-duration: calc(var(--interval) * 4);
+				}
+				@keyframes slideshow_fade4 {
+					from, 11.25%, 38.75%, to { opacity: 0; }
+					13.75%, 36.25% { opacity: 1; }
+				}
+				@keyframes slideshow_zoom4 {
+					from, 11.25%, to { transform: scale(1.1); }
+					38.75% { transform: none; }
+				}
+			</figure>
+			<p>画像が5枚<small>（1インターバル<b>20%</b>）</small>。</p>
+			<div class="c-slideshow -item5" data-item="5">
+				<figure class="item"><img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"></figure>
+				<figure class="item"><img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_4.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.c-slideshow.-item5 .item {
+					animation-name: slideshow_fade5, slideshow_zoom5;
+					animation-duration: calc(var(--interval) * 5);
+				}
+				@keyframes slideshow_fade5 {
+					from, 9%, 31%, to { opacity: 0; }
+					11%, 29% { opacity: 1; }
+				}
+				@keyframes slideshow_zoom5 {
+					from, 9%, to { transform: scale(1.1); }
+					31% { transform: none; }
+				}
+			</figure>
+			<p>画像が6枚<small>（1インターバル<b>16.66%</b>）</small>。</p>
+			<div class="c-slideshow -item6" data-item="6">
+				<figure class="item"><img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"></figure>
+				<figure class="item"><img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_4.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+				<figure class="item"><img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy"></figure>
+			</div>
+			<figure class="c-syntax" data-lang="css">
+				.c-slideshow.-item6 .item {
+					animation-name: slideshow_fade6, slideshow_zoom6;
+					animation-duration: calc(var(--interval) * 6);
+				}
+				@keyframes slideshow_fade6 {
+					from, 7.5%, 25.82%, to { opacity: 0; }
+					9.16%, 24.16% { opacity: 1; }
+				}
+				@keyframes slideshow_zoom6 {
+					from, 7.5%, to { transform: scale(1.1); }
+					25.82% { transform: none; }
+				}
+			</figure>
+		</section>
+		
+		<section class="u-mt8">
+			<h3 class="c-title -s -hyphen">レスポンシブ</h3>
+			<p><strong>picture要素</strong>を使って、ビューポート幅をブレークポイントに画像を出し分ける。</p>
+			<div class="c-slideshow -item4">
+				<figure class="item"><picture>
+					<source srcset="../../assets/img/visual_1.webp" width="2400" height="1200" media="(min-width:768px)">
+					<source srcset="../../assets/img/visual_1_mb.webp" width="1200" height="800" media="(max-width:767px)">
+					<img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200">
+				</picture></figure>
+				<figure class="item"><picture>
+					<source srcset="../../assets/img/visual_2.webp" width="2400" height="1200" media="(min-width:768px)">
+					<source srcset="../../assets/img/visual_2_mb.webp" width="1200" height="800" media="(max-width:767px)">
+					<img src="../../assets/img/visual_2.webp" alt="" width="2400" height="1200" loading="lazy">
+				</picture></figure>
+				<figure class="item"><picture>
+					<source srcset="../../assets/img/visual_3.webp" width="2400" height="1200" media="(min-width:768px)">
+					<source srcset="../../assets/img/visual_3_mb.webp" width="1200" height="800" media="(max-width:767px)">
+					<img src="../../assets/img/visual_3.webp" alt="" width="2400" height="1200" loading="lazy">
+				</picture></figure>
+				<figure class="item"><picture>
+					<source srcset="../../assets/img/visual_4.webp" width="2400" height="1200" media="(min-width:768px)">
+					<source srcset="../../assets/img/visual_4_mb.webp" width="1200" height="800" media="(max-width:767px)">
+					<img src="../../assets/img/visual_4.webp" alt="" width="2400" height="1200" loading="lazy">
+				</picture></figure>
+			</div>
+			<figure class="c-syntax -item3" data-lang="html">
+				&lt;div class="c-slideshow -item4"&gt;
+					&lt;figure class="item"&gt;&lt;picture&gt;
+						&lt;source srcset="../../assets/img/visual_1.webp" width="2400" height="1200" media="(min-width:768px)"&gt;
+						&lt;source srcset="../../assets/img/visual_1_mb.webp" width="1200" height="800" media="(max-width:767px)"&gt;
+						&lt;img src="../../assets/img/visual_1.webp" alt="" width="2400" height="1200"&gt;
+					&lt;/picture&gt;&lt;/figure&gt;
+					︙
+					&lt;figure class="item"&gt;&lt;picture&gt;
+						&lt;source srcset="../../assets/img/visual_4.webp" width="2400" height="1200" media="(min-width:768px)"&gt;
+						&lt;source srcset="../../assets/img/visual_4_mb.webp" width="1200" height="800" media="(max-width:767px)"&gt;
+						&lt;img src="../../assets/img/visual_4.webp" alt="" width="2400" height="1200" loading="lazy"&gt;
+					&lt;/picture&gt;&lt;/figure&gt;
+				&lt;/div&gt;
+			</figure>
+		</section>
+	</section>
+</main>
+
+<footer class="l-footer">
+	<div class="contentsinfo">
+		<h1 class="logo"><a href="https://lopan.cafe/">
+			<svg width="40" height="37" viewBox="0 0 40 37" class="pan"><use href="#panchan"/></svg>
+			<span class="madeby">Lopan café</span>
+		</a></h1>
+		<ul class="menu -nav">
+			<li><a href="../../about/">About</a></li>
+			<li><a href="../">News</a></li>
+			<li><a href="../../works/">Works</a></li>
+			<li><a href="../../company/">Company</a></li>
+			<li><a href="../../contact/">Contact</a></li>
+		</ul>
+		<ul class="menu -other">
+			<li><a href="../../privacypolicy/">プライバシーポリシー</a></li>
+		</ul>
+		<ul class="menu -sns">
+			<li><a href="https://www.instagram.com/lopan.jp/" aria-label="Instagram" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#instagram"/></svg></a></li>
+			<li><a href="https://twitter.com/_watercolor" aria-label="Twitter" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#twitter"/></svg></a></li>
+			<li><a href="https://line.me/ja/" aria-label="LINE" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#line"/></svg></a></li>
+			<li><a href="https://ja-jp.facebook.com/" aria-label="Facebook" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#facebook"/></svg></a></li>
+			<li><a href="https://www.youtube.com/" aria-label="YouTube" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#youtube"/></svg></a></li>
+			<li><a href="https://www.tiktok.com/ja-JP/" aria-label="TikTok" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#tiktok"/></svg></a></li>
+			<li><a href="https://www.spotify.com/jp/" aria-label="Spotify" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="../../assets/img/ico.svg#spotify"/></svg></a></li>
+		</ul>
+		<p class="address">〒150-0068<br>Lopan café <wbr>Lopan-tori 6-8-10<br>Shibuya-ku Shibuya <wbr>Tokyo</p>
+		<a href="#top" aria-label="PageTop" class="pagetop js-anc"><svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico"><path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>
+	</div>
+	<p class="copyright"><small>© 2022 Lopan café</small></p>
+</footer>
+
+<svg class="u-visuallyhidden">
+<symbol id="panchan" fill="none"><g stroke-width="0.9"><path d="M11.812,16.727A2.736,2.736,0,0,0,10.745,21.5"/><path d="M14.41,16.963c-2.364,1.069-2.461,3.882-.375,4.924"/><path d="M16.958,16.991c-2,1.09-2,3.9.229,4.533"/><path d="M15.242,31.485a13,13,0,0,1-1.58,1.244,11.759,11.759,0,0,1-1.385-1.468"/></g><g stroke-width="1.6"><path d="M7.362,24.651c-.785,0-.82,1.3-.009,1.3C8.084,25.946,8.105,24.651,7.362,24.651Z"/><path d="M19.759,24.781c-.857-.019-.867,1.375-.009,1.394A.7.7,0,0,0,19.759,24.781Z"/></g><g stroke-width="1.2"><path d="M9.018,14.374C9.627,9.719,7.838,4.529,2.349.746-.7,9.074.207,14.869,5.313,19.025"/><path d="M23.6,18.577c-2.08,6.649-.916,13.019,5.5,15.613,2.318-6.822,1.137-13.058-4.087-18.288C18.268,9.143,5.3,12.276,4.631,22.869,3.962,33.439,16.12,35.346,24.349,30.8"/><path d="M26.22,16.783c6.287-2.347,13.18,2.065,13.18,10.11,0,7.656-7.42,8.6-9.813,6.271"/><path d="M30.4,27.894A4.643,4.643,0,0,1,34.14,26.1"/><path d="M7.883,31.148C5.25,32.1,5.343,35.6,9.078,36c2.33.25,3.657-1.135,3.116-3.062"/><path d="M18.156,33c-.733,1.94.548,3.573,3.347,3.2,2.829-.38,3.709-2.882,2.038-4.7"/></g></symbol>
+</svg>
+</body>
+</html>

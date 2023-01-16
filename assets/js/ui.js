@@ -69,9 +69,9 @@ class AnchorScroll {
 			this.setup();
 		} else {
 			// smooth なら pagetop の目的地 #top を用意しておく
-			if (document.querySelector('#top') === null) {
-				document.body.insertAdjacentHTML('afterbegin', '<a id="top" class="u-visuallyhidden">ページの一番上</a>');
-			}
+			// if (document.querySelector('#top') === null) {
+			// 	document.body.insertAdjacentHTML('afterbegin', '<a id="top" class="u-visuallyhidden">ページの一番上</a>');
+			// }
 		}
 	}
 	setup() {
