@@ -1,5 +1,4 @@
 import { ReturnRelativePath, WindowManagement, MainResizeObserver, WebFontsLoader } from './common.js';
-import { SmoothScrolling } from './smoothscrolling.js';
 import { FlexTextarea, CheckedAcceptInput } from './form-ui.js';
 import { InviewEffect, LazyImage } from './effect.js';
 import { SyntacConvert } from './syntax.js';
@@ -45,6 +44,7 @@ const registerServiceWorker = async () => {
 		urls: [ 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&family=Ubuntu+Condensed&display=swap' ]
 	});
 	LPN.Wm = new WindowManagement();
+	common();
 	
 	// フォントの読み込み完了を待つ
 	document.fonts.addEventListener('loadingdone', e => {
@@ -120,10 +120,10 @@ const registerServiceWorker = async () => {
 		html += '<div class="overlay js-menuToggle"></div>';
 		html += '<div class="container">';
 		html += '<h2 class="u-visuallyhidden">ナビゲーション</h2>';
-		for (let i = 0, len = menu.length; i < len; i++) {
-			html += menu[i].outerHTML;
+		for (let item of menu) {
+			html += item.outerHTML;
 		}
-		html += '<a href="#top" class="pagetop js-anc">';
+		html += '<a href="#top" class="pagetop">';
 		html += '<svg width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="none" class="ico">';
 		html += '<path d="M2,18L12,6l10,12" vector-effect="non-scaling-stroke"/></svg></a>';
 		html += '</div>';
@@ -168,7 +168,7 @@ const registerServiceWorker = async () => {
 	/**
 	 * common
 	 * -------------------------------------------------- */
-	(function common() {
+	function common() {
 		const doc = document.documentElement, ua = navigator.userAgent.toLowerCase();
 		LPN.isIE = ( ua.indexOf('msie') != -1 || ua.indexOf('trident') != -1 );
 		LPN.isWindows = ua.indexOf('windows nt') !== -1;
@@ -180,5 +180,5 @@ const registerServiceWorker = async () => {
 			doc.classList.add('has-scrollbar');
 			doc.style.setProperty('--scrollBarWidth', window.innerWidth - doc.clientWidth + 'px');
 		}
-	})();
+	}
 })();

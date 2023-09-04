@@ -1,24 +1,31 @@
 import { VideoControls, YouTubeIframeApi } from './_video.js';
 import { Carousel, FlickitySlider } from './_carousel.js';
 import { GoogleMapsApi } from './_googlemap.js?v=1';
+import { FetchAjax } from './_utility.js';
 
 /**
- * UI
- * AnchorScroll, DrawerMenu, AccordionUi,
- * PulldownUi, PullmenuUi, InsertShareLink, TextCopy
- -------------------------------------------------- */
+* UI
+* AccordionUi
+* DrawerMenu
+* InsertShareLink
+* PulldownUi
+* PullmenuUi
+* SmoothScrolling
+* TextCopy
+-------------------------------------------------- */
 export class UiBundle {
 	constructor() {
-		if (document.querySelector('.js-smoothscroll') !== null) {
-			const el = document.getElementsByClassName('js-smoothscroll')[0];
-			LPN.Ts = new SmoothScrolling(el);
-		}
-		
-		if (document.querySelector('.js-menuToggle') !== null) {
-			LPN.Dm = new DrawerMenu();
-		}
 		if (document.querySelector('.js-accordion') !== null) {
 			new AccordionUi();
+		}
+		if (document.querySelector('.js-menuToggle') !== null) {
+			new DrawerMenu();
+		}
+		if (document.querySelector('.c-share') !== null) {
+			const shareElms = document.getElementsByClassName('c-share');
+			for (let el of shareElms) {
+				new InsertShareLink(el);
+			}
 		}
 		if (document.querySelector('.js-pullContent') !== null) {
 			new PulldownUi();
@@ -26,29 +33,17 @@ export class UiBundle {
 		if (document.querySelector('.c-pullmenu') !== null) {
 			new PullmenuUi();
 		}
-		
+		if (document.querySelector('.js-smoothscroll') !== null) {
+			new SmoothScrolling();
+		}
 		if (document.querySelector('.js-copy') !== null) {
 			const copyElms = document.getElementsByClassName('js-copy');
-			for (let i = 0, len = copyElms.length; i < len; i++) {
-				new TextCopy(copyElms[i]);
-			}
-		}
-		if (document.querySelector('.c-share') !== null) {
-			const shareElms = document.getElementsByClassName('c-share');
-			for (let i = 0, len = shareElms.length; i < len; i++) {
-				new InsertShareLink(shareElms[i]);
+			for (let el of copyElms) {
+				new TextCopy(el);
 			}
 		}
 		
-		if (document.querySelector('.js-slider') !== null) {
-			new FlickitySlider();
-		}
-		if (document.querySelector('.js-carousel') !== null) {
-			const carouselElms = document.getElementsByClassName('js-carousel');
-			for (let i = 0, len = carouselElms.length; i < len; i++) {
-				new Carousel(carouselElms[i]);
-			}
-		}
+		// VideoControls, YouTubeIframeApi
 		if (document.querySelector('.js-video') !== null) {
 			new VideoControls();
 		}
@@ -56,247 +51,30 @@ export class UiBundle {
 			new YouTubeIframeApi();
 		}
 		
+		// FlickitySlider, Carousel
+		if (document.querySelector('.js-slider') !== null) {
+			new FlickitySlider();
+		}
+		if (document.querySelector('.js-carousel') !== null) {
+			const carouselElms = document.getElementsByClassName('js-carousel');
+			for (let el of carouselElms) {
+				new Carousel(el);
+			}
+		}
+		
+		// GoogleMapsApi
 		if (document.querySelector('.js-gm') !== null) {
-			const APIkey = 'AIzaSyDAZ7gUMgcXPQuRUoIy3XQvckMa_BtLV9U';
-			new GoogleMapsApi(`${APIkey}`);
+			const APIkey =  new FetchAjax('../../assets/apikey.txt', data => {
+				new GoogleMapsApi(data);
+			}, 'text');
 		}
 	}
 }
 
 /**
-* スムーズスクロール
-* スクロールコンテンツを以下の要素で括る
-* <div class="js-smoothscroll"><div class="container">
- -------------------------------------------------- */
-export class SmoothScrolling {
-	constructor(el) {
-		el.classList.replace('js-smoothscroll', 'wrapper');
-		
-		document.documentElement.classList.add('is-smooth');
-		this.isSmooth = true;
-		
-		// ボディの高さがなくなるのでコンテンツ分指定する
-		this.container = el.getElementsByClassName('container')[0];
-		this.resize();
-		
-		this.targetScrollY = 0; // 本来のスクロール位置
-		this.currentScrollY = 0; // 線形補間を適用した現在のスクロール位置
-		this.scrollOffset = 0; // 上記2つの差分
-		this.curY = 0;
-		
-		window.addEventListener('resized', () => {
-			this.resize();
-		});
-		window.addEventListener('mainresized', () => {
-			this.resize();
-		});
-		LPN.registFnc.loop.push(() => {
-			this.loop();
-		});
-	}
-	loop() {
-		// スクロール位置を取得
-		this.targetScrollY = document.documentElement.scrollTop;
-		
-		if (!this.isSmooth) {
-			if (this.curY !== this.currentScrollY) {
-				this.curY = this.currentScrollY = this.targetScrollY;
-				this.container.style.transform = `translate3d(0,${-this.curY}px,0)`;
-			}
-		}
-		else {
-			// リープ関数でスクロール位置をなめらかに追従
-			this.currentScrollY = this.lerp(this.currentScrollY, this.targetScrollY, 0.01);
-			this.scrollOffset = this.targetScrollY - this.currentScrollY;
-			
-			if (this.curY !== this.currentScrollY) {
-				this.curY = this.currentScrollY;
-				if (this.curY < 0.01) this.curY = this.currentScrollY = 0;
-				this.container.style.transform = `translate3d(0,${-this.curY}px,0)`;
-			}
-		}
-	}
-	// 開始と終了をなめらかに補間する関数
-	lerp(start, end, t) {
-		if (end == start) return start;
-		return start + this.out_expo(t) * (end - start);
-		// return (1 - t) * start + t * end;
-	}
-	out_expo(x) {
-		let t = x; let b = 0; let c = 1; let d = 1;
-		return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
-	}
-	resize() {
-		document.body.style.height = `${this.container.getBoundingClientRect().height}px`;
-	}
-}
-
-/**
- * ドロワーメニュー
- -------------------------------------------------- */
-class DrawerMenu {
-	constructor() {
-		//console.log('-----> drawerMenu');
-		const id = 'navigation';
-		this.menu = document.getElementsByClassName('l-menu')[0];
-		this.menuLinks = this.menu.querySelectorAll('a[href]');
-		this.toggle = document.getElementsByClassName('js-menuToggle');
-		this.btn = document.querySelector('.js-menuToggle.l-drawer');
-		this.overlay = document.querySelector('.js-menuToggle.overlay');
-		this.keyShifted = false;
-		
-		// ARIA: js-menuToggle をクリクするとナビゲーションが開くことを知らせる
-		for (let i = 0, len = this.toggle.length; i < len; i++) {
-			this.toggle[i].addEventListener('click', () => {
-				this.toggleMenu();
-			});
-			this.toggle[i].setAttribute('aria-controls', id);
-			this.toggle[i].ariaLabel = 'ナビゲーションを開く';
-			this.toggle[i].ariaExpanded = 'false'; // 対象の menu が開かれているかどうか
-		}
-		this.menu.id = id;
-		this.menu.ariaHidden = 'true'; // 閉じているかどうか
-		
-		this.menuAnchor();
-		
-		// is-anim のためにリンクの transitionend は伝搬させない
-		for (let i = this.menuLinks.length; i--;) {
-			this.menuLinks[i].addEventListener('transitionend', e => {
-				e.stopPropagation();
-			});
-		}
-		document.addEventListener('readystatechange', e => {
-			// 最初は tab 移動させない
-			for (let i = 0, len = this.menuLinks.length; i < len; i++) {
-				this.menuLinks[i].tabIndex = -1;
-			}
-		}, { once: true });
-		
-		this.tabFocusControl();
-	}
-	menuAnchor() {
-		// menu 内のアンカーリンククリックで閉じる
-		const anchor = this.menu.querySelectorAll('a[href*="#"]');
-		for (let i = 0, len = anchor.length; i < len; i++) {
-			anchor[i].addEventListener('click', e => {
-				e.preventDefault();
-				this.closeMenu(() => {
-					location.hash = anchor[i].getAttribute('href');
-				});
-			});
-		}
-	}
-	toggleMenu() {
-		!this.isOpened ? this.openMenu() : this.closeMenu();
-	}
-	openMenu() {
-		LPN.Wm.posLock();
-		this.menu.classList.add('is-active', 'is-anim');
-		
-		// 開く時は overlay が先なので container をきっかけに remove
-		this.menu.querySelector('.container').addEventListener('transitionend', e => {
-			this.isOpened = true;
-			this.menu.classList.remove('is-anim');
-		}, { once: true });
-		
-		// ARIA: ナビゲーションが開いたことを知らせる
-		this.menu.ariaHidden = 'false';
-		this.toggleEnd('開く');
-		
-		// menu 内最初のリンクへフォーカス
-		this.menu.querySelector('a[href]').focus();
-		this.isTabWrap = true;
-		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
-			this.menuLinks[i].tabIndex = 0;
-		}
-	}
-	closeMenu(fn) {
-		LPN.Wm.posUnlock(fn); // fn: スクロールのロック解除後にハッシュリンク
-		this.menu.classList.replace('is-active', 'is-anim');
-		
-		// 閉じる時は overlay が後なので overlay をきっかけに remove
-		this.menu.querySelector('.overlay').addEventListener('transitionend', e => {
-			this.isOpened = false;
-			this.menu.classList.remove('is-anim');
-		}, { once: true });
-		
-		// ARIA: ナビゲーションが閉じたことを知らせる
-		this.menu.ariaHidden = 'true';
-		this.toggleEnd('閉じる');
-		
-		// ≡ btn へフォーカス
-		this.btn.focus();
-		this.isTabWrap = false;
-		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
-			this.menuLinks[i].tabIndex = -1;
-		}
-	}
-	toggleEnd(str) {
-		// ARIA: ナビゲーションの開閉を知らせる
-		for (let i = 0, len = this.toggle.length; i < len; i++) {
-			const toggle = str === '開く' ? 'add' : 'replace';
-			const expanded = str === '開く' ? 'true' : 'false';
-			this.toggle[i].classList[toggle]('is-active', 'is-anim');
-			this.toggle[i].ariaLabel = `ナビゲーションを${str}`;
-			this.toggle[i].ariaExpanded = expanded;
-		}
-		
-		// ≡ btn は animationend をきっかけに remove
-		this.btn.addEventListener('animationend', e => {
-			this.btn.classList.remove('is-anim');
-		}, { once: true });
-		
-		// overlay は transitionend をきっかけに remove
-		this.overlay.addEventListener('transitionend', e => {
-			this.overlay.classList.remove('is-anim');
-		}, { once: true });
-	}
-	// モーダルが開いている間、tab でのフォーカスをモーダル内に閉じ込める
-	tabFocusControl() {
-		document.addEventListener('keydown', e => {
-			if (e.code.toLowerCase().startsWith('shift')) this.keyShifted = true;
-			if (this.isTabWrap) {
-				if (e.code.toLowerCase() === 'tab') {
-					this.tabFocus(e);
-				}
-			}
-		});
-		document.addEventListener('keyup', e => {
-			if (e.code.toLowerCase().startsWith('shift')) this.keyShifted = false;
-		});
-	}
-	tabFocus(e) {
-		if (this.keyShifted) {
-			if (e.target === this.menuLinks[0]) {
-				// タブを押した時、モーダル内の最初のリンクなら、≡ btn にフォーカス
-				e.preventDefault();
-				this.btn.focus();
-				
-			} else if (e.target === this.btn) {
-				// ≡ btn なら最後のリンクにフォーカス
-				e.preventDefault();
-				this.menuLinks[this.menuLinks.length - 1].focus();
-			}
-			
-		} else {
-			if (e.target === this.menuLinks[this.menuLinks.length - 1]) {
-				// タブを押した時、モーダル内の最後のリンクなら、≡ btn にフォーカス
-				e.preventDefault();
-				this.btn.focus();
-				
-			} else if (e.target === this.btn) {
-				// ≡ btn なら最初のリンクにフォーカス
-				e.preventDefault();
-				this.menuLinks[0].focus();
-			}
-		}
-	}
-}
-
-/**
- * アコーディオン UI
- * MEMO: 閉じてる時にブラウザで文字列検索しても開かない問題は未解決
- -------------------------------------------------- */
+* アコーディオン UI
+* MEMO: 閉じてる時にブラウザで文字列検索しても開かない問題は未解決
+-------------------------------------------------- */
 class AccordionUi {
 	constructor() {
 		this.accData = {};
@@ -413,8 +191,300 @@ class AccordionUi {
 }
 
 /**
- * プルダウン UI
- -------------------------------------------------- */
+* ドロワーメニュー
+-------------------------------------------------- */
+class DrawerMenu {
+	constructor() {
+		this.btn = document.getElementsByClassName('l-drawer')[0];
+		this.menu = document.getElementsByClassName('l-menu')[0];
+		
+		this.toggle = document.getElementsByClassName('js-menuToggle');
+		
+		this.overlay = this.menu.getElementsByClassName('overlay')[0];
+		this.container = this.menu.getElementsByClassName('container')[0];
+		this.menuList = this.menu.getElementsByClassName('menu');
+		this.menuItems = this.menu.getElementsByTagName('li');
+		
+		this.menuLinks = this.menu.querySelectorAll('a[href]');
+		this.relation = this.menu.querySelectorAll('.overlay, .container');
+		
+		// is-active, is-anim を付与する要素たち
+		this.elms = Object.setPrototypeOf([...this.menuLinks, ...this.relation], NodeList.prototype);
+		
+		this.init();
+	}
+	init() {
+		// メニュー内リンクに data-index 付与 (Firefox でもタブ移動する用)
+		this.menuLinks.forEach((link, index) => {
+			link.dataset.index = index;
+		});
+		
+		// メニューボタンは animationend で終わり
+		this.btn.addEventListener('animationend', e => {
+			e.currentTarget.classList.remove('is-anim');
+		});
+		
+		// ARIA: svg は読み上げない
+		for (let bar of this.btn.children) {
+			// Firefox で ariaHidden = true で設定できない
+			bar.setAttribute('aria-hidden', true);
+		}
+		
+		// ARIA: js-menu をクリクするとナビゲーションが開くことを知らせる
+		const id = 'navigation';
+		for (let toggle of this.toggle) {
+			toggle.addEventListener('click', () => {
+				this.toggleMenu();
+			});
+			toggle.setAttribute('aria-controls', id);
+			toggle.setAttribute('aria-label', 'ナビゲーションを開く');
+			toggle.setAttribute('aria-expanded', false); // 対象の menu が開かれているかどうか
+		}
+		this.menu.id = id;
+		this.menu.setAttribute('aria-hidden', true); // 閉じているかどうか
+		
+		// 最初は tab 移動させない
+		document.addEventListener('readystatechange', e => {
+			for (let link of this.menuLinks) {
+				link.tabIndex = -1;
+			}
+		}, { once: true });
+		
+		this.keyShifted = false;
+		this.tabFocusControl();
+		this.menuAnchor();
+	}
+	menuAnchor() {
+		// menu 内のリンククリックで閉じる
+		for (let link of this.menuLinks) {
+			link.addEventListener('click', () => {
+				this.closeMenu();
+			});
+		}
+	}
+	toggleMenu() {
+		if (!this.isAnim) {
+			this.isAnim = true;
+			!this.isOpened ? this.openMenu() : this.closeMenu();
+		}
+	}
+	openMenu() {
+		this.menu.classList.add('is-active');
+		const menuOpen = new Event('menuopen');
+		window.dispatchEvent(menuOpen);
+		
+		this.btn.classList.add('is-active', 'is-anim');
+		for (let elm of this.elms) {
+			elm.classList.add('is-active', 'is-anim');
+			elm.addEventListener('transitionend', e => {
+				elm.classList.remove('is-anim');
+			}, { once: true });
+		}
+		
+		// コンテナのアニメーションが終わったら終わりを告げる
+		this.container.addEventListener('transitionend', () => {
+			this.isAnim = false;
+			this.isOpened = true;
+			const menuOpened = new Event('menuopened');
+			window.dispatchEvent(menuOpened);
+		}, { once: true });
+
+		// ARIA: ナビゲーションが開いたことを知らせる
+		this.menu.setAttribute('aria-hidden', false);
+		this.toggleEnd('閉じる');
+
+		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
+			this.menuLinks[i].tabIndex = 0;
+		}
+	}
+	closeMenu(fn) {
+		this.btn.classList.replace('is-active', 'is-anim');
+		for (let elm of this.elms) {
+			elm.classList.replace('is-active', 'is-anim');
+			elm.addEventListener('transitionend', e => {
+				elm.classList.remove('is-anim');
+			}, { once: true });
+		}
+		
+		// オーバーレイのアニメーションが終わったら終わりを告げる
+		this.overlay.addEventListener('transitionend', () => {
+			this.isAnim = false;
+			this.isOpened = false;
+			
+			this.menu.classList.remove('is-active');
+			const menuClosed = new Event('menuclosed');
+			window.dispatchEvent(menuClosed);
+		}, { once: true });
+
+		// ARIA: ナビゲーションが閉じたことを知らせる
+		this.menu.setAttribute('aria-hidden', true);
+		this.toggleEnd('開く');
+
+		// ≡ btn へフォーカス
+		this.btn.focus({ focusVisible: false });
+		for (let i = 0, len = this.menuLinks.length; i < len; i++) {
+			this.menuLinks[i].tabIndex = -1;
+		}
+		
+		const menuClose = new Event('menuclose');
+		window.dispatchEvent(menuClose);
+	}
+	toggleEnd(str) {
+		// ARIA: ナビゲーションの開閉を知らせる
+		for (let i = 0, len = this.toggle.length; i < len; i++) {
+			const toggle = str === '閉じる' ? 'add' : 'replace';
+			const expanded = str === '閉じる' ? 'true' : 'false';
+			this.toggle[i].classList[toggle]('is-active', 'is-anim');
+			this.toggle[i].setAttribute('aria-label', `ナビゲーションを${str}`);
+			this.toggle[i].setAttribute('aria-expanded', expanded);
+		}
+
+		// ≡ btn は animationend をきっかけに remove
+		this.btn.addEventListener(
+			'animationend',
+			(e) => {
+				this.btn.classList.remove('is-anim');
+			},
+			{ once: true }
+		);
+
+		// overlay は transitionend をきっかけに remove
+		this.overlay.addEventListener(
+			'transitionend',
+			(e) => {
+				this.overlay.classList.remove('is-anim');
+			},
+			{ once: true }
+		);
+	}
+	// モーダルが開いている間、tab でのフォーカスをモーダル内に閉じ込める
+	tabFocusControl() {
+		document.addEventListener('keydown', (e) => {
+			if (e.code.toLowerCase().startsWith('shift')) this.keyShifted = true;
+			if (this.isOpened) {
+				
+				// 最初のリンクが display: none ならふたつめのリンクが最初のリンク
+				this.firstLink = this.menuLinks[0];
+				if (getComputedStyle(this.menuLinks[0].parentNode).display === 'none') {
+					this.firstLink = this.menuLinks[1];
+				}
+				if (e.code.toLowerCase() === 'tab') {
+					if (this.keyShifted) {
+						this.keyBack(e);
+					} else {
+						this.keyNext(e);
+					}
+				}
+				// スペースキーはクリックとする
+				else if (e.code.toLowerCase() === 'space') {
+					e.preventDefault();
+					e.target.click();
+				}
+				// ページスクロールは無効にする
+				else if (e.code.toLowerCase() === 'pageup' || e.code.toLowerCase() === 'pagedown' || e.code.toLowerCase() === 'home' || e.code.toLowerCase() === 'end') {
+					e.preventDefault();
+				}
+				// 矢印キーは tab と同じ挙動にする
+				else if (e.code.toLowerCase() === 'arrowup' || e.code.toLowerCase() === 'arrowleft') {
+					e.preventDefault();
+					this.keyBack(e);
+				}
+				else if (e.code.toLowerCase() === 'arrowdown' || e.code.toLowerCase() === 'arrowright') {
+					e.preventDefault();
+					this.keyNext(e);
+				}
+			}
+		});
+		document.addEventListener('keyup', (e) => {
+			if (e.code.toLowerCase().startsWith('shift')) this.keyShifted = false;
+		});
+	}
+	keyBack(e) {
+		e.preventDefault();
+		if (e.target === this.firstLink) {
+			// フォーカスしてるのが、メニュー内の最初のリンクなら、≡ btn にフォーカス
+			this.btn.focus({ focusVisible: true });
+		}
+		else if (e.target === this.btn) {
+			// ≡ btn なら最後のリンクにフォーカス
+			this.menuLinks[this.menuLinks.length - 1].focus({ focusVisible: true });
+		}
+		else {
+			// それ以外は前のリンクにフォーカス
+			if (e.target.dataset.index) {
+				const index = parseInt(e.target.dataset.index) - 1;
+				this.menuLinks[index].focus({ focusVisible: true });
+			} else {
+				// 違うとこにあったら強制的にメニュー内に戻す
+				this.btn.focus({ focusVisible: true });
+			}
+		}
+	}
+	keyNext(e) {
+		e.preventDefault();
+		if (e.target === this.menuLinks[this.menuLinks.length - 1]) {
+			// フォーカスしてるのが、メニュー内の最後のリンクなら、≡ btn にフォーカス
+			this.btn.focus({ focusVisible: true });
+		}
+		else if (e.target === this.btn) {
+			// ≡ btn なら最初のリンクにフォーカス
+			this.firstLink.focus({ focusVisible: true });
+		}
+		else {
+			// それ以外は次のリンクにフォーカス
+			if (e.target.dataset.index) {
+				const index = parseInt(e.target.dataset.index) + 1;
+				this.menuLinks[index].focus({ focusVisible: true });
+			} else {
+				// 違うとこにあったら強制的にメニュー内に戻す
+				this.btn.focus({ focusVisible: true });
+			}
+		}
+	}
+}
+
+/**
+* シェアする
+* <ul class="c-share">
+* <li data-share="twitter">ツイートする</li>
+* -------------------------------------------------- */
+class InsertShareLink {
+	constructor(elm) {
+		const links = elm.querySelectorAll('[data-share]');
+		let data = {};
+		for (let i = 0, len = links.length; i < len; i++) {
+			data = this.returnUrl(links[i]);
+			links[i].innerHTML = `<a href="${data.href}" title="${data.title}" rel="noopener" target="_blank">${links[i].innerHTML}</a>`;
+			links[i].removeAttribute('data-share');
+		}
+	}
+	returnUrl(link) {
+		let data = {};
+		link.classList.add(link.dataset.share);
+		const url = location.href;
+		const title = document.querySelector('[property="og:title"]').content;
+		const description = document.querySelector('meta[name="description"]').content;
+		switch (link.dataset.share) {
+			case 'twitter': data = {
+				href: `https://twitter.com/intent/tweet?url=${url}&text=${description}&hashtags=LopanCafé`,
+				title: `${title} をツイート` }
+			break;
+			case 'facebook': data = {
+				href: `http://www.facebook.com/share.php?u=${url}`,
+				title: `${title} をFacebookでシェア` }
+			break;
+			case 'line': data = {
+				href: `https://social-plugins.line.me/lineit/share?url=${url}`,
+				title: `${title} をLINEでシェア` }
+			break;
+		}
+		return data;
+	}
+}
+
+/**
+* プルダウン UI
+-------------------------------------------------- */
 class PulldownUi {
 	constructor() {
 		this.isSmooth = getComputedStyle(document.documentElement).scrollBehavior === 'smooth';
@@ -610,8 +680,8 @@ class PulldownUi {
 }
 
 /**
- * プルメニュー UI (767px 未満はアコーディオン)
- -------------------------------------------------- */
+* プルメニュー UI (767px 未満はアコーディオン)
+-------------------------------------------------- */
 class PullmenuUi {
 	constructor() {
 		const menu = document.getElementsByClassName('c-pullmenu')[0];
@@ -631,50 +701,80 @@ class PullmenuUi {
 }
 
 /**
- * シェアする
- * <ul class="c-share">
- * <li data-share="twitter">ツイートする</li>
- * -------------------------------------------------- */
-class InsertShareLink {
-	constructor(elm) {
-		const links = elm.querySelectorAll('[data-share]');
-		let data = {};
-		for (let i = 0, len = links.length; i < len; i++) {
-			data = this.returnUrl(links[i]);
-			links[i].innerHTML = `<a href="${data.href}" title="${data.title}" rel="noopener" target="_blank">${links[i].innerHTML}</a>`;
-			links[i].removeAttribute('data-share');
+* スムーズスクロール
+* スクロールコンテンツを以下の要素で括る
+* <div class="js-smoothscroll"><div class="container">
+-------------------------------------------------- */
+export class SmoothScrolling {
+	constructor() {
+		const el = document.getElementsByClassName('js-smoothscroll')[0];
+		el.classList.replace('js-smoothscroll', 'wrapper');
+		
+		document.documentElement.classList.add('is-smooth');
+		this.isSmooth = true;
+		
+		// ボディの高さがなくなるのでコンテンツ分指定する
+		this.container = el.getElementsByClassName('container')[0];
+		this.resize();
+		
+		this.targetScrollY = 0; // 本来のスクロール位置
+		this.currentScrollY = 0; // 線形補間を適用した現在のスクロール位置
+		this.scrollOffset = 0; // 上記2つの差分
+		this.curY = 0;
+		
+		window.addEventListener('resized', () => {
+			this.resize();
+		});
+		window.addEventListener('mainresized', () => {
+			this.resize();
+		});
+		LPN.registFnc.loop.push(() => {
+			this.loop();
+		});
+	}
+	loop() {
+		// スクロール位置を取得
+		this.targetScrollY = document.documentElement.scrollTop;
+		
+		if (!this.isSmooth) {
+			if (this.curY !== this.currentScrollY) {
+				this.curY = this.currentScrollY = this.targetScrollY;
+				this.container.style.transform = `translate3d(0,${-this.curY}px,0)`;
+			}
+		}
+		else {
+			// リープ関数でスクロール位置をなめらかに追従
+			this.currentScrollY = this.lerp(this.currentScrollY, this.targetScrollY, 0.01);
+			this.scrollOffset = this.targetScrollY - this.currentScrollY;
+			
+			if (this.curY !== this.currentScrollY) {
+				this.curY = this.currentScrollY;
+				if (this.curY < 0.01) this.curY = this.currentScrollY = 0;
+				this.container.style.transform = `translate3d(0,${-this.curY}px,0)`;
+			}
 		}
 	}
-	returnUrl(link) {
-		let data = {};
-		link.classList.add(link.dataset.share);
-		const url = location.href;
-		const title = document.querySelector('[property="og:title"]').content;
-		const description = document.querySelector('meta[name="description"]').content;
-		switch (link.dataset.share) {
-			case 'twitter': data = {
-				href: `https://twitter.com/intent/tweet?url=${url}&text=${description}&hashtags=LopanCafé`,
-				title: `${title} をツイート` }
-			break;
-			case 'facebook': data = {
-				href: `http://www.facebook.com/share.php?u=${url}`,
-				title: `${title} をFacebookでシェア` }
-			break;
-			case 'line': data = {
-				href: `https://social-plugins.line.me/lineit/share?url=${url}`,
-				title: `${title} をLINEでシェア` }
-			break;
-		}
-		return data;
+	// 開始と終了をなめらかに補間する関数
+	lerp(start, end, t) {
+		if (end == start) return start;
+		return start + this.out_expo(t) * (end - start);
+		// return (1 - t) * start + t * end;
+	}
+	out_expo(x) {
+		let t = x; let b = 0; let c = 1; let d = 1;
+		return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+	}
+	resize() {
+		document.body.style.height = `${this.container.getBoundingClientRect().height}px`;
 	}
 }
 
 /**
- * テキストコピー
- * .js-copy をクリックすると要素の内容をコピーする
- * <div class="js-copy"><textarea></div> or
- * class="js-copy" data-copytext="コピーテキスト"
- * -------------------------------------------------- */
+* テキストコピー
+* .js-copy をクリックすると要素の内容をコピーする
+* <div class="js-copy"><textarea></div> or
+* class="js-copy" data-copytext="コピーテキスト"
+-------------------------------------------------- */
 class TextCopy {
 	constructor(elm) {
 		this.copyMsg = !elm.dataset.msg ? 'Copied!' : elm.dataset.msg;

@@ -1,60 +1,60 @@
 /**
- * window の情報を管理する
- * モーダルが開いた時とかはここで画面をロックする
- -------------------------------------------------- */
+* window の情報を管理する
+* モーダルが開いた時とかはここで画面をロックする
+* Safari 16 未満は画面ロックを js で行う
+* Safari 16 以上は body { overflow: hidden } でいける
+-------------------------------------------------- */
 export class WindowManagement {
 	constructor() {
-		
-		if (CSS.supports('overscroll-behavior', 'none')) {
-			// Safari 16 未満は画面ロックを js で行う
-			
-		}
-		else {
-			// Safari 16 以上は body { overflow: hidden } でいける
-			
-		}
+		this.hasOverscroll = CSS.supports('overscroll-behavior', 'none');
 		
 		this.html = document.documentElement;
 		this.body = document.body;
-		this.isSmoothBehavior = getComputedStyle(this.html).scrollBehavior === 'smooth';
+		this.winH = window.innerHeight;
 		this.yOffset = window.pageYOffset;
 		
-		this.onResize();
+		window.addEventListener('menuopen', () => {
+			this.posLock();
+		});
+		window.addEventListener('menuclose', () => {
+			this.posUnlock();
+		});
 		window.addEventListener('resized', () => {
-			this.onResize();
+			this.winH = window.innerHeight;
 		});
 		LPN.registFnc.loop.push(() => {
-			this.onScroll();
+			this.yOffset = window.pageYOffset;
 		});
 	}
-	onResize() {
-		this.winH = window.innerHeight;
-	}
-	onScroll() {
-		this.yOffset = window.pageYOffset;
-	}
 	posLock() {
-		this.isLock = true;
-		this.lockOffset = this.yOffset;
-		
-		if (this.isSmoothBehavior) {
-			this.html.style.scrollBehavior = 'auto';
+		if (this.hasOverscroll) {
+			this.isLock = true;
+			this.body.style.overflow = 'hidden';
 		}
-		this.body.classList.add('is-fixed');
-		this.body.style.marginTop = -this.lockOffset + 'px';
+		else {
+			this.isLock = true;
+			this.lockOffset = this.yOffset;
+			this.html.style.scrollBehavior = 'auto';
+			
+			this.body.style.position = 'fixed';
+			this.body.style.width = '100%';
+			this.body.style.marginTop = -this.lockOffset + 'px';
+		}
 	}
 	posUnlock(fn) {
-		this.body.classList.remove('is-fixed');
-		this.body.removeAttribute('style');
-		window.scrollTo(0, this.lockOffset);
-		setTimeout(() => {
+		if (this.hasOverscroll) {
 			this.isLock = false;
-			if (this.isSmoothBehavior) {
-				this.html.removeAttribute('style');
-			}
-			// fn があったら実行
-			if (fn) fn();
-		}, 60);
+			this.body.style.overflow = '';
+		}
+		else {
+			this.body.style.position = '';
+			this.body.style.width = '';
+			this.body.style.marginTop = '';
+			
+			window.scrollTo(0, this.lockOffset);
+			this.html.style.scrollBehavior = '';
+			this.isLock = false;
+		}
 	}
 }
 

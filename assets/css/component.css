@@ -2036,15 +2036,12 @@ html.wf-active .c-table .-v {
 /**
  * スムーススクロール
  * ---------------------------------------- */
-html.is-smooth {
-	scroll-behavior: auto;
-}
 html.is-smooth .wrapper {
 	position: fixed;
 	inset: 0;
 	height: 100%;
 }
-html.is-smooth .container {
+html.is-smooth .wrapper > .container {
 	position: absolute;
 	top: 0;
 	left: 0;
