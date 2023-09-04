@@ -4,12 +4,23 @@
  -------------------------------------------------- */
 export class WindowManagement {
 	constructor() {
+		
+		if (CSS.supports('overscroll-behavior', 'none')) {
+			// Safari 16 未満は画面ロックを js で行う
+			
+		}
+		else {
+			// Safari 16 以上は body { overflow: hidden } でいける
+			
+		}
+		
 		this.html = document.documentElement;
 		this.body = document.body;
 		this.isSmoothBehavior = getComputedStyle(this.html).scrollBehavior === 'smooth';
 		this.yOffset = window.pageYOffset;
+		
 		this.onResize();
-		LPN.registFnc.onResize.push(() => {
+		window.addEventListener('resized', () => {
 			this.onResize();
 		});
 		LPN.registFnc.loop.push(() => {
@@ -52,32 +63,27 @@ export class WindowManagement {
  * @param {array} リサイズ後に実行する関数配列
  -------------------------------------------------- */
 export class MainResizeObserver {
-	constructor(fns) {
+	constructor() {
 		const target = document.getElementsByClassName('l-main')[0];
-		this.fns = fns;
 		this.mainHeight = target.clientHeight;
 		this.setup();
 		this.resizeObserver.observe(target);
 	}
 	setup() {
-		this.resizeObserver = new ResizeObserver(entries => {
+		this.resizeObserver = new ResizeObserver((entries) => {
 			const rect = entries[0].contentRect;
 			if (this.mainHeight !== rect.height) {
-				if (this.fns.length) {
-					this.resized(() => { this.addFnc(this.fns); });
-				}
+				this.resize();
 				this.mainHeight = rect.height;
 			}
 		});
 	}
-	resized(fn) {
+	resize() {
 		if (this.timer !== false) clearTimeout(this.timer);
-		this.timer = setTimeout(fn, 200);
-	}
-	addFnc(fns) {
-		for (let i = 0, len = fns.length; i < len; i++) {
-			fns[i]();
-		}
+		this.timer = setTimeout(() => {
+			const event = new Event('mainresized');
+			window.dispatchEvent(event);
+		}, 200);
 	}
 }
 
@@ -101,7 +107,7 @@ export class WebFontsLoader {
 	}
 	setup(d) {
 		const wf = d.createElement('script'), s = d.scripts[0];
-		wf.src = 'https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js';
+		wf.src = `${LPN.Rp.returnRootPath()}assets/js/lib/webfontloader.js`;
 		wf.async = true;
 		s.parentNode.insertBefore(wf, s);
 	}

@@ -1,16 +1,42 @@
 import { ReturnRelativePath, WindowManagement, MainResizeObserver, WebFontsLoader } from './common.js';
-import { TransformScroll } from './transformscroll.js';
+import { SmoothScrolling } from './smoothscrolling.js';
 import { FlexTextarea, CheckedAcceptInput } from './form-ui.js';
 import { InviewEffect, LazyImage } from './effect.js';
 import { SyntacConvert } from './syntax.js';
 import { UiBundle } from './ui.js';
+
+const registerServiceWorker = async () => {
+	if ('serviceWorker' in navigator) {
+		try {
+			const registration = await navigator.serviceWorker.register(
+				'/sw.js',
+				{
+					scope: '/',
+				}
+			);
+			if (registration.installing) {
+				console.log('Service worker installing');
+			}
+			else if (registration.waiting) {
+				console.log('Service worker installed');
+			}
+			else if (registration.active) {
+				console.log('Service worker active');
+			}
+		} catch (error) {
+			console.error(`Registration failed with ${error}`);
+		}
+	}
+};
+
+// registerServiceWorker();
 
 (function() {
 	'use strict';
 	
 	window.LPN = window.LPN || {};
 	const LPN = window.LPN;
-	LPN.registFnc = { onLoaded: [], onPopstate: [], onResize: [], onMainResize: [], loop: [] };
+	LPN.registFnc = { loop: [] };
 	
 	// HTML 要素に関係なく実行する
 	LPN.Rp = new ReturnRelativePath('lopan.cafe');
@@ -27,13 +53,8 @@ import { UiBundle } from './ui.js';
 	
 	// HTML 文書の読み込み完了を待つ
 	document.addEventListener('DOMContentLoaded', e => {
-		new MainResizeObserver(LPN.registFnc.onMainResize);
+		new MainResizeObserver();
 		insertNavMenu();
-		
-		// TransformScroll は最初に実装しとく
-		if (document.querySelector('.js-sc-wrap') !== null) {
-			LPN.Ts = new TransformScroll();
-		}
 		
 		// UI 一括 (アンカースクロール, ドロワーメニュー, アコーディオン, プルダウン, テキストコピー, シェアする, Flickity, カルーセル, 動画, YouTube, GoogleMap)
 		new UiBundle();
@@ -72,22 +93,19 @@ import { UiBundle } from './ui.js';
 		if (document.querySelector('path') !== null) setPathLen();
 	});
 	window.addEventListener('popstate', e => {
-		if (LPN.registFnc.onPopstate.length) {
-			console.log('onPopstate', e);
-			new AddFnc(LPN.registFnc.onPopstate);
-		}
+		console.log('onPopstate', e);
 	});
 	window.addEventListener('resize', e => {
-		resized(() => {
-			if (LPN.registFnc.onResize.length) {
-				new AddFnc(LPN.registFnc.onResize);
-			}
-		});
+		if (LPN.timer !== false) clearTimeout(LPN.timer);
+		LPN.timer = setTimeout(() => {
+			const event = new Event('resized');
+			window.dispatchEvent(event);
+		}, 200);
 	});
 	function loop() {
 		if (LPN.registFnc.loop.length) {
-			requestAnimationFrame(loop);
 			new AddFnc(LPN.registFnc.loop);
+			requestAnimationFrame(loop);
 		}
 	}
 	
@@ -140,10 +158,6 @@ import { UiBundle } from './ui.js';
 			style += `stroke-dashoffset:-${d[i].l}px}` + "\n";
 		}
 		// console.log(style);
-	}
-	function resized(fn) {
-		if (LPN.timer !== false) clearTimeout(LPN.timer);
-		LPN.timer = setTimeout(fn, 200);
 	}
 	function AddFnc(fns) {
 		for (let i = 0, len = fns.length; i < len; i++) {

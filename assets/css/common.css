@@ -63,6 +63,11 @@ section[id] {
 	--breakout: calc(50% - 50vw + var(--scrollBarWidth) / 2);
 }
 
+/* Safari 16 未満は画面ロックを js で行う */
+@support not (overscroll-behavior: none) {
+	
+}
+
 /**
  * prefix について
  * c- コンポーネント (使いまわせる)

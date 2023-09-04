@@ -30,7 +30,7 @@ export class SyntacConvert {
 		}
 	}
 	loadJs() {
-		new AfterLoadedJs(`${LPN.Rp.returnRootPath()}assets/js/prism.js`).then(
+		new AfterLoadedJs(`${LPN.Rp.returnRootPath()}assets/js/lib/prism.js`).then(
 		resolve => {
 			document.addEventListener('readystatechange', e => {
 				// console.log(resolve, e.target.readyState);

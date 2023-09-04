@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-STPX9JX90G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-STPX9JX90G');
+</script>
 <meta charset="utf-8">
 <title>Lopan café - Webサイトでよく使うパターン集</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -16,23 +25,24 @@
 <meta name="twitter:site" content="@_watercolor">
 <meta name="theme-color" content="#86c0de">
 <meta name="msapplication-navbutton-color" content="#86c0de">
+<link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/css/common.css">
 <link rel="stylesheet" href="assets/css/component.css">
 <link rel="stylesheet" href="assets/css/home.css">
-<script src="assets/js/anime.min.js" defer></script>
+<script src="assets/js/lib/anime.min.js" defer></script>
 <script src="assets/js/script.js" type="module" crossorigin="anonymous" defer></script>
 </head>
 <body>
 <header class="l-header">
 	<h1 class="logo"><a href="./" aria-current="page"><svg width="40" height="37" viewBox="0 0 40 37" class="pan" fill="none"><title>Lopan.jp</title><use href="#panchan"/></svg></a></h1>
 	<ul class="menu -nav">
-		<li><a href="#about" class="js-anc">About</a></li>
-		<li><a href="#news" class="js-anc">News</a></li>
-		<li><a href="#works" class="js-anc">Works</a></li>
-		<li><a href="#company" class="js-anc">Company</a></li>
-		<li><a href="#contact" class="js-anc">Contact</a></li>
+		<li><a href="about/">About</a></li>
+		<li><a href="news/">News</a></li>
+		<li><a href="works/">Works</a></li>
+		<li><a href="company/">Company</a></li>
+		<li><a href="contact/">Contact</a></li>
 	</ul>
 	<ul class="menu -sns">
 		<li><a href="https://www.instagram.com/lopan.jp/" rel="noopener" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" class="ico"><use href="assets/img/ico.svg#instagram"/></svg></a></li>
@@ -91,7 +101,7 @@
 					<dd class="tags"><span class="c-tag">HTML</span><span class="c-tag">CSS</span></dd>
 					<dd class="title">Lopan.jpなりのCSS設計とパターン集「Lopan café」を公開しました。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="assets/img/ico.svg#arrow"/></svg></dd>
 				</dl>
-				<figure class="image"><img src="assets/img/ogp.webp" alt="" width="1200" height="630" loading="lazy"></figure>
+				<figure class="image"><img src="assets/img/news.webp" alt="" width="1200" height="630" loading="lazy"></figure>
 			</a></li>
 			<li class="archive_item js-inview"><a href="works/" class="container">
 				<dl class="text">
@@ -99,7 +109,7 @@
 					<dd class="tags"><span class="c-tag">HTML</span><span class="c-tag">CSS</span></dd>
 					<dd class="title">見栄えのためのダミーニュース項目。ただしWorksページへのリンク。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="assets/img/ico.svg#arrow"/></svg></dd>
 				</dl>
-				<figure class="image"><img src="assets/img/ex.webp" alt="" width="1200" height="630" loading="lazy"></figure>
+				<figure class="image"><img src="assets/img/works.webp" alt="" width="1200" height="630" loading="lazy"></figure>
 			</a></li>
 			<li class="archive_item js-inview"><a href="company/" class="container">
 				<dl class="text">
@@ -107,7 +117,7 @@
 					<dd class="tags"><span class="c-tag">HTML</span><span class="c-tag">CSS</span></dd>
 					<dd class="title">Companyページへのリンク。ただし見栄えのためのダミーニュース項目。<svg width="24" height="24" viewBox="0 0 24 24" class="arr"><use href="assets/img/ico.svg#arrow"/></svg></dd>
 				</dl>
-				<figure class="image"><img src="assets/img/news.webp" alt="" width="1200" height="630" loading="lazy"></figure>
+				<figure class="image"><img src="assets/img/company.webp" alt="" width="1200" height="630" loading="lazy"></figure>
 			</a></li>
 		</ul>
 		<a href="news/" class="c-more js-inview" title="CSSだけのコンポーネント">くわしく見る</a>

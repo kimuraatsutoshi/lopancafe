@@ -9,7 +9,11 @@ import { GoogleMapsApi } from './_googlemap.js?v=1';
  -------------------------------------------------- */
 export class UiBundle {
 	constructor() {
-		LPN.As = new AnchorScroll();
+		if (document.querySelector('.js-smoothscroll') !== null) {
+			const el = document.getElementsByClassName('js-smoothscroll')[0];
+			LPN.Ts = new SmoothScrolling(el);
+		}
+		
 		if (document.querySelector('.js-menuToggle') !== null) {
 			LPN.Dm = new DrawerMenu();
 		}
@@ -53,131 +57,77 @@ export class UiBundle {
 		}
 		
 		if (document.querySelector('.js-gm') !== null) {
-			const APIkey = null;
+			const APIkey = 'AIzaSyDAZ7gUMgcXPQuRUoIy3XQvckMa_BtLV9U';
 			new GoogleMapsApi(`${APIkey}`);
 		}
 	}
 }
 
 /**
- * スムーススクロール
+* スムーズスクロール
+* スクロールコンテンツを以下の要素で括る
+* <div class="js-smoothscroll"><div class="container">
  -------------------------------------------------- */
-class AnchorScroll {
-	constructor() {
-		// overscroll-behavior: smooth なら実装しない
-		if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth') {
-			this.setup();
-		} else {
-			// smooth なら pagetop の目的地 #top を用意しておく
-			// if (document.querySelector('#top') === null) {
-			// 	document.body.insertAdjacentHTML('afterbegin', '<a id="top" class="u-visuallyhidden">ページの一番上</a>');
-			// }
-		}
-	}
-	setup() {
-		if (location.hash) {
-			// URL に hash があったらスクロール
-			setTimeout(() => {
-				this.toScroll(location.hash.slice(1));
-				history.replaceState(null, document.title, window.location.pathname);
-			}, 80);
-		}
-		this.SPF = 1000 / 60;
-		this.duration = 1000;
-		this.onResize();
-		this.cancelScroll();
-		LPN.registFnc.onResize.push(() => {
-			this.onResize();
+export class SmoothScrolling {
+	constructor(el) {
+		el.classList.replace('js-smoothscroll', 'wrapper');
+		
+		document.documentElement.classList.add('is-smooth');
+		this.isSmooth = true;
+		
+		// ボディの高さがなくなるのでコンテンツ分指定する
+		this.container = el.getElementsByClassName('container')[0];
+		this.resize();
+		
+		this.targetScrollY = 0; // 本来のスクロール位置
+		this.currentScrollY = 0; // 線形補間を適用した現在のスクロール位置
+		this.scrollOffset = 0; // 上記2つの差分
+		this.curY = 0;
+		
+		window.addEventListener('resized', () => {
+			this.resize();
 		});
-		
-		const anchor = document.querySelectorAll('.js-anc[href^="#"]');
-		for (let i = 0, len = anchor.length; i < len; i++) {
-			anchor[i].addEventListener('click', e => {
-				this.anchorClick(e);
-			});
-		}
+		window.addEventListener('mainresized', () => {
+			this.resize();
+		});
+		LPN.registFnc.loop.push(() => {
+			this.loop();
+		});
 	}
-	anchorClick(e) {
-		e.preventDefault();
-		const target = e.target.closest('[href]');
-		const targetId = target.getAttribute('href');
-		this.toScroll(targetId.slice(1));
-	}
-	onResize() {
-		// header の高さが 0 でも 56px は空ける
-		this.scPad = document.getElementsByClassName('l-header')[0].clientHeight || 56;
-		this.scBtm = document.body.offsetHeight - window.innerHeight;
-		this.scMax = document.body.clientHeight - window.innerHeight;
+	loop() {
+		// スクロール位置を取得
+		this.targetScrollY = document.documentElement.scrollTop;
 		
-		// body の高さが取得できなかった場合 0.06 秒後に改めて実行
-		if (this.scMax < 0) setTimeout(() => {
-			this.onResize();
-		}, 60);
-	}
-	toScroll(targetId) {
-		if (targetId !== 'top' && document.getElementById(targetId) === null) return;
-		// console.log(targetId);
-		
-		// ドロワーメニューが開いていたら、開いた時の位置からスタート (メニューは閉じる)
-		if (LPN.Dm.isOpened) {
-			this.startPos = LPN.Wm.lockOffset;
-			LPN.Dm.closeMenu();
-		} else {
-			this.startPos = LPN.Wm.yOffset;
-		}
-		
-		this.currentPos = this.startPos;
-		this.elapsedTime = 0;
-		let y = this.startPos - this.scPad;
-		if (LPN.Ts !== undefined) {
-			if (LPN.Ts.wrapper !== undefined) {
-				y = LPN.Wm.yOffset - this.scPad;
+		if (!this.isSmooth) {
+			if (this.curY !== this.currentScrollY) {
+				this.curY = this.currentScrollY = this.targetScrollY;
+				this.container.style.transform = `translate3d(0,${-this.curY}px,0)`;
 			}
 		}
-		
-		this.goalPos = targetId !== 'top' ? document.getElementById(targetId).getBoundingClientRect().top + y : 0;
-		if (this.goalPos >= this.scMax) {
-			this.goalPos = this.scMax;
-		}
-		this.valueInChange = this.goalPos - this.startPos;
-		this.doScroll();
-		if (targetId === 'top') {
-			document.querySelector('header a').focus();
-		}
-	}
-	doScroll() {
-		const elapsedTimeRate = this.elapsedTime / this.duration;
-		const valueChangeRate = this.easing(elapsedTimeRate);
-		const changeYOffset = this.valueInChange * valueChangeRate;
-		
-		this.currentPos = this.startPos + changeYOffset;
-		
-		if (this.elapsedTime >= this.duration) {
-			this.currentPos = this.goalPos;
-			cancelAnimationFrame(this.timer);
-			return;
-		} else {
-			this.elapsedTime += this.SPF;
-			this.timer = requestAnimationFrame(() => {
-				this.doScroll();
-			});
-		}
-		
-		window.scrollTo(0, this.currentPos);
-	}
-	/* スワイプするかマウスホイールを操作したらスクロールを止める */
-	cancelScroll() {
-		if (LPN.isTouch) {
-			window.addEventListener('touchmove', () => { cancelAnimationFrame(this.timer); }, { once: true });
-		} else {
-			this.wheel = () => { cancelAnimationFrame(this.timer); }
-			window.addEventListener('DOMMouseScroll', () => { this.wheel(); }, { once: true });
-			window.onmousewheel = document.onmousewheel = this.wheel;
+		else {
+			// リープ関数でスクロール位置をなめらかに追従
+			this.currentScrollY = this.lerp(this.currentScrollY, this.targetScrollY, 0.01);
+			this.scrollOffset = this.targetScrollY - this.currentScrollY;
+			
+			if (this.curY !== this.currentScrollY) {
+				this.curY = this.currentScrollY;
+				if (this.curY < 0.01) this.curY = this.currentScrollY = 0;
+				this.container.style.transform = `translate3d(0,${-this.curY}px,0)`;
+			}
 		}
 	}
-	/* easeInOutCubic ( https://easings.net/ ) */
-	easing(x) {
-		return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+	// 開始と終了をなめらかに補間する関数
+	lerp(start, end, t) {
+		if (end == start) return start;
+		return start + this.out_expo(t) * (end - start);
+		// return (1 - t) * start + t * end;
+	}
+	out_expo(x) {
+		let t = x; let b = 0; let c = 1; let d = 1;
+		return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+	}
+	resize() {
+		document.body.style.height = `${this.container.getBoundingClientRect().height}px`;
 	}
 }
 
@@ -207,14 +157,7 @@ class DrawerMenu {
 		this.menu.id = id;
 		this.menu.ariaHidden = 'true'; // 閉じているかどうか
 		
-		// アンカースクロールが実装されてなければ実装
-		if (LPN.As !== undefined) {
-			if (LPN.As.scPad === undefined) {
-				this.menuAnchor();
-			}
-		} else {
-			this.menuAnchor();
-		}
+		this.menuAnchor();
 		
 		// is-anim のためにリンクの transitionend は伝搬させない
 		for (let i = this.menuLinks.length; i--;) {
@@ -232,8 +175,8 @@ class DrawerMenu {
 		this.tabFocusControl();
 	}
 	menuAnchor() {
-		// スムーススクロールの実装がない場合、menu 内のアンカーリンククリックで閉じる
-		const anchor = this.menu.querySelectorAll('a[href^="#"]');
+		// menu 内のアンカーリンククリックで閉じる
+		const anchor = this.menu.querySelectorAll('a[href*="#"]');
 		for (let i = 0, len = anchor.length; i < len; i++) {
 			anchor[i].addEventListener('click', e => {
 				e.preventDefault();
@@ -364,7 +307,8 @@ class AccordionUi {
 			this.setup(`acc-${count}`, elm[i]);
 		}
 		this.refresh();
-		LPN.registFnc.onMainResize.push(() => {
+		
+		window.addEventListenr('mainresized', () => {
 			this.refresh();
 		});
 	}
@@ -480,7 +424,7 @@ class PulldownUi {
 			this.setup(elm[i].dataset.pull, elm[i]);
 		}
 		this.refresh();
-		LPN.registFnc.onMainResize.push(() => {
+		window.addEventListenr('mainresized', () => {
 			this.refresh(true);
 		});
 	}

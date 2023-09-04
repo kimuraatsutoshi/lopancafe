@@ -10,6 +10,9 @@ export class GoogleMapsApi {
 		if (APIkey !== 'null') {
 			this.APIkey = APIkey;
 			this.loadAPI();
+			
+		} else {
+			console.log('※API キーがありません。');
 		}
 	}
 	loadAPI() {

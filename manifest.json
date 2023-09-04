@@ -1,0 +1,29 @@
+{
+	"short_name": "Lopan café",
+	"name": "Lopan café - Webサイトでよく使うパターン集",
+	"description": "「Lopan café」はWebサイトでよく使うパターンを集めたコンポーネントとメモとスタイルガイド。",
+	"start_url": "index.html",
+	"scope": "/",
+	"background_color": "#86c0de",
+	"theme_color": "#86c0de",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "/assets/icon.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		}, {
+			"src": "/assets/icon-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/ogp.jpg",
+			"type": "image/jpg",
+			"sizes": "1200x630",
+			"form_factor": "wide"
+		}
+	]
+}

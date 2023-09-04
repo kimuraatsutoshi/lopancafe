@@ -1,5 +1,5 @@
 import { AfterLoadedJs, AfterLoadedCss } from './_utility.js';
-import { scrollend } from './_scrollyfills.modern.js'
+import { scrollend } from './lib/scrollyfills.modern.js'
 
 /**
  * スクロールカルーセル
@@ -303,7 +303,7 @@ export class FlickitySlider {
 		}
 	}
 	loadAPI() {
-		new AfterLoadedJs('https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js').then(
+		new AfterLoadedJs(`${LPN.Rp.returnRootPath()}assets/js/lib/flickity.pkgd.min.js`).then(
 		resolve => {
 			document.addEventListener('readystatechange', e => {
 				// console.log(resolve, e.target.readyState);
